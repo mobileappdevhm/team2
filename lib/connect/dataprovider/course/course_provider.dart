@@ -4,7 +4,6 @@ import 'package:courses_in_english/model/course/course.dart';
 
 /// Provider for courses.
 abstract class CourseProvider {
-
   /// Get all available courses.
   Future<List<Course>> getCourses();
 
@@ -16,5 +15,4 @@ abstract class CourseProvider {
 
   /// Get course by id.
   Future<Course> getCourse(int courseId);
-
 }

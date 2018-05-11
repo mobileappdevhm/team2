@@ -15,6 +15,7 @@ class MockLecturerProvider implements LecturerProvider {
 
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
-    return new Future.delayed(const Duration(milliseconds: 200), () => MOCK_LECTURERS[lecturerId]);
+    return new Future.delayed(
+        const Duration(milliseconds: 200), () => MOCK_LECTURERS[lecturerId]);
   }
 }

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 /// Department representation.
 class Department {
-
   /// Number of the department.
   final int number;
 
@@ -13,5 +12,4 @@ class Department {
   final Color color;
 
   const Department(this.number, this.name, this.color);
-
 }

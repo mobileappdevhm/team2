@@ -39,7 +39,16 @@ class Course {
   /// SWS, how many hours per weeks
   final num semesterWeekHours;
 
-  const Course(this.id, this.name, this.description, this.department, this.lecturerId, this.room, this.status, this.courseFacultyAvailable, this.availableSlots,
-      this.ects, this.semesterWeekHours);
-
+  const Course(
+      this.id,
+      this.name,
+      this.description,
+      this.department,
+      this.lecturerId,
+      this.room,
+      this.status,
+      this.courseFacultyAvailable,
+      this.availableSlots,
+      this.ects,
+      this.semesterWeekHours);
 }

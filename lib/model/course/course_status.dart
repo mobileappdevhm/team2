@@ -1,6 +1,2 @@
 /// Available course states.
-enum CourseStatus {
-  GREEN,
-  YELLOW,
-  RED
-}
+enum CourseStatus { GREEN, YELLOW, RED }

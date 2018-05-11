@@ -1,6 +1,5 @@
 /// Representation of a lecturer.
 class Lecturer {
-
   /// Name of the lecturer
   final String name;
 
@@ -8,5 +7,4 @@ class Lecturer {
   final String email;
 
   const Lecturer(this.name, this.email);
-
 }
