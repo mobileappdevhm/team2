@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 
 class MockCourseProvider implements CourseProvider {
-  static const List<Course> MOCK_COURSES = <Course>[
+  static const List<Course> MOCK_COURSES = const <Course>[
     const Course(
         0,
         "Mobile Application Development",
@@ -26,7 +26,7 @@ Topics include:
         0,
         "R2.016",
         CourseStatus.GREEN,
-        [],
+        const [],
         30,
         5,
         4),
@@ -51,7 +51,7 @@ experience in teamwork
         1,
         "",
         CourseStatus.RED,
-        [],
+        const [],
         20,
         4,
         3),
@@ -70,7 +70,7 @@ and how much of these are still relevant for modern Social Work.
         2,
         "",
         CourseStatus.YELLOW,
-        [],
+        const [],
         14,
         2.5,
         2),
@@ -88,7 +88,7 @@ time will be a mixture of lectures, project work, case discussions and guest lec
         3,
         "",
         CourseStatus.YELLOW,
-        [],
+        const [],
         20,
         6,
         4),
@@ -104,7 +104,7 @@ Multidimensional Oscillations. Applications for engineering problems.
         4,
         "",
         CourseStatus.GREEN,
-        [],
+        const [],
         45,
         5,
         4)
