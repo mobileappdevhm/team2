@@ -10,14 +10,15 @@ addons:
       - libstdc++6
       - fonts-droid
 before_script:
-  - git clone https://github.com/flutter/flutter.git ../flutter -b alpha --depth 1
+  - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
   - ../flutter/bin/flutter doctor
 jobs:
   include:
     - stage: Test
       language: generic
       script:
-        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # dartfmt outputs faulty files - if output empty everything is alright
+        - ../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib # make checkstyle output faulty files
+        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # if output empty everything is alright
         - ../flutter/bin/flutter analyze
         - ../flutter/bin/flutter test
     - stage: Deploy
