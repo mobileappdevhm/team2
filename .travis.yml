@@ -17,7 +17,8 @@ jobs:
     - stage: Test
       language: generic
       script:
-        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # dartfmt outputs faulty files - if output empty everything is alright
+        - ../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib # make checkstyle output faulty files
+        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # if output empty everything is alright
         - ../flutter/bin/flutter analyze
         - ../flutter/bin/flutter test
     - stage: Deploy
