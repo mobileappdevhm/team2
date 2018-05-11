@@ -1,6 +1,17 @@
 os:
   - linux
 sudo: false
+language: android
+android:
+  components:
+    # The BuildTools version used by your project
+    - build-tools-26.0.2
+
+    # The SDK version used to compile your project
+    - android-27
+    # Sys image for eventual virtual devices
+    - sys-img-armeabi-v7a-android-26
+    
 addons:
   apt:
     # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
@@ -12,8 +23,21 @@ addons:
 before_script:
   - git clone https://github.com/flutter/flutter.git -b alpha --depth 1
   - ./flutter/bin/flutter doctor
+  
 script:
   - ./flutter/bin/flutter test
+  - ./flutter/bin/flutter -v build apk
 cache:
   directories:
   - $HOME/.pub-cache
+  
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Releases"
+  - git config --local user.email "releases@cie-app.de"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+deploy:
+   provider: releases
+   api_key: $GithubToken
+   file: "build/app/outputs/apk/release/app-release.apk"
+   skip_cleanup: true
