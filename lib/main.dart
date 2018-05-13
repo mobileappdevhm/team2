@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/scaffolds/bnbHome.dart';
+import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 
 void main() => runApp(new MyApp());
 
