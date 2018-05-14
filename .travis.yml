@@ -17,7 +17,7 @@ jobs:
     - stage: Test
       language: generic
       script:
-        - ./.no_camels.sh # file names are not allowed to include capital letters
+        - ./.no_camel.sh # file names are not allowed to include capital letters
         - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
         - ../flutter/bin/flutter analyze
         - ../flutter/bin/flutter test
