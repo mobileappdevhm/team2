@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/screens/sampleScreen.dart';
+import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       ),
       body: new PageView(
         children: <Widget>[
-          new SampleScreen('Courses'),
+          new CourseListScreen(),
           new SampleScreen('Maps'),
           new SampleScreen('Timetable'),
           new SampleScreen('Favorites'),
