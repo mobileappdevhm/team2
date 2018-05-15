@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/screens/sampleScreen.dart';
+import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 
 class HomeScaffold extends StatefulWidget {
