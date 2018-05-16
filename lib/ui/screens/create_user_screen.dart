@@ -130,7 +130,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   firstName != null &&
                   lastName != null &&
                   userDepartment != null) {
-                User user = new User(userName.hashCode, userName, firstName,
+                new User(userName.hashCode, userName, firstName,
                     lastName, userDepartment.number);
                 Navigator.push(
                   context,
