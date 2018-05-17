@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
+import 'package:courses_in_english/model/department/department.dart';
 
 class CourseListScreen extends StatefulWidget {
   @override
@@ -45,7 +47,12 @@ class CourseListState extends State<CourseListScreen> {
   List<Widget> courseItems() {
     List<Widget> courseWidgets = new List<Widget>();
     for (var course in courseList) {
-      courseWidgets.add(new Text('Course', textAlign: TextAlign.center));
+      courseWidgets.add(new CourseListEntry(
+          course,
+          new Department(
+              1, "FK07", const Color.fromARGB(0xFF, 0x42, 0xA5, 0xF5)),
+          (bool favourite) {},
+          () {}));
     }
     return courseWidgets;
   }
