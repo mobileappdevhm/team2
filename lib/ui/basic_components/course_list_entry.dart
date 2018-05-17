@@ -14,15 +14,15 @@ class CourseListEntry extends StatefulWidget {
   final FavListener favListener;
   final ClickCallback onClicked;
 
-  CourseListEntry(this.course, this.department, this.favListener, this.onClicked );
+  CourseListEntry(
+      this.course, this.department, this.favListener, this.onClicked);
 
   @override
   _CourseListEntryState createState() =>
-      new _CourseListEntryState(course, department , favListener, onClicked );
+      new _CourseListEntryState(course, department, favListener, onClicked);
 }
 
 class _CourseListEntryState extends State {
-
   static const Color GREEN = const Color(0xFF83D183);
   static const Color YELLOW = const Color(0xFFFFCC66);
   static const Color RED = const Color(0xFFFF3366);
@@ -33,14 +33,13 @@ class _CourseListEntryState extends State {
   final FavListener favListener;
   final ClickCallback onClicked;
 
-  bool _favorite;
+  bool _favorite = false;
 
   _CourseListEntryState(
       this.course, this.department, this.favListener, this.onClicked) {
     // TODO: Handle bookmarking / favorites logic
     //_favorite = this.course.favourite;
   }
-
 
   void _toggleFav() {
     setState(() {
@@ -68,12 +67,9 @@ class _CourseListEntryState extends State {
                         style: new TextStyle(fontWeight: FontWeight.bold),
                         textScaleFactor: 1.2)),
                 new Container(
-                    child: new StatusWidget(
-                        course.status == CourseStatus.GREEN
-                            ? GREEN
-                            : course.status == CourseStatus.RED
-                                ? RED
-                                : YELLOW),
+                    child: new StatusWidget(course.status == CourseStatus.GREEN
+                        ? GREEN
+                        : course.status == CourseStatus.RED ? RED : YELLOW),
                     height: vw * 5,
                     width: vw * 5)
               ]),
@@ -107,11 +103,9 @@ class _CourseListEntryState extends State {
                                 : Icons.favorite_border),
                             iconSize: 7 * vw,
                             color: HEART,
-                            
                             onPressed: () {
                               _toggleFav();
-                            }
-                            ),
+                            }),
                         alignment: Alignment.centerRight))
               ])
             ]),
