@@ -93,6 +93,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
             ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,15 +187,30 @@ class _AvailabilityPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        _getIcon(status),
-        new Padding(
-          padding: new EdgeInsets.only(left: 4.0),
-          child: _getText(status),
-        )
-      ],
+    return new Tooltip(
+      message: _getTooltipMessage(status),
+      child: new Row(
+        children: <Widget>[
+          _getIcon(status),
+          new Padding(
+            padding: new EdgeInsets.only(left: 4.0),
+            child: _getText(status),
+          ),
+        ],
+      ),
     );
+  }
+
+  static String _getTooltipMessage(CourseStatus status) {
+    switch (status) {
+      case CourseStatus.RED:
+        return 'This course is only available to students from the \'home\' department';
+      case CourseStatus.YELLOW:
+        return 'Priority is given to students from \'home\' department';
+      case CourseStatus.GREEN:
+        return 'This course is available to students from all departments';
+    }
+    return 'There is no information regarding the availability of this course';
   }
 
   static Icon _getIcon(CourseStatus status) {
