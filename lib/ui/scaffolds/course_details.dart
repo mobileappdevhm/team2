@@ -1,3 +1,4 @@
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -13,6 +14,18 @@ class CourseDetailsScaffold extends StatefulWidget {
 }
 
 class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
+  bool isFavored = false;
+
+  @override
+  void initState() {
+    super.initState();
+    new Data().favoritesProvider.isFavored(widget.course.id).then((isFavored) {
+      setState(() {
+        this.isFavored = isFavored;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -50,11 +63,20 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                 ),
-                new Icon(
-                  Icons.favorite_border,
-                  size: 48.0,
-                  color: Colors.black12,
-                ),
+                new IconButton(
+                    icon: new Icon(
+                      isFavored ? Icons.favorite : Icons.favorite_border,
+                      color: isFavored ? Colors.pink : Colors.black12,
+                    ),
+                    iconSize: 48.0,
+                    tooltip: isFavored
+                        ? 'Remove this course from your favorites.'
+                        : 'Add this course to your favorites.',
+                    onPressed: () => new Data()
+                        .favoritesProvider
+                        .toggleFavorite(widget.course.id)
+                        .then((favs) => setState(
+                            () => isFavored = favs.contains(widget.course.id))))
               ],
             ),
             new LineSeparator(title: 'Description'),
@@ -123,7 +145,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     new _AvailabilityPlaceholder(widget.course.status),
-                    new GestureDetector(
+                    new FlatButton(
+                      onPressed: () {}, // TODO handle click on contact button
+                      padding: new EdgeInsets.all(0.0),
                       child: new Row(
                         children: <Widget>[
                           new Icon(
@@ -143,7 +167,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],
