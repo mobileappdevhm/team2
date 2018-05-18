@@ -16,22 +16,35 @@ class AnimatedImage extends StatefulWidget {
   /// Duration of the animation.
   final Duration duration;
 
-  AnimatedImage({@required this.imageCount, @required this.animationRootFolder, @required this.animationImagePrefix, @required this.duration});
+  AnimatedImage(
+      {@required this.imageCount,
+      @required this.animationRootFolder,
+      @required this.animationImagePrefix,
+      @required this.duration});
 
   @override
-  State<StatefulWidget> createState() =>
-      new _AnimatedImageState(imageCount: imageCount, animationRootFolder: animationRootFolder, animationImagePrefix: animationImagePrefix, duration: duration);
+  State<StatefulWidget> createState() => new _AnimatedImageState(
+      imageCount: imageCount,
+      animationRootFolder: animationRootFolder,
+      animationImagePrefix: animationImagePrefix,
+      duration: duration);
 }
 
-class _AnimatedImageState extends State<AnimatedImage> with TickerProviderStateMixin {
+class _AnimatedImageState extends State<AnimatedImage>
+    with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<int> _animation;
 
   final String animationRootFolder;
   final String animationImagePrefix;
 
-  _AnimatedImageState({@required int imageCount, @required Duration duration, @required this.animationRootFolder, @required this.animationImagePrefix}) {
-    _controller = new AnimationController(vsync: this, duration: duration)..repeat();
+  _AnimatedImageState(
+      {@required int imageCount,
+      @required Duration duration,
+      @required this.animationRootFolder,
+      @required this.animationImagePrefix}) {
+    _controller = new AnimationController(vsync: this, duration: duration)
+      ..repeat();
     _animation = new IntTween(begin: 1, end: imageCount).animate(_controller);
   }
 
@@ -41,7 +54,9 @@ class _AnimatedImageState extends State<AnimatedImage> with TickerProviderStateM
         animation: _animation,
         builder: (BuildContext context, Widget child) {
           String frame = _animation.value.toString().padLeft(4, '0');
-          return new Image.asset("$animationRootFolder/$animationImagePrefix$frame.png", gaplessPlayback: true);
+          return new Image.asset(
+              "$animationRootFolder/$animationImagePrefix$frame.png",
+              gaplessPlayback: true);
         });
   }
 }
