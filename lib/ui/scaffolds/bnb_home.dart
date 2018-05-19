@@ -1,11 +1,6 @@
-import 'dart:async';
-
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
-import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
+import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/screens/sample_screen.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override

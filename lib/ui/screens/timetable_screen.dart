@@ -4,14 +4,11 @@ import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/screens/sample_screen.dart';
 
 class TimetableScreen extends StatefulWidget {
-
   @override
   TimetableState createState() => new TimetableState();
 }
@@ -20,22 +17,21 @@ class TimetableState extends State<TimetableScreen> {
   List<Course> initialCourseList = new List<Course>();
 
   final MockCourseProvider courseProvider = new MockCourseProvider();
-
+  final LecturerProvider lecturerProvider = new MockLecturerProvider();
 
   @override
   Widget build(BuildContext context) {
     final Future<List<Course>> courses = courseProvider.getCourses();
-
-
     courses.then((value) {
       initialCourseList = value;
       setState(() {});
     });
+
     Widget body;
     if (initialCourseList.isEmpty) {
       body = loadingScreenView();
     } else {
-      body = TimetableView();
+      body = timetableView();
     }
 
     return new Center(
@@ -50,7 +46,7 @@ class TimetableState extends State<TimetableScreen> {
     );
   }
 
-  Widget TimetableView() {
+  Widget timetableView() {
     List<Course> courseList = new List();
     List<Course> removeCourseList = new List();
     courseList.addAll(initialCourseList);
@@ -61,9 +57,9 @@ class TimetableState extends State<TimetableScreen> {
     ));
     courseList.sort((c1, c2) =>
         c1.timeAndDay.day * 100 +
-        c1.timeAndDay.Slot -
+        c1.timeAndDay.slot -
         c2.timeAndDay.day * 100 +
-        c2.timeAndDay.Slot);
+        c2.timeAndDay.slot);
     courseList.forEach((course) {
       if (course.timeAndDay.day == today.weekday) {
         timetableentries.add(new TimetableEntry(course));
@@ -107,6 +103,4 @@ class TimetableState extends State<TimetableScreen> {
       return "Wrong Slot";
     }
   }
-
-
 }

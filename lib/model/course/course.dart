@@ -19,6 +19,9 @@ class Course {
   /// Lecturer id
   final int lecturerId;
 
+  /// Lecturer name
+  final String lecturerName;
+
   /// Where the course will be located
   final String room;
 
@@ -44,12 +47,14 @@ class Course {
   final TimeAndDay timeAndDay;
 
   const Course(
+
       this.id,
       this.name,
       this.location,
       this.description,
       this.department,
       this.lecturerId,
+      this.lecturerName,
       this.room,
       this.status,
       this.courseFacultyAvailable,

@@ -1,5 +1,7 @@
 /// Representation of a lecturer.
 class Lecturer {
+
+
   /// Name of the lecturer
   final String name;
 
