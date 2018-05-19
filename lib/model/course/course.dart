@@ -8,9 +8,8 @@ class Course {
 
   /// Name (or title) of the course
   final String name;
-
-  /// Name (or title) of the course
-  final String shortName;
+  /// Location e.g. Pasing
+  final String location;
   /// What is the course about
   final String description;
 
@@ -47,7 +46,7 @@ class Course {
   const Course(
       this.id,
       this.name,
-      this.shortName,
+      this.location,
       this.description,
       this.department,
       this.lecturerId,

@@ -10,7 +10,7 @@ class MockCourseProvider implements CourseProvider {
     const Course(
         0,
         "Mobile Application Development",
-        "Mobile Apps",
+        "Lothstraße",
         '''
 This course studies selected, specific aspects of the functionality of mobile applications. The exact topics
 including the type of application, the context of the application and the type of mobile devices will be
@@ -36,7 +36,7 @@ Topics include:
     const Course(
         1,
         "Marketing",
-        "Marketing",
+        "Pasing",
         '''
  By the end of the course students will:
  Know the basics of marketing for industrial goods and consumer goods
@@ -63,7 +63,7 @@ experience in teamwork
     const Course(
         2,
         "Social Work In Theory and Practice",
-        "Social Work",
+        "Pasing",
         '''
 Important Social Workers and scientist from different social science as much as their way of thinking and
 working will be presented. To drop a few names: Alice Salomon, Jane Addams, Mary Ellen Richmond,
@@ -84,7 +84,7 @@ and how much of these are still relevant for modern Social Work.
     const Course(
         3,
         "Design of Digital Products and Services",
-        "Digital Design",
+        "Pasing",
         '''
 With the rise of digital and mobile technologies, development of digital products and
 services has become a fundamental part of corporations of any size. This class is centered around the
@@ -104,7 +104,7 @@ time will be a mixture of lectures, project work, case discussions and guest lec
     const Course(
         4,
         "Dynamics for Engineers",
-        "Dynamics",
+        "Pasing",
         '''
 Review of underlying mathematical Priciples. Review of single degree of freedom systems. Kinetics and
 Kinematics of 3D rigid bodies. Numerical Methods. Multiple degree of freedom systems.

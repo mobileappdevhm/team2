@@ -1,18 +1,16 @@
 import 'dart:async';
 
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 
 class TimetableScreen extends StatefulWidget {
-  void sortCourses() {
-//    courses.sort((c1, c2) =>
-//        (c1.timeAndDay.startHour * 100 + c1.timeAndDay.startMin) -
-//        (c2.timeAndDay.startHour * 100 + c2.timeAndDay.startMin));
-  }
 
   @override
   TimetableState createState() => new TimetableState();
@@ -23,9 +21,12 @@ class TimetableState extends State<TimetableScreen> {
 
   final MockCourseProvider courseProvider = new MockCourseProvider();
 
+
   @override
   Widget build(BuildContext context) {
     final Future<List<Course>> courses = courseProvider.getCourses();
+
+
     courses.then((value) {
       initialCourseList = value;
       setState(() {});
@@ -106,4 +107,6 @@ class TimetableState extends State<TimetableScreen> {
       return "Wrong Slot";
     }
   }
+
+
 }
