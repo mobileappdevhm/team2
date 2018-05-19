@@ -1,0 +1,105 @@
+import 'dart:async';
+
+import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
+import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
+import 'package:flutter/material.dart';
+import 'package:courses_in_english/ui/screens/sample_screen.dart';
+
+class TimetableScreen extends StatefulWidget {
+  void sortCourses() {
+//    courses.sort((c1, c2) =>
+//        (c1.timeAndDay.startHour * 100 + c1.timeAndDay.startMin) -
+//        (c2.timeAndDay.startHour * 100 + c2.timeAndDay.startMin));
+  }
+
+  @override
+  TimetableState createState() => new TimetableState();
+}
+
+class TimetableState extends State<TimetableScreen> {
+  List<Course> courseList = new List<Course>();
+
+  final MockCourseProvider courseProvider = new MockCourseProvider();
+
+  @override
+  Widget build(BuildContext context) {
+    final Future<List<Course>> courses = courseProvider.getCourses();
+    courses.then((value) {
+      courseList = value;
+      setState(() {});
+    });
+    Widget body;
+    if (courseList.isEmpty) {
+      body = loadingScreenView();
+    } else {
+      body = TimetableView();
+    }
+
+    return new Center(
+      child: body,
+    );
+  }
+
+  Widget loadingScreenView() {
+    return new Container(
+      alignment: Alignment.center,
+      child: new Text('Animation Time', textAlign: TextAlign.center),
+    );
+  }
+
+  Widget TimetableView() {
+    List<TimetableEntry> timetableentries = [];
+    timetableentries.add(new TimetableEntry("",14.0));
+    timetableentries.add(new TimetableEntry("MO",14.0));
+    timetableentries.add(new TimetableEntry("DI",14.0));
+    timetableentries.add(new TimetableEntry("MI",14.0));
+    timetableentries.add(new TimetableEntry("DO",14.0));
+    timetableentries.add(new TimetableEntry("FR",14.0));
+
+    for( int slot = 1; slot <= 7 ; slot++ ) {
+      for (int day = 0; day <= 5; day++) {
+        bool empty = true;
+        if(day == 0) {
+          timetableentries.add(new TimetableEntry(slotToTime(slot), 10.0));
+          empty = false;
+        }
+
+
+        courseList.forEach((c) {
+          if (c.timeAndDay.day == day && c.timeAndDay.Slot == slot) {
+            timetableentries.add(
+                new TimetableEntry (c.shortName, 12.0));
+            empty = false;
+          }
+        });
+        if (empty) {
+          timetableentries.add(new TimetableEntry("", 10.0));
+        }
+      }
+    }
+    return new GridView.count(
+      crossAxisCount: 6,
+      children: timetableentries,
+    );
+  }
+  String slotToTime(int slot){
+  if(slot == 1){
+    return "8:15 - 9:45";
+  } else if(slot == 2){
+    return "10:00 - 11:30";
+  } else if(slot == 3){
+    return "11:45 - 13:15";
+  } else if(slot == 4){
+    return "13:30 - 15:00";
+  }else if(slot == 5){
+    return "15:15 - 16:45";
+  } else if(slot == 6){
+    return "17:00 - 18:30";
+  } else if(slot == 7){
+    return "18:45 - 20:15";
+  } else{
+    return "Wrong Slot";
+  }
+  }
+}

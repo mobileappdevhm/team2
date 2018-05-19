@@ -1,3 +1,9 @@
+import 'dart:async';
+
+import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
+import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
+import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 
@@ -8,7 +14,6 @@ class HomeScaffold extends StatefulWidget {
 
 class _HomeScaffoldState extends State<HomeScaffold> {
   static final int _initialIndex = 2;
-
   int _selectedIndex = _initialIndex;
   PageController _controller = new PageController(initialPage: _initialIndex);
 
@@ -47,7 +52,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         children: <Widget>[
           new SampleScreen('Courses'),
           new SampleScreen('Maps'),
-          new SampleScreen('Timetable'),
+          new TimetableScreen(),
           new SampleScreen('Favorites'),
           new SampleScreen('Settings'),
         ],

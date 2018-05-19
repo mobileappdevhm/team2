@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
 
 class MockCourseProvider implements CourseProvider {
   static const List<Course> MOCK_COURSES = const <Course>[
     const Course(
         0,
         "Mobile Application Development",
+        "Mobile Apps",
         '''
 This course studies selected, specific aspects of the functionality of mobile applications. The exact topics
 including the type of application, the context of the application and the type of mobile devices will be
@@ -29,9 +31,11 @@ Topics include:
         const [],
         30,
         5,
-        4),
+        4,
+        const TimeAndDay(5,"15:15 - 16:45",5)),
     const Course(
         1,
+        "Marketing",
         "Marketing",
         '''
  By the end of the course students will:
@@ -54,10 +58,12 @@ experience in teamwork
         const [],
         20,
         4,
-        3),
+        3,
+        const TimeAndDay(3,"11:45 - 13:30",3)),
     const Course(
         2,
         "Social Work In Theory and Practice",
+        "Social Work",
         '''
 Important Social Workers and scientist from different social science as much as their way of thinking and
 working will be presented. To drop a few names: Alice Salomon, Jane Addams, Mary Ellen Richmond,
@@ -73,10 +79,12 @@ and how much of these are still relevant for modern Social Work.
         const [],
         14,
         2.5,
-        2),
+        2,
+        const TimeAndDay(4,"8:15 - 9:45",1)),
     const Course(
         3,
         "Design of Digital Products and Services",
+        "Digital Design",
         '''
 With the rise of digital and mobile technologies, development of digital products and
 services has become a fundamental part of corporations of any size. This class is centered around the
@@ -91,10 +99,12 @@ time will be a mixture of lectures, project work, case discussions and guest lec
         const [],
         20,
         6,
-        4),
+        4,
+        const TimeAndDay(1,"10:00 - 11:30",2)),
     const Course(
         4,
         "Dynamics for Engineers",
+        "Dynamics",
         '''
 Review of underlying mathematical Priciples. Review of single degree of freedom systems. Kinetics and
 Kinematics of 3D rigid bodies. Numerical Methods. Multiple degree of freedom systems.
@@ -107,7 +117,8 @@ Multidimensional Oscillations. Applications for engineering problems.
         const [],
         45,
         5,
-        4)
+        4,
+        const TimeAndDay(1,"8:15 - 9:45",1))
   ];
 
   @override

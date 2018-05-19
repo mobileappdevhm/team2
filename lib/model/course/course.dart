@@ -1,4 +1,5 @@
 import 'package:courses_in_english/model/course/course_status.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
 
 /// Representation of a course (or lecture).
 class Course {
@@ -8,6 +9,8 @@ class Course {
   /// Name (or title) of the course
   final String name;
 
+  /// Name (or title) of the course
+  final String shortName;
   /// What is the course about
   final String description;
 
@@ -39,9 +42,12 @@ class Course {
   /// SWS, how many hours per weeks
   final num semesterWeekHours;
 
+  final TimeAndDay timeAndDay;
+
   const Course(
       this.id,
       this.name,
+      this.shortName,
       this.description,
       this.department,
       this.lecturerId,
@@ -50,5 +56,6 @@ class Course {
       this.courseFacultyAvailable,
       this.availableSlots,
       this.ects,
-      this.semesterWeekHours);
+      this.semesterWeekHours,
+      this.timeAndDay);
 }
