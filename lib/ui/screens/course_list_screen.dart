@@ -47,10 +47,7 @@ class CourseListState extends State<CourseListScreen> {
   List<Widget> courseItems() {
     List<Widget> courseWidgets = new List<Widget>();
     for (var course in courseList) {
-      courseWidgets.add(new CourseListEntry(
-        course,
-        new Department(1, "FK07", const Color.fromARGB(0xFF, 0x42, 0xA5, 0xF5)),
-      ));
+      courseWidgets.add(new CourseListEntry(course));
     }
     return courseWidgets;
   }

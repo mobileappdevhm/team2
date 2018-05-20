@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/model/department/department.dart';
-
+import 'package:courses_in_english/connect/dataprovider/department/mock/mock_department_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import '../scaffolds/course_details.dart';
 import 'status_widget.dart';
 
-typedef void FavListener(bool favorite);
-typedef void ClickCallback();
-
 class CourseListEntry extends StatefulWidget {
   final Course course;
-  final Department department;
+  Department department;
 
-  CourseListEntry(this.course, this.department);
+  CourseListEntry(this.course);
 
   @override
-  _CourseListEntryState createState() =>
-      new _CourseListEntryState(course, department);
+  _CourseListEntryState createState() => new _CourseListEntryState(course);
 }
 
 class _CourseListEntryState extends State {
@@ -27,11 +24,12 @@ class _CourseListEntryState extends State {
   static const Color HEART = const Color(0xFFFFA1A1);
 
   final Course course;
-  final Department department;
+  Department department;
+  Data data = new Data();
 
   bool _favorite = false;
 
-  _CourseListEntryState(this.course, this.department) {
+  _CourseListEntryState(this.course) {
     // TODO: Handle favorites logic (different branch)
     //_favorite = this.course.favourite;
   }
@@ -42,6 +40,20 @@ class _CourseListEntryState extends State {
 
       //TODO: Handle favorites (different branch)
       //favListener.call(_favorite);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Get the department object from the provider and load it to our variable
+    new Data()
+        .departmentProvider
+        .getDepartmentByNumber(course.department)
+        .then((department) {
+      setState(() {
+        this.department = department;
+      });
     });
   }
 
