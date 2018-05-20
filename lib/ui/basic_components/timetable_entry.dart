@@ -19,7 +19,7 @@ class TimetableEntry extends StatelessWidget {
               new Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 15.0),
-                   child: new Text(
+                  child: new Text(
                     shortenCoursName(course.name),
                     style: new TextStyle(
                       color: Colors.black,
@@ -155,9 +155,9 @@ class TimetableEntry extends StatelessWidget {
     return result;
   }
 
-  String shortenCoursName(String name){
-    if(name.length>30){
-      return name.substring(0,28) + "..";
+  String shortenCoursName(String name) {
+    if (name.length > 30) {
+      return name.substring(0, 28) + "..";
     }
     return name;
   }

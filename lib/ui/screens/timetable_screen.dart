@@ -51,8 +51,8 @@ class TimetableState extends State<TimetableScreen> {
     List<Course> removeCourseList = new List();
     courseList.addAll(initialCourseList);
     DateTime today = new DateTime.now();
-    List<Widget> timetableentries = [];
-    timetableentries.add(new LineSeparator(
+    List<Widget> timetableEntries = [];
+    timetableEntries.add(new LineSeparator(
       title: "Today",
     ));
     courseList.sort((c1, c2) =>
@@ -62,26 +62,26 @@ class TimetableState extends State<TimetableScreen> {
         c2.timeAndDay.slot);
     courseList.forEach((course) {
       if (course.timeAndDay.day == today.weekday) {
-        timetableentries.add(new TimetableEntry(course));
+        timetableEntries.add(new TimetableEntry(course));
         removeCourseList.add(course);
       }
     });
     removeCourseList.forEach((course) => courseList.remove(course));
-    timetableentries.add(new LineSeparator(
+    timetableEntries.add(new LineSeparator(
       title: "Next Week",
     ));
     courseList.forEach((course) {
       if (course.timeAndDay.day > today.weekday) {
-        timetableentries.add(new TimetableEntry(course));
+        timetableEntries.add(new TimetableEntry(course));
         removeCourseList.add(course);
       }
     });
     removeCourseList.forEach((course) => courseList.remove(course));
     courseList.forEach((course) {
-      timetableentries.add(new TimetableEntry(course));
+      timetableEntries.add(new TimetableEntry(course));
     });
 
-    return new ListView(children: timetableentries);
+    return new ListView(children: timetableEntries);
   }
 
   String slotToTime(int slot) {
