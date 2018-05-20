@@ -43,6 +43,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       ),
       appBar: new AppBar(
         title: new Text('Courses in English'),
+        centerTitle: true,
       ),
       body: new PageView(
         children: <Widget>[
