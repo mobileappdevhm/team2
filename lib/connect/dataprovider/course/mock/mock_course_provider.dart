@@ -33,7 +33,7 @@ Topics include:
         30,
         5,
         4,
-        const TimeAndDay(5,"15:15 - 16:45",5)),
+        const TimeAndDay(5, "15:15 - 16:45", 5)),
     const Course(
         1,
         "Marketing",
@@ -61,7 +61,7 @@ experience in teamwork
         20,
         4,
         3,
-        const TimeAndDay(3,"11:45 - 13:30",3)),
+        const TimeAndDay(3, "11:45 - 13:30", 3)),
     const Course(
         2,
         "Social Work In Theory and Practice",
@@ -83,7 +83,7 @@ and how much of these are still relevant for modern Social Work.
         14,
         2.5,
         2,
-        const TimeAndDay(4,"8:15 - 9:45",1)),
+        const TimeAndDay(4, "8:15 - 9:45", 1)),
     const Course(
         3,
         "Design of Digital Products and Services",
@@ -104,7 +104,7 @@ time will be a mixture of lectures, project work, case discussions and guest lec
         20,
         6,
         4,
-        const TimeAndDay(1,"10:00 - 11:30",2)),
+        const TimeAndDay(1, "10:00 - 11:30", 2)),
     const Course(
         4,
         "Dynamics for Engineers",
@@ -123,7 +123,7 @@ Multidimensional Oscillations. Applications for engineering problems.
         45,
         5,
         4,
-        const TimeAndDay(1,"8:15 - 9:45",1))
+        const TimeAndDay(1, "8:15 - 9:45", 1))
   ];
 
   @override
