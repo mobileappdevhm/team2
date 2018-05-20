@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
+import 'package:courses_in_english/ui/screens/timetable_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/screens/sample_course_list.dart';
 
 class HomeScaffold extends StatefulWidget {
@@ -9,7 +10,6 @@ class HomeScaffold extends StatefulWidget {
 
 class _HomeScaffoldState extends State<HomeScaffold> {
   static final int _initialIndex = 2;
-
   int _selectedIndex = _initialIndex;
   PageController _controller = new PageController(initialPage: _initialIndex);
 
@@ -49,7 +49,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         children: <Widget>[
           new SampleCourseListScreen(),
           new SampleScreen('Maps'),
-          new SampleScreen('Timetable'),
+          new TimetableScreen(),
           new SampleScreen('Favorites'),
           new SampleScreen('Settings'),
         ],
