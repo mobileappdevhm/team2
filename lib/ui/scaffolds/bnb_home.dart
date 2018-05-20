@@ -1,6 +1,7 @@
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/ui/screens/sample_course_list.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override
@@ -42,10 +43,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       ),
       appBar: new AppBar(
         title: new Text('Courses in English'),
+        centerTitle: true,
       ),
       body: new PageView(
         children: <Widget>[
-          new SampleScreen('Courses'),
+          new SampleCourseListScreen(),
           new SampleScreen('Maps'),
           new TimetableScreen(),
           new SampleScreen('Favorites'),
