@@ -3,6 +3,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/model/department/department.dart';
 
+import '../scaffolds/course_details.dart';
 import 'status_widget.dart';
 
 typedef void FavListener(bool favorite);
@@ -31,7 +32,7 @@ class _CourseListEntryState extends State {
   bool _favorite = false;
 
   _CourseListEntryState(this.course, this.department) {
-    // TODO: Handle bookmarking / favorites logic
+    // TODO: Handle favorites logic (different branch)
     //_favorite = this.course.favourite;
   }
 
@@ -52,7 +53,14 @@ class _CourseListEntryState extends State {
     return new Material(
       child: new InkWell(
           onTap: () {
-            //TODO: Go to description page
+            Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) {
+                      return new CourseDetailsScaffold(course);
+                    },
+                  ),
+                );
           },
           child: new Container(
               child: new Column(children: <Widget>[
