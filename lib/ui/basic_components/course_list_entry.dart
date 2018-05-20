@@ -54,13 +54,13 @@ class _CourseListEntryState extends State {
       child: new InkWell(
           onTap: () {
             Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (context) {
-                      return new CourseDetailsScaffold(course);
-                    },
-                  ),
-                );
+              context,
+              new MaterialPageRoute(
+                builder: (context) {
+                  return new CourseDetailsScaffold(course);
+                },
+              ),
+            );
           },
           child: new Container(
               child: new Column(children: <Widget>[
