@@ -11,15 +11,12 @@ typedef void ClickCallback();
 class CourseListEntry extends StatefulWidget {
   final Course course;
   final Department department;
-  final FavListener favListener;
-  final ClickCallback onClicked;
 
-  CourseListEntry(
-      this.course, this.department, this.favListener, this.onClicked);
+  CourseListEntry(this.course, this.department);
 
   @override
   _CourseListEntryState createState() =>
-      new _CourseListEntryState(course, department, favListener, onClicked);
+      new _CourseListEntryState(course, department);
 }
 
 class _CourseListEntryState extends State {
@@ -30,13 +27,10 @@ class _CourseListEntryState extends State {
 
   final Course course;
   final Department department;
-  final FavListener favListener;
-  final ClickCallback onClicked;
 
   bool _favorite = false;
 
-  _CourseListEntryState(
-      this.course, this.department, this.favListener, this.onClicked) {
+  _CourseListEntryState(this.course, this.department) {
     // TODO: Handle bookmarking / favorites logic
     //_favorite = this.course.favourite;
   }
@@ -44,7 +38,9 @@ class _CourseListEntryState extends State {
   void _toggleFav() {
     setState(() {
       _favorite = !_favorite;
-      favListener.call(_favorite);
+
+      //TODO: Handle favorites (different branch)
+      //favListener.call(_favorite);
     });
   }
 
@@ -53,67 +49,71 @@ class _CourseListEntryState extends State {
     Size size = MediaQuery.of(context).size;
     double vw = size.width / 100;
 
-    return new GestureDetector(
-        onTap: () {
-          onClicked.call();
-        },
-        child: new Container(
-            child: new Column(children: <Widget>[
-              new Row(children: <Widget>[
-                new Expanded(
-                    child: new Text(course.name,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                        style: new TextStyle(fontWeight: FontWeight.bold),
-                        textScaleFactor: 1.2)),
-                new Container(
-                    child: new StatusWidget(course.status == CourseStatus.GREEN
-                        ? GREEN
-                        : course.status == CourseStatus.RED ? RED : YELLOW),
-                    height: vw * 5,
-                    width: vw * 5)
+    return new Material(
+      child: new InkWell(
+          onTap: () {
+            //TODO: Go to description page
+          },
+          child: new Container(
+              child: new Column(children: <Widget>[
+                new Row(children: <Widget>[
+                  new Expanded(
+                      child: new Text(course.name,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                          style: new TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.2)),
+                  new Container(
+                      child: new StatusWidget(course.status ==
+                              CourseStatus.GREEN
+                          ? GREEN
+                          : course.status == CourseStatus.RED ? RED : YELLOW),
+                      height: vw * 5,
+                      width: vw * 5)
+                ]),
+                new Row(children: <Widget>[
+                  new Expanded(
+                      child: new Container(
+                          child: new Text(
+                              course.description != null &&
+                                      course.description.isNotEmpty
+                                  ? course.description.substring(0, 100) + "..."
+                                  : "No description available.. :(",
+                              style: new TextStyle(color: Color(0xFF707070))),
+                          padding:
+                              EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
+                ]),
+                new Row(children: <Widget>[
+                  new Expanded(
+                      child: new Align(
+                          child: new Text("FK ${course.department}",
+                              style: new TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: department != null
+                                      ? department.color
+                                      : Colors.grey),
+                              textScaleFactor: 1.2),
+                          alignment: Alignment.centerLeft)),
+                  new Expanded(
+                      child: new Align(
+                          child: new IconButton(
+                              icon: new Icon(_favorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              iconSize: 7 * vw,
+                              color: HEART,
+                              onPressed: () {
+                                _toggleFav();
+                              }),
+                          alignment: Alignment.centerRight))
+                ])
               ]),
-              new Row(children: <Widget>[
-                new Expanded(
-                    child: new Container(
-                        child: new Text(
-                            course.description != null &&
-                                    course.description.isNotEmpty
-                                ? course.description
-                                : "No description available.. :(",
-                            style: new TextStyle(color: Color(0xFF707070))),
-                        padding: EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
-              ]),
-              new Row(children: <Widget>[
-                new Expanded(
-                    child: new Align(
-                        child: new Text("FK ${course.department}",
-                            style: new TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: department != null
-                                    ? department.color
-                                    : Colors.grey),
-                            textScaleFactor: 1.2),
-                        alignment: Alignment.centerLeft)),
-                new Expanded(
-                    child: new Align(
-                        child: new IconButton(
-                            icon: new Icon(_favorite
-                                ? Icons.favorite
-                                : Icons.favorite_border),
-                            iconSize: 7 * vw,
-                            color: HEART,
-                            onPressed: () {
-                              _toggleFav();
-                            }),
-                        alignment: Alignment.centerRight))
-              ])
-            ]),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    bottom: new BorderSide(
-                        color: new Color(0xFFDDDDDD), width: 1.0))),
-            padding: new EdgeInsets.only(
-                left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw)));
+              decoration: new BoxDecoration(
+                  border: new Border(
+                      bottom: new BorderSide(
+                          color: new Color(0xFFDDDDDD), width: 1.0))),
+              padding: new EdgeInsets.only(
+                  left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
+    );
   }
 }
