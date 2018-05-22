@@ -1,3 +1,4 @@
+import 'package:courses_in_english/ui/screens/location/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +19,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     return new Scaffold(
       bottomNavigationBar: new BottomNavigationBar(
         items: [
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.import_contacts),
-              title: new Text('Courses')),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.map), title: new Text('Maps')),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.calendar_today),
-              title: new Text('Timetable')),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.favorite_border),
-              title: new Text('Favorites')),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.settings), title: new Text('Settings')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.import_contacts), title: new Text('Courses')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.map), title: new Text('Maps')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.calendar_today), title: new Text('Timetable')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.favorite_border), title: new Text('Favorites')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.settings), title: new Text('Settings')),
         ],
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -48,7 +41,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       body: new PageView(
         children: <Widget>[
           new SampleCourseListScreen(),
-          new SampleScreen('Maps'),
+          new LocationScreen(),
           new TimetableScreen(),
           new SampleScreen('Favorites'),
           new SampleScreen('Settings'),

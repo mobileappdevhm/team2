@@ -69,14 +69,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                       color: isFavored ? Colors.pink : Colors.black12,
                     ),
                     iconSize: 48.0,
-                    tooltip: isFavored
-                        ? 'Remove this course from your favorites.'
-                        : 'Add this course to your favorites.',
+                    tooltip: isFavored ? 'Remove this course from your favorites.' : 'Add this course to your favorites.',
                     onPressed: () => new Data()
                         .favoritesProvider
                         .toggleFavorite(widget.course.id)
-                        .then((favs) => setState(
-                            () => isFavored = favs.contains(widget.course.id))))
+                        .then((favs) => setState(() => isFavored = favs.contains(widget.course.id))))
               ],
             ),
             new LineSeparator(title: 'Description'),
@@ -105,11 +102,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                           color: Colors.black54,
                           fontSize: 18.0,
                         ),
-                        children: [
-                          new TextSpan(
-                              text: widget.course.ects.toString(),
-                              style: new TextStyle(fontWeight: FontWeight.bold))
-                        ],
+                        children: [new TextSpan(text: widget.course.ects.toString(), style: new TextStyle(fontWeight: FontWeight.bold))],
                       ),
                     ),
                     new RichText(
@@ -133,11 +126,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                           color: Colors.black54,
                           fontSize: 18.0,
                         ),
-                        children: [
-                          new TextSpan(
-                              text: widget.course.semesterWeekHours.toString(),
-                              style: new TextStyle(fontWeight: FontWeight.bold))
-                        ],
+                        children: [new TextSpan(text: widget.course.semesterWeekHours.toString(), style: new TextStyle(fontWeight: FontWeight.bold))],
                       ),
                     ),
                   ],

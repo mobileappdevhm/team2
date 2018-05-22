@@ -1,3 +1,5 @@
+import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/campus/mock/mock_campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
@@ -31,4 +33,7 @@ class MockProviderFactory implements ProviderFactory {
 
   @override
   FavoritesProvider createFavoritesProvider() => new MockFavoritesProvider();
+
+  @override
+  CampusProvider createCampusProvider() => new MockCampusProvider();
 }

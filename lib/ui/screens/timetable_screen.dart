@@ -55,11 +55,7 @@ class TimetableState extends State<TimetableScreen> {
     timetableEntries.add(new LineSeparator(
       title: "Today",
     ));
-    courseList.sort((c1, c2) =>
-        c1.timeAndDay.day * 100 +
-        c1.timeAndDay.slot -
-        c2.timeAndDay.day * 100 +
-        c2.timeAndDay.slot);
+    courseList.sort((c1, c2) => c1.timeAndDay.day * 100 + c1.timeAndDay.slot - c2.timeAndDay.day * 100 + c2.timeAndDay.slot);
     courseList.forEach((course) {
       if (course.timeAndDay.day == today.weekday) {
         timetableEntries.add(new TimetableEntry(course));

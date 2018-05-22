@@ -26,6 +26,11 @@ flutter:
   uses-material-design: true
 
   assets:
+    # Locations
+    - res/location/campus_lothstr.png
+    - res/location/campus_karlstr.png
+    - res/location/campus_pasing.png
+    # Cow animation images
     - res/cow-anim/frame0001.png
     - res/cow-anim/frame0002.png
     - res/cow-anim/frame0003.png
