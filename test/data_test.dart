@@ -42,6 +42,4 @@ void main() {
     expect(test, equals(new User(-1, "", "", "", 7)));
   });
 
-
-
 }
