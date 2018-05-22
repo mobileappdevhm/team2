@@ -13,7 +13,8 @@ class LocationDetailScreen extends StatefulWidget {
   LocationDetailScreen(this.campusId);
 
   @override
-  State<StatefulWidget> createState() => new _LocationDetailScreenState(campusId);
+  State<StatefulWidget> createState() =>
+      new _LocationDetailScreenState(campusId);
 }
 
 class _LocationDetailScreenState extends State<LocationDetailScreen> {
@@ -46,18 +47,27 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
               child: new BackdropFilter(
                 filter: new ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                 child: new Container(
-                  decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                  decoration:
+                      new BoxDecoration(color: Colors.white.withOpacity(0.0)),
                 ),
               )),
-          new Container(margin: new EdgeInsets.all(p * 3), child: new Image.asset(this.campus.imagePath))
+          new Container(
+              margin: new EdgeInsets.all(p * 3),
+              child: new Image.asset(this.campus.imagePath))
         ],
         alignment: Alignment.center,
       );
     } else {
       body = new Center(
-          child: new AnimatedImage(animationImagePrefix: "frame", animationRootFolder: "res/cow-anim", duration: const Duration(seconds: 2), imageCount: 120));
+          child: new AnimatedImage(
+              animationImagePrefix: "frame",
+              animationRootFolder: "res/cow-anim",
+              duration: const Duration(seconds: 2),
+              imageCount: 120));
     }
 
-    return new Scaffold(appBar: new AppBar(title: new Text("Maps"), centerTitle: true), body: body);
+    return new Scaffold(
+        appBar: new AppBar(title: new Text("Maps"), centerTitle: true),
+        body: body);
   }
 }

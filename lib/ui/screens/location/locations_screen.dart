@@ -44,7 +44,9 @@ class _LocationState extends State<LocationScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      new MaterialPageRoute(builder: (context) => new LocationDetailScreen(campus.id)),
+                      new MaterialPageRoute(
+                          builder: (context) =>
+                              new LocationDetailScreen(campus.id)),
                     );
                   },
                   child: new Stack(
@@ -58,7 +60,8 @@ class _LocationState extends State<LocationScreen> {
                       new Container(
                         child: new Text(
                           campus.name,
-                          style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w100),
+                          style: new TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w100),
                           textScaleFactor: 3.0,
                         ),
                         color: new Color(0xCCFFFFFF),
@@ -73,7 +76,11 @@ class _LocationState extends State<LocationScreen> {
       );
     } else {
       return new Center(
-          child: new AnimatedImage(animationImagePrefix: "frame", animationRootFolder: "res/cow-anim", duration: const Duration(seconds: 2), imageCount: 120));
+          child: new AnimatedImage(
+              animationImagePrefix: "frame",
+              animationRootFolder: "res/cow-anim",
+              duration: const Duration(seconds: 2),
+              imageCount: 120));
     }
   }
 }

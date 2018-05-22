@@ -64,16 +64,23 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   ),
                 ),
                 new IconButton(
-                    icon: new Icon(
-                      isFavored ? Icons.favorite : Icons.favorite_border,
-                      color: isFavored ? Colors.pink : Colors.black12,
-                    ),
-                    iconSize: 48.0,
-                    tooltip: isFavored ? 'Remove this course from your favorites.' : 'Add this course to your favorites.',
-                    onPressed: () => new Data()
-                        .favoritesProvider
-                        .toggleFavorite(widget.course.id)
-                        .then((favs) => setState(() => isFavored = favs.contains(widget.course.id))))
+                  icon: new Icon(
+                    isFavored ? Icons.favorite : Icons.favorite_border,
+                    color: isFavored ? Colors.pink : Colors.black12,
+                  ),
+                  iconSize: 48.0,
+                  tooltip: isFavored
+                      ? 'Remove this course from your favorites.'
+                      : 'Add this course to your favorites.',
+                  onPressed: () => new Data()
+                      .favoritesProvider
+                      .toggleFavorite(widget.course.id)
+                      .then(
+                        (favs) => setState(
+                              () => isFavored = favs.contains(widget.course.id),
+                            ),
+                      ),
+                ),
               ],
             ),
             new LineSeparator(title: 'Description'),
@@ -102,7 +109,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                           color: Colors.black54,
                           fontSize: 18.0,
                         ),
-                        children: [new TextSpan(text: widget.course.ects.toString(), style: new TextStyle(fontWeight: FontWeight.bold))],
+                        children: [
+                          new TextSpan(
+                              text: widget.course.ects.toString(),
+                              style: new TextStyle(fontWeight: FontWeight.bold))
+                        ],
                       ),
                     ),
                     new RichText(
@@ -114,8 +125,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                         ),
                         children: [
                           new TextSpan(
-                              text: 3.toString(), // TODO US Credit points
-                              style: new TextStyle(fontWeight: FontWeight.bold))
+                            text: 3.toString(), // TODO US Credit points
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
@@ -126,7 +138,12 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                           color: Colors.black54,
                           fontSize: 18.0,
                         ),
-                        children: [new TextSpan(text: widget.course.semesterWeekHours.toString(), style: new TextStyle(fontWeight: FontWeight.bold))],
+                        children: [
+                          new TextSpan(
+                            text: widget.course.semesterWeekHours.toString(),
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ],
