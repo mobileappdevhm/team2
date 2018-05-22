@@ -22,10 +22,12 @@ class TimetableState extends State<TimetableScreen> {
   @override
   Widget build(BuildContext context) {
     final Future<List<Course>> courses = courseProvider.getCourses();
-    courses.then((value) {
-      initialCourseList = value;
-      setState(() {});
-    });
+    courses.then(
+      (value) {
+        initialCourseList = value;
+        setState(() {});
+      },
+    );
 
     Widget body;
     if (initialCourseList.isEmpty) {
@@ -52,34 +54,46 @@ class TimetableState extends State<TimetableScreen> {
     courseList.addAll(initialCourseList);
     DateTime today = new DateTime.now();
     List<Widget> timetableEntries = [];
-    timetableEntries.add(new LineSeparator(
-      title: "Today",
-    ));
-    courseList.sort((c1, c2) =>
-        c1.timeAndDay.day * 100 +
-        c1.timeAndDay.slot -
-        c2.timeAndDay.day * 100 +
-        c2.timeAndDay.slot);
-    courseList.forEach((course) {
-      if (course.timeAndDay.day == today.weekday) {
-        timetableEntries.add(new TimetableEntry(course));
-        removeCourseList.add(course);
-      }
-    });
+    timetableEntries.add(
+      new LineSeparator(
+        title: "Today",
+      ),
+    );
+    courseList.sort(
+      (c1, c2) =>
+          c1.timeAndDay.day * 100 +
+          c1.timeAndDay.slot -
+          c2.timeAndDay.day * 100 +
+          c2.timeAndDay.slot,
+    );
+    courseList.forEach(
+      (course) {
+        if (course.timeAndDay.day == today.weekday) {
+          timetableEntries.add(new TimetableEntry(course));
+          removeCourseList.add(course);
+        }
+      },
+    );
     removeCourseList.forEach((course) => courseList.remove(course));
-    timetableEntries.add(new LineSeparator(
-      title: "Next Week",
-    ));
-    courseList.forEach((course) {
-      if (course.timeAndDay.day > today.weekday) {
-        timetableEntries.add(new TimetableEntry(course));
-        removeCourseList.add(course);
-      }
-    });
+    timetableEntries.add(
+      new LineSeparator(
+        title: "Next Week",
+      ),
+    );
+    courseList.forEach(
+      (course) {
+        if (course.timeAndDay.day > today.weekday) {
+          timetableEntries.add(new TimetableEntry(course));
+          removeCourseList.add(course);
+        }
+      },
+    );
     removeCourseList.forEach((course) => courseList.remove(course));
-    courseList.forEach((course) {
-      timetableEntries.add(new TimetableEntry(course));
-    });
+    courseList.forEach(
+      (course) {
+        timetableEntries.add(new TimetableEntry(course));
+      },
+    );
 
     return new ListView(children: timetableEntries);
   }

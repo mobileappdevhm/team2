@@ -16,18 +16,20 @@ class AnimatedImage extends StatefulWidget {
   /// Duration of the animation.
   final Duration duration;
 
-  AnimatedImage(
-      {@required this.imageCount,
-      @required this.animationRootFolder,
-      @required this.animationImagePrefix,
-      @required this.duration});
+  AnimatedImage({
+    @required this.imageCount,
+    @required this.animationRootFolder,
+    @required this.animationImagePrefix,
+    @required this.duration,
+  });
 
   @override
   State<StatefulWidget> createState() => new _AnimatedImageState(
-      imageCount: imageCount,
-      animationRootFolder: animationRootFolder,
-      animationImagePrefix: animationImagePrefix,
-      duration: duration);
+        imageCount: imageCount,
+        animationRootFolder: animationRootFolder,
+        animationImagePrefix: animationImagePrefix,
+        duration: duration,
+      );
 }
 
 class _AnimatedImageState extends State<AnimatedImage>
@@ -38,25 +40,46 @@ class _AnimatedImageState extends State<AnimatedImage>
   final String animationRootFolder;
   final String animationImagePrefix;
 
-  _AnimatedImageState(
-      {@required int imageCount,
-      @required Duration duration,
-      @required this.animationRootFolder,
-      @required this.animationImagePrefix}) {
-    _controller = new AnimationController(vsync: this, duration: duration)
-      ..repeat();
-    _animation = new IntTween(begin: 1, end: imageCount).animate(_controller);
+  final List<Image> images = new List<Image>();
+
+  _AnimatedImageState({
+    @required int imageCount,
+    @required Duration duration,
+    @required this.animationRootFolder,
+    @required this.animationImagePrefix,
+  }) {
+    _controller = new AnimationController(
+      vsync: this,
+      duration: duration,
+    )..repeat();
+
+    _preload(imageCount);
+
+    _animation = new IntTween(
+      begin: 0,
+      end: imageCount - 1,
+    ).animate(_controller);
+  }
+
+  void _preload(int imageCount) {
+    for (int i = 1; i <= imageCount; i++) {
+      String frame = i.toString().padLeft(4, '0');
+      images.add(
+        new Image.asset(
+          "$animationRootFolder/$animationImagePrefix$frame.png",
+          gaplessPlayback: true,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return new AnimatedBuilder(
-        animation: _animation,
-        builder: (BuildContext context, Widget child) {
-          String frame = _animation.value.toString().padLeft(4, '0');
-          return new Image.asset(
-              "$animationRootFolder/$animationImagePrefix$frame.png",
-              gaplessPlayback: true);
-        });
+      animation: _animation,
+      builder: (BuildContext context, Widget child) {
+        return images[_animation.value];
+      },
+    );
   }
 }
