@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
@@ -33,7 +33,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
     Size size = MediaQuery.of(context).size;
     double p = min(size.width, size.height) / 100;
 
-    Widget body = null;
+    Widget body;
     if (this.campus != null) {
       body = new Stack(
         children: <Widget>[
@@ -44,7 +44,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
                 fit: BoxFit.cover,
               )),
               child: new BackdropFilter(
-                filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                filter: new ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                 child: new Container(
                   decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
                 ),

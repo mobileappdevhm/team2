@@ -16,8 +16,6 @@ class AnimatedImage extends StatefulWidget {
   /// Duration of the animation.
   final Duration duration;
 
-  _AnimatedImageState _state;
-
   AnimatedImage({@required this.imageCount, @required this.animationRootFolder, @required this.animationImagePrefix, @required this.duration});
 
   @override
