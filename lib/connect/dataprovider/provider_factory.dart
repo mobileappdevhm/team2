@@ -1,3 +1,4 @@
+import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/selection_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
@@ -24,4 +25,7 @@ abstract class ProviderFactory {
 
   /// Create new instance of a favorites provider.
   FavoritesProvider createFavoritesProvider();
+
+  /// Create new instance of a campus provider.
+  CampusProvider createCampusProvider();
 }

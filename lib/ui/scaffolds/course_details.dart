@@ -3,6 +3,8 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
@@ -64,19 +66,23 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   ),
                 ),
                 new IconButton(
-                    icon: new Icon(
-                      isFavored ? Icons.favorite : Icons.favorite_border,
-                      color: isFavored ? Colors.pink : Colors.black12,
-                    ),
-                    iconSize: 48.0,
-                    tooltip: isFavored
-                        ? 'Remove this course from your favorites.'
-                        : 'Add this course to your favorites.',
-                    onPressed: () => new Data()
-                        .favoritesProvider
-                        .toggleFavorite(widget.course.id)
-                        .then((favs) => setState(
-                            () => isFavored = favs.contains(widget.course.id))))
+                  icon: new Icon(
+                    isFavored ? Icons.favorite : Icons.favorite_border,
+                    color: isFavored ? Colors.pink : Colors.black12,
+                  ),
+                  iconSize: 48.0,
+                  tooltip: isFavored
+                      ? 'Remove this course from your favorites.'
+                      : 'Add this course to your favorites.',
+                  onPressed: () => new Data()
+                      .favoritesProvider
+                      .toggleFavorite(widget.course.id)
+                      .then(
+                        (favs) => setState(
+                              () => isFavored = favs.contains(widget.course.id),
+                            ),
+                      ),
+                ),
               ],
             ),
             new LineSeparator(title: 'Description'),
@@ -121,8 +127,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                         ),
                         children: [
                           new TextSpan(
-                              text: 3.toString(), // TODO US Credit points
-                              style: new TextStyle(fontWeight: FontWeight.bold))
+                            text: 3.toString(), // TODO US Credit points
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
@@ -135,8 +142,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                         ),
                         children: [
                           new TextSpan(
-                              text: widget.course.semesterWeekHours.toString(),
-                              style: new TextStyle(fontWeight: FontWeight.bold))
+                            text: widget.course.semesterWeekHours.toString(),
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
@@ -147,15 +155,12 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   children: <Widget>[
                     new _AvailabilityPlaceholder(widget.course.status),
                     new FlatButton(
-                      onPressed: () {}, // TODO handle click on contact button
+                      onPressed: () => sendMail(),
                       padding: new EdgeInsets.all(0.0),
                       child: new Row(
                         children: <Widget>[
-                          new Icon(
-                            Icons.mail_outline,
-                            color: Colors.black54,
-                            size: 32.0,
-                          ),
+                          new Icon(Icons.mail_outline,
+                              color: Colors.black54, size: 32.0),
                           new Padding(
                             padding: new EdgeInsets.only(left: 4.0),
                             child: new Text(
@@ -177,6 +182,22 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
         ),
       ),
     );
+  }
+
+  sendMail() async {
+    Lecturer lecturer;
+    Data data = new Data();
+    lecturer =
+        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
+    // Android and iOS
+    final uri =
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
+    print(uri);
+    if (await canLaunch(uri)) {
+      launch(uri);
+    } else {
+      throw 'Could not launch $uri';
+    }
   }
 }
 
