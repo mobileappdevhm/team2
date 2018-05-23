@@ -85,3 +85,13 @@ unlinked_spec.ds
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+.gradle/4.4/fileChanges/
+.gradle/4.4/fileHashes/fileHashes.bin
+.gradle/4.4/taskHistory/taskHistory.bin
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/outputFiles.bin
+gen/
+gradle/
+gradlew
+gradlew.bat
+.gradle/
