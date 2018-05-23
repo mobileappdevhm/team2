@@ -9,7 +9,6 @@ import 'status_widget.dart';
 
 class CourseListEntry extends StatefulWidget {
   final Course course;
-  Department department;
 
   CourseListEntry(this.course);
 
