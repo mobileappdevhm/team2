@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/department/mock/mock_department_provider.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import '../scaffolds/course_details.dart';
 import 'status_widget.dart';
@@ -25,6 +25,7 @@ class _CourseListEntryState extends State {
 
   final Course course;
   Department department;
+  Lecturer lecturer;
   Data data = new Data();
 
   bool _favorite = false;
@@ -47,12 +48,19 @@ class _CourseListEntryState extends State {
   void initState() {
     super.initState();
     // Get the department object from the provider and load it to our variable
-    new Data()
-        .departmentProvider
+    Data data = new Data();
+
+    data.departmentProvider
         .getDepartmentByNumber(course.department)
         .then((department) {
       setState(() {
         this.department = department;
+      });
+
+      data.lecturerProvider.getLecturerById(course.lecturerId).then((lecturer) {
+        setState(() {
+          this.lecturer = lecturer;
+        });
       });
     });
   }
@@ -95,11 +103,13 @@ class _CourseListEntryState extends State {
                   new Expanded(
                       child: new Container(
                           child: new Text(
-                              course.description != null &&
-                                      course.description.isNotEmpty
-                                  ? course.description.substring(0, 100) + "..."
-                                  : "No description available.. :(",
-                              style: new TextStyle(color: Color(0xFF707070))),
+                              lecturer != null && lecturer.name.isNotEmpty
+                                  ? "By " + lecturer.name
+                                  : "Professor unknown",
+                              style: new TextStyle(
+                                  color: Color(0xFF707070),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.0)),
                           padding:
                               EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
                 ]),
