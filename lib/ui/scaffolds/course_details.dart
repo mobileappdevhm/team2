@@ -3,6 +3,8 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
@@ -153,15 +155,12 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   children: <Widget>[
                     new _AvailabilityPlaceholder(widget.course.status),
                     new FlatButton(
-                      onPressed: () {}, // TODO handle click on contact button
+                      onPressed: () => sendMail(),
                       padding: new EdgeInsets.all(0.0),
                       child: new Row(
                         children: <Widget>[
-                          new Icon(
-                            Icons.mail_outline,
-                            color: Colors.black54,
-                            size: 32.0,
-                          ),
+                          new Icon(Icons.mail_outline,
+                              color: Colors.black54, size: 32.0),
                           new Padding(
                             padding: new EdgeInsets.only(left: 4.0),
                             child: new Text(
@@ -183,6 +182,22 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
         ),
       ),
     );
+  }
+
+  sendMail() async {
+    Lecturer lecturer;
+    Data data = new Data();
+    lecturer =
+        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
+    // Android and iOS
+    final uri =
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
+    print(uri);
+    if (await canLaunch(uri)) {
+      launch(uri);
+    } else {
+      throw 'Could not launch $uri';
+    }
   }
 }
 
