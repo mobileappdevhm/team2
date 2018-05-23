@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
-import 'package:courses_in_english/model/department/department.dart';
 
 class CourseListScreen extends StatefulWidget {
   @override
