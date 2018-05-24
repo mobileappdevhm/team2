@@ -1,10 +1,10 @@
-import 'dart:async';
+/*import 'dart:async';
 
 import 'package:courses_in_english/main.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/my_dropdown_button.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
-import 'package:courses_in_english/ui/scaffolds/create_user.dart';
+import 'package:courses_in_english/ui/scaffolds/create_user.dart';*/
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +19,9 @@ void main() {
     expect(find.text("Favorites"), findsOneWidget);
     expect(find.text("Courses"), findsOneWidget);
     expect(find.byType(BottomNavigationBar), findsOneWidget);
-  });
-  */
+    await tester.idle();
+  });*/
+
 
   testWidgets('SampleScreenTest', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new SampleScreen("Test")));
