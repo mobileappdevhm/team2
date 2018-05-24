@@ -1,29 +1,20 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class CourseListScreen extends StatefulWidget {
+  final List<Course> courses;
+
+  CourseListScreen(this.courses);
+
   @override
-  CourseListState createState() => new CourseListState();
+  CourseListState createState() => new CourseListState(this.courses);
 }
 
 class CourseListState extends State<CourseListScreen> {
-  List<Course> courseList = new List<Course>();
-  final MockCourseProvider courseProvider = new MockCourseProvider();
+  final List<Course> courseList;
 
-  CourseListState() {
-    final Future<List<Course>> courses = courseProvider.getCourses();
-    courses.then((value) {
-      if (mounted) {
-        setState(() {
-          courseList = value;
-        });
-      }
-    });
-  }
+  CourseListState(this.courseList);
 
   @override
   Widget build(BuildContext context) {
