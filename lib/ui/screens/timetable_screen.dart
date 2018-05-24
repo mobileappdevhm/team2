@@ -60,7 +60,11 @@ class TimetableState extends State<TimetableScreen> {
       ),
     );
     courseList.sort(
-      (c1, c2) => c1.timeAndDay.day * 100 + c1.timeAndDay.slot - c2.timeAndDay.day * 100 + c2.timeAndDay.slot,
+      (c1, c2) =>
+          c1.timeAndDay.day * 100 +
+          c1.timeAndDay.slot -
+          c2.timeAndDay.day * 100 +
+          c2.timeAndDay.slot,
     );
     courseList.forEach(
       (course) {

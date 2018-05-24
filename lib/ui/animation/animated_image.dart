@@ -32,7 +32,8 @@ class AnimatedImage extends StatefulWidget {
       );
 }
 
-class _AnimatedImageState extends State<AnimatedImage> with TickerProviderStateMixin {
+class _AnimatedImageState extends State<AnimatedImage>
+    with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<int> _animation;
 

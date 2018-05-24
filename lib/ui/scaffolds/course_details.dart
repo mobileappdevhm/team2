@@ -18,7 +18,8 @@ class CourseDetailsScaffold extends StatefulWidget {
   State<StatefulWidget> createState() => new _CourseDetailsScaffold();
 }
 
-class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements FavoritesObserver {
+class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
+    implements FavoritesObserver {
   static const Color HEART = const Color(0xFFFFA1A1);
   bool isFavored = false;
   final Data data = new Data();
@@ -79,8 +80,12 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements Fav
                     color: isFavored ? HEART : Colors.black12,
                   ),
                   iconSize: 48.0,
-                  tooltip: isFavored ? 'Remove this course from your favorites.' : 'Add this course to your favorites.',
-                  onPressed: () => new Data().favoritesProvider.toggleFavorite(widget.course.id),
+                  tooltip: isFavored
+                      ? 'Remove this course from your favorites.'
+                      : 'Add this course to your favorites.',
+                  onPressed: () => new Data()
+                      .favoritesProvider
+                      .toggleFavorite(widget.course.id),
                 ),
               ],
             ),
@@ -110,7 +115,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements Fav
                           color: Colors.black54,
                           fontSize: 18.0,
                         ),
-                        children: [new TextSpan(text: widget.course.ects.toString(), style: new TextStyle(fontWeight: FontWeight.bold))],
+                        children: [
+                          new TextSpan(
+                              text: widget.course.ects.toString(),
+                              style: new TextStyle(fontWeight: FontWeight.bold))
+                        ],
                       ),
                     ),
                     new RichText(
@@ -154,7 +163,8 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements Fav
                       padding: new EdgeInsets.all(0.0),
                       child: new Row(
                         children: <Widget>[
-                          new Icon(Icons.mail_outline, color: Colors.black54, size: 32.0),
+                          new Icon(Icons.mail_outline,
+                              color: Colors.black54, size: 32.0),
                           new Padding(
                             padding: new EdgeInsets.only(left: 4.0),
                             child: new Text(
@@ -181,9 +191,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements Fav
   sendMail() async {
     Lecturer lecturer;
     Data data = new Data();
-    lecturer = await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
+    lecturer =
+        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
     // Android and iOS
-    final uri = 'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
+    final uri =
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);
@@ -193,7 +205,8 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> implements Fav
   }
 
   @override
-  void onFavoriteToggled() => setState(() => isFavored = data.favoritesProvider.isFavored(widget.course.id));
+  void onFavoriteToggled() => setState(
+      () => isFavored = data.favoritesProvider.isFavored(widget.course.id));
 }
 
 class _AvailabilityPlaceholder extends StatelessWidget {

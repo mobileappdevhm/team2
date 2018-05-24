@@ -11,7 +11,10 @@ class SampleScreen extends StatelessWidget {
       child: new Column(
         children: <Widget>[
           new Expanded(
-            child: new Row(children: <Widget>[new Expanded(child: new Image(image: new AssetImage("res/anim_cow.gif")))]),
+            child: new Row(children: <Widget>[
+              new Expanded(
+                  child: new Image(image: new AssetImage("res/anim_cow.gif")))
+            ]),
           ),
           new Expanded(
             child: new Row(

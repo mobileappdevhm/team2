@@ -128,21 +128,28 @@ Multidimensional Oscillations. Applications for engineering problems.
 
   @override
   Future<Course> getCourse(int courseId) async {
-    return new Future.delayed(const Duration(milliseconds: 300), () => MOCK_COURSES[courseId]);
+    return new Future.delayed(
+        const Duration(milliseconds: 300), () => MOCK_COURSES[courseId]);
   }
 
   @override
   Future<List<Course>> getCourses() async {
-    return new Future.delayed(const Duration(milliseconds: 700), () => MOCK_COURSES);
+    return new Future.delayed(
+        const Duration(milliseconds: 700), () => MOCK_COURSES);
   }
 
   @override
   Future<Iterable<Course>> getCoursesByDepartment(int department) async {
-    return new Future.delayed(const Duration(milliseconds: 500), () => MOCK_COURSES.where((course) => course.department == department));
+    return new Future.delayed(const Duration(milliseconds: 500),
+        () => MOCK_COURSES.where((course) => course.department == department));
   }
 
   @override
-  Future<Iterable<Course>> getCoursesByDepartments(List<int> departments) async {
-    return new Future.delayed(const Duration(milliseconds: 600), () => MOCK_COURSES.where((course) => departments.contains(course.department)));
+  Future<Iterable<Course>> getCoursesByDepartments(
+      List<int> departments) async {
+    return new Future.delayed(
+        const Duration(milliseconds: 600),
+        () => MOCK_COURSES
+            .where((course) => departments.contains(course.department)));
   }
 }
