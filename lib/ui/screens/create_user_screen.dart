@@ -6,6 +6,10 @@ import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 
+
+typedef void saveTo(String saveTo);
+
+
 class CreateUserScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _CreateUserScreenState();
@@ -32,6 +36,8 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FocusNode node1 = FocusNode();
+    FocusNode node2 = FocusNode();
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -44,9 +50,15 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
       ),
       body: new Column(
         children: <Widget>[
-          inputRow("Username"),
-          inputRow("First Name"),
-          inputRow("Last Name"),
+          inputRow("Username",new FocusNode(),node1,(String toSave){
+            this.userName = toSave;
+          }),
+          inputRow("First Name",node1,node2,(String toSave){
+            this.firstName = toSave;
+          }),
+          inputRow("Last Name",node2,new FocusNode(),(String toSave){
+            this.lastName = toSave;
+          }),
           departmentSelector(),
           submitButton(),
         ],
@@ -54,7 +66,13 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
     );
   }
 
-  Expanded inputRow(String label) {
+  Expanded inputRow(String label,FocusNode ownNode,FocusNode nextNode,saveTo) {
+    TextEditingController controller = new TextEditingController();
+    controller.addListener(() {
+      setState(() {
+        saveTo(controller.text.toString());
+      });
+    });
     return new Expanded(
       child: new Row(
         children: <Widget>[
@@ -62,6 +80,14 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
             child: new Container(
               child: new TextFormField(
                 decoration: new InputDecoration(labelText: label),
+                onFieldSubmitted: (String input){
+                  setState((){
+                    saveTo(input);
+                  });
+                    FocusScope.of(context).requestFocus(nextNode);
+                },
+                focusNode: ownNode,
+                //controller: controller,
               ),
               margin: EdgeInsets.symmetric(horizontal: 30.0),
               alignment: Alignment.centerLeft,
@@ -126,6 +152,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   userDepartment = department;
                 }
               }
+
               if (userName != null &&
                   firstName != null &&
                   lastName != null &&
