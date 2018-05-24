@@ -1,3 +1,4 @@
+import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
@@ -16,7 +17,7 @@ class CourseListEntry extends StatefulWidget {
   _CourseListEntryState createState() => new _CourseListEntryState(course);
 }
 
-class _CourseListEntryState extends State {
+class _CourseListEntryState extends State implements FavoritesObserver {
   static const Color GREEN = const Color(0xFF83D183);
   static const Color YELLOW = const Color(0xFFFFCC66);
   static const Color RED = const Color(0xFFFF3366);
@@ -29,39 +30,28 @@ class _CourseListEntryState extends State {
 
   bool _favorite = false;
 
-  _CourseListEntryState(this.course) {
-    // TODO: Handle favorites logic (different branch)
-    //_favorite = this.course.favourite;
-  }
+  _CourseListEntryState(this.course);
 
   void _toggleFav() {
-    setState(() {
-      _favorite = !_favorite;
-
-      //TODO: Handle favorites (different branch)
-      //favListener.call(_favorite);
-    });
+    data.favoritesProvider.toggleFavorite(course.id);
   }
 
   @override
   void initState() {
     super.initState();
-    // Get the department object from the provider and load it to our variable
-    Data data = new Data();
 
-    data.departmentProvider
-        .getDepartmentByNumber(course.department)
-        .then((department) {
-      setState(() {
-        this.department = department;
-      });
+    data.favoritesProvider.addObserver(this);
+    _favorite = data.favoritesProvider.isFavored(course.id);
 
-      data.lecturerProvider.getLecturerById(course.lecturerId).then((lecturer) {
-        setState(() {
-          this.lecturer = lecturer;
-        });
-      });
-    });
+    data.departmentProvider.getDepartmentByNumber(course.department).then(
+      (department) {
+        setState(() => this.department = department);
+
+        data.lecturerProvider
+            .getLecturerById(course.lecturerId)
+            .then((lecturer) => setState(() => this.lecturer = lecturer));
+      },
+    );
   }
 
   @override
@@ -76,7 +66,7 @@ class _CourseListEntryState extends State {
               context,
               new MaterialPageRoute(
                 builder: (context) {
-                  return new CourseDetailsScaffold(course);
+                  return new CourseDetailsScaffold(course, department);
                 },
               ),
             );
@@ -106,23 +96,28 @@ class _CourseListEntryState extends State {
                                   ? "By " + lecturer.name
                                   : "Professor unknown",
                               style: new TextStyle(
-                                  color: Color(0xFF707070),
+                                  color: const Color(0xFF707070),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13.0)),
                           padding:
-                              EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
+                              new EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
-                      child: new Align(
-                          child: new Text("FK ${course.department}",
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: department != null
-                                      ? department.color
-                                      : Colors.grey),
-                              textScaleFactor: 1.2),
-                          alignment: Alignment.centerLeft)),
+                    child: new Align(
+                      child: new Text(
+                        "Department ${course.department.toString().padLeft(2, '0')}",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: department != null
+                              ? department.color
+                              : Colors.grey,
+                        ),
+                        textScaleFactor: 1.2,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
                   new Expanded(
                       child: new Align(
                           child: new IconButton(
@@ -130,7 +125,7 @@ class _CourseListEntryState extends State {
                                   ? Icons.favorite
                                   : Icons.favorite_border),
                               iconSize: 7 * vw,
-                              color: HEART,
+                              color: _favorite ? HEART : Colors.black12,
                               onPressed: () {
                                 _toggleFav();
                               }),
@@ -144,5 +139,15 @@ class _CourseListEntryState extends State {
               padding: new EdgeInsets.only(
                   left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
     );
+  }
+
+  @override
+  void onFavoriteToggled() =>
+      setState(() => _favorite = data.favoritesProvider.isFavored(course.id));
+
+  @override
+  void dispose() {
+    super.dispose();
+    data.favoritesProvider.removeObserver(this);
   }
 }
