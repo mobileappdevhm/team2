@@ -8,18 +8,24 @@ class SampleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
-        child: new Column(
-      children: <Widget>[
-        new Expanded(
-          child: new Row(
-            children: <Widget>[new Expanded(child: new Image(image: new AssetImage("res/anim_cow.gif")))],
+      child: new Column(
+        children: <Widget>[
+          new Expanded(
+            child: new Row(children: <Widget>[new Expanded(child: new Image(image: new AssetImage("res/anim_cow.gif")))]),
           ),
-        ),
-        new Expanded(
+          new Expanded(
             child: new Row(
-          children: <Widget>[new Expanded(child: new Center(child: new Text(content)))],
-        ))
-      ],
-    ));
+              children: <Widget>[
+                new Expanded(
+                  child: new Center(
+                    child: new Text(content),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

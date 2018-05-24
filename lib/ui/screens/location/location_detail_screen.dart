@@ -53,8 +53,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
         alignment: Alignment.center,
       );
     } else {
-      body = new Center(
-          child: new Image(image: new AssetImage("res/anim_cow.gif")));
+      body = new Center(child: new Image(image: new AssetImage("res/anim_cow.gif")));
     }
 
     return new Scaffold(appBar: new AppBar(title: new Text("Maps"), centerTitle: true), body: body);

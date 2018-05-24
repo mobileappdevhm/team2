@@ -71,8 +71,7 @@ class _LocationState extends State<LocationScreen> {
         itemCount: _campuses.length,
       );
     } else {
-      return new Center(
-          child: new Image(image: new AssetImage("res/anim_cow.gif")));
+      return new Center(child: new Image(image: new AssetImage("res/anim_cow.gif")));
     }
   }
 }
