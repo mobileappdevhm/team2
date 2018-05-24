@@ -18,6 +18,7 @@ class CourseDetailsScaffold extends StatefulWidget {
 
 class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
     implements FavoritesObserver {
+  static const Color HEART = const Color(0xFFFFA1A1);
   bool isFavored = false;
   final Data data = new Data();
 
@@ -74,7 +75,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                 new IconButton(
                   icon: new Icon(
                     isFavored ? Icons.favorite : Icons.favorite_border,
-                    color: isFavored ? Colors.pink : Colors.black12,
+                    color: isFavored ? HEART : Colors.black12,
                   ),
                   iconSize: 48.0,
                   tooltip: isFavored
@@ -207,6 +208,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
 }
 
 class _AvailabilityPlaceholder extends StatelessWidget {
+  static const Color GREEN = const Color(0xFF83D183);
+  static const Color YELLOW = const Color(0xFFFFCC66);
+  static const Color RED = const Color(0xFFFF3366);
   final CourseStatus status;
 
   _AvailabilityPlaceholder(this.status);
@@ -244,19 +248,19 @@ class _AvailabilityPlaceholder extends StatelessWidget {
       case CourseStatus.RED:
         return new Icon(
           Icons.cancel,
-          color: Colors.red,
+          color: RED,
           size: 24.0,
         );
       case CourseStatus.YELLOW:
         return new Icon(
           Icons.remove_circle,
-          color: Colors.amber,
+          color: YELLOW,
           size: 24.0,
         );
       case CourseStatus.GREEN:
         return new Icon(
           Icons.check_circle,
-          color: Colors.green,
+          color: GREEN,
           size: 24.0,
         );
     }
@@ -273,7 +277,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Only \'Home\'',
           style: new TextStyle(
-            color: Colors.red,
+            color: RED,
             fontSize: 18.0,
           ),
         );
@@ -281,7 +285,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Limited',
           style: new TextStyle(
-            color: Colors.amber,
+            color: YELLOW,
             fontSize: 18.0,
           ),
         );
@@ -289,7 +293,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Available',
           style: new TextStyle(
-            color: Colors.green,
+            color: GREEN,
             fontSize: 18.0,
           ),
         );

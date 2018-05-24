@@ -120,7 +120,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                                   ? Icons.favorite
                                   : Icons.favorite_border),
                               iconSize: 7 * vw,
-                              color: HEART,
+                              color: _favorite ? HEART : Colors.black12,
                               onPressed: () {
                                 _toggleFav();
                               }),
