@@ -109,12 +109,25 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    new Text(
+                        widget.course.timeAndDay != null &&
+                                widget.course.timeAndDay.day != null &&
+                                widget.course.timeAndDay.duration != null
+                            ? widget.course.timeAndDay.toDate()
+                            : "Time and Day Unknown",
+                        style: new TextStyle(
+                            color: Colors.black54,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold)),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 8.0)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (ECTS): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 20.0,
+                          fontSize: 18.0,
                         ),
                         children: [
                           new TextSpan(
@@ -125,13 +138,13 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                     ),
                     new Padding(
                         padding: new EdgeInsets.only(
-                            top: 4.5)), //TODO Change to variable height
+                            top: 8.0)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (US): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 20.0,
+                          fontSize: 18.0,
                         ),
                         children: [
                           new TextSpan(
@@ -143,25 +156,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                     ),
                     new Padding(
                         padding: new EdgeInsets.only(
-                            top: 4.5)), //TODO Change to variable height
-                    new RichText(
-                      text: new TextSpan(
-                        text: 'Hours per week: ',
-                        style: new TextStyle(
-                          color: Colors.black54,
-                          fontSize: 20.0,
-                        ),
-                        children: [
-                          new TextSpan(
-                            text: widget.course.semesterWeekHours.toString(),
-                            style: new TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                        padding: new EdgeInsets.only(
-                            top: 3.0)), //TODO Change to variable height
+                            top: 5.0)), //TODO Change to variable height
                   ],
                 ),
                 new Column(
@@ -169,15 +164,22 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     new AvailabilityWidget(widget.course.status),
-                    new RichText(
-                      text: new TextSpan(
-                        text: '${widget.course.lecturerName}',
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                      top: 4.0,
+                    )),
+                    new Text(
+                        widget.course.lecturerName != null
+                            ? "${widget.course.lecturerName}"
+                            : "Professor Unknown",
                         style: new TextStyle(
-                          color: Colors.black54,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
+                            color: Colors.black54,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold)),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                      top: 2.0,
+                    )),
                     new FlatButton(
                       onPressed: () => sendMail(),
                       padding: new EdgeInsets.all(0.0),
