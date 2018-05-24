@@ -5,16 +5,16 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 
-class CourseListScreen extends StatefulWidget {
+class FavoriteListScreen extends StatefulWidget {
   @override
-  CourseListState createState() => new CourseListState();
+  FavoriteListState createState() => new FavoriteListState();
 }
 
-class CourseListState extends State<CourseListScreen> {
+class FavoriteListState extends State<FavoriteListScreen> {
   List<Course> courseList = new List<Course>();
   final Data data = new Data();
 
-  CourseListState() {
+  FavoriteListState() {
     final Set<int> favoriteCourseIDs = data.favoritesProvider.getFavorites();
     for (int courseID in favoriteCourseIDs) {
       data.courseProvider.getCourse(courseID).then((course) {
