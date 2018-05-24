@@ -34,12 +34,13 @@ void main() {
   });
 
   test('User Provider Test', () {
-    UserProvider userProvider = new MockUserProvider();
+    UserProvider userProvider = _data.userProvider;
     User test;
-    userProvider.login('Woop', 'Badopop').then((User value){
+    userProvider.login("test", "test").then((User value) {
       test = value;
+      expect(test.id, equals(-1));
+      expect(test.department, equals(7));
     });
-    expect(test, equals(new User(-1, "", "", "", 7)));
   });
 
 }
