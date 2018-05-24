@@ -29,39 +29,31 @@ class _CourseListEntryState extends State {
 
   bool _favorite = false;
 
-  _CourseListEntryState(this.course) {
-    // TODO: Handle favorites logic (different branch)
-    //_favorite = this.course.favourite;
-  }
+  _CourseListEntryState(this.course);
 
   void _toggleFav() {
-    setState(() {
-      _favorite = !_favorite;
-
-      //TODO: Handle favorites (different branch)
-      //favListener.call(_favorite);
-    });
+    data.favoritesProvider
+        .toggleFavorite(course.id)
+        .then((favs) => setState(() => _favorite = favs.contains(course.id)));
   }
 
   @override
   void initState() {
     super.initState();
-    // Get the department object from the provider and load it to our variable
-    Data data = new Data();
 
-    data.departmentProvider
-        .getDepartmentByNumber(course.department)
-        .then((department) {
-      setState(() {
-        this.department = department;
-      });
+    data.favoritesProvider
+        .isFavored(course.id)
+        .then((isFavored) => setState(() => _favorite = isFavored));
 
-      data.lecturerProvider.getLecturerById(course.lecturerId).then((lecturer) {
-        setState(() {
-          this.lecturer = lecturer;
-        });
-      });
-    });
+    data.departmentProvider.getDepartmentByNumber(course.department).then(
+      (department) {
+        setState(() => this.department = department);
+
+        data.lecturerProvider
+            .getLecturerById(course.lecturerId)
+            .then((lecturer) => setState(() => this.lecturer = lecturer));
+      },
+    );
   }
 
   @override
