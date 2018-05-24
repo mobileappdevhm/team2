@@ -1,8 +1,7 @@
 import 'package:courses_in_english/ui/screens/location/locations_screen.dart';
-import 'package:courses_in_english/ui/screens/sample_screen.dart';
+import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/screens/sample_course_list.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override
@@ -55,11 +54,9 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       ),
       body: new PageView(
         children: <Widget>[
-          new SampleCourseListScreen(),
+          new CourseListScreen(),
           new LocationScreen(),
           new TimetableScreen(),
-          new SampleScreen('Favorites'),
-          new SampleScreen('Settings'),
         ],
         onPageChanged: (newIndex) {
           setState(() {
