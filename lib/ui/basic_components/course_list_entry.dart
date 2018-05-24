@@ -96,11 +96,11 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                                   ? "By " + lecturer.name
                                   : "Professor unknown",
                               style: new TextStyle(
-                                  color: Color(0xFF707070),
+                                  color: const Color(0xFF707070),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13.0)),
                           padding:
-                              EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
+                              new EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
