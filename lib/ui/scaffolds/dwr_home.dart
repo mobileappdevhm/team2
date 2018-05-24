@@ -76,7 +76,7 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
           });
         },
         // Never Scroll!
-        physics: NeverScrollableScrollPhysics(),
+        physics: new NeverScrollableScrollPhysics(),
         controller: _controller,
       ),
     );
