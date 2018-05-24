@@ -171,7 +171,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                     new AvailabilityWidget(widget.course.status),
                     new RichText(
                       text: new TextSpan(
-                        text: '${widget.course.lecturerName}',
+                        text: widget.course.lecturerName,
                         style: new TextStyle(
                           color: Colors.black54,
                           fontSize: 18.0,

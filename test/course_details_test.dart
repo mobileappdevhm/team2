@@ -44,8 +44,6 @@ void main() {
       find.text('Department ${department.number.toString().padLeft(2, '0')}'),
       findsOneWidget,
     );
-    // Search professor name
-    expect(find.text(course.lecturerName), findsOneWidget);
   });
 
   testWidgets('Test favorite mechaninism', (WidgetTester tester) async {
