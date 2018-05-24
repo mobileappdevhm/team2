@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/ui/animation/animated_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -55,7 +54,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
       );
     } else {
       body = new Center(
-          child: new AnimatedImage(animationImagePrefix: "frame", animationRootFolder: "res/cow-anim", duration: const Duration(seconds: 2), imageCount: 120));
+          child: new Image(image: new AssetImage("res/anim_cow.gif")));
     }
 
     return new Scaffold(appBar: new AppBar(title: new Text("Maps"), centerTitle: true), body: body);
