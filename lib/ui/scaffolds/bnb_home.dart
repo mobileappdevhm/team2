@@ -1,6 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
@@ -48,7 +49,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new CourseListScreen(courses),
         new LocationScreen(campuses),
         new TimetableScreen(courses),
-        new SampleScreen('Favorites'),
+        new FavoriteListScreen(courses),
         new SampleScreen('Settings'),
       ];
       scaffold = new Scaffold(
