@@ -24,6 +24,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
 
   @override
   void initState() {
+    super.initState();
     Data data = new Data();
     data.courseProvider.getCourses().then((courses) {
       setState(() {
