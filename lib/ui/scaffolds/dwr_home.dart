@@ -63,12 +63,12 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
         centerTitle: true,
       ),
       body: new PageView(
-        children: <Widget>[
+        children: <Widget>[ /*
           new CourseListScreen(),
           new SampleScreen('Maps'),
           new TimetableScreen(),
           new SampleScreen('Favorites'),
-          new SampleScreen('Settings'),
+          new SampleScreen('Settings'),*/ //TODO fix
         ],
         onPageChanged: (newIndex) {
           setState(() {
