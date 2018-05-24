@@ -10,9 +10,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String username;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: new SceneryWrapperWidget(
         new Column(
           children: <Widget>[
@@ -21,11 +25,21 @@ class _LoginScreenState extends State<LoginScreen> {
               child: new Column(
                 children: <Widget>[
                   new Expanded(
-                    child: continueAsGuest(),
+                    child: login(),
                   ),
-                  new Container(child: new LineSeparator(),margin: EdgeInsets.symmetric(horizontal: 10.0),),
-                  new Expanded(
-                    child: createUser(),
+                  new Container(
+                    child: new LineSeparator(),
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  ),
+                  new Container(
+                    child: createButton(),
+                  ),
+                  new Container(
+                    child: new LineSeparator(),
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  ),
+                  new Container(
+                    child: continueAsGuest(),
                   ),
                 ],
               ),
@@ -57,38 +71,108 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
-          margin: EdgeInsets.only(bottom: 15.0),
+          margin: EdgeInsets.symmetric(vertical: 25.0),
         ),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
-  Row createUser() {
-    return new Row(
+  Column login() {
+    FocusNode passwordNode = new FocusNode();
+    return new Column(
       children: <Widget>[
-        new Container(
-          child: new RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new CreateUserScreen()));
-            },
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            color: Colors.black,
-            textColor: Colors.white,
-            child: new Text(
-              "Create new User",
-              style: new TextStyle(fontSize: 18.0),
-            ),
-          ),
-          alignment: AlignmentDirectional.topCenter,
-          margin: EdgeInsets.only(top: 15.0),
-        ),
+        userNameField(passwordNode),
+        passwordField(passwordNode),
+        loginButton(),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
+    );
+  }
+
+  Container loginButton() {
+    return new Container(
+      child: new RaisedButton(
+        onPressed: () {
+          doLogin();
+        },
+        child: new Text(
+          "Login",
+        ),
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(100000.0)),
+        color: Colors.black,
+        textColor: Colors.white,
+      ),
+      alignment: AlignmentDirectional.center,
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+    );
+  }
+
+  Expanded userNameField(FocusNode passwordNode) {
+    TextEditingController controller = new TextEditingController();
+    controller.addListener(() {
+      username = controller.text.toString();
+    });
+    return new Expanded(
+      child: new Container(
+          child: new TextFormField(
+            maxLines: 1,
+            maxLength: 20,
+            decoration: new InputDecoration(
+              labelText: "Input Username",
+              icon: new Icon(Icons.person),
+            ),
+            onFieldSubmitted: (String input) {
+              this.username = input;
+              FocusScope.of(context).requestFocus(passwordNode);
+            },
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          alignment: Alignment.topCenter),
+    );
+  }
+
+  Expanded passwordField(FocusNode passwordNode) {
+    TextEditingController controller = new TextEditingController();
+    controller.addListener(() {
+      password = controller.text.toString();
+    });
+    return new Expanded(
+      child: new Container(
+        child: new TextFormField(
+          maxLines: 1,
+          maxLength: 30,
+          decoration: new InputDecoration(
+              labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
+          obscureText: true,
+          onFieldSubmitted: (String input) {
+            this.password = input;
+          },
+          controller: controller,
+          focusNode: passwordNode,
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      ),
+    );
+  }
+
+  Container createButton() {
+    return new Container(
+      child: new FlatButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new CreateUserScreen()));
+        },
+        child: new Text(
+          "No Account yet? -> Create new User",
+          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
+        ),
+      ),
+      alignment: AlignmentDirectional.topCenter,
+      margin: EdgeInsets.only(top: 5.0),
     );
   }
 
@@ -100,5 +184,14 @@ class _LoginScreenState extends State<LoginScreen> {
             textScaleFactor: 2.5),
         alignment: AlignmentDirectional.center,
         margin: EdgeInsets.symmetric(vertical: 20.0));
+  }
+
+  void doLogin() {
+    if (username != null && password != null) {
+      Navigator.push(
+        context,
+        new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+      );
+    }
   }
 }

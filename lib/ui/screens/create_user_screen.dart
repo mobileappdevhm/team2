@@ -7,7 +7,7 @@ import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 
 
-typedef void saveTo(String saveTo);
+typedef void SaveTo(String saveTo);
 
 
 class CreateUserScreen extends StatefulWidget {
@@ -69,9 +69,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
   Expanded inputRow(String label,FocusNode ownNode,FocusNode nextNode,saveTo) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      setState(() {
         saveTo(controller.text.toString());
-      });
     });
     return new Expanded(
       child: new Row(
@@ -81,9 +79,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
               child: new TextFormField(
                 decoration: new InputDecoration(labelText: label),
                 onFieldSubmitted: (String input){
-                  setState((){
                     saveTo(input);
-                  });
                     FocusScope.of(context).requestFocus(nextNode);
                 },
                 focusNode: ownNode,
@@ -157,8 +153,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   firstName != null &&
                   lastName != null &&
                   userDepartment != null) {
-                new User(userName.hashCode, userName, firstName,
-                    lastName, userDepartment.number);
+                new Data().userProvider.createUser(userName, firstName, lastName, userDepartment.number);
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
