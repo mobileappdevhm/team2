@@ -1,3 +1,5 @@
+import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
@@ -188,10 +190,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void doLogin() {
     if (username != null && password != null) {
-      Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-      );
+      User user;
+      new Data().userProvider.login(username, password).then((success) {
+        user = success;
+      });
+      if (user != null) {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+        );
+      }
     }
   }
 }
