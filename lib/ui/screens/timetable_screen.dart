@@ -1,10 +1,5 @@
-import 'dart:async';
-
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/ui/animation/animated_image.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
@@ -15,41 +10,31 @@ class TimetableScreen extends StatefulWidget {
 }
 
 class TimetableState extends State<TimetableScreen> {
-  List<Course> initialCourseList = new List<Course>();
+  List<Course> initialCourseList = [];
 
-  final MockCourseProvider courseProvider = new MockCourseProvider();
-  final LecturerProvider lecturerProvider = new MockLecturerProvider();
+  @override
+  void initState() {
+    super.initState();
+    new Data().courseProvider.getCourses().then((courses) {
+      if (mounted) {
+        setState(() {
+          initialCourseList = courses;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<Course>> courses = courseProvider.getCourses();
-    courses.then(
-      (value) {
-        initialCourseList = value;
-        setState(() {});
-      },
-    );
-
     Widget body;
     if (initialCourseList.isEmpty) {
-      body = loadingScreenView();
+      body = new Image(image: new AssetImage("res/anim_cow.gif"));
     } else {
       body = timetableView();
     }
 
     return new Center(
       child: body,
-    );
-  }
-
-  Widget loadingScreenView() {
-    return new Center(
-      child: new AnimatedImage(
-        animationImagePrefix: "frame",
-        animationRootFolder: "res/cow-anim",
-        duration: const Duration(seconds: 2),
-        imageCount: 120,
-      ),
     );
   }
 

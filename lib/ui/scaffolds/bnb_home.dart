@@ -11,8 +11,15 @@ class HomeScaffold extends StatefulWidget {
 
 class _HomeScaffoldState extends State<HomeScaffold> {
   static final int _initialIndex = 2;
+  final PageController _controller = new PageController(initialPage: _initialIndex, keepPage: true);
+  final List<Widget> screens = [
+    new CourseListScreen(),
+    new LocationScreen(),
+    new TimetableScreen(),
+    new SampleScreen('Favorites'),
+    new SampleScreen('Settings'),
+  ];
   int _selectedIndex = _initialIndex;
-  PageController _controller = new PageController(initialPage: _initialIndex);
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +61,13 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         centerTitle: true,
       ),
       body: new PageView(
-        children: <Widget>[
-          new CourseListScreen(),
-          new LocationScreen(),
-          new TimetableScreen(),
-          new SampleScreen('Favorites'),
-          new SampleScreen('Settings'),
-        ],
+        controller: _controller,
+        children: screens,
         onPageChanged: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
           });
         },
-        controller: _controller,
       ),
     );
   }
