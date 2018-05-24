@@ -1,5 +1,3 @@
-import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/ui/scaffolds/location_details.dart';
 import 'package:flutter/material.dart';
