@@ -13,13 +13,13 @@ class LineSeparator extends StatelessWidget {
   final double _thickness;
   final double _padding;
 
-  LineSeparator(
-      {String title,
-      Color color = DEFAULT_COLOR,
-      Color textColor = DEFAULT_TEXT_COLOR,
-      double thickness = DEFAULT_THICKNESS,
-      double padding = DEFAULT_PADDING})
-      : _title = title,
+  LineSeparator({
+    String title,
+    Color color = DEFAULT_COLOR,
+    Color textColor = DEFAULT_TEXT_COLOR,
+    double thickness = DEFAULT_THICKNESS,
+    double padding = DEFAULT_PADDING,
+  })  : _title = title,
         _color = color,
         _textColor = textColor,
         _thickness = thickness,
@@ -30,24 +30,34 @@ class LineSeparator extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     TextSpan span = new TextSpan(
-        style: new TextStyle(
-            color: _textColor,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 3.0),
-        text: _title);
+      style: new TextStyle(
+        color: _textColor,
+        fontSize: 20.0,
+        fontWeight: FontWeight.w300,
+        letterSpacing: 3.0,
+      ),
+      text: _title,
+    );
     TextPainter tp = new TextPainter(
-        text: span,
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr);
+      text: span,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    );
     tp.layout();
 
     return new Container(
-        child: new CustomPaint(
-            painter: new _LineSeparatorPainter(
-                tp, _thickness, _color, _textColor, _padding)),
-        height: tp.height,
-        width: size.width);
+      child: new CustomPaint(
+        painter: new _LineSeparatorPainter(
+          tp,
+          _thickness,
+          _color,
+          _textColor,
+          _padding,
+        ),
+      ),
+      height: tp.height,
+      width: size.width,
+    );
   }
 }
 
@@ -59,7 +69,12 @@ class _LineSeparatorPainter extends CustomPainter {
   double _padding;
 
   _LineSeparatorPainter(
-      this.tp, this._thickness, this._color, this._textColor, this._padding);
+    this.tp,
+    this._thickness,
+    this._color,
+    this._textColor,
+    this._padding,
+  );
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -78,11 +93,26 @@ class _LineSeparatorPainter extends CustomPainter {
     double textXOffset = rect.width / 2 - tp.width / 2;
     double textYOffset = rect.height / 2 - tp.height / 2;
 
-    Rect leftRect = new Rect.fromPoints(new Offset(padding, yOffset),
-        new Offset(textXOffset - insets, yOffset + _thickness));
+    Rect leftRect = new Rect.fromPoints(
+      new Offset(
+        padding,
+        yOffset,
+      ),
+      new Offset(
+        textXOffset - insets,
+        yOffset + _thickness,
+      ),
+    );
     Rect rightRect = new Rect.fromPoints(
-        new Offset(rect.width / 2 + tp.width / 2 + insets, yOffset),
-        new Offset(rect.width - padding, yOffset + _thickness));
+      new Offset(
+        rect.width / 2 + tp.width / 2 + insets,
+        yOffset,
+      ),
+      new Offset(
+        rect.width - padding,
+        yOffset + _thickness,
+      ),
+    );
 
     canvas.drawRect(leftRect, paint);
     canvas.drawRect(rightRect, paint);
