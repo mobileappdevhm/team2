@@ -1,8 +1,5 @@
 //Copied class from original dropdownButton class and changed Widget result to include Expanded at IndexStack
 
-
-
-
 // Copyright 2015 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -583,7 +580,8 @@ class _DropdownButtonState<T> extends State<MyDropdownButton<T>>
   void _updateSelectedIndex() {
     assert(widget.value == null ||
         widget.items
-                .where((MyDropdownMenuItem<T> item) => item.value == widget.value)
+                .where(
+                    (MyDropdownMenuItem<T> item) => item.value == widget.value)
                 .length ==
             1);
     _selectedIndex = null;

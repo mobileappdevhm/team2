@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-
 class SceneryWrapperWidget extends StatelessWidget {
   final Widget _child;
 
@@ -15,7 +14,13 @@ class SceneryWrapperWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return new Column(children: <Widget>[new SizedBox(child: new SceneryWidget(true), height: size.height * 0.3, width: size.width), new Expanded(child: _child)]);
+    return new Column(children: <Widget>[
+      new SizedBox(
+          child: new SceneryWidget(true),
+          height: size.height * 0.3,
+          width: size.width),
+      new Expanded(child: _child)
+    ]);
   }
 }
 
@@ -34,7 +39,8 @@ class SceneryWidget extends StatefulWidget {
 ///
 ///State of the beautiful scenery widget.
 ///
-class _SceneryWidgetState extends State<SceneryWidget> with TickerProviderStateMixin {
+class _SceneryWidgetState extends State<SceneryWidget>
+    with TickerProviderStateMixin {
   static const int MAX_DURATION = 30;
   static const int MIN_DURATION = 10;
 
@@ -51,25 +57,33 @@ class _SceneryWidgetState extends State<SceneryWidget> with TickerProviderStateM
 
     var rng = new Random();
 
-    controllers.add(new AnimationController(vsync: this, duration: new Duration(seconds: max(MIN_DURATION, rng.nextInt(MAX_DURATION)))));
-    anims.add(new Tween(begin: rng.nextDouble(), end: rng.nextDouble()).animate(controllers[0])
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          controllers[0].reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          controllers[0].forward();
-        }
-      }));
+    controllers.add(new AnimationController(
+        vsync: this,
+        duration: new Duration(
+            seconds: max(MIN_DURATION, rng.nextInt(MAX_DURATION)))));
+    anims.add(new Tween(begin: rng.nextDouble(), end: rng.nextDouble())
+        .animate(controllers[0])
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              controllers[0].reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              controllers[0].forward();
+            }
+          }));
 
-    controllers.add(new AnimationController(vsync: this, duration: new Duration(seconds: max(MIN_DURATION, rng.nextInt(MAX_DURATION)))));
-    anims.add(new Tween(begin: rng.nextDouble(), end: rng.nextDouble()).animate(controllers[1])
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          controllers[1].reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          controllers[1].forward();
-        }
-      }));
+    controllers.add(new AnimationController(
+        vsync: this,
+        duration: new Duration(
+            seconds: max(MIN_DURATION, rng.nextInt(MAX_DURATION)))));
+    anims.add(new Tween(begin: rng.nextDouble(), end: rng.nextDouble())
+        .animate(controllers[1])
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              controllers[1].reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              controllers[1].forward();
+            }
+          }));
 
     for (var c in controllers) {
       c.forward();
@@ -78,19 +92,25 @@ class _SceneryWidgetState extends State<SceneryWidget> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return new LayoutBuilder(builder: (BuildContext ctx, BoxConstraints constraints) {
-      double minSize = min(constraints.biggest.width, constraints.biggest.height);
+    return new LayoutBuilder(
+        builder: (BuildContext ctx, BoxConstraints constraints) {
+      double minSize =
+          min(constraints.biggest.width, constraints.biggest.height);
 
       List<Widget> widgets = <Widget>[];
 
       widgets.add(new CustomPaint(painter: new _Sky()));
-      widgets.add(new Container(child: new CloudWidget(minSize * 0.25, anims[0]), alignment: Alignment.centerLeft));
+      widgets.add(new Container(
+          child: new CloudWidget(minSize * 0.25, anims[0]),
+          alignment: Alignment.centerLeft));
 
       if (_showLogo) {
         widgets.add(new HMLogoWidget(scale: 0.6));
       }
 
-      widgets.add(new Container(child: new CloudWidget(minSize * 0.3, anims[1]), alignment: Alignment.centerLeft));
+      widgets.add(new Container(
+          child: new CloudWidget(minSize * 0.3, anims[1]),
+          alignment: Alignment.centerLeft));
 
       return new Stack(children: widgets, fit: StackFit.expand);
     });
@@ -112,7 +132,8 @@ class CloudWidget extends StatefulWidget {
   CloudWidget(this._width, this._animation);
 
   @override
-  State<StatefulWidget> createState() => new _CloudWidgetState(_width, _animation);
+  State<StatefulWidget> createState() =>
+      new _CloudWidgetState(_width, _animation);
 }
 
 class _CloudWidgetState extends State<CloudWidget> {
@@ -136,7 +157,10 @@ class _CloudWidgetState extends State<CloudWidget> {
     } else {
       Size size = MediaQuery.of(context).size;
 
-      return new Container(child: new CustomPaint(painter: new _Cloud(width)), margin: new EdgeInsets.only(left: animation.value * (size.width - width)));
+      return new Container(
+          child: new CustomPaint(painter: new _Cloud(width)),
+          margin: new EdgeInsets.only(
+              left: animation.value * (size.width - width)));
     }
   }
 }
@@ -164,9 +188,11 @@ class _Cloud extends CustomPainter {
 
     canvas.drawRect(new Rect.fromLTWH(x, y, baseW, baseH), cloudPaint);
     canvas.drawCircle(new Offset(x, y + baseH / 2), baseH / 2, cloudPaint);
-    canvas.drawCircle(new Offset(x + baseW, y + baseH / 2), baseH / 2, cloudPaint);
+    canvas.drawCircle(
+        new Offset(x + baseW, y + baseH / 2), baseH / 2, cloudPaint);
 
-    canvas.drawCircle(new Offset(x + baseW / 4 * 3, y), baseH / 6 * 5, cloudPaint);
+    canvas.drawCircle(
+        new Offset(x + baseW / 4 * 3, y), baseH / 6 * 5, cloudPaint);
 
     canvas.drawCircle(new Offset(x + baseH, y + baseH / 6), h / 3, cloudPaint);
   }
@@ -191,8 +217,14 @@ class _Sky extends CustomPainter {
     var skyGradient = new LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: [Color.fromRGBO(135, 202, 255, 1.0), Color.fromRGBO(226, 242, 255, 1.0)],
-        stops: [0.0, 1.0]);
+        colors: [
+          Color.fromRGBO(135, 202, 255, 1.0),
+          Color.fromRGBO(226, 242, 255, 1.0)
+        ],
+        stops: [
+          0.0,
+          1.0
+        ]);
 
     canvas.drawRect(
       rect,
@@ -201,7 +233,10 @@ class _Sky extends CustomPainter {
   }
 
   void _drawSun(Canvas canvas, Rect rect) {
-    var gradient = new RadialGradient(center: const Alignment(0.2, -1.2), radius: 0.8, colors: [const Color(0xFFFFFF55), const Color(0x00FFFF00)]);
+    var gradient = new RadialGradient(
+        center: const Alignment(0.2, -1.2),
+        radius: 0.8,
+        colors: [const Color(0xFFFFFF55), const Color(0x00FFFF00)]);
 
     canvas.drawRect(
       rect,

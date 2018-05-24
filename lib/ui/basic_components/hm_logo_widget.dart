@@ -9,29 +9,23 @@ typedef Offset Transform(Offset toTransform);
 /// The HM Logo.
 ///
 class HMLogoWidget extends StatelessWidget {
-
   ///
   /// By which factor the logo is scaled.
   ///
   final double _scale;
 
-
-  HMLogoWidget({double scale = 1.0}):_scale=scale;
+  HMLogoWidget({double scale = 1.0}) : _scale = scale;
 
   @override
   Widget build(BuildContext context) {
-    return new CustomPaint(
-        painter: new HMLogoPainter(_scale)
-    );
+    return new CustomPaint(painter: new HMLogoPainter(_scale));
   }
-
 }
 
 ///
 ///Class containing the HM Logo data.
 ///
 class HMLogoPainter extends CustomPainter {
-
   static const List<Offset> HM_LOGO_POINTS = const <Offset>[
     const Offset(0.6213973799126637, 0.0),
     const Offset(0.0, 0.26430131004366814),
@@ -82,7 +76,16 @@ class HMLogoPainter extends CustomPainter {
   ///The red gradient of the HM Logo.
   ///
   static const LinearGradient logoGradient = const LinearGradient(
-      begin: Alignment.centerLeft, end: Alignment.centerRight, colors: const [const Color.fromRGBO(154, 16, 51, 1.0), const Color.fromRGBO(228, 0, 0, 1.0)], stops: const [0.0, 1.0]);
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: const [
+        const Color.fromRGBO(154, 16, 51, 1.0),
+        const Color.fromRGBO(228, 0, 0, 1.0)
+      ],
+      stops: const [
+        0.0,
+        1.0
+      ]);
 
   double _scale;
 
@@ -105,11 +108,18 @@ class HMLogoPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Rect rect = Offset.zero & size;
 
-    double logoWidth = min(rect.height, rect.width) * HM_LOGO_ASPECT_RATIO * _scale;
+    double logoWidth =
+        min(rect.height, rect.width) * HM_LOGO_ASPECT_RATIO * _scale;
     double yOffset = rect.height - HM_LOGO_MAX_HEIGHT * logoWidth;
     double xOffset = rect.width / 2 - logoWidth / 2;
 
-    canvas.drawPath(new Path()..addPolygon(transformed((offset) => new Offset(offset.dx * logoWidth + xOffset, offset.dy * logoWidth + yOffset)), true),
+    canvas.drawPath(
+        new Path()
+          ..addPolygon(
+              transformed((offset) => new Offset(
+                  offset.dx * logoWidth + xOffset,
+                  offset.dy * logoWidth + yOffset)),
+              true),
         new Paint()..shader = logoGradient.createShader(rect));
   }
 
@@ -119,5 +129,4 @@ class HMLogoPainter extends CustomPainter {
   ///
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
-
 }

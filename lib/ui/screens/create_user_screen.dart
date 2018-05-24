@@ -6,9 +6,7 @@ import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 
-
 typedef void SaveTo(String saveTo);
-
 
 class CreateUserScreen extends StatefulWidget {
   @override
@@ -50,13 +48,13 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
       ),
       body: new Column(
         children: <Widget>[
-          inputRow("Username",new FocusNode(),node1,(String toSave){
+          inputRow("Username", new FocusNode(), node1, (String toSave) {
             this.userName = toSave;
           }),
-          inputRow("First Name",node1,node2,(String toSave){
+          inputRow("First Name", node1, node2, (String toSave) {
             this.firstName = toSave;
           }),
-          inputRow("Last Name",node2,new FocusNode(),(String toSave){
+          inputRow("Last Name", node2, new FocusNode(), (String toSave) {
             this.lastName = toSave;
           }),
           departmentSelector(),
@@ -66,10 +64,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
     );
   }
 
-  Expanded inputRow(String label,FocusNode ownNode,FocusNode nextNode,saveTo) {
+  Expanded inputRow(
+      String label, FocusNode ownNode, FocusNode nextNode, saveTo) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-        saveTo(controller.text.toString());
+      saveTo(controller.text.toString());
     });
     return new Expanded(
       child: new Row(
@@ -78,9 +77,9 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
             child: new Container(
               child: new TextFormField(
                 decoration: new InputDecoration(labelText: label),
-                onFieldSubmitted: (String input){
-                    saveTo(input);
-                    FocusScope.of(context).requestFocus(nextNode);
+                onFieldSubmitted: (String input) {
+                  saveTo(input);
+                  FocusScope.of(context).requestFocus(nextNode);
                 },
                 focusNode: ownNode,
                 //controller: controller,
@@ -153,7 +152,8 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   firstName != null &&
                   lastName != null &&
                   userDepartment != null) {
-                new Data().userProvider.createUser(userName, firstName, lastName, userDepartment.number);
+                new Data().userProvider.createUser(
+                    userName, firstName, lastName, userDepartment.number);
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
