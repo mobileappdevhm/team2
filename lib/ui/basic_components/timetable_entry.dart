@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 /// Representation of a course (or lecture) for the timetable.
 class TimetableEntry extends StatelessWidget {
   final Course course;
+  static const double fontSize = 14.0;
+  static const double horPadding = 14.0;
+  static const double vertPadding = 8.0;
 
   TimetableEntry(this.course);
 
@@ -18,22 +21,22 @@ class TimetableEntry extends StatelessWidget {
               children: <Widget>[
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Text(
                     shortenCoursName(course.name),
                     style: new TextStyle(
                       color: Colors.black,
-                      fontSize: 14.0,
+                      fontSize: fontSize + 2,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -41,15 +44,15 @@ class TimetableEntry extends StatelessWidget {
 //                        new Text("Prof:",
 //                            style: new TextStyle(
 //                              color: Colors.black,
-//                              fontSize: 14.0,
+//                              fontSize: fontSize,
 //                              fontWeight: FontWeight.w400,
 //                            )),
                       new Text(
                         shortenCoursName(course.lecturerName),
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: fontSize + 1,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -62,8 +65,8 @@ class TimetableEntry extends StatelessWidget {
               children: <Widget>[
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -72,7 +75,7 @@ class TimetableEntry extends StatelessWidget {
                         "Location: ",
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -80,7 +83,7 @@ class TimetableEntry extends StatelessWidget {
                         course.location,
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -89,8 +92,8 @@ class TimetableEntry extends StatelessWidget {
                 ),
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +102,7 @@ class TimetableEntry extends StatelessWidget {
                         "Time: ",
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -107,7 +110,7 @@ class TimetableEntry extends StatelessWidget {
                         course.timeAndDay.duration,
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -121,8 +124,8 @@ class TimetableEntry extends StatelessWidget {
               children: <Widget>[
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +134,7 @@ class TimetableEntry extends StatelessWidget {
                         "Day: ",
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -139,7 +142,7 @@ class TimetableEntry extends StatelessWidget {
                         intToDayString(course.timeAndDay.day),
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -148,8 +151,8 @@ class TimetableEntry extends StatelessWidget {
                 ),
                 new Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 15.0,
+                    vertical: vertPadding,
+                    horizontal: horPadding,
                   ),
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -158,7 +161,7 @@ class TimetableEntry extends StatelessWidget {
                         "Room: ",
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -166,7 +169,7 @@ class TimetableEntry extends StatelessWidget {
                         course.room,
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: 14.0,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -4,6 +4,7 @@ import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/animation/animated_image.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,13 @@ class TimetableState extends State<TimetableScreen> {
   }
 
   Widget loadingScreenView() {
-    return new Container(
-      alignment: Alignment.center,
-      child: new Text('Walking Cow', textAlign: TextAlign.center),
+    return new Center(
+      child: new AnimatedImage(
+        animationImagePrefix: "frame",
+        animationRootFolder: "res/cow-anim",
+        duration: const Duration(seconds: 2),
+        imageCount: 120,
+      ),
     );
   }
 

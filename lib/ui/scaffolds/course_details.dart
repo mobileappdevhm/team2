@@ -107,13 +107,14 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
               children: <Widget>[
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (ECTS): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
@@ -122,12 +123,15 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 4.5)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (US): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
@@ -137,12 +141,15 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 4.5)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Hours per week: ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
@@ -152,12 +159,25 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 3.0)), //TODO Change to variable height
                   ],
                 ),
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     new _AvailabilityPlaceholder(widget.course.status),
+                    new RichText(
+                      text: new TextSpan(
+                        text: '${widget.course.lecturerName}',
+                        style: new TextStyle(
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
                     new FlatButton(
                       onPressed: () => sendMail(),
                       padding: new EdgeInsets.all(0.0),
@@ -195,7 +215,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
         await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
     // Android and iOS
     final uri =
-        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${widget.course.lecturerName},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);
