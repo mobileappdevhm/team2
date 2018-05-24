@@ -18,4 +18,11 @@ class MockUserProvider implements UserProvider {
 
     return true;
   }
+
+  @override
+  Future<bool> createUser(String username, String firstName, String lastName,
+      int department) async {
+    // Todo: create new User with Nine.
+    return true;
+  }
 }

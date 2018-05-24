@@ -1,12 +1,11 @@
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import '../scaffolds/course_details.dart';
-import 'status_widget.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
+import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 
 class CourseListEntry extends StatefulWidget {
   final Course course;
@@ -25,7 +24,8 @@ class _CourseListEntryState extends State implements FavoritesObserver {
 
   final Course course;
   Department department;
-  Lecturer lecturer;
+  String lecturer;
+  TimeAndDay timeAndDay;
   Data data = new Data();
 
   bool _favorite = false;
@@ -45,13 +45,15 @@ class _CourseListEntryState extends State implements FavoritesObserver {
 
     data.departmentProvider.getDepartmentByNumber(course.department).then(
       (department) {
-        setState(() => this.department = department);
-
-        data.lecturerProvider
-            .getLecturerById(course.lecturerId)
-            .then((lecturer) => setState(() => this.lecturer = lecturer));
+        if (mounted) {
+          setState(() {
+            this.department = department;
+          });
+        }
       },
     );
+    this.lecturer = course.lecturerName;
+    this.timeAndDay = course.timeAndDay;
   }
 
   @override
@@ -81,26 +83,31 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                           style: new TextStyle(fontWeight: FontWeight.bold),
                           textScaleFactor: 1.2)),
                   new Container(
-                      child: new StatusWidget(course.status ==
-                              CourseStatus.GREEN
-                          ? GREEN
-                          : course.status == CourseStatus.RED ? RED : YELLOW),
-                      height: vw * 5,
-                      width: vw * 5)
+                    child: new IconButton(
+                        padding: new EdgeInsets.all(0.0),
+                        icon: new Icon(
+                            _favorite ? Icons.favorite : Icons.favorite_border),
+                        iconSize: 9 * vw,
+                        color: _favorite ? HEART : Colors.black12,
+                        onPressed: () {
+                          _toggleFav();
+                        }),
+                  ),
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
                       child: new Container(
                           child: new Text(
-                              lecturer != null && lecturer.name.isNotEmpty
-                                  ? "By " + lecturer.name
-                                  : "Professor unknown",
+                              timeAndDay != null &&
+                                      timeAndDay.day != null &&
+                                      timeAndDay.duration != null
+                                  ? timeAndDay.toDate()
+                                  : "Time and Day Unknown",
                               style: new TextStyle(
                                   color: const Color(0xFF707070),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13.0)),
-                          padding:
-                              new EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
+                          padding: new EdgeInsets.only(bottom: vw * 2.2))),
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
@@ -118,18 +125,9 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                       alignment: Alignment.centerLeft,
                     ),
                   ),
-                  new Expanded(
+                  new Container(
                       child: new Align(
-                          child: new IconButton(
-                              icon: new Icon(_favorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border),
-                              iconSize: 7 * vw,
-                              color: _favorite ? HEART : Colors.black12,
-                              onPressed: () {
-                                _toggleFav();
-                              }),
-                          alignment: Alignment.centerRight))
+                          child: new AvailabilityWidget(course.status)))
                 ])
               ]),
               decoration: new BoxDecoration(
@@ -137,7 +135,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                       bottom: new BorderSide(
                           color: new Color(0xFFDDDDDD), width: 1.0))),
               padding: new EdgeInsets.only(
-                  left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
+                  left: 3 * vw, top: 0.1 * vw, right: 3 * vw, bottom: 1 * vw))),
     );
   }
 
