@@ -1,4 +1,4 @@
-import 'package:courses_in_english/ui/scaffolds/login_screen.dart';
+import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
