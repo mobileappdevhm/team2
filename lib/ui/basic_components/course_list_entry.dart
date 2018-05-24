@@ -66,7 +66,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
               context,
               new MaterialPageRoute(
                 builder: (context) {
-                  return new CourseDetailsScaffold(course);
+                  return new CourseDetailsScaffold(course, department);
                 },
               ),
             );
@@ -104,15 +104,20 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
-                      child: new Align(
-                          child: new Text("FK ${course.department}",
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: department != null
-                                      ? department.color
-                                      : Colors.grey),
-                              textScaleFactor: 1.2),
-                          alignment: Alignment.centerLeft)),
+                    child: new Align(
+                      child: new Text(
+                        "Department ${course.department.toString().padLeft(2, '0')}",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: department != null
+                              ? department.color
+                              : Colors.grey,
+                        ),
+                        textScaleFactor: 1.2,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
                   new Expanded(
                       child: new Align(
                           child: new IconButton(

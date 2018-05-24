@@ -2,6 +2,7 @@ import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
@@ -9,8 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
+  final Department department;
 
-  CourseDetailsScaffold(this.course);
+  CourseDetailsScaffold(this.course, this.department);
 
   @override
   State<StatefulWidget> createState() => new _CourseDetailsScaffold();
@@ -64,7 +66,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                       new Text(
                         'Department ${widget.course.department.toString().padLeft(2, '0')}',
                         style: new TextStyle(
-                          color: Colors.cyan,
+                          color: widget.department.color,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
