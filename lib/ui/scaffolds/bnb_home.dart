@@ -11,7 +11,8 @@ class HomeScaffold extends StatefulWidget {
 
 class _HomeScaffoldState extends State<HomeScaffold> {
   static final int _initialIndex = 2;
-  final PageController _controller = new PageController(initialPage: _initialIndex, keepPage: true);
+  final PageController _controller =
+      new PageController(initialPage: _initialIndex, keepPage: true);
   final List<Widget> screens = [
     new CourseListScreen(),
     new LocationScreen(),
