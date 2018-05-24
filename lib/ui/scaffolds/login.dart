@@ -58,10 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
         new Container(
           child: new RaisedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new HomeScaffold()));
+              Navigator.pushReplacement(
+                context,
+                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+              );
             },
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(100000.0)),
