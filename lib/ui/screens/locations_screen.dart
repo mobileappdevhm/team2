@@ -1,35 +1,22 @@
-import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/ui/scaffolds/location_details.dart';
 import 'package:flutter/material.dart';
 
 /// Location screen showing the different campuses of the munich university of applied sciences.
 class LocationScreen extends StatefulWidget {
+  final List<Campus> campuses;
+
+  LocationScreen(this.campuses);
+
   @override
-  State<StatefulWidget> createState() => new _LocationState();
+  State<StatefulWidget> createState() => new _LocationState(this.campuses);
 }
 
 class _LocationState extends State<LocationScreen> {
-  /// Provider for campuses.
-  CampusProvider _campusProvider;
-
   /// List of campuses displayed.
   List<Campus> _campuses;
 
-  _LocationState() {
-    var data = new Data();
-
-    _campusProvider = data.campusProvider;
-
-    _campusProvider.getCampuses().then((campuses) {
-      if (mounted) {
-        setState(() {
-          _campuses = campuses;
-        });
-      }
-    });
-  }
+  _LocationState(this._campuses);
 
   @override
   Widget build(BuildContext context) {
