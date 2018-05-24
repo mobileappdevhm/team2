@@ -1,4 +1,4 @@
-import 'package:courses_in_english/ui/screens/sample_course_list.dart';
+import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
       ),
       body: new PageView(
         children: <Widget>[
-          new SampleCourseListScreen(),
+          new CourseListScreen(),
           new SampleScreen('Maps'),
           new TimetableScreen(),
           new SampleScreen('Favorites'),
