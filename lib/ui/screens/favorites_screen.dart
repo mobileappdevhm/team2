@@ -1,48 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
-import 'package:courses_in_english/connect/dataprovider/data.dart';
 
 class FavoriteListScreen extends StatefulWidget {
+  final List<Course> courses;
+
+  FavoriteListScreen(this.courses);
+
   @override
-  FavoriteListState createState() => new FavoriteListState();
+  FavoriteListState createState() => new FavoriteListState(this.courses);
 }
 
 class FavoriteListState extends State<FavoriteListScreen> {
   List<Course> courseList = new List<Course>();
-  final Data data = new Data();
 
-  FavoriteListState() {
-    final Set<int> favoriteCourseIDs = data.favoritesProvider.getFavorites();
-    for (int courseID in favoriteCourseIDs) {
-      data.courseProvider.getCourse(courseID).then((course) {
-        if (mounted) {
-          setState(() {
-            courseList.add(course);
-          });
-        }
-      });
-    }
-  }
+  FavoriteListState(this.courseList);
 
   @override
   Widget build(BuildContext context) {
-    Widget body;
-    if (courseList.isEmpty) {
-      body = loadingScreenView();
-    } else {
-      body = courseListView();
-    }
-
     return new Center(
-      child: body,
-    );
-  }
-
-  Widget loadingScreenView() {
-    return new Container(
-      alignment: Alignment.center,
-      child: new Text('Animation Time', textAlign: TextAlign.center),
+      child: courseListView(),
     );
   }
 
