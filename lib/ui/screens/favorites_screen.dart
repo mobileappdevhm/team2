@@ -28,8 +28,7 @@ class FavoriteListState extends State<FavoriteListScreen>
   }
 
   List<Widget> courseItems() {
-    return favs.map((course) => new CourseListEntry(course))
-        .toList();
+    return favs.map((course) => new CourseListEntry(course)).toList();
   }
 
   Widget courseListView() {
@@ -44,7 +43,8 @@ class FavoriteListState extends State<FavoriteListScreen>
 
   void updateFavs() {
     setState(() => favs = courseList
-        .where((course) => data.favoritesProvider.isFavored(course.id)).toList());
+        .where((course) => data.favoritesProvider.isFavored(course.id))
+        .toList());
   }
 
   @override
