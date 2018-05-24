@@ -17,8 +17,11 @@ class CourseListState extends State<CourseListScreen> {
   CourseListState() {
     final Future<List<Course>> courses = courseProvider.getCourses();
     courses.then((value) {
-      courseList = value;
-      setState(() {});
+      if (mounted) {
+        setState(() {
+          courseList = value;
+        });
+      }
     });
   }
 
