@@ -51,7 +51,7 @@ class TimetableEntry extends StatelessWidget {
                         shortenCoursName(course.lecturerName),
                         style: new TextStyle(
                           color: Colors.black,
-                          fontSize: fontSize +1 ,
+                          fontSize: fontSize + 1,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
