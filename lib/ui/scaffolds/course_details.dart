@@ -1,29 +1,40 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
+  final Department department;
 
-  CourseDetailsScaffold(this.course);
+  CourseDetailsScaffold(this.course, this.department);
 
   @override
   State<StatefulWidget> createState() => new _CourseDetailsScaffold();
 }
 
-class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
+class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
+    implements FavoritesObserver {
+  static const Color HEART = const Color(0xFFFFA1A1);
   bool isFavored = false;
+  final Data data = new Data();
 
   @override
   void initState() {
     super.initState();
-    new Data().favoritesProvider.isFavored(widget.course.id).then((isFavored) {
-      setState(() {
-        this.isFavored = isFavored;
-      });
-    });
+    data.favoritesProvider.addObserver(this);
+    isFavored = data.favoritesProvider.isFavored(widget.course.id);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    data.favoritesProvider.removeObserver(this);
   }
 
   @override
@@ -55,7 +66,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                       new Text(
                         'Department ${widget.course.department.toString().padLeft(2, '0')}',
                         style: new TextStyle(
-                          color: Colors.cyan,
+                          color: widget.department.color,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -64,19 +75,18 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                   ),
                 ),
                 new IconButton(
-                    icon: new Icon(
-                      isFavored ? Icons.favorite : Icons.favorite_border,
-                      color: isFavored ? Colors.pink : Colors.black12,
-                    ),
-                    iconSize: 48.0,
-                    tooltip: isFavored
-                        ? 'Remove this course from your favorites.'
-                        : 'Add this course to your favorites.',
-                    onPressed: () => new Data()
-                        .favoritesProvider
-                        .toggleFavorite(widget.course.id)
-                        .then((favs) => setState(
-                            () => isFavored = favs.contains(widget.course.id))))
+                  icon: new Icon(
+                    isFavored ? Icons.favorite : Icons.favorite_border,
+                    color: isFavored ? HEART : Colors.black12,
+                  ),
+                  iconSize: 48.0,
+                  tooltip: isFavored
+                      ? 'Remove this course from your favorites.'
+                      : 'Add this course to your favorites.',
+                  onPressed: () => new Data()
+                      .favoritesProvider
+                      .toggleFavorite(widget.course.id),
+                ),
               ],
             ),
             new LineSeparator(title: 'Description'),
@@ -97,13 +107,14 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
               children: <Widget>[
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (ECTS): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
@@ -112,50 +123,68 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 4.5)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Credit points (US): ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
-                              text: 3.toString(), // TODO US Credit points
-                              style: new TextStyle(fontWeight: FontWeight.bold))
+                            text: 3.toString(), // TODO US Credit points
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 4.5)), //TODO Change to variable height
                     new RichText(
                       text: new TextSpan(
                         text: 'Hours per week: ',
                         style: new TextStyle(
                           color: Colors.black54,
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                         ),
                         children: [
                           new TextSpan(
-                              text: widget.course.semesterWeekHours.toString(),
-                              style: new TextStyle(fontWeight: FontWeight.bold))
+                            text: widget.course.semesterWeekHours.toString(),
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
+                    new Padding(
+                        padding: new EdgeInsets.only(
+                            top: 3.0)), //TODO Change to variable height
                   ],
                 ),
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     new _AvailabilityPlaceholder(widget.course.status),
+                    new RichText(
+                      text: new TextSpan(
+                        text: '${widget.course.lecturerName}',
+                        style: new TextStyle(
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
                     new FlatButton(
-                      onPressed: () {}, // TODO handle click on contact button
+                      onPressed: () => sendMail(),
                       padding: new EdgeInsets.all(0.0),
                       child: new Row(
                         children: <Widget>[
-                          new Icon(
-                            Icons.mail_outline,
-                            color: Colors.black54,
-                            size: 32.0,
-                          ),
+                          new Icon(Icons.mail_outline,
+                              color: Colors.black54, size: 32.0),
                           new Padding(
                             padding: new EdgeInsets.only(left: 4.0),
                             child: new Text(
@@ -178,9 +207,32 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
       ),
     );
   }
+
+  sendMail() async {
+    Lecturer lecturer;
+    Data data = new Data();
+    lecturer =
+        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
+    // Android and iOS
+    final uri =
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${widget.course.lecturerName},';
+    print(uri);
+    if (await canLaunch(uri)) {
+      launch(uri);
+    } else {
+      throw 'Could not launch $uri';
+    }
+  }
+
+  @override
+  void onFavoriteToggled() => setState(
+      () => isFavored = data.favoritesProvider.isFavored(widget.course.id));
 }
 
 class _AvailabilityPlaceholder extends StatelessWidget {
+  static const Color GREEN = const Color(0xFF83D183);
+  static const Color YELLOW = const Color(0xFFFFCC66);
+  static const Color RED = const Color(0xFFFF3366);
   final CourseStatus status;
 
   _AvailabilityPlaceholder(this.status);
@@ -218,19 +270,19 @@ class _AvailabilityPlaceholder extends StatelessWidget {
       case CourseStatus.RED:
         return new Icon(
           Icons.cancel,
-          color: Colors.red,
+          color: RED,
           size: 24.0,
         );
       case CourseStatus.YELLOW:
         return new Icon(
           Icons.remove_circle,
-          color: Colors.amber,
+          color: YELLOW,
           size: 24.0,
         );
       case CourseStatus.GREEN:
         return new Icon(
           Icons.check_circle,
-          color: Colors.green,
+          color: GREEN,
           size: 24.0,
         );
     }
@@ -247,7 +299,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Only \'Home\'',
           style: new TextStyle(
-            color: Colors.red,
+            color: RED,
             fontSize: 18.0,
           ),
         );
@@ -255,7 +307,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Limited',
           style: new TextStyle(
-            color: Colors.amber,
+            color: YELLOW,
             fontSize: 18.0,
           ),
         );
@@ -263,7 +315,7 @@ class _AvailabilityPlaceholder extends StatelessWidget {
         return new Text(
           'Available',
           style: new TextStyle(
-            color: Colors.green,
+            color: GREEN,
             fontSize: 18.0,
           ),
         );
