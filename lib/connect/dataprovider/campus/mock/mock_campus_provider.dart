@@ -12,6 +12,5 @@ class MockCampusProvider implements CampusProvider {
   ];
 
   @override
-  Future<List<Campus>> getCampuses() async =>
-      new Future.delayed(const Duration(seconds: 2), () => CAMPUSES);
+  Future<List<Campus>> getCampuses() async => new Future.delayed(const Duration(seconds: 2), () => CAMPUSES);
 }

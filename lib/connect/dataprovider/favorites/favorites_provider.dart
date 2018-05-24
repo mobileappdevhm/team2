@@ -15,9 +15,7 @@ abstract class FavoritesProvider {
 
   bool addObserver(FavoritesObserver observer) => _observers.add(observer);
 
-  bool removeObserver(FavoritesObserver observer) =>
-      _observers.remove(observer);
+  bool removeObserver(FavoritesObserver observer) => _observers.remove(observer);
 
-  void notifyObservers() =>
-      _observers.forEach((observer) => observer.onFavoriteToggled());
+  void notifyObservers() => _observers.forEach((observer) => observer.onFavoriteToggled());
 }

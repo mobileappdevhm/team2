@@ -18,8 +18,7 @@ class _StatusPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(new Offset(size.width / 2, size.height / 2),
-        size.height / 2, new Paint()..color = color);
+    canvas.drawCircle(new Offset(size.width / 2, size.height / 2), size.height / 2, new Paint()..color = color);
   }
 
   @override

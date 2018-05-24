@@ -47,9 +47,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
       (department) {
         setState(() => this.department = department);
 
-        data.lecturerProvider
-            .getLecturerById(course.lecturerId)
-            .then((lecturer) => setState(() => this.lecturer = lecturer));
+        data.lecturerProvider.getLecturerById(course.lecturerId).then((lecturer) => setState(() => this.lecturer = lecturer));
       },
     );
   }
@@ -76,31 +74,18 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                 new Row(children: <Widget>[
                   new Expanded(
                       child: new Text(course.name,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                          style: new TextStyle(fontWeight: FontWeight.bold),
-                          textScaleFactor: 1.2)),
+                          softWrap: true, overflow: TextOverflow.fade, style: new TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.2)),
                   new Container(
-                      child: new StatusWidget(course.status ==
-                              CourseStatus.GREEN
-                          ? GREEN
-                          : course.status == CourseStatus.RED ? RED : YELLOW),
+                      child: new StatusWidget(course.status == CourseStatus.GREEN ? GREEN : course.status == CourseStatus.RED ? RED : YELLOW),
                       height: vw * 5,
                       width: vw * 5)
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
                       child: new Container(
-                          child: new Text(
-                              lecturer != null && lecturer.name.isNotEmpty
-                                  ? "By " + lecturer.name
-                                  : "Professor unknown",
-                              style: new TextStyle(
-                                  color: Color(0xFF707070),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13.0)),
-                          padding:
-                              EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
+                          child: new Text(lecturer != null && lecturer.name.isNotEmpty ? "By " + lecturer.name : "Professor unknown",
+                              style: new TextStyle(color: Color(0xFF707070), fontWeight: FontWeight.bold, fontSize: 13.0)),
+                          padding: EdgeInsets.only(top: vw * 2, bottom: vw * 2)))
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
@@ -109,9 +94,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                         "Department ${course.department.toString().padLeft(2, '0')}",
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: department != null
-                              ? department.color
-                              : Colors.grey,
+                          color: department != null ? department.color : Colors.grey,
                         ),
                         textScaleFactor: 1.2,
                       ),
@@ -121,9 +104,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                   new Expanded(
                       child: new Align(
                           child: new IconButton(
-                              icon: new Icon(_favorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border),
+                              icon: new Icon(_favorite ? Icons.favorite : Icons.favorite_border),
                               iconSize: 7 * vw,
                               color: _favorite ? HEART : Colors.black12,
                               onPressed: () {
@@ -132,18 +113,13 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                           alignment: Alignment.centerRight))
                 ])
               ]),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      bottom: new BorderSide(
-                          color: new Color(0xFFDDDDDD), width: 1.0))),
-              padding: new EdgeInsets.only(
-                  left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
+              decoration: new BoxDecoration(border: new Border(bottom: new BorderSide(color: new Color(0xFFDDDDDD), width: 1.0))),
+              padding: new EdgeInsets.only(left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
     );
   }
 
   @override
-  void onFavoriteToggled() =>
-      setState(() => _favorite = data.favoritesProvider.isFavored(course.id));
+  void onFavoriteToggled() => setState(() => _favorite = data.favoritesProvider.isFavored(course.id));
 
   @override
   void dispose() {
