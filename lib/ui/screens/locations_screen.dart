@@ -1,7 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/ui/screens/location/location_detail_screen.dart';
+import 'package:courses_in_english/ui/scaffolds/location_details.dart';
 import 'package:flutter/material.dart';
 
 /// Location screen showing the different campuses of the munich university of applied sciences.
@@ -23,9 +23,11 @@ class _LocationState extends State<LocationScreen> {
     _campusProvider = data.campusProvider;
 
     _campusProvider.getCampuses().then((campuses) {
-      setState(() {
-        _campuses = campuses;
-      });
+      if (mounted) {
+        setState(() {
+          _campuses = campuses;
+        });
+      }
     });
   }
 
@@ -44,8 +46,9 @@ class _LocationState extends State<LocationScreen> {
                     Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) =>
-                              new LocationDetailScreen(campus.id)),
+                        builder: (context) =>
+                            new LocationDetailScreen(campus.id),
+                      ),
                     );
                   },
                   child: new Stack(
@@ -60,7 +63,9 @@ class _LocationState extends State<LocationScreen> {
                         child: new Text(
                           campus.name,
                           style: new TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w100),
+                            color: Colors.black,
+                            fontWeight: FontWeight.w100,
+                          ),
                           textScaleFactor: 3.0,
                         ),
                         color: new Color(0xCCFFFFFF),

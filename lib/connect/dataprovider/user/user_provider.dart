@@ -10,4 +10,9 @@ abstract class UserProvider {
 
   /// Try to log out a user. Returns whether the user could be logged out.
   Future<bool> logout(User user);
+
+  /// Creates a new User Object in the DB.
+  /// ToDo: add Password
+  Future<bool> createUser(
+      String username, String firstName, String lastName, int department);
 }
