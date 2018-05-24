@@ -1,5 +1,6 @@
 import 'package:courses_in_english/ui/screens/location/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
+import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -57,6 +58,8 @@ class _HomeScaffoldState extends State<HomeScaffold> {
           new CourseListScreen(),
           new LocationScreen(),
           new TimetableScreen(),
+          new SampleScreen('Favorites'),
+          new SampleScreen('Settings'),
         ],
         onPageChanged: (newIndex) {
           setState(() {
