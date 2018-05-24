@@ -1,4 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -15,17 +16,22 @@ class CourseDetailsScaffold extends StatefulWidget {
   State<StatefulWidget> createState() => new _CourseDetailsScaffold();
 }
 
-class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
+class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
+    implements FavoritesObserver {
   bool isFavored = false;
+  final Data data = new Data();
 
   @override
   void initState() {
     super.initState();
-    new Data().favoritesProvider.isFavored(widget.course.id).then((isFavored) {
-      setState(() {
-        this.isFavored = isFavored;
-      });
-    });
+    data.favoritesProvider.addObserver(this);
+    isFavored = data.favoritesProvider.isFavored(widget.course.id);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    data.favoritesProvider.removeObserver(this);
   }
 
   @override
@@ -76,12 +82,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
                       : 'Add this course to your favorites.',
                   onPressed: () => new Data()
                       .favoritesProvider
-                      .toggleFavorite(widget.course.id)
-                      .then(
-                        (favs) => setState(
-                              () => isFavored = favs.contains(widget.course.id),
-                            ),
-                      ),
+                      .toggleFavorite(widget.course.id),
                 ),
               ],
             ),
@@ -199,6 +200,10 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold> {
       throw 'Could not launch $uri';
     }
   }
+
+  @override
+  void onFavoriteToggled() => setState(
+      () => isFavored = data.favoritesProvider.isFavored(widget.course.id));
 }
 
 class _AvailabilityPlaceholder extends StatelessWidget {

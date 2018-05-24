@@ -1,3 +1,4 @@
+import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
@@ -16,7 +17,7 @@ class CourseListEntry extends StatefulWidget {
   _CourseListEntryState createState() => new _CourseListEntryState(course);
 }
 
-class _CourseListEntryState extends State {
+class _CourseListEntryState extends State implements FavoritesObserver {
   static const Color GREEN = const Color(0xFF83D183);
   static const Color YELLOW = const Color(0xFFFFCC66);
   static const Color RED = const Color(0xFFFF3366);
@@ -32,18 +33,15 @@ class _CourseListEntryState extends State {
   _CourseListEntryState(this.course);
 
   void _toggleFav() {
-    data.favoritesProvider
-        .toggleFavorite(course.id)
-        .then((favs) => setState(() => _favorite = favs.contains(course.id)));
+    data.favoritesProvider.toggleFavorite(course.id);
   }
 
   @override
   void initState() {
     super.initState();
 
-    data.favoritesProvider
-        .isFavored(course.id)
-        .then((isFavored) => setState(() => _favorite = isFavored));
+    data.favoritesProvider.addObserver(this);
+    _favorite = data.favoritesProvider.isFavored(course.id);
 
     data.departmentProvider.getDepartmentByNumber(course.department).then(
       (department) {
@@ -136,5 +134,15 @@ class _CourseListEntryState extends State {
               padding: new EdgeInsets.only(
                   left: 3 * vw, top: 4 * vw, right: 3 * vw, bottom: 1 * vw))),
     );
+  }
+
+  @override
+  void onFavoriteToggled() =>
+      setState(() => _favorite = data.favoritesProvider.isFavored(course.id));
+
+  @override
+  void dispose() {
+    super.dispose();
+    data.favoritesProvider.removeObserver(this);
   }
 }
