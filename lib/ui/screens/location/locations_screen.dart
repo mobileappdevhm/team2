@@ -1,7 +1,6 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/ui/animation/animated_image.dart';
 import 'package:courses_in_english/ui/screens/location/location_detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -76,11 +75,7 @@ class _LocationState extends State<LocationScreen> {
       );
     } else {
       return new Center(
-          child: new AnimatedImage(
-              animationImagePrefix: "frame",
-              animationRootFolder: "res/cow-anim",
-              duration: const Duration(seconds: 2),
-              imageCount: 120));
+          child: new Image(image: new AssetImage("res/anim_cow.gif")));
     }
   }
 }
