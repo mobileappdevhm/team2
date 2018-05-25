@@ -1,62 +1,33 @@
-import 'dart:async';
-
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/ui/animation/animated_image.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
 
 class TimetableScreen extends StatefulWidget {
+  final List<Course> courses;
+
+  TimetableScreen(this.courses);
+
   @override
-  TimetableState createState() => new TimetableState();
+  TimetableState createState() => new TimetableState(this.courses);
 }
 
 class TimetableState extends State<TimetableScreen> {
-  List<Course> initialCourseList = new List<Course>();
+  List<Course> courses = [];
 
-  final MockCourseProvider courseProvider = new MockCourseProvider();
-  final LecturerProvider lecturerProvider = new MockLecturerProvider();
+  TimetableState(this.courses);
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<Course>> courses = courseProvider.getCourses();
-    courses.then(
-      (value) {
-        initialCourseList = value;
-        setState(() {});
-      },
-    );
-
-    Widget body;
-    if (initialCourseList.isEmpty) {
-      body = loadingScreenView();
-    } else {
-      body = timetableView();
-    }
-
     return new Center(
-      child: body,
-    );
-  }
-
-  Widget loadingScreenView() {
-    return new Center(
-      child: new AnimatedImage(
-        animationImagePrefix: "frame",
-        animationRootFolder: "res/cow-anim",
-        duration: const Duration(seconds: 2),
-        imageCount: 120,
-      ),
+      child: timetableView(),
     );
   }
 
   Widget timetableView() {
     List<Course> courseList = new List();
     List<Course> removeCourseList = new List();
-    courseList.addAll(initialCourseList);
+    courseList.addAll(courses);
     DateTime today = new DateTime.now();
     List<Widget> timetableEntries = [];
     timetableEntries.add(

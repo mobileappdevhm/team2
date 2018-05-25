@@ -45,12 +45,15 @@ class _CourseListEntryState extends State implements FavoritesObserver {
 
     data.departmentProvider.getDepartmentByNumber(course.department).then(
       (department) {
-        setState(() => this.department = department);
-
-        this.lecturer = course.lecturerName;
-        this.timeAndDay = course.timeAndDay;
+        if (mounted) {
+          setState(() {
+            this.department = department;
+          });
+        }
       },
     );
+    this.lecturer = course.lecturerName;
+    this.timeAndDay = course.timeAndDay;
   }
 
   @override

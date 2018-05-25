@@ -33,7 +33,9 @@ jobs:
           - android-27
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
-      script: ../flutter/bin/flutter -v build apk
+      script: 
+        - ../flutter/bin/flutter doctor --android-licenses
+        - ../flutter/bin/flutter -v build apk
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Releases"
