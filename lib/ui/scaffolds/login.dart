@@ -3,7 +3,6 @@ import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -152,21 +151,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Container createButton() {
-    return new Container(
-      child: new FlatButton(
-        onPressed: () {
-          openRegister();
-        },
-        child: new Text(
-          "No Account yet? -> Create new User",
-          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-        ),
-      ),
-      alignment: AlignmentDirectional.topCenter,
-      margin: EdgeInsets.only(top: 5.0),
-    );
-  }
+  ///Later Needed for Implementation of registration for the Apps Server.
+  ///
+  ///Container createButton() {
+  //    return new Container(
+  //      child: new FlatButton(
+  //        onPressed: () {
+  //
+  //        },
+  //        child: new Text(
+  //          "No Account yet? -> Create new User",
+  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
+  //        ),
+  //      ),
+  //      alignment: AlignmentDirectional.topCenter,
+  //      margin: EdgeInsets.only(top: 5.0),
+  //    );
+  //  }
 
   Container titleRow() {
     return new Container(
@@ -190,17 +191,6 @@ class _LoginScreenState extends State<LoginScreen> {
           new MaterialPageRoute(builder: (context) => new HomeScaffold()),
         );
       }
-    }
-  }
-
-  void openRegister() async {
-    final uri = 'https://nine.wi.hm.edu/Account/Register';
-    if (await canLaunch(uri)) {
-      print("tadaaaa");
-      launch(uri);
-    } else {
-      print("baaaaa");
-      throw 'Could not launch $uri';
     }
   }
 }
