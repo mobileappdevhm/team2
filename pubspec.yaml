@@ -4,6 +4,8 @@ description: A new Flutter project.
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^3.0.0
+  mockito: "^2.2.3"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -24,6 +26,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    # Cow animation
+    - res/anim_cow.gif
+    # Locations
+    - res/location/campus_lothstr.png
+    - res/location/campus_karlstr.png
+    - res/location/campus_pasing.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

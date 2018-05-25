@@ -10,10 +10,18 @@ addons:
       - libstdc++6
       - fonts-droid
 before_script:
-  - git clone https://github.com/flutter/flutter.git -b alpha --depth 1
-  - ./flutter/bin/flutter doctor
-script:
-  - ./flutter/bin/flutter test
+  - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+  - ../flutter/bin/flutter doctor
+jobs:
+  include:
+    - stage: Test
+      language: generic
+      script:
+        - chmod 777 ./.no_camel.sh
+        - ./.no_camel.sh # file names are not allowed to include capital letters
+        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
+        - ../flutter/bin/flutter analyze
+        - ../flutter/bin/flutter test
 cache:
   directories:
   - $HOME/.pub-cache
