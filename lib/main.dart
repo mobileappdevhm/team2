@@ -1,5 +1,5 @@
+import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 
 void main() => runApp(new MyApp());
 
@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
         // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
-      home: new HomeScaffold(),
+      home: new LoginScreen(),
     );
   }
 }
