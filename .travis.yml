@@ -33,12 +33,12 @@ jobs:
           - android-28
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
-      script: 
+      script:
+        - /usr/local/android-sdk/tools/bin/sdkmanager --update
         - ../flutter/bin/flutter doctor --android-licenses
         - ../flutter/bin/flutter -v build apk
 before_deploy:
   # Set up git user name and tag this commit
-  - /usr/local/android-sdk/tools/bin/sdkmanager --update
   - git config --local user.name "Releases"
   - git config --local user.email "releases@cie-app.de"
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
