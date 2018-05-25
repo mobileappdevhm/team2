@@ -34,13 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 10.0),
                   ),
                   new Container(
-                    child: createButton(),
-                  ),
-                  new Container(
-                    child: new LineSeparator(),
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  ),
-                  new Container(
                     child: continueAsGuest(),
                   ),
                 ],
