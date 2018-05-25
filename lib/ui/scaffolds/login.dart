@@ -3,7 +3,7 @@ import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
-import 'package:courses_in_english/ui/scaffolds/create_user.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -163,10 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return new Container(
       child: new FlatButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new CreateUserScreen()));
+          openRegister();
         },
         child: new Text(
           "No Account yet? -> Create new User",
@@ -200,6 +197,17 @@ class _LoginScreenState extends State<LoginScreen> {
           new MaterialPageRoute(builder: (context) => new HomeScaffold()),
         );
       }
+    }
+  }
+
+  void openRegister() async {
+    final uri = 'https://nine.wi.hm.edu/Account/Register';
+    if (await canLaunch(uri)) {
+      print("tadaaaa");
+      launch(uri);
+    } else {
+      print("baaaaa");
+      throw 'Could not launch $uri';
     }
   }
 }
