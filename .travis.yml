@@ -28,13 +28,11 @@ jobs:
       android:
         components:
           # The BuildTools version used by your project
-          - build-tools-27.0.3
+          - build-tools-27.0.2
           # The SDK version used to compile your project
           - android-27
           # Sys image for eventual virtual devices
-          - sys-img-armeabi-v7a-android-27
-         licenses:
-           - 'android-sdk-license-.+'
+          - sys-img-armeabi-v7a-android-26
       script:
         - ../flutter/bin/flutter -v build apk
 cache:
