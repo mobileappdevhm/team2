@@ -33,7 +33,8 @@ jobs:
           - android-28
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
-      script: 
+      script:
+        - /usr/local/android-sdk/tools/bin/sdkmanager --update
         - ../flutter/bin/flutter doctor --android-licenses
         - ../flutter/bin/flutter -v build apk
 before_deploy:
