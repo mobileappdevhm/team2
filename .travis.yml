@@ -22,6 +22,21 @@ jobs:
         - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
         - ../flutter/bin/flutter analyze
         - ../flutter/bin/flutter test
+    - stage: Deploy
+      if: branch = master
+      language: android
+      android:
+        components:
+          # The BuildTools version used by your project
+          - build-tools-27.0.3
+          # The SDK version used to compile your project
+          - android-27
+          # Sys image for eventual virtual devices
+          - sys-img-armeabi-v7a-android-27
+         licenses:
+           - 'android-sdk-license-.+'
+      script:
+        - ../flutter/bin/flutter -v build apk
 cache:
   directories:
   - $HOME/.pub-cache
