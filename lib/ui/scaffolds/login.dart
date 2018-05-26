@@ -31,14 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   new Container(
                     child: new LineSeparator(),
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    margin: new EdgeInsets.symmetric(horizontal: 10.0),
                   ),
                   new Container(
                     child: createButton(),
                   ),
                   new Container(
                     child: new LineSeparator(),
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    margin: new EdgeInsets.symmetric(horizontal: 10.0),
                   ),
                   new Container(
                     child: continueAsGuest(),
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
-          margin: EdgeInsets.symmetric(vertical: 25.0),
+          margin: new EdgeInsets.symmetric(vertical: 25.0),
         ),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
         textColor: Colors.white,
       ),
       alignment: AlignmentDirectional.center,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: new EdgeInsets.symmetric(vertical: 10.0),
     );
   }
 
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            maxLength: 20,
+            //maxLength: 20, TODO REINSTATE
             decoration: new InputDecoration(
               labelText: "Input Username",
               icon: new Icon(Icons.person),
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
               FocusScope.of(context).requestFocus(passwordNode);
             },
           ),
-          margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment.topCenter),
     );
   }
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
         child: new TextFormField(
           maxLines: 1,
-          maxLength: 30,
+          //maxLength: 30,TODO REINSTATE
           decoration: new InputDecoration(
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
           controller: controller,
           focusNode: passwordNode,
         ),
-        margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       ),
     );
   }
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       alignment: AlignmentDirectional.topCenter,
-      margin: EdgeInsets.only(top: 5.0),
+      margin: new EdgeInsets.only(top: 5.0),
     );
   }
 
@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontWeight: FontWeight.w100, color: new Color(0xFF707070)),
             textScaleFactor: 2.5),
         alignment: AlignmentDirectional.center,
-        margin: EdgeInsets.symmetric(vertical: 20.0));
+        margin: new EdgeInsets.symmetric(vertical: 20.0));
   }
 
   void doLogin() {
