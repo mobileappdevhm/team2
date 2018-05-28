@@ -12,6 +12,7 @@ class LineSeparator extends StatelessWidget {
   final Color _textColor;
   final double _thickness;
   final double _padding;
+  final bool _isBold;
 
   LineSeparator({
     String title,
@@ -19,11 +20,13 @@ class LineSeparator extends StatelessWidget {
     Color textColor = DEFAULT_TEXT_COLOR,
     double thickness = DEFAULT_THICKNESS,
     double padding = DEFAULT_PADDING,
+    bool isBold = false,
   })  : _title = title,
         _color = color,
         _textColor = textColor,
         _thickness = thickness,
-        _padding = padding;
+        _padding = padding,
+        _isBold = isBold;
 
   @override
   build(BuildContext context) {
@@ -33,7 +36,7 @@ class LineSeparator extends StatelessWidget {
       style: new TextStyle(
         color: _textColor,
         fontSize: 20.0,
-        fontWeight: FontWeight.w300,
+        fontWeight: _isBold ? FontWeight.w500 : FontWeight.w300,
         letterSpacing: 3.0,
       ),
       text: _title,
