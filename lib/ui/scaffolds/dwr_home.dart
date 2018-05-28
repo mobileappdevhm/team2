@@ -23,7 +23,6 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
   bool departmentsDownloaded = false;
   Iterable<Department> departments;
 
-
   @override
   void initState() {
     super.initState();
