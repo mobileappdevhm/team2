@@ -1,6 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
@@ -19,6 +20,9 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
   List<Course> courses = [];
   bool campusesDownloaded = false;
   List<Campus> campuses = [];
+  bool departmentsDownloaded = false;
+  Iterable<Department> departments;
+
 
   @override
   void initState() {
@@ -91,7 +95,7 @@ class _DrawerScaffoldState extends State<DrawerScaffold> {
         ),
         body: new PageView(
           children: <Widget>[
-            new CourseListScreen(courses),
+            new CourseListScreen(courses, departments),
             new SampleScreen('Maps'),
             new TimetableScreen(courses),
             new SampleScreen('Favorites'),
