@@ -28,24 +28,13 @@ jobs:
       android:
         components:
           # The BuildTools version used by your project
-          - build-tools-28.0.2
+          - build-tools-27.0.2
           # The SDK version used to compile your project
           - android-27
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
-      script: 
-        - ../flutter/bin/flutter doctor --android-licenses
+      script:
         - ../flutter/bin/flutter -v build apk
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "Releases"
-  - git config --local user.email "releases@cie-app.de"
-  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-deploy:
-   provider: releases
-   api_key: $GithubToken
-   file: "build/app/outputs/apk/release/app-release.apk"
-   skip_cleanup: true
 cache:
   directories:
   - $HOME/.pub-cache
