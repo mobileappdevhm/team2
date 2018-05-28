@@ -1,6 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -22,6 +23,8 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   List<Course> courses = [];
   bool campusesDownloaded = false;
   List<Campus> campuses = [];
+  bool departmentsDownloaded = false;
+  Iterable<Department> departments;
 
   @override
   void initState() {
@@ -39,17 +42,23 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         this.campusesDownloaded = true;
       });
     });
+    data.departmentProvider.getDepartments().then((departments) {
+      setState(() {
+        this.departments = departments;
+        this.departmentsDownloaded = true;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
-    if (coursesDownloaded && campusesDownloaded) {
+    if (coursesDownloaded && campusesDownloaded && departmentsDownloaded) {
       List<Widget> screens = [
-        new CourseListScreen(courses),
+        new CourseListScreen(courses, departments),
         new LocationScreen(campuses),
         new TimetableScreen(courses),
-        new FavoriteListScreen(courses),
+        new FavoriteListScreen(courses, departments),
         new SampleScreen('Settings'),
       ];
       scaffold = new Scaffold(
