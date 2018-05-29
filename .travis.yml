@@ -14,12 +14,14 @@ before_script:
 jobs:
   include:
     - stage: Test
-      language: generic
+      language: dart
+      dart_task:
+      - dartfmt
       before_script:
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - chmod 777 ./.no_camel.sh
         - ./.no_camel.sh # file names are not allowed to include capital letters
-        - ./flutter/bin/cache/dart-sdk/bin/dartfmt -n lib # check if files are formatted according to dartfmt
+        #- ./flutter/bin/cache/dart-sdk/bin/dartfmt -n lib # check if files are formatted according to dartfmt
         - ./flutter/bin/flutter analyze
       script:
         - ./flutter/bin/flutter test
