@@ -9,19 +9,19 @@ addons:
     packages:
       - libstdc++6
       - fonts-droid
+before_script:
+  - git clone https://github.com/flutter/flutter.git -b beta --depth 1
 jobs:
   include:
     - stage: Test
       language: generic
       before_script:
-        - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
-        - ../flutter/bin/flutter doctor
         - chmod 777 ./.no_camel.sh
         - ./.no_camel.sh # file names are not allowed to include capital letters
-        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
-        - ../flutter/bin/flutter analyze
+        - $(./flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
+        - ./flutter/bin/flutter analyze
       script:
-        - ../flutter/bin/flutter test
+        - ./flutter/bin/flutter test
     - stage: Deploy
       if: branch = master
       language: android
@@ -33,6 +33,12 @@ jobs:
           - android-27
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      before_script:
+        - ../flutter/bin/flutter doctor
       script:
         - ../flutter/bin/flutter -v build apk
       before_deploy:
