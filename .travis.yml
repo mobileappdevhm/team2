@@ -16,7 +16,7 @@ jobs:
     - stage: Test
       language: dart
       dart_task:
-      - dartfmt
+        - dartfmt
       before_script:
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - chmod 777 ./.no_camel.sh
