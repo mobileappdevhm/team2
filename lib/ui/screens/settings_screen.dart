@@ -1,3 +1,4 @@
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 
@@ -24,24 +25,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         _newElement([
           Text('Enable automatic sync'),
-          Switch(value: false, onChanged: (bool changed) {}),
+          Switch(value: false, onChanged: (bool onChanged) => _doClick("autoSync", onChanged)),
         ]),
         _newElement([
           new Text('Offline mode'),
-          new Switch(value: false, onChanged: (bool changed) {})
-        ]),
-        _newElement([
-          new LineSeparator(
-            title: 'Secret Settings ;)',
-          )
-        ]),
-        _newElement([
-          new Text('Ficke deine Mutter'),
-          new Switch(value: true, onChanged: (bool changed) {})
-        ]),
-        _newElement([
-          new Text('Enable Secret 1'),
-          new Switch(value: false, onChanged: (bool changed) {})
+          new Switch(value: false, onChanged: (bool onChanged) => _doClick("offlineMode", onChanged))
         ]),
         _newElement([
           new LineSeparator(
@@ -51,13 +39,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         _newElement([
           new Text('Use alternative layout'),
-          new Switch(value: false, onChanged: (bool changed) {})
+          new Switch(value: false, onChanged: (bool onChanged) => _doClick("altLayout", onChanged))
         ]),
         _newElement([
           new LineSeparator(
             title: 'Language Settings',
             isBold: true,
           )
+        ]),
+        _newElement([
+          new LineSeparator(
+            title: 'Secret Settings ;)',
+          )
+        ]),
+        _newElement([
+          new Text('Enable Secret 1'),
+          new Switch(value: false, onChanged: (bool onChanged) => _doClick("secret1", onChanged))
         ]),
       ],
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,6 +74,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
       );
+    }
+  }
+
+  Data _data = new Data();
+
+  void _doClick(String toggle, var value) {
+    switch (toggle) {
+      case "autoSync":
+        _data.settingsProvider.getCurrentSettings().autoSync = value;
+        return;
+      case "offlineMode":
+        _data.settingsProvider.getCurrentSettings().offlineMode = value;
+        return;
+      case "altLayout":
+        _data.settingsProvider.getCurrentSettings().usesDrawer = value;
+        return;
+      case "language":
+        _data.settingsProvider.getCurrentSettings().language = value;
+        return;
+      case "secret1":
+        _data.settingsProvider.getCurrentSettings().secret1 = value;
+        return;
     }
   }
 }
