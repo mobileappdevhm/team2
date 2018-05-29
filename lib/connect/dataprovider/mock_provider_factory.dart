@@ -40,5 +40,6 @@ class MockProviderFactory implements ProviderFactory {
   CampusProvider createCampusProvider() => new MockCampusProvider();
 
   @override
-  UserSettingsProvider createSettingsProvider() => new MockUserSettingsProvider();
+  UserSettingsProvider createSettingsProvider() =>
+      new MockUserSettingsProvider();
 }

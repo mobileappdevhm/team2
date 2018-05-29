@@ -11,9 +11,9 @@ class UserSettings {
     bool offlineMode = false,
     bool usesDrawer = false,
     bool secret1 = false,
-  }) : autoSync = sync,
-       offlineMode = offlineMode,
-       usesDrawer = usesDrawer,
-       secret1 = secret1,
-       language = language;
+  })  : autoSync = sync,
+        offlineMode = offlineMode,
+        usesDrawer = usesDrawer,
+        secret1 = secret1,
+        language = language;
 }

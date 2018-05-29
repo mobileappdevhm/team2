@@ -25,11 +25,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         _newElement([
           Text('Enable automatic sync'),
-          Switch(value: false, onChanged: (bool onChanged) => _doClick("autoSync", onChanged)),
+          Switch(
+              value: false,
+              onChanged: (bool onChanged) => _doClick("autoSync", onChanged)),
         ]),
         _newElement([
           new Text('Offline mode'),
-          new Switch(value: false, onChanged: (bool onChanged) => _doClick("offlineMode", onChanged))
+          new Switch(
+              value: false,
+              onChanged: (bool onChanged) => _doClick("offlineMode", onChanged))
         ]),
         _newElement([
           new LineSeparator(
@@ -39,7 +43,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         _newElement([
           new Text('Use alternative layout'),
-          new Switch(value: false, onChanged: (bool onChanged) => _doClick("altLayout", onChanged))
+          new Switch(
+              value: false,
+              onChanged: (bool onChanged) => _doClick("altLayout", onChanged))
         ]),
         _newElement([
           new LineSeparator(
@@ -54,7 +60,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         _newElement([
           new Text('Enable Secret 1'),
-          new Switch(value: false, onChanged: (bool onChanged) => _doClick("secret1", onChanged))
+          new Switch(
+              value: false,
+              onChanged: (bool onChanged) => _doClick("secret1", onChanged))
         ]),
       ],
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
