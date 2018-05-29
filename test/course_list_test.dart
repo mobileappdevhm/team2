@@ -20,7 +20,6 @@ void main() {
 
   testWidgets('Test Course List Item Informations',
       (WidgetTester tester) async {
-
     // not working, dunno why
     //await data.courseProvider.getCourses().then((value) {
     await course_future.then((value) {
