@@ -3,31 +3,41 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 
 // Future pause(Duration d) => new Future.delayed(d);
 
 void main() {
-  final MockCourseProvider courseProvider = new MockCourseProvider();
-  final Future<List<Course>> courses_future = courseProvider.getCourses();
+  Data data = new Data();
+  Future<List<Course>> course_future = data.courseProvider.getCourses();
+  Future<Iterable<Department>> department_future =
+      data.departmentProvider.getDepartments();
   List<Course> courses;
+  Iterable<Department> departments;
 
   testWidgets('Test Course List Item Informations',
       (WidgetTester tester) async {
-    await courses_future.then((value) {
+
+    // not working, dunno why
+    //await data.courseProvider.getCourses().then((value) {
+    await course_future.then((value) {
       courses = value;
     });
 
-    await tester.pumpWidget(
-        new MaterialApp(
-          home: new CourseListScreen(courses),
-        ),
-        new Duration(seconds: 1));
+    // not working, dunno why
+    //await data.departmentProvider.getDepartments().then((value) {
+    await department_future.then((value) {
+      departments = value;
+    });
 
-    print("Yay");
-    // await pause(const Duration(milliseconds: 800));
+    print("reaching");
+    await tester.pumpWidget(new MaterialApp(
+      home: new CourseListScreen(courses, departments),
+    ));
+    print("not reaching");
 
     for (var course in courses) {
       expect(find.text(course.name), findsOneWidget);
@@ -40,11 +50,11 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(
       new MaterialApp(
-        home: new CourseListScreen(courses),
+        home: new CourseListScreen(courses, departments),
       ),
     );
 
-    print("YAY2");
+    print("YAY3");
     // await pause(const Duration(milliseconds: 800));
 
     expect(find.byIcon(Icons.favorite_border), findsNWidgets(courses.length));
