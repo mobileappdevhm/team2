@@ -9,14 +9,13 @@ addons:
     packages:
       - libstdc++6
       - fonts-droid
-before_script:
-  - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
-  - ../flutter/bin/flutter doctor
 jobs:
   include:
     - stage: Test
       language: generic
       before_script:
+        - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+        - ../flutter/bin/flutter doctor
         - chmod 777 ./.no_camel.sh
         - ./.no_camel.sh # file names are not allowed to include capital letters
         - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
