@@ -9,8 +9,6 @@ addons:
     packages:
       - libstdc++6
       - fonts-droid
-before_script:
-
 jobs:
   include:
     - stage: Test
