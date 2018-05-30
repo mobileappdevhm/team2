@@ -14,7 +14,7 @@ jobs:
     - stage: Test
       language: dart
       dart_task:
-      - test
+      - test: --platform vm
       - dartfmt: true
       before_script:
         # file names are not allowed to include capital letters
