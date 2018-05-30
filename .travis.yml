@@ -15,7 +15,7 @@ jobs:
       language: dart
       dart_task:
       - test
-      - dartfmt: true
+        dartfmt: true
       before_script:
         # file names are not allowed to include capital letters
         - chmod 777 ./.no_camel.sh
