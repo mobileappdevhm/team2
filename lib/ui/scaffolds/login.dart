@@ -3,7 +3,6 @@ import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
-import 'package:courses_in_english/ui/scaffolds/create_user.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,13 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   new Expanded(
                     child: login(),
-                  ),
-                  new Container(
-                    child: new LineSeparator(),
-                    margin: new EdgeInsets.symmetric(horizontal: 10.0),
-                  ),
-                  new Container(
-                    child: createButton(),
                   ),
                   new Container(
                     child: new LineSeparator(),
@@ -158,25 +150,23 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  Container createButton() {
-    return new Container(
-      child: new FlatButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new CreateUserScreen()));
-        },
-        child: new Text(
-          "No Account yet? -> Create new User",
-          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-        ),
-      ),
-      alignment: AlignmentDirectional.topCenter,
-      margin: new EdgeInsets.only(top: 5.0),
-    );
-  }
+  ///Later Needed for Implementation of registration for the Apps Server.
+  ///
+  ///Container createButton() {
+  //    return new Container(
+  //      child: new FlatButton(
+  //        onPressed: () {
+  //
+  //        },
+  //        child: new Text(
+  //          "No Account yet? -> Create new User",
+  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
+  //        ),
+  //      ),
+  //      alignment: AlignmentDirectional.topCenter,
+  //      margin: EdgeInsets.only(top: 5.0),
+  //    );
+  //  }
 
   Container titleRow() {
     return new Container(
