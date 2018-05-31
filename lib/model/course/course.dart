@@ -46,7 +46,8 @@ class Course {
   /// SWS, how many hours per weeks
   final num semesterWeekHours;
 
-  final TimeAndDay timeAndDay;
+  // An Entry for each lecture per week
+  final List<TimeAndDay> timeAndDay;
 
   const Course(
       this.id,

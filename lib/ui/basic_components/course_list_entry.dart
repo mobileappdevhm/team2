@@ -27,7 +27,6 @@ class _CourseListEntryState extends State implements FavoritesObserver {
   final Course course;
   Department department;
   String lecturer;
-  TimeAndDay timeAndDay;
   Data data = new Data();
 
   bool _favorite = false;
@@ -46,7 +45,6 @@ class _CourseListEntryState extends State implements FavoritesObserver {
     _favorite = data.favoritesProvider.isFavored(course.id);
 
     this.lecturer = course.lecturerName;
-    this.timeAndDay = course.timeAndDay;
   }
 
   @override
@@ -86,21 +84,6 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                           _toggleFav();
                         }),
                   ),
-                ]),
-                new Row(children: <Widget>[
-                  new Expanded(
-                      child: new Container(
-                          child: new Text(
-                              timeAndDay != null &&
-                                      timeAndDay.day != null &&
-                                      timeAndDay.duration != null
-                                  ? timeAndDay.toDate()
-                                  : "Time and Day Unknown",
-                              style: new TextStyle(
-                                  color: const Color(0xFF707070),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13.0)),
-                          padding: new EdgeInsets.only(bottom: vw * 2.2))),
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(

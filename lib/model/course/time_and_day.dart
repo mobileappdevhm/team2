@@ -1,9 +1,10 @@
 class TimeAndDay {
   final int day;
   final String duration;
-  final int slot;
+  final int hour;
+  final int minute;
 
-  const TimeAndDay(this.day, this.duration, this.slot);
+  const TimeAndDay(this.day, this.duration, this.hour, this.minute);
 
   String toDate() {
     String date = "";

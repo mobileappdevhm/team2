@@ -66,7 +66,7 @@ void main() {
     courseProvider.getCourses().then((List<Course> value) {
       expect(value, isNotEmpty);
     });
-    Course ref = Course(
+    Course ref = new Course(
         0,
         "Mobile Application Development",
         "Lothstraße",
@@ -80,7 +80,7 @@ void main() {
         30,
         5,
         4,
-        const TimeAndDay(5, "15:15 - 16:45", 5));
+        const [const TimeAndDay(5, "15:15 - 16:45", 15, 15)]);
     courseProvider.getCourse(0).then((Course value) {
       expect(ref.id, equals(value.id));
       expect(ref.availableSlots, equals(30));
@@ -89,7 +89,6 @@ void main() {
       expect(ref.ects, equals(5));
     });
   });
-
 
   test('Department Provider Test', () {
     DepartmentProvider departmentProvider = _data.departmentProvider;
@@ -108,7 +107,7 @@ void main() {
 
   test('Lecturer Provider Test', () {
     LecturerProvider departmentProvider = _data.lecturerProvider;
-    departmentProvider.getLecturerById(0).then((Lecturer value){
+    departmentProvider.getLecturerById(0).then((Lecturer value) {
       expect(value.email, equals("test@hm.edu"));
       expect(value.name, equalsIgnoringCase("Socher"));
     });

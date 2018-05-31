@@ -39,6 +39,16 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
 
   @override
   Widget build(BuildContext context) {
+    String date = "";
+    widget.course.timeAndDay.forEach((lecture) {
+      date += lecture.toDate() + "\n";
+    });
+
+    if (date == "") {
+      date = "Time and Day Unknown";
+    } else {
+      date.substring(0, date.length - 1);
+    }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -109,12 +119,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new Text(
-                        widget.course.timeAndDay != null &&
-                                widget.course.timeAndDay.day != null &&
-                                widget.course.timeAndDay.duration != null
-                            ? widget.course.timeAndDay.toDate()
-                            : "Time and Day Unknown",
+                    new Text(date,
                         style: new TextStyle(
                             color: Colors.black54,
                             fontSize: 18.0,
