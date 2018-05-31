@@ -46,16 +46,17 @@ class DatabaseHelper {
 //insertion
   Future<int> saveCampus(String name, String imagePath) async {
     var dbClient = await db;
-    Map<String,dynamic> tempCampus = new Map();
+    Map<String, dynamic> tempCampus = new Map();
     tempCampus["name"] = name;
     tempCampus["imagePath"] = imagePath;
     int res = await dbClient.insert("Campus", tempCampus); //Fix to map
     return res;
   }
 
-  Future<List<Map<String,dynamic>>> selectTable(String table) async {
+  Future<List<Map<String, dynamic>>> selectTable(String table) async {
     var dbClient = await db;
-    List<Map<String,dynamic>> res = await dbClient.rawQuery('SELECT * FROM $table');
+    List<Map<String, dynamic>> res =
+        await dbClient.rawQuery('SELECT * FROM $table');
     return res;
   }
 }

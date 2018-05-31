@@ -6,14 +6,13 @@ import 'package:courses_in_english/connect/dataprovider/databasehelper/databaseh
 
 /// Provider for campuses providing mock data.
 class SQLiteCampusProvider implements CampusProvider {
-
   @override
   Future<List<Campus>> getCampuses() async {
     List<Campus> campuses;
     DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String,dynamic>> rawCampusData = await dbh.selectTable("Campus");
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Campus");
 
-    void iterate(Map<String,dynamic> data){
+    void iterate(Map<String, dynamic> data) {
       campuses.add(new Campus(data['id'], data["name"], data["imagePath"]));
     }
 
@@ -21,7 +20,4 @@ class SQLiteCampusProvider implements CampusProvider {
 
     return (new Future.delayed(const Duration(seconds: 1), () => campuses));
   }
-
-
-
 }
