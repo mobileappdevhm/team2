@@ -218,8 +218,8 @@ class _Sky extends CustomPainter {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color.fromRGBO(135, 202, 255, 1.0),
-          Color.fromRGBO(226, 242, 255, 1.0)
+          new Color.fromRGBO(135, 202, 255, 1.0),
+          new Color.fromRGBO(226, 242, 255, 1.0)
         ],
         stops: [
           0.0,
