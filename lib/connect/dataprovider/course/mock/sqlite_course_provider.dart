@@ -201,16 +201,86 @@ Multidimensional Oscillations. Applications for engineering problems.
 
   @override
   Future<Iterable<Course>> getCoursesByDepartment(int department) async {
-    return new Future.delayed(const Duration(milliseconds: 500),
-        () => MOCK_COURSES.where((course) => course.department == department));
+    List<Course> courses = [];
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> rawCampusData =
+        await dbh.selectWhere("Course", "department", department.toString());
+
+    void addCourse(Map<String, dynamic> data) {
+      String tempCourseStatusName = data["status"];
+      CourseStatus tempCourseStatus = tempCourseStatusName == "red"
+          ? CourseStatus.RED
+          : tempCourseStatusName == "yellow"
+              ? CourseStatus.YELLOW
+              : CourseStatus.GREEN;
+      List<int> courseFacultyAvailableList = [];
+      courseFacultyAvailableList
+          .addAll(data["courseFacultyAvailable"].split(","));
+      Course tempCourse = new Course(
+          data['id'],
+          data["name"],
+          data["location"],
+          data["description"],
+          data["department"],
+          data["lecturerId"],
+          data["lecturerName"],
+          data["room"],
+          tempCourseStatus,
+          courseFacultyAvailableList,
+          data["availableSlots"],
+          data["ects"],
+          data["semesterWeekHours"],
+          new TimeAndDay(data["day"], data["duration"], data["slot"]));
+
+      courses.add(tempCourse);
+    }
+
+    rawCampusData.forEach(addCourse);
+
+    return (new Future.delayed(const Duration(seconds: 1), () => courses));
   }
 
   @override
   Future<Iterable<Course>> getCoursesByDepartments(
       List<int> departments) async {
+    List<Course> courses = [];
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Course");
+
+    void addCourse(Map<String, dynamic> data) {
+      String tempCourseStatusName = data["status"];
+      CourseStatus tempCourseStatus = tempCourseStatusName == "red"
+          ? CourseStatus.RED
+          : tempCourseStatusName == "yellow"
+              ? CourseStatus.YELLOW
+              : CourseStatus.GREEN;
+      List<int> courseFacultyAvailableList = [];
+      courseFacultyAvailableList
+          .addAll(data["courseFacultyAvailable"].split(","));
+      Course tempCourse = new Course(
+          data['id'],
+          data["name"],
+          data["location"],
+          data["description"],
+          data["department"],
+          data["lecturerId"],
+          data["lecturerName"],
+          data["room"],
+          tempCourseStatus,
+          courseFacultyAvailableList,
+          data["availableSlots"],
+          data["ects"],
+          data["semesterWeekHours"],
+          new TimeAndDay(data["day"], data["duration"], data["slot"]));
+
+      courses.add(tempCourse);
+    }
+
+    rawCampusData.forEach(addCourse);
+
     return new Future.delayed(
         const Duration(milliseconds: 600),
-        () => MOCK_COURSES
-            .where((course) => departments.contains(course.department)));
+        () =>
+            courses.where((course) => departments.contains(course.department)));
   }
 }
