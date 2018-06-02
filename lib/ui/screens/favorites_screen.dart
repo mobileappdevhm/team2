@@ -20,7 +20,7 @@ class FavoriteListState extends State<FavoriteListScreen>
   final List<Course> courseList;
   final Iterable<Department> departments;
 
-  List<Course> favs = [];
+  List<Course> favoriteCourseList = [];
   final Data data = new Data();
 
   FavoriteListState(this.courseList, this.departments);
@@ -32,10 +32,20 @@ class FavoriteListState extends State<FavoriteListScreen>
     );
   }
 
-  List<Widget> courseItems() {
+  Widget courseListView() {
+    return new Container(
+      constraints: new BoxConstraints.expand(),
+      alignment: Alignment.center,
+      child: new ListView(
+        children: favoriteCourseWidgets(),
+      ),
+    );
+  }
+
+  List<Widget> favoriteCourseWidgets() {
     //return favs.map((course) => new CourseListEntry(course, department)).toList();
     List<Widget> courseWidgets = new List<Widget>();
-    for (var course in favs) {
+    for (var course in favoriteCourseList) {
       Department department = departments
           .firstWhere((Department d) => d.number == course.department);
       courseWidgets.add(new CourseListEntry(course, department));
@@ -43,18 +53,8 @@ class FavoriteListState extends State<FavoriteListScreen>
     return courseWidgets;
   }
 
-  Widget courseListView() {
-    return new Container(
-      constraints: new BoxConstraints.expand(),
-      alignment: Alignment.center,
-      child: new ListView(
-        children: courseItems(),
-      ),
-    );
-  }
-
   void updateFavs() {
-    setState(() => favs = courseList
+    setState(() => favoriteCourseList = courseList
         .where((course) => data.favoritesProvider.isFavored(course.id))
         .toList());
   }
