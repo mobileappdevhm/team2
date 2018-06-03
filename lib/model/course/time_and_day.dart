@@ -20,7 +20,8 @@ class TimeAndDay {
     date = dayOfWeek[day - 1] + " " + duration;
     return date;
   }
-  String getStringDay(){
+
+  String getStringDay() {
     List<String> dayOfWeek = [
       "Monday",
       "Tuesday",
@@ -30,6 +31,6 @@ class TimeAndDay {
       "Saturday",
       "Sunday",
     ];
-    return dayOfWeek[day-1];
+    return dayOfWeek[day - 1];
   }
 }
