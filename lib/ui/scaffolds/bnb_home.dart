@@ -32,12 +32,13 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
     return new AppBar(
-      title: new Text('My Home Page'),
-      actions: _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : [null],
+      title: new Text('Courses in English'),
+      centerTitle: true,
+      actions: _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
     );
   }
 
-
+  
 
   _search(String term){
     //TODO: Implement search
@@ -66,6 +67,14 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         this.departmentsDownloaded = true;
       });
     });
+
+    // Initialize searchBar
+    searchBar = new SearchBar(
+      inBar: true,
+      setState: setState,
+      onSubmitted: print,
+      buildDefaultAppBar: buildAppBar
+    );
   }
 
   @override
@@ -112,7 +121,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             });
           },
         ),
-        appBar: buildAppBar(context),
+        appBar: searchBar.build(context),
         body: new PageView(
           controller: _controller,
           children: screens,
