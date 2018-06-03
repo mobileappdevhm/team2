@@ -74,11 +74,11 @@ void main() {
     campuses.add(new Campus(0, "Campus1", "/path/to/image"));
     campuses.add(new Campus(1, "Campus2", "/path/to/image2"));
 
-    int res = await campusProvider.putCampuses(campuses);
-    expect(res, 0);
-    print(res);
-    campuses = await campusProvider.getCampuses();
-    expect(campuses, isNotEmpty);
+//    int res = await campusProvider.putCampuses(campuses);
+//    expect(res, 0);
+//    print(res);
+//    campuses = await campusProvider.getCampuses();
+//    expect(campuses, isNotEmpty);
 
   });
 
