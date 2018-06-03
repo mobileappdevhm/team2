@@ -4,14 +4,14 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class CourseListScreen extends StatefulWidget {
-  final List<Course> courses;
+  final List<Course> courseList;
   final Iterable<Department> departments;
 
-  CourseListScreen(this.courses, this.departments);
+  CourseListScreen(this.courseList, this.departments);
 
   @override
   CourseListState createState() =>
-      new CourseListState(this.courses, this.departments);
+      new CourseListState(this.courseList, this.departments);
 }
 
 class CourseListState extends State<CourseListScreen> {
@@ -43,7 +43,7 @@ class CourseListState extends State<CourseListScreen> {
 
   List<Widget> courseItems() {
     List<Widget> courseWidgets = new List<Widget>();
-    for (var course in courseList) {
+    for (Course course in courseList) {
       Department department = departments
           .firstWhere((Department d) => d.number == course.department);
       courseWidgets.add(new CourseListEntry(course, department));
