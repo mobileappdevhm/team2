@@ -15,4 +15,34 @@ class SqliteLecturerProvider implements LecturerProvider {
     return new Future.delayed(const Duration(milliseconds: 200),
             () => tempLecturer);
   }
+
+  Future<List<Lecturer>> getLecturers() async {
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> lecturerData = await dbh.selectTable("Lecturer");
+    List<Lecturer> lecturers = [];
+
+    void addLecturer(Map<String, dynamic> data) {
+      Lecturer tempLecturer = new Lecturer(data["id"], data["name"], data["email"]);
+
+      lecturers.add(tempLecturer);
+    }
+
+    lecturerData.forEach(addLecturer);
+
+    return new Future.delayed(const Duration(milliseconds: 200),
+            () => lecturers);
+  }
+
+  Future<int> putLecturer(List<Lecturer> lecturers) async {
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> lecturerList = [];
+
+    void iterate(Lecturer data) {
+      lecturerList.add(data.toMap());
+    }
+
+    lecturers.forEach(iterate);
+
+    return dbh.insertTable("Lecturer", lecturerList);
+  }
 }

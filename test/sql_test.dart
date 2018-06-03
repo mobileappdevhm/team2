@@ -20,6 +20,11 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:test/test.dart';
+import "dart:async";
+import 'package:path_provider/path_provider.dart';
+
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+
 
 void main() {
   SqliteData _data;
@@ -61,8 +66,22 @@ void main() {
     expect(favoritesProvider.getFavorites(), isEmpty);
   });
 
-
   /**Start of SQL tests*/
+
+  test('SQL Campus Test', () async {
+    SqliteCampusProvider campusProvider = _data.campusProvider;
+    List<Campus> campuses = [];
+    campuses.add(new Campus(0, "Campus1", "/path/to/image"));
+    campuses.add(new Campus(1, "Campus2", "/path/to/image2"));
+
+    int res = await campusProvider.putCampuses(campuses);
+    expect(res, 0);
+    print(res);
+    campuses = await campusProvider.getCampuses();
+    expect(campuses, isNotEmpty);
+
+  });
+
 
   /*
   test('SQL Campus Provider Test', () {

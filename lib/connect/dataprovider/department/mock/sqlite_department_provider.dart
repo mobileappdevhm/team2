@@ -63,4 +63,17 @@ class SqliteDepartmentProvider implements DepartmentProvider {
     return new Future.delayed(
         const Duration(milliseconds: 300), () => departments);
   }
+
+  Future<int> putDepartments(List<Department> departments) async {
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> departmentList = [];
+
+    void iterate(Department data) {
+      departmentList.add(data.toMap());
+    }
+
+    departments.forEach(iterate);
+
+    return dbh.insertTable("Department", departmentList);
+  }
 }

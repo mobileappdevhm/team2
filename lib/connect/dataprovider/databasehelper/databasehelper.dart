@@ -43,14 +43,18 @@ class DatabaseHelper {
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
   }
 
-//insertion
-  Future<int> saveCampus(String name, String imagePath) async {
+  Future<int> insertTable (String table, List<Map<String, dynamic>> dataList) async {
     var dbClient = await db;
-    Map<String, dynamic> tempCampus = new Map();
-    tempCampus["name"] = name;
-    tempCampus["imagePath"] = imagePath;
-    int res = await dbClient.insert("Campus", tempCampus); //Fix to map
-    return res;
+    int returnValue = 0;
+
+    void iterate(Map<String, dynamic> data) async{
+      int tempReturnValue = await dbClient.insert(table, data);
+      tempReturnValue == 0 ? null : returnValue = tempReturnValue;
+    }
+
+    dataList.forEach(iterate);
+
+    return returnValue;
   }
 
   Future<List<Map<String, dynamic>>> selectTable(String table) async {
@@ -60,27 +64,19 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<Map<String, dynamic>> selectCourseCourseId(
-      String table, String courseId) async {
-    var dbClient = await db;
-    List<Map<String, dynamic>> res =
-        await dbClient.rawQuery('SELECT * FROM $table');
-    return res[0];
-  }
-
   Future<List<Map<String, dynamic>>> selectWhere(
-      String table, String whereColoum, String whereArgs) async {
+      String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
-        columns: ["*"], where: '$whereColoum = ?', whereArgs: [whereArgs]);
+        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res;
   }
 
   Future<Map<String, dynamic>> selectOneWhere(
-      String table, String whereColoum, String whereArgs) async {
+      String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
-        columns: ["*"], where: '$whereColoum = ?', whereArgs: [whereArgs]);
+        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res[0];
   }
 }

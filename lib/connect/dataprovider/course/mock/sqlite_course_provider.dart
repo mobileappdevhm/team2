@@ -21,8 +21,12 @@ class SqliteCourseProvider implements CourseProvider {
         : tempCourseStatusName == "yellow"
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
-    List<int> courseFacultyAvailableList =
-        data["courseFacultyAvailable"].split(",");
+    List<int> courseFacultyAvailableList = [];
+    try {
+      courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
+    } catch(e){
+      courseFacultyAvailableList.clear();
+    }
     return new Course(
         data['id'],
         data["name"],
@@ -54,8 +58,11 @@ class SqliteCourseProvider implements CourseProvider {
               ? CourseStatus.YELLOW
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
-      courseFacultyAvailableList
-          .addAll(data["courseFacultyAvailable"].split(","));
+      try {
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
+      } catch(e){
+        courseFacultyAvailableList.clear();
+      }
       Course tempCourse = new Course(
           data['id'],
           data["name"],
@@ -95,8 +102,11 @@ class SqliteCourseProvider implements CourseProvider {
               ? CourseStatus.YELLOW
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
-      courseFacultyAvailableList
-          .addAll(data["courseFacultyAvailable"].split(","));
+      try {
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
+      } catch(e){
+        courseFacultyAvailableList.clear();
+      }
       Course tempCourse = new Course(
           data['id'],
           data["name"],
@@ -136,8 +146,11 @@ class SqliteCourseProvider implements CourseProvider {
               ? CourseStatus.YELLOW
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
-      courseFacultyAvailableList
-          .addAll(data["courseFacultyAvailable"].split(","));
+      try {
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
+      } catch(e){
+        courseFacultyAvailableList.clear();
+      }
       Course tempCourse = new Course(
           data['id'],
           data["name"],
@@ -163,5 +176,18 @@ class SqliteCourseProvider implements CourseProvider {
         const Duration(milliseconds: 600),
         () =>
             courses.where((course) => departments.contains(course.department)));
+  }
+
+  Future<int> putCourses(List<Course> courses) async {
+    List<Map<String, dynamic>> coursesList = [];
+    DatabaseHelper dbh = new DatabaseHelper();
+
+    void iterate(Course data) {
+      coursesList.add(data.toMap());
+    }
+
+    courses.forEach(iterate);
+
+    return dbh.insertTable("Course", coursesList);
   }
 }
