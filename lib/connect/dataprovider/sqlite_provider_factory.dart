@@ -20,7 +20,8 @@ class SqliteProviderFactory implements ProviderFactory {
   CourseProvider createCourseProvider() => new SqliteCourseProvider();
 
   @override
-  DepartmentProvider createDepartmentProvider() => new SqliteDepartmentProvider();
+  DepartmentProvider createDepartmentProvider() =>
+      new SqliteDepartmentProvider();
 
   @override
   LecturerProvider createLecturerProvider() => new SqliteLecturerProvider();

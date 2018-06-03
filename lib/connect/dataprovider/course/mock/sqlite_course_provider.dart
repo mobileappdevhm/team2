@@ -7,7 +7,6 @@ import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 class SqliteCourseProvider implements CourseProvider {
-
   @override
   Future<Course> getCourse(int courseId) async {
     DatabaseHelper dbh = new DatabaseHelper();
@@ -23,8 +22,10 @@ class SqliteCourseProvider implements CourseProvider {
             : CourseStatus.GREEN;
     List<int> courseFacultyAvailableList = [];
     try {
-      courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
-    } catch(e){
+      courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
+          .map((val) => int.parse(val))
+          .toList();
+    } catch (e) {
       courseFacultyAvailableList.clear();
     }
     return new Course(
@@ -59,8 +60,10 @@ class SqliteCourseProvider implements CourseProvider {
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
       try {
-        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
-      } catch(e){
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
+            .map((val) => int.parse(val))
+            .toList();
+      } catch (e) {
         courseFacultyAvailableList.clear();
       }
       Course tempCourse = new Course(
@@ -103,8 +106,10 @@ class SqliteCourseProvider implements CourseProvider {
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
       try {
-        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
-      } catch(e){
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
+            .map((val) => int.parse(val))
+            .toList();
+      } catch (e) {
         courseFacultyAvailableList.clear();
       }
       Course tempCourse = new Course(
@@ -147,8 +152,10 @@ class SqliteCourseProvider implements CourseProvider {
               : CourseStatus.GREEN;
       List<int> courseFacultyAvailableList = [];
       try {
-        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(',')).map((val) => int.parse(val)).toList();
-      } catch(e){
+        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
+            .map((val) => int.parse(val))
+            .toList();
+      } catch (e) {
         courseFacultyAvailableList.clear();
       }
       Course tempCourse = new Course(

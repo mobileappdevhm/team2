@@ -11,7 +11,8 @@ import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart'
 /// Where to get all data from!
 class SqliteData {
   /// Singleton instance
-  static final SqliteData _instance = new SqliteData._internal(new SqliteProviderFactory());
+  static final SqliteData _instance =
+      new SqliteData._internal(new SqliteProviderFactory());
 
   CourseProvider courseProvider;
   SelectionProvider selectionProvider;

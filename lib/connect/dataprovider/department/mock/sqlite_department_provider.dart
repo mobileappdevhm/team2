@@ -40,20 +40,24 @@ class SqliteDepartmentProvider implements DepartmentProvider {
   @override
   Future<Department> getDepartmentByNumber(int departmentNumber) async {
     DatabaseHelper dbh = new DatabaseHelper();
-    Map<String, dynamic> departmentData = await dbh.selectOneWhere("Department", "id", departmentNumber.toString());
-    Department tempDepartment = new Department(departmentData["id"], departmentData["name"], new Color(departmentData["color"]));
-    return new Future.delayed(const Duration(milliseconds: 200),
-        () => tempDepartment);
+    Map<String, dynamic> departmentData = await dbh.selectOneWhere(
+        "Department", "id", departmentNumber.toString());
+    Department tempDepartment = new Department(departmentData["id"],
+        departmentData["name"], new Color(departmentData["color"]));
+    return new Future.delayed(
+        const Duration(milliseconds: 200), () => tempDepartment);
   }
 
   @override
   Future<Iterable<Department>> getDepartments() async {
     List<Department> departments = [];
     DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String, dynamic>> rawDepartmentData = await dbh.selectTable("Department");
+    List<Map<String, dynamic>> rawDepartmentData =
+        await dbh.selectTable("Department");
 
     void addDepartment(Map<String, dynamic> data) {
-      Department tempDepartment = new Department(data["id"], data["name"], new Color(data["color"]));
+      Department tempDepartment =
+          new Department(data["id"], data["name"], new Color(data["color"]));
 
       departments.add(tempDepartment);
     }

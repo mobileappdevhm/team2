@@ -5,7 +5,7 @@ class Campus {
 
   const Campus(this.id, this.name, this.imagePath);
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
     tempMap["id"] = this.id;
     tempMap["name"] = this.name;

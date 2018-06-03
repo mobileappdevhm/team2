@@ -43,11 +43,12 @@ class DatabaseHelper {
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
   }
 
-  Future<int> insertTable (String table, List<Map<String, dynamic>> dataList) async {
+  Future<int> insertTable(
+      String table, List<Map<String, dynamic>> dataList) async {
     var dbClient = await db;
     int returnValue = 0;
 
-    void iterate(Map<String, dynamic> data) async{
+    void iterate(Map<String, dynamic> data) async {
       int tempReturnValue = await dbClient.insert(table, data);
       tempReturnValue == 0 ? null : returnValue = tempReturnValue;
     }
