@@ -1,7 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/course/course_status.dart';
-import 'package:courses_in_english/model/course/time_and_day.dart';
 
 String createIcs(List<Course> courses) {
   String result =
