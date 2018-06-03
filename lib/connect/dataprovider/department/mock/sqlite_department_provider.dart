@@ -6,7 +6,7 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 /// Mock department provider holding mock department data.
-class SqlDepartmentProvider implements DepartmentProvider {
+class SqliteDepartmentProvider implements DepartmentProvider {
   static const Map<int, Department> MOCK_DEPARTMENTS = const <int, Department>{
     1: const Department(1, "Architecture", const Color(0xFF014085)),
     2: const Department(2, "Civil Engineering", const Color(0xFF008db8)),

@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 /// Mock lecturer provider providing lecturers from the mock courses.
-class SqlLecturerProvider implements LecturerProvider {
+class SqliteLecturerProvider implements LecturerProvider {
 
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {

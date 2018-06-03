@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 /// Provider for campuses providing mock data.
-class SQLiteCampusProvider implements CampusProvider {
+class SqliteCampusProvider implements CampusProvider {
   @override
   Future<List<Campus>> getCampuses() async {
     List<Campus> campuses;
