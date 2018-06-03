@@ -7,6 +7,7 @@ import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScaffold extends StatefulWidget {
@@ -25,6 +26,23 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   List<Campus> campuses = [];
   bool departmentsDownloaded = false;
   Iterable<Department> departments;
+  SearchBar searchBar;
+
+  // Builds the app bar depending on current screen
+  // When on course_list screen, add search functionality
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      title: new Text('My Home Page'),
+      actions: _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : [null],
+    );
+  }
+
+
+
+  _search(String term){
+    //TODO: Implement search
+    print("Searching for $term");
+  }
 
   @override
   void initState() {
@@ -94,10 +112,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             });
           },
         ),
-        appBar: new AppBar(
-          title: new Text('Courses in English'),
-          centerTitle: true,
-        ),
+        appBar: buildAppBar(context),
         body: new PageView(
           controller: _controller,
           children: screens,
