@@ -1,30 +1,29 @@
-import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/campus/mock/sqlite_campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/sqlite_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/sqlite_data.dart';
-import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/mock/sqlite_department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favorites_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/mock/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/course/course_status.dart';
-import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
+//import 'package:courses_in_english/model/course/course.dart';
+//import 'package:courses_in_english/model/course/course_status.dart';
+//import 'package:courses_in_english/model/course/time_and_day.dart';
+//import 'package:courses_in_english/model/department/department.dart';
+//import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:test/test.dart';
-import "dart:async";
-import 'package:path_provider/path_provider.dart';
+//import "dart:async";
+//import 'package:path_provider/path_provider.dart';
 
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
-
+//import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 void main() {
   SqliteData _data;
@@ -69,7 +68,7 @@ void main() {
   /**Start of SQL tests*/
 
   test('SQL Campus Test', () async {
-    SqliteCampusProvider campusProvider = _data.campusProvider;
+//    SqliteCampusProvider campusProvider = _data.campusProvider;
     List<Campus> campuses = [];
     campuses.add(new Campus(0, "Campus1", "/path/to/image"));
     campuses.add(new Campus(1, "Campus2", "/path/to/image2"));
@@ -79,9 +78,7 @@ void main() {
 //    print(res);
 //    campuses = await campusProvider.getCampuses();
 //    expect(campuses, isNotEmpty);
-
   });
-
 
   /*
   test('SQL Campus Provider Test', () {
@@ -140,5 +137,4 @@ void main() {
       expect(value.name, equalsIgnoringCase("Socher"));
     });
   });    */
-
 }
