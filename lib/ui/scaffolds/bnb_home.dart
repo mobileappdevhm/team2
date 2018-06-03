@@ -21,12 +21,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
   bool coursesDownloaded = false;
-  List<Course> courses = [];
+  List<Course> displayedCourses = [];
+  // Keep an attribute with all courses to avoid repeated requests
+  List<Course> allCourses = [];
   bool campusesDownloaded = false;
   List<Campus> campuses = [];
   bool departmentsDownloaded = false;
   Iterable<Department> departments;
   SearchBar searchBar;
+  Data data = new Data();
 
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
@@ -34,24 +37,33 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     return new AppBar(
       title: new Text('Courses in English'),
       centerTitle: true,
-      actions: _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+      actions:
+          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
     );
   }
 
-  
+  _updateList(String term) {
+    List<Course> filteredCourses = new List<Course>();
 
-  _search(String term){
-    //TODO: Implement search
-    print("Searching for $term");
+    for (Course course in allCourses) {
+      if ((course.name != null && course.name.contains(term)) ||
+          course.description != null && course.description.contains(term)) {
+        filteredCourses.add(course);
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    Data data = new Data();
+
     data.courseProvider.getCourses().then((courses) {
       setState(() {
-        this.courses = courses;
+        this.displayedCourses = this.allCourses = courses;
         this.coursesDownloaded = true;
       });
     });
@@ -70,11 +82,10 @@ class _HomeScaffoldState extends State<HomeScaffold> {
 
     // Initialize searchBar
     searchBar = new SearchBar(
-      inBar: true,
-      setState: setState,
-      onSubmitted: print,
-      buildDefaultAppBar: buildAppBar
-    );
+        inBar: true,
+        setState: setState,
+        onSubmitted: _updateList,
+        buildDefaultAppBar: buildAppBar);
   }
 
   @override
@@ -82,10 +93,10 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     Widget scaffold;
     if (coursesDownloaded && campusesDownloaded && departmentsDownloaded) {
       List<Widget> screens = [
-        new CourseListScreen(courses, departments),
+        new CourseListScreen(displayedCourses, departments),
         new LocationScreen(campuses),
-        new TimetableScreen(courses),
-        new FavoriteListScreen(courses, departments),
+        new TimetableScreen(allCourses),
+        new FavoriteListScreen(allCourses, departments),
         new SampleScreen('Settings'),
       ];
       scaffold = new Scaffold(
