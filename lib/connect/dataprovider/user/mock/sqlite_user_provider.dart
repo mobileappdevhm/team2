@@ -4,7 +4,7 @@ import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart'
 import 'package:courses_in_english/model/user/user.dart';
 
 /// Mock user provider.
-class MockUserProvider implements UserProvider {
+class SqlUserProvider implements UserProvider {
   @override
   Future<User> login(String username, String password) async {
     print("Trying to log in.");

@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 /// Mock selection provider.
-class MockSelectionProvider implements SelectionProvider {
+class SqlSelectionProvider implements SelectionProvider {
   @override
   Future<bool> deselectCourse(User user, Course course) async {
     print("${user.username} deselects course ${course.name}");

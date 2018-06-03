@@ -1,6 +1,6 @@
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
 
-class MockFavoritesProvider extends FavoritesProvider {
+class SqlFavoritesProvider extends FavoritesProvider {
   Set<int> _favorites = new Set();
 
   @override

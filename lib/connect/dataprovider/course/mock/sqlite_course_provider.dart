@@ -6,7 +6,7 @@ import 'package:courses_in_english/model/course/course_status.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
-class SQLCourseProvider implements CourseProvider {
+class SqlCourseProvider implements CourseProvider {
   static const List<Course> MOCK_COURSES = const <Course>[
     const Course(
         0,
