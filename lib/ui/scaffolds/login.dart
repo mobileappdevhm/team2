@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomPadding: false,
       body: new SceneryWrapperWidget(
         new Column(
-          children: <Widget>[
+          children:  <Widget>[
             titleRow(),
             new Expanded(
               child: new Column(
@@ -28,13 +28,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   new Expanded(
                     child: login(),
                   ),
-                  new Container(
-                    child: new LineSeparator(),
-                    margin: new EdgeInsets.symmetric(horizontal: 10.0),
-                  ),
-                  new Container(
-                    child: continueAsGuest(),
-                  ),
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          child: new LineSeparator(),
+                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                        ),
+                        new Container(
+                          child: continueAsGuest(),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -99,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
         textColor: Colors.white,
       ),
       alignment: AlignmentDirectional.center,
-      margin: new EdgeInsets.symmetric(vertical: 10.0),
+      margin: new EdgeInsets.symmetric(vertical: 20.0),
     );
   }
 
@@ -176,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontWeight: FontWeight.w100, color: new Color(0xFF707070)),
             textScaleFactor: 2.5),
         alignment: AlignmentDirectional.center,
-        margin: new EdgeInsets.symmetric(vertical: 20.0));
+        margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
   void doLogin() {
