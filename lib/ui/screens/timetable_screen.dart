@@ -1,3 +1,4 @@
+import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/timetable/timtable_course.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -36,6 +37,13 @@ class TimetableState extends State<TimetableScreen> {
     DateTime today = new DateTime.now();
     List<Widget> timetableEntries = [];
     timetableEntries.add(
+      new FloatingActionButton(
+        onPressed: () => saveIcsFile(courses),
+        tooltip: 'Increment',
+        child: new Icon(Icons.add),
+      ),
+    );
+    timetableEntries.add(
       new LineSeparator(
         title: "Today",
       ),
@@ -51,6 +59,7 @@ class TimetableState extends State<TimetableScreen> {
     );
 
     removeCourseList.forEach((course) => courseList.remove(course));
+
     timetableEntries.add(
       new LineSeparator(
         title: "Next Week",

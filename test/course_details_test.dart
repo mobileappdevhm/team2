@@ -1,5 +1,6 @@
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/scaffolds/course_details.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,10 @@ Course course = new Course(
   0, // available slots
   5, // ects credits
   4, // semester week hours
-  null, // time and day
+    const [
+      const TimeAndDay(5, "15:15 - 16:45", 15, 15),
+      const TimeAndDay(2, "10:00 - 11:30", 10, 0)
+    ], // time and day
 );
 Department department = new Department(
   7,
