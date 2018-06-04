@@ -32,7 +32,7 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, imagePath TEXT)");
     await db.execute(
-        "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location TEXT, description TEXT, department INTEGER, lecturerId INTEGER, lecturerName TEXT, room TEXT, status TEXT, availableSlots INTEGER, ects INTEGER, time TEXT, day TEXT )");
+        "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location TEXT, description TEXT, department INTEGER, lecturerId INTEGER, lecturerName TEXT, room TEXT, status TEXT, courseFacultyAvailable TEXT, availableSlots INTEGER, ects INTEGER, semesterWeekHours INTEGER, duration TEXT, day INTEGER, slot INTEGER )");
     await db.execute(
         "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color String)");
     await db.execute(
@@ -43,14 +43,19 @@ class DatabaseHelper {
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
   }
 
-//insertion
-  Future<int> saveCampus(String name, String imagePath) async {
+  Future<int> insertTable(
+      String table, List<Map<String, dynamic>> dataList) async {
     var dbClient = await db;
-    Map<String, dynamic> tempCampus = new Map();
-    tempCampus["name"] = name;
-    tempCampus["imagePath"] = imagePath;
-    int res = await dbClient.insert("Campus", tempCampus); //Fix to map
-    return res;
+    int returnValue = 0;
+
+    void iterate(Map<String, dynamic> data) async {
+      int tempReturnValue = await dbClient.insert(table, data);
+      tempReturnValue == 0 ? null : returnValue = tempReturnValue;
+    }
+
+    dataList.forEach(iterate);
+
+    return returnValue;
   }
 
   Future<List<Map<String, dynamic>>> selectTable(String table) async {
@@ -58,5 +63,21 @@ class DatabaseHelper {
     List<Map<String, dynamic>> res =
         await dbClient.rawQuery('SELECT * FROM $table');
     return res;
+  }
+
+  Future<List<Map<String, dynamic>>> selectWhere(
+      String table, String whereColumn, String whereArgs) async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> res = await dbClient.query(table,
+        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
+    return res;
+  }
+
+  Future<Map<String, dynamic>> selectOneWhere(
+      String table, String whereColumn, String whereArgs) async {
+    var dbClient = await db;
+    List<Map<String, dynamic>> res = await dbClient.query(table,
+        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
+    return res[0];
   }
 }
