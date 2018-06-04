@@ -1,11 +1,11 @@
+import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
-import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import '../scaffolds/course_details.dart';
-import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
+import 'package:flutter/material.dart';
+
+import '../scaffolds/course_details.dart';
 
 class CourseListEntry extends StatefulWidget {
   final Course course;
