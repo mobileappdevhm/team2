@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomPadding: false,
       body: new SceneryWrapperWidget(
         new Column(
-          children:  <Widget>[
+          children: <Widget>[
             titleRow(),
             new Expanded(
               child: new Column(
