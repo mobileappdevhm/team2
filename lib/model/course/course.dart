@@ -63,4 +63,29 @@ class Course {
       this.ects,
       this.semesterWeekHours,
       this.timeAndDay);
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> tempMap = new Map();
+
+    tempMap['id'] = this.id;
+    tempMap["name"] = this.name;
+    tempMap["location"] = this.location;
+    tempMap["description"] = this.description;
+    tempMap["department"] = this.department;
+    tempMap["lecturerId"] = this.lecturerId;
+    tempMap["lecturerName"] = this.lecturerName;
+    tempMap["room"] = this.room;
+    tempMap["status"] = this.status == CourseStatus.GREEN
+        ? "red"
+        : this.status == CourseStatus.YELLOW ? "yellow" : "green";
+    tempMap["courseFacultyAvailable"] = this.courseFacultyAvailable.join(",");
+    tempMap["availableSlots"] = this.availableSlots;
+    tempMap["ects"] = this.ects;
+    tempMap["semesterWeekHours"] = this.semesterWeekHours;
+    tempMap["day"] = this.timeAndDay.day;
+    tempMap["duration"] = this.timeAndDay.duration;
+    tempMap["slot"] = this.timeAndDay.slot;
+
+    return tempMap;
+  }
 }

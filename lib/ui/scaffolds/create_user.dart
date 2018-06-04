@@ -34,8 +34,8 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FocusNode node1 = FocusNode();
-    FocusNode node2 = FocusNode();
+    FocusNode node1 = new FocusNode();
+    FocusNode node2 = new FocusNode();
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -84,7 +84,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                 focusNode: ownNode,
                 //controller: controller,
               ),
-              margin: EdgeInsets.symmetric(horizontal: 30.0),
+              margin: new EdgeInsets.symmetric(horizontal: 30.0),
               alignment: Alignment.centerLeft,
             ),
           ),
@@ -127,7 +127,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   });
                 }),
               ),
-              margin: EdgeInsets.symmetric(horizontal: 30.0),
+              margin: new EdgeInsets.symmetric(horizontal: 30.0),
               alignment: Alignment.center,
             ),
           ),

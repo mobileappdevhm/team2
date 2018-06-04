@@ -66,7 +66,7 @@ void main() {
     courseProvider.getCourses().then((List<Course> value) {
       expect(value, isNotEmpty);
     });
-    Course ref = Course(
+    Course ref = new Course(
         0,
         "Mobile Application Development",
         "Lothstraße",
