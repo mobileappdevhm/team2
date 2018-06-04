@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:path_provider/path_provider.dart';
 
 String createIcs(List<Course> courses) {
   String result =
