@@ -8,6 +8,7 @@ import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 class FavoriteListScreen extends StatefulWidget {
   final List<Course> courses;
   final Iterable<Department> departments;
+
   FavoriteListScreen(this.courses, this.departments);
 
   @override
@@ -27,8 +28,28 @@ class FavoriteListState extends State<FavoriteListScreen>
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: courseListView(),
+    return new Column(
+      children: <Widget>[
+        new Expanded(
+          child: new Center(
+            child: courseListView(),
+          ),
+        ),
+        new Container(
+          child: new FlatButton(
+            onPressed: exportButtonPressed(),
+            child: new Container(
+              child: new Text(
+                "Export Favourites",
+                style: new TextStyle(fontSize: 20.0, color: Colors.white70),
+              ),
+              alignment: Alignment.center,
+            ),
+          ),
+          decoration: new BoxDecoration(color: Colors.black),
+          constraints: new BoxConstraints(minHeight: 60.0),
+        ),
+      ],
     );
   }
 
@@ -74,4 +95,31 @@ class FavoriteListState extends State<FavoriteListScreen>
     super.dispose();
     data.favoritesProvider.removeObserver(this);
   }
+
+  exportButtonPressed() async {
+    AlertDialog dialog = new AlertDialog(
+      title: new Text("Export"),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: new Text("cancel"),
+        ),
+        new FlatButton(
+          onPressed: (export()),
+          child: new Text("Export to Server"),
+        )
+      ],
+    );
+    showDialog<Null>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return dialog;
+        });
+  }
+
+  //Todo: write code to export the favourite List to the Server
+  export() {}
 }
