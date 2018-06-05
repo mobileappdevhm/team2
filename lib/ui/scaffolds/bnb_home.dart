@@ -1,5 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/util/ics_creator.dart';
+import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
