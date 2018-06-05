@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
-//import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/course/course_status.dart';
@@ -167,7 +166,6 @@ void main() {
           find.text(
               "Department " + course.department.toString().padLeft(2, '0')),
           findsOneWidget);
-      // expect(find.byWidget(AvailabilityWidget(course.status)), findsWidgets);
     }
   });
 
