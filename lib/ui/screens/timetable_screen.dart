@@ -37,13 +37,6 @@ class TimetableState extends State<TimetableScreen> {
     DateTime today = new DateTime.now();
     List<Widget> timetableEntries = [];
     timetableEntries.add(
-      new FloatingActionButton(
-        onPressed: () => saveIcsFile(courses),
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ),
-    );
-    timetableEntries.add(
       new LineSeparator(
         title: "Today",
       ),

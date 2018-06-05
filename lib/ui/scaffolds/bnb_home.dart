@@ -1,4 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -25,6 +26,19 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   List<Campus> campuses = [];
   bool departmentsDownloaded = false;
   Iterable<Department> departments;
+
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      title: new Text('Courses in English'),
+      centerTitle: true,
+      actions:
+      _selectedIndex == 2 ? [new IconButton(
+        icon: new Icon(Icons.playlist_play),
+        tooltip: 'Air it',
+        onPressed: () => saveIcsFile(courses),
+      )] : null,
+    );
+  }
 
   @override
   void initState() {
@@ -97,6 +111,12 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         appBar: new AppBar(
           title: new Text('Courses in English'),
           centerTitle: true,
+          actions:
+          _selectedIndex == 2 ? [new IconButton(
+            icon: new Icon(Icons.playlist_play),
+            tooltip: 'Air it',
+            onPressed: () => saveIcsFile(courses),
+          )] : null,
         ),
         body: new PageView(
           controller: _controller,
