@@ -78,7 +78,8 @@ Future<File> saveIcsFile(List<Course> courses) async {
 }
 
 Future<String> get _localPath async {
-  final directory = await getApplicationDocumentsDirectory(); // getExternalStorageDirectory(); is the goal right now there are problems with the permission
+  final directory =
+      await getApplicationDocumentsDirectory(); // getExternalStorageDirectory(); is the goal right now there are problems with the permission
 
   return directory.path;
 }
