@@ -31,12 +31,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     return new AppBar(
       title: new Text('Courses in English'),
       centerTitle: true,
-      actions:
-      _selectedIndex == 2 ? [new IconButton(
-        icon: new Icon(Icons.playlist_play),
-        tooltip: 'Air it',
-        onPressed: () => saveIcsFile(courses),
-      )] : null,
+      actions: _selectedIndex == 2
+          ? [
+              new IconButton(
+                icon: new Icon(Icons.playlist_play),
+                tooltip: 'Air it',
+                onPressed: () => saveIcsFile(courses),
+              )
+            ]
+          : null,
     );
   }
 
@@ -111,12 +114,14 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         appBar: new AppBar(
           title: new Text('Courses in English'),
           centerTitle: true,
-          actions:
-          _selectedIndex == 2 ? [new IconButton(
-            icon: new Icon(Icons.playlist_play),
-            tooltip: 'Air it',
-            onPressed: () => saveIcsFile(courses),
-          )] : null,
+          actions: _selectedIndex == 2
+              ? [
+                  new IconButton(
+                    icon: new Icon(Icons.calendar_today),
+                    onPressed: () => saveIcsFile(courses),
+                  )
+                ]
+              : null,
         ),
         body: new PageView(
           controller: _controller,

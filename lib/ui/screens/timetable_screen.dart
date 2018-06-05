@@ -1,4 +1,3 @@
-import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/timetable/timtable_course.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
