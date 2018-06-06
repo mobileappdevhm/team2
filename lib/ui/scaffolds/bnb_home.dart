@@ -47,6 +47,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   void initState() {
     super.initState();
     Data data = new Data();
+
     data.courseProvider.getCourses().then((courses) {
       setState(() {
         this.courses = courses;
@@ -118,7 +119,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
               ? [
                   new IconButton(
                     icon: new Icon(Icons.calendar_today),
-                    onPressed: () => saveIcsFile(courses),
+                    onPressed: () {
+                      saveIcsFile(courses);
+                      ;
+                      AlertDialog dialog = new AlertDialog(
+                        content:
+                            new Text("Ics was saved to your Phones Storage"),
+                      );
+                      showDialog(context: context, child: dialog);
+                    },
                   )
                 ]
               : null,

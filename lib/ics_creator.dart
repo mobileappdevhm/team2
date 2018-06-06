@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:simple_permissions/simple_permissions.dart';
 
 String createIcs(List<Course> courses) {
   String result =
@@ -32,8 +33,13 @@ String _createsingleIcs(Course course) {
   if (second.length == 1) {
     second = "0" + second;
   }
-  String result =
-      "BEGIN:VEVENT\r\nDTSTART:" + today.year.toString() + day + month + "\r\n";
+  String result = "BEGIN:VEVENT\r\nSUMMARY:" +
+      course.name +
+      "\r\nDTSTART:" +
+      today.year.toString() +
+      day +
+      month +
+      "\r\n";
   result += "UID: CIE" + today.toIso8601String() + "\r\n";
   result += "DTSTAMP:" +
       today.year.toString() +
@@ -69,17 +75,25 @@ String _dayshort(Course c) {
   return result.substring(0, result.length - 1);
 }
 
-Future<File> saveIcsFile(List<Course> courses) async {
+saveIcsFile(List<Course> courses) async {
+  requestPermission();
+
   String ics = createIcs(courses);
   final file = await _localFile;
-  file.writeAsStringSync(ics);
+  file.writeAsString(ics);
   print(ics);
-  return file;
+  String res = await _localPath;
+}
+
+requestPermission() async {
+  bool res = await SimplePermissions
+      .requestPermission(Permission.WriteExternalStorage);
+  print("permission request result is " + res.toString());
 }
 
 Future<String> get _localPath async {
   final directory =
-      await getApplicationDocumentsDirectory(); // getExternalStorageDirectory(); is the goal right now there are problems with the permission
+      await getExternalStorageDirectory(); // getExternalStorageDirectory(); is the goal right now there are problems with the permission
 
   return directory.path;
 }
