@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "328551886544",
+    "firebase_url": "https://cieapp-db34a.firebaseio.com",
+    "project_id": "cieapp-db34a",
+    "storage_bucket": "cieapp-db34a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328551886544:android:5b1f682dbf20ff9a",
+        "android_client_info": {
+          "package_name": "edu.hm.cs.mobileappdev.coursesinenglish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328551886544-3un41kf0v2u9231nk3om0psqvrvju652.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "328551886544-3un41kf0v2u9231nk3om0psqvrvju652.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4NWYgvfOlFVyeo-kWkx7V3dP79RCimjM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
