@@ -1,23 +1,40 @@
 import 'package:courses_in_english/ui/scaffolds/login.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new CieApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+
+class CieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    _firebaseMessaging.configure(
+      ///Fires on notification message if the app is active. Fires on data messages when app is in background (Android, iOS)
+      onMessage: (Map<String, dynamic> message) {
+        print("onMessage: $message");
+      },
+
+      ///Fires on notification message if the app is in the background (Android only)
+      onLaunch: (Map<String, dynamic> message) {
+        print("onLaunch: $message");
+      },
+
+      ///Fires if app is opened from notification (Android only)
+      onResume: (Map<String, dynamic> message) {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.getToken().then((String token) {
+      //Todo
+    });
+    _firebaseMessaging.subscribeToTopic("all");
+
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Cie App',
       theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.red,
       ),
       home: new LoginScreen(),
