@@ -125,7 +125,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
                         content:
                             new Text("Ics was saved to your Phones Storage"),
                       );
-                      showDialog(context: context, builder: (context){return dialog;});
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return dialog;
+                          });
                     },
                   )
                 ]

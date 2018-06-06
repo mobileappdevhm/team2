@@ -92,8 +92,7 @@ requestPermission() async {
 
 Future<String> get _localPath async {
   final directory =
-      await getExternalStorageDirectory(); // getExternalStorageDirectory(); is the goal right now there are problems with the permission
-
+  await getExternalStorageDirectory();
   return directory.path;
 }
 
