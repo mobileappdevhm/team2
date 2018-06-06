@@ -10,7 +10,7 @@ class UserSettings {
     bool sync = false,
     bool offlineMode = false,
     bool usesDrawer = false,
-    bool secret1 = false,
+    bool secret1 = true,
   })  : autoSync = sync,
         offlineMode = offlineMode,
         usesDrawer = usesDrawer,

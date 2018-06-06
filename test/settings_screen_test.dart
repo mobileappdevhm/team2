@@ -19,7 +19,25 @@ void main() {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new SettingsScreen())));
     expect(_data.getCurrentSettings().offlineMode, false);
-    await tester.tap(find.byType(Switch).at(2));
+    await tester.tap(find.byType(Switch).at(1));
     expect(_data.getCurrentSettings().offlineMode, true);
+  });
+
+  testWidgets('AltLayoutTest', (WidgetTester tester) async {
+    UserSettingsProvider _data = new Data().settingsProvider;
+    await tester.pumpWidget(
+        new MaterialApp(home: new Scaffold(body: new SettingsScreen())));
+    expect(_data.getCurrentSettings().usesDrawer, false);
+    await tester.tap(find.byType(Switch).at(2));
+    expect(_data.getCurrentSettings().usesDrawer, true);
+  });
+
+  testWidgets('SecretSettingTest', (WidgetTester tester) async {
+    UserSettingsProvider _data = new Data().settingsProvider;
+    await tester.pumpWidget(
+        new MaterialApp(home: new Scaffold(body: new SettingsScreen())));
+    expect(_data.getCurrentSettings().secret1, true);
+    await tester.tap(find.byType(Switch).at(3));
+    expect(_data.getCurrentSettings().secret1, false);
   });
 }
