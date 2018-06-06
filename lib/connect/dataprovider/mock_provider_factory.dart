@@ -11,8 +11,10 @@ import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favo
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
+import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
 class MockProviderFactory implements ProviderFactory {
@@ -36,4 +38,8 @@ class MockProviderFactory implements ProviderFactory {
 
   @override
   CampusProvider createCampusProvider() => new MockCampusProvider();
+
+  @override
+  UserSettingsProvider createSettingsProvider() =>
+      new MockUserSettingsProvider();
 }
