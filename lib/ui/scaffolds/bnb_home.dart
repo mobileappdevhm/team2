@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
-import 'package:courses_in_english/ui/screens/sample_screen.dart';
+import 'package:courses_in_english/ui/screens/settings_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +59,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new LocationScreen(campuses),
         new TimetableScreen(courses),
         new FavoriteListScreen(courses, departments),
-        new SampleScreen('Settings'),
+        new SettingsScreen(),
       ];
       scaffold = new Scaffold(
         bottomNavigationBar: new BottomNavigationBar(
