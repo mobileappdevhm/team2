@@ -7,9 +7,9 @@ dependencies:
   url_launcher: ^3.0.0
   sqflite: any
   path_provider: ^0.4.0
-  mockito: "^2.2.3"
   firebase_messaging: ^0.2.4
   cupertino_icons: ^0.1.0
+  mockito: "^2.2.3"
 
 dev_dependencies:
   flutter_test:
