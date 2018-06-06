@@ -14,10 +14,12 @@ class CieApp extends StatelessWidget {
       onMessage: (Map<String, dynamic> message) {
         print("onMessage: $message");
       },
+
       ///Fires on notification message if the app is in the background (Android only)
       onLaunch: (Map<String, dynamic> message) {
         print("onLaunch: $message");
       },
+
       ///Fires if app is opened from notification (Android only)
       onResume: (Map<String, dynamic> message) {
         print("onResume: $message");
