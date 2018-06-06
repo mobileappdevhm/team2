@@ -82,7 +82,6 @@ saveIcsFile(List<Course> courses) async {
   final file = await _localFile;
   file.writeAsString(ics);
   print(ics);
-  String res = await _localPath;
 }
 
 requestPermission() async {

@@ -121,12 +121,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
                     icon: new Icon(Icons.calendar_today),
                     onPressed: () {
                       saveIcsFile(courses);
-                      ;
                       AlertDialog dialog = new AlertDialog(
                         content:
                             new Text("Ics was saved to your Phones Storage"),
                       );
-                      showDialog(context: context, child: dialog);
+                      showDialog(context: context, builder: (context){return dialog;});
                     },
                   )
                 ]
