@@ -9,11 +9,13 @@ import 'package:courses_in_english/ui/basic_components/availability_widget.dart'
 
 class CourseListEntry extends StatefulWidget {
   final Course course;
+  final Department department;
 
-  CourseListEntry(this.course);
+  CourseListEntry(this.course, this.department);
 
   @override
-  _CourseListEntryState createState() => new _CourseListEntryState(course);
+  _CourseListEntryState createState() =>
+      new _CourseListEntryState(course, department);
 }
 
 class _CourseListEntryState extends State implements FavoritesObserver {
@@ -30,7 +32,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
 
   bool _favorite = false;
 
-  _CourseListEntryState(this.course);
+  _CourseListEntryState(this.course, this.department);
 
   void _toggleFav() {
     data.favoritesProvider.toggleFavorite(course.id);
@@ -43,15 +45,6 @@ class _CourseListEntryState extends State implements FavoritesObserver {
     data.favoritesProvider.addObserver(this);
     _favorite = data.favoritesProvider.isFavored(course.id);
 
-    data.departmentProvider.getDepartmentByNumber(course.department).then(
-      (department) {
-        if (mounted) {
-          setState(() {
-            this.department = department;
-          });
-        }
-      },
-    );
     this.lecturer = course.lecturerName;
     this.timeAndDay = course.timeAndDay;
   }

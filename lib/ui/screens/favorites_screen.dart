@@ -2,23 +2,28 @@ import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class FavoriteListScreen extends StatefulWidget {
   final List<Course> courses;
-  FavoriteListScreen(this.courses);
+  final Iterable<Department> departments;
+  FavoriteListScreen(this.courses, this.departments);
 
   @override
-  FavoriteListState createState() => new FavoriteListState(this.courses);
+  FavoriteListState createState() =>
+      new FavoriteListState(this.courses, this.departments);
 }
 
 class FavoriteListState extends State<FavoriteListScreen>
     implements FavoritesObserver {
   final List<Course> courseList;
+  final Iterable<Department> departments;
+
   List<Course> favs = [];
   final Data data = new Data();
 
-  FavoriteListState(this.courseList);
+  FavoriteListState(this.courseList, this.departments);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,14 @@ class FavoriteListState extends State<FavoriteListScreen>
   }
 
   List<Widget> courseItems() {
-    return favs.map((course) => new CourseListEntry(course)).toList();
+    //return favs.map((course) => new CourseListEntry(course, department)).toList();
+    List<Widget> courseWidgets = new List<Widget>();
+    for (var course in favs) {
+      Department department = departments
+          .firstWhere((Department d) => d.number == course.department);
+      courseWidgets.add(new CourseListEntry(course, department));
+    }
+    return courseWidgets;
   }
 
   Widget courseListView() {
