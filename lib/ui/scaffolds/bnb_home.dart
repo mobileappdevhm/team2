@@ -58,7 +58,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new CourseListScreen(courses, departments),
         new LocationScreen(campuses),
         new TimetableScreen(courses),
-        new FavoriteListScreen(courses),
+        new FavoriteListScreen(courses, departments),
         new SettingsScreen(),
       ];
       scaffold = new Scaffold(
