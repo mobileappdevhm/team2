@@ -25,9 +25,9 @@ class CieApp extends StatelessWidget {
     );
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {});
-    _firebaseMessaging.getToken().then((String token) {});
+    _firebaseMessaging.getToken().then((String token) {
+      //Todo
+    });
 
     return new MaterialApp(
       title: 'Cie App',
