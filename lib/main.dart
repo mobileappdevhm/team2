@@ -10,12 +10,15 @@ class CieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _firebaseMessaging.configure(
+      ///Fires on notification message if the app is active. Fires on data messages when app is in background (Android, iOS)
       onMessage: (Map<String, dynamic> message) {
         print("onMessage: $message");
       },
+      ///Fires on notification message if the app is in the background (Android only)
       onLaunch: (Map<String, dynamic> message) {
         print("onLaunch: $message");
       },
+      ///Fires if app is opened from notification (Android only)
       onResume: (Map<String, dynamic> message) {
         print("onResume: $message");
       },
