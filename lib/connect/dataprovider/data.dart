@@ -7,6 +7,7 @@ import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provid
 import 'package:courses_in_english/connect/dataprovider/mock_provider_factory.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 
 /// Where to get all data from!
 class Data {
@@ -20,6 +21,7 @@ class Data {
   UserProvider userProvider;
   FavoritesProvider favoritesProvider;
   CampusProvider campusProvider;
+  UserSettingsProvider settingsProvider;
 
   /// Singleton factory
   factory Data() {
@@ -34,5 +36,6 @@ class Data {
         lecturerProvider = providerFactory.createLecturerProvider(),
         userProvider = providerFactory.createUserProvider(),
         favoritesProvider = providerFactory.createFavoritesProvider(),
-        campusProvider = providerFactory.createCampusProvider();
+        campusProvider = providerFactory.createCampusProvider(),
+        settingsProvider = providerFactory.createSettingsProvider();
 }

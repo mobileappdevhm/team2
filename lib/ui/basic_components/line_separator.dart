@@ -34,10 +34,10 @@ class LineSeparator extends StatelessWidget {
 
     TextSpan span = new TextSpan(
       style: new TextStyle(
-        color: _textColor,
-        fontSize: 20.0,
-        fontWeight: _isBold ? FontWeight.w500 : FontWeight.w300,
-        letterSpacing: 3.0,
+        color: _isBold ? Colors.grey[600] : _textColor,
+        fontSize: _isBold ? 23.0 : 20.0,
+        fontWeight: _isBold ? FontWeight.w600 : FontWeight.w300,
+        letterSpacing: _isBold ? 2.5 : 3.0,
       ),
       text: _title,
     );
