@@ -30,6 +30,7 @@ class CieApp extends StatelessWidget {
     _firebaseMessaging.getToken().then((String token) {
       //Todo
     });
+    _firebaseMessaging.subscribeToTopic("all");
 
     return new MaterialApp(
       title: 'Cie App',
