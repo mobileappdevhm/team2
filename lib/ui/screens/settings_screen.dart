@@ -8,6 +8,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
+  List<bool> _states = [false, false, false, true];
+
   @override
   Widget build(BuildContext context) {
     return new Column(
@@ -26,13 +29,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _newElement([
           Text('Enable automatic sync'),
           Switch(
-              value: false,
+              value: _states[0],
               onChanged: (bool onChanged) => _doClick("autoSync", onChanged)),
         ]),
         _newElement([
           new Text('Offline mode'),
           new Switch(
-              value: false,
+              value: _states[1],
               onChanged: (bool onChanged) => _doClick("offlineMode", onChanged))
         ]),
         _newElement([
@@ -44,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _newElement([
           new Text('Use alternative layout'),
           new Switch(
-              value: false,
+              value: _states[2],
               onChanged: (bool onChanged) => _doClick("altLayout", onChanged))
         ]),
         _newElement([
@@ -59,9 +62,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           )
         ]),
         _newElement([
-          new Text('Enable Secret 1'),
+          new Text('Secret 1'),
           new Switch(
-              value: false,
+              value: _states[3],
               onChanged: (bool onChanged) => _doClick("secret1", onChanged))
         ]),
       ],
@@ -88,22 +91,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Data _data = new Data();
 
   void _doClick(String toggle, var value) {
-    switch (toggle) {
-      case "autoSync":
-        _data.settingsProvider.getCurrentSettings().autoSync = value;
-        return;
-      case "offlineMode":
-        _data.settingsProvider.getCurrentSettings().offlineMode = value;
-        return;
-      case "altLayout":
-        _data.settingsProvider.getCurrentSettings().usesDrawer = value;
-        return;
-      case "language":
-        _data.settingsProvider.getCurrentSettings().language = value;
-        return;
-      case "secret1":
-        _data.settingsProvider.getCurrentSettings().secret1 = value;
-        return;
-    }
+    setState(() {
+      switch (toggle) {
+        case "autoSync":
+          _data.settingsProvider.getCurrentSettings().autoSync = value;
+          _states[0] = value;
+          return;
+        case "offlineMode":
+          _data.settingsProvider.getCurrentSettings().offlineMode = value;
+          _states[1] = value;
+          return;
+        case "altLayout":
+          _data.settingsProvider.getCurrentSettings().usesDrawer = value;
+          _states[2] = value;
+          return;
+        case "language":
+          _data.settingsProvider.getCurrentSettings().language = value;
+          return;
+        case "secret1":
+          _data.settingsProvider.getCurrentSettings().secret1 = value;
+          _states[3] = value;
+          return;
+      }
+    });
   }
 }
