@@ -2,15 +2,16 @@ import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.d
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/mock_provider_factory.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
+import 'package:courses_in_english/connect/dataprovider/sqlite_provider_factory.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 
 /// Where to get all data from!
-class Data {
+class SqliteData {
   /// Singleton instance
-  static final Data _instance = new Data._internal(new MockProviderFactory());
+  static final SqliteData _instance =
+      new SqliteData._internal(new SqliteProviderFactory());
 
   CourseProvider courseProvider;
   DepartmentProvider departmentProvider;
@@ -20,12 +21,12 @@ class Data {
   UserSettingsProvider settingsProvider;
 
   /// Singleton factory
-  factory Data() {
+  factory SqliteData() {
     return _instance;
   }
 
   /// Private default constructor
-  Data._internal(ProviderFactory providerFactory)
+  SqliteData._internal(ProviderFactory providerFactory)
       : courseProvider = providerFactory.createCourseProvider(),
         departmentProvider = providerFactory.createDepartmentProvider(),
         lecturerProvider = providerFactory.createLecturerProvider(),
