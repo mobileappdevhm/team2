@@ -27,7 +27,7 @@ class CourseListScreen extends StatelessWidget {
   Widget loadingScreenView() {
     return new Container(
       alignment: Alignment.center,
-      child: new Text('Animation Time', textAlign: TextAlign.center),
+      child: new Text('No Courses found :(', textAlign: TextAlign.center),
     );
   }
 
