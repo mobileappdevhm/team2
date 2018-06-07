@@ -1,15 +1,12 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-
   testWidgets('AddButtonTest', (WidgetTester tester) async {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new AddCieScreen())));
-    expect(find.widgetWithText(RawMaterialButton,"Add CIE"), findsOneWidget);
+    expect(find.widgetWithText(RawMaterialButton, "Add CIE"), findsOneWidget);
   });
 
   testWidgets('formTest', (WidgetTester tester) async {
@@ -17,9 +14,12 @@ void main() {
         new MaterialApp(home: new Scaffold(body: new AddCieScreen())));
     expect(find.byType(TextFormField), findsNWidgets(4));
     expect(find.widgetWithText(TextFormField, " Input Name"), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, " Input Lecturer Name"), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, " Input Ects (Decimal)"), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, " Input Department (Integer)"), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, " Input Lecturer Name"),
+        findsOneWidget);
+    expect(find.widgetWithText(TextFormField, " Input Ects (Decimal)"),
+        findsOneWidget);
+    expect(find.widgetWithText(TextFormField, " Input Department (Integer)"),
+        findsOneWidget);
   });
 
   testWidgets('form2Test', (WidgetTester tester) async {
@@ -34,11 +34,10 @@ void main() {
     await tester.enterText(finder, "2.0");
     finder = find.widgetWithText(TextFormField, " Input Department (Integer)");
     await tester.enterText(finder, "1");
-    finder = find.widgetWithText(RawMaterialButton,"Add CIE");
+    finder = find.widgetWithText(RawMaterialButton, "Add CIE");
     await tester.tap(finder);
     await tester.pump(new Duration(milliseconds: 5000));
     //expect(find.text("Succesfully added \"name\""), findsOneWidget);
     //TODO: figure out why wait is not happening for setState to finish
-
   });
 }
