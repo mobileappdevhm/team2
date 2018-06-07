@@ -1,6 +1,4 @@
-
 import 'package:courses_in_english/controller/session.dart';
-import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +76,8 @@ class CourseListEntry extends StatelessWidget {
                   new Expanded(
                     child: new Align(
                       child: new Text(
-                        "Department ${course.department.number.toString().padLeft(2, '0')}",
+                        "Department ${course.department.number.toString()
+                            .padLeft(2, '0')}",
                         style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             color: new Color(course.department.color)),
