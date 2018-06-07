@@ -41,6 +41,8 @@ class DatabaseHelper {
         "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT)");
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
+    await db.execute(
+        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER, description TEXT)");
   }
 
   Future<int> insertTable(
@@ -56,6 +58,12 @@ class DatabaseHelper {
     dataList.forEach(iterate);
 
     return returnValue;
+  }
+
+  Future<int> truncateTable(String table) async {
+    var dbClient = await db;
+
+    return await dbClient.delete(table);
   }
 
   Future<List<Map<String, dynamic>>> selectTable(String table) async {
@@ -79,5 +87,13 @@ class DatabaseHelper {
     List<Map<String, dynamic>> res = await dbClient.query(table,
         columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res[0];
+  }
+
+  Future<int> deleteWhere(
+      String table, String whereColumn, String whereArgs) async {
+    var dbClient = await db;
+    int res = await dbClient
+        .delete(table, where: '$whereColumn = ?', whereArgs: [whereArgs]);
+    return res;
   }
 }
