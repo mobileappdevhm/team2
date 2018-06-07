@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
+import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/department/mock/sqlite_department_provider.dart';
-import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
+import 'package:flutter/material.dart';
 
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
