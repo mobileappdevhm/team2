@@ -4,8 +4,6 @@ import 'package:courses_in_english/connect/dataprovider/course/course_provider.d
 import 'package:courses_in_english/connect/dataprovider/course/sqlite_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favorites_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
@@ -28,9 +26,6 @@ class SqliteProviderFactory implements ProviderFactory {
 
   @override
   UserProvider createUserProvider() => new MockUserProvider();
-
-  @override
-  FavoritesProvider createFavoritesProvider() => new MockFavoritesProvider();
 
   @override
   CampusProvider createCampusProvider() => new SqliteCampusProvider();
