@@ -2,7 +2,6 @@
 import 'package:courses_in_english/controller/session.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/ui//scaffolds/course_details.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:flutter/material.dart';
 

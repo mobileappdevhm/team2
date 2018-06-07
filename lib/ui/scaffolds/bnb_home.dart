@@ -1,5 +1,6 @@
 
 import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -84,7 +85,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
                   new IconButton(
                     icon: new Icon(Icons.calendar_today),
                     onPressed: () {
-                      saveIcsFile(courses);
+                      saveIcsFile(session.courses);
                       AlertDialog dialog = new AlertDialog(
                         content:
                             new Text("Ics was saved to your Phones Storage"),

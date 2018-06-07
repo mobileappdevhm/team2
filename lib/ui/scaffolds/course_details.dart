@@ -18,7 +18,7 @@ class CourseDetailsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String date = "";
-    widget.course.timeAndDay.forEach((lecture) {
+    course.timeAndDay.forEach((lecture) {
       date += lecture.toDate() + "\n";
     });
 

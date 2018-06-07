@@ -10,6 +10,7 @@ dependencies:
   firebase_messaging: ^0.2.4
   cupertino_icons: ^0.1.0
   mockito: ^2.2.3
+  simple_permissions: any
 
 dev_dependencies:
   flutter_test:

@@ -42,15 +42,15 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.sort(
       (c1, c2) =>
-          c1.timeAndDay[0].day * 100 +
-          c1.timeAndDay[0].slot -
-          c2.timeAndDay[0].day * 100 +
-          c2.timeAndDay[0].slot,
+          c1.course.timeAndDay[0].day * 100 +
+          c1.course.timeAndDay[0].hour -
+          c2.course.timeAndDay[0].day * 100 +
+          c2.course.timeAndDay[0].hour,
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay[0].day == today.weekday) {
-          timetableEntries.add(new TimetableEntry(course));
+        if (course.course.timeAndDay[0].day == today.weekday) {
+          timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }
       },
@@ -65,8 +65,8 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay[0].day > today.weekday) {
-          timetableEntries.add(new TimetableEntry(course));
+        if (course.course.timeAndDay[0].day > today.weekday) {
+          timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }
       },
@@ -75,7 +75,7 @@ class TimetableState extends State<TimetableScreen> {
     courseList.forEach(
       (tCourse) {
         timetableEntries
-            .add(new TimetableEntry(tCourse.course, tCourse.occourace));
+            .add(new TimetableEntry(tCourse.course, tCourse.occurrence));
       },
     );
 

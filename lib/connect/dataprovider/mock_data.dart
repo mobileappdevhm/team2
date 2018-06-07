@@ -124,7 +124,7 @@ Topics include:
   4, //us credits
   4, //semester week hours
   [
-    const TimeAndDay(5, "15:15 - 16:45", 5),
+    const TimeAndDay(5, "1h30min", 15, 15),
   ], //timeandday
   CourseStatus.GREEN, //status
   lecturer01, //lecturer
@@ -154,7 +154,7 @@ experience in teamwork
   4, //us credits
   3, //semester week hours
   [
-    const TimeAndDay(3, "11:45 - 13:30", 3),
+    const TimeAndDay(3, "1h30min", 11, 45),
   ], //timeandday
   CourseStatus.RED, //status
   lecturer02, //lecturer
@@ -178,7 +178,7 @@ and how much of these are still relevant for modern Social Work.
   2.5, //us credits
   2, //semester week hours
   [
-    const TimeAndDay(4, "8:45 - 9:45", 1),
+    const TimeAndDay(4, "1h30min", 8, 15),
   ], //timeandday
   CourseStatus.YELLOW, //status
   lecturer03, //lecturer
@@ -201,7 +201,7 @@ time will be a mixture of lectures, project work, case discussions and guest lec
   4.5, //us credits
   4, //semester week hours
   [
-    const TimeAndDay(1, "10:00 - 11:30", 2),
+    const TimeAndDay(1, "1h30min", 10, 0),
   ], //timeandday
   CourseStatus.YELLOW, //status
   lecturer04, //lecturer
@@ -222,7 +222,7 @@ Multidimensional Oscillations. Applications for engineering problems.
   4, //us credits
   4, //semester week hours
   [
-    const TimeAndDay(1, "8:15 - 9:45", 1),
+    const TimeAndDay(1, "1h30min", 8, 15),
   ], //timeandday
   CourseStatus.GREEN, //status
   lecturer05, //lecturer

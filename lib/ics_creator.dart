@@ -52,7 +52,7 @@ String _createsingleIcs(Course course) {
       "\r\n";
   result +=
       "RRULE:FREQ=WEEKLY;COUNT=20;WKST=SU;BYDAY=" + _dayshort(course) + "\r\n";
-  result += "LOCATION:" + course.location + "\r\n";
+  result += "LOCATION:" + course.location.toString() + "\r\n";
   result += "END:VEVENT\r\n";
 
   return result;

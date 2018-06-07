@@ -4,7 +4,7 @@ import 'package:courses_in_english/model/course/course.dart';
 class TimetableCourse {
   /// Name of the lecturer
   final Course course;
-  final int occourace;
+  final int occurrence;
 
-  const TimetableCourse(this.course, this.occourace);
+  const TimetableCourse(this.course, this.occurrence);
 }
