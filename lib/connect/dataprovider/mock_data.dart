@@ -103,8 +103,10 @@ const campus02 =
 const campus03 = const Campus(2, "Pasing", "res/location/campus_pasing.png");
 
 const course01 = const Course(
-  0, //id
-  "Mobile Application Development", //name
+  0,
+  //id
+  "Mobile Application Development",
+  //name
   '''
 This course studies selected, specific aspects of the functionality of mobile applications. The exact topics
 including the type of application, the context of the application and the type of mobile devices will be
@@ -117,23 +119,35 @@ Topics include:
 * Input options (touch screen, multi-touch)
 * Use of mobile networks (Bluetooth, WLAN)
 * Innovative human-machine interaction
-        ''', //description
-  "R2.016", //room
-  30, //availableSlots
-  5, //ects
-  4, //us credits
-  4, //semester week hours
+        ''',
+  //description
+  "R2.016",
+  //room
+  30,
+  //availableSlots
+  5,
+  //ects
+  4,
+  //us credits
+  4,
+  //semester week hours
   [
     const TimeAndDay(5, "1h30min", 15, 15),
-  ], //timeandday
-  CourseStatus.GREEN, //status
-  lecturer01, //lecturer
-  department07, //department
+  ],
+  //timeandday
+  CourseStatus.GREEN,
+  //status
+  lecturer01,
+  //lecturer
+  department07,
+  //department
   campus01, //location
 );
 const course02 = const Course(
-  1, //id
-  "Marketing", //name
+  1,
+  //id
+  "Marketing",
+  //name
   '''
  By the end of the course students will:
  Know the basics of marketing for industrial goods and consumer goods
@@ -147,23 +161,35 @@ product that meets customers’ needs, select sales channels, set the price and
 use advertising to increase demand. They will have gained insights how
 marketing influences the success of a company. Students will also have gained
 experience in teamwork
-        ''', //description
-  "C2.001", //room
-  20, //availableSlots
-  4, //ects
-  4, //us credits
-  3, //semester week hours
+        ''',
+  //description
+  "C2.001",
+  //room
+  20,
+  //availableSlots
+  4,
+  //ects
+  4,
+  //us credits
+  3,
+  //semester week hours
   [
     const TimeAndDay(3, "1h30min", 11, 45),
-  ], //timeandday
-  CourseStatus.RED, //status
-  lecturer02, //lecturer
-  department09, //department
+  ],
+  //timeandday
+  CourseStatus.RED,
+  //status
+  lecturer02,
+  //lecturer
+  department09,
+  //department
   campus03, //location
 );
 const course03 = const Course(
-  2, //id
-  "Social Work In Theory and Practice", //name
+  2,
+  //id
+  "Social Work In Theory and Practice",
+  //name
   '''
 Important Social Workers and scientist from different social science as much as their way of thinking and
 working will be presented. To drop a few names: Alice Salomon, Jane Addams, Mary Ellen Richmond,
@@ -171,61 +197,95 @@ Ilse Arlt, Octavia Hill will be introduced. The aim of the course is to show how
 setting influcend how people thought about poor people, illness, deseases etc. and how a scientific
 approach helped to overcome prejudices. There will also be discussion on the methods that were used
 and how much of these are still relevant for modern Social Work.
-       ''', //description
-  "B1.003", //room
-  14, //availableSlots
-  2.5, //ects
-  2.5, //us credits
-  2, //semester week hours
+       ''',
+  //description
+  "B1.003",
+  //room
+  14,
+  //availableSlots
+  2.5,
+  //ects
+  2.5,
+  //us credits
+  2,
+  //semester week hours
   [
     const TimeAndDay(4, "1h30min", 8, 15),
-  ], //timeandday
-  CourseStatus.YELLOW, //status
-  lecturer03, //lecturer
-  department11, //department
+  ],
+  //timeandday
+  CourseStatus.YELLOW,
+  //status
+  lecturer03,
+  //lecturer
+  department11,
+  //department
   campus03, //location
 );
 const course04 = const Course(
-  3, //id
-  "Design of Digital Products and Services", //name
+  3,
+  //id
+  "Design of Digital Products and Services",
+  //name
   '''
 With the rise of digital and mobile technologies, development of digital products and
 services has become a fundamental part of corporations of any size. This class is centered around the
 execution of a real-world project – developing a product or service from idea through first pass prototype in
 an inter-disciplinary team of students. Teams will be coached by faculty and designers from local firms. Inclass
 time will be a mixture of lectures, project work, case discussions and guest lecturers.
-      ''', //description
-  "T5.056", //room
-  20, //availableSlots
-  6, //ects
-  4.5, //us credits
-  4, //semester week hours
+      ''',
+  //description
+  "T5.056",
+  //room
+  20,
+  //availableSlots
+  6,
+  //ects
+  4.5,
+  //us credits
+  4,
+  //semester week hours
   [
     const TimeAndDay(1, "1h30min", 10, 0),
-  ], //timeandday
-  CourseStatus.YELLOW, //status
-  lecturer04, //lecturer
-  department12, //department
+  ],
+  //timeandday
+  CourseStatus.YELLOW,
+  //status
+  lecturer04,
+  //lecturer
+  department12,
+  //department
   campus03, //location
 );
 const course05 = const Course(
-  4, //id
-  "Dynamics for Engineers", //name
+  4,
+  //id
+  "Dynamics for Engineers",
+  //name
   '''
 Review of underlying mathematical Priciples. Review of single degree of freedom systems. Kinetics and
 Kinematics of 3D rigid bodies. Numerical Methods. Multiple degree of freedom systems.
 Multidimensional Oscillations. Applications for engineering problems.
-     ''', //description
-  "T0.005", //room
-  45, //availableSlots
-  5, //ects
-  4, //us credits
-  4, //semester week hours
+     ''',
+  //description
+  "T0.005",
+  //room
+  45,
+  //availableSlots
+  5,
+  //ects
+  4,
+  //us credits
+  4,
+  //semester week hours
   [
     const TimeAndDay(1, "1h30min", 8, 15),
-  ], //timeandday
-  CourseStatus.GREEN, //status
-  lecturer05, //lecturer
-  department03, //department
+  ],
+  //timeandday
+  CourseStatus.GREEN,
+  //status
+  lecturer05,
+  //lecturer
+  department03,
+  //department
   campus02, //location
 );

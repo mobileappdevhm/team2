@@ -12,7 +12,9 @@ typedef void OnFailure(Session s, Error e);
 class Session {
   // Singleton
   static final _instance = new Session._internal();
+
   factory Session() => _instance;
+
   Session._internal();
 
   final Data data = new Data();
@@ -123,10 +125,16 @@ class Session {
   }
 
   get user => _user;
+
   get campuses => _campuses;
+
   get departments => _departments;
+
   get lecturers => _lecturers;
+
   get courses => _courses;
+
   get favorites => _favorites;
+
   get selected => _selected;
 }

@@ -1,10 +1,10 @@
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 
 const Color HEART = const Color(0xFFFFA1A1);
 
