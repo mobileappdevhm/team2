@@ -2,20 +2,17 @@ import 'package:courses_in_english/connect/dataprovider/favorites/favorites_obse
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import '../scaffolds/course_details.dart';
-import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 
 class CourseListEntry extends StatefulWidget {
   final Course course;
-  final Department department;
 
-  CourseListEntry(this.course, this.department);
+  CourseListEntry(this.course);
 
   @override
   _CourseListEntryState createState() =>
-      new _CourseListEntryState(course, department);
+      new _CourseListEntryState(course);
 }
 
 class _CourseListEntryState extends State implements FavoritesObserver {
@@ -25,14 +22,11 @@ class _CourseListEntryState extends State implements FavoritesObserver {
   static const Color HEART = const Color(0xFFFFA1A1);
 
   final Course course;
-  Department department;
-  String lecturer;
-  TimeAndDay timeAndDay;
   Data data = new Data();
 
   bool _favorite = false;
 
-  _CourseListEntryState(this.course, this.department);
+  _CourseListEntryState(this.course);
 
   void _toggleFav() {
     data.favoritesProvider.toggleFavorite(course.id);
@@ -44,9 +38,6 @@ class _CourseListEntryState extends State implements FavoritesObserver {
 
     data.favoritesProvider.addObserver(this);
     _favorite = data.favoritesProvider.isFavored(course.id);
-
-    this.lecturer = course.lecturerName;
-    this.timeAndDay = course.timeAndDay;
   }
 
   @override
@@ -61,7 +52,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
               context,
               new MaterialPageRoute(
                 builder: (context) {
-                  return new CourseDetailsScaffold(course, department);
+                  return new CourseDetailsScaffold(course);
                 },
               ),
             );
@@ -91,10 +82,11 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                   new Expanded(
                       child: new Container(
                           child: new Text(
-                              timeAndDay != null &&
-                                      timeAndDay.day != null &&
-                                      timeAndDay.duration != null
-                                  ? timeAndDay.toDate()
+                            // TODO adjust to list of time and days
+                              course.timeAndDay != null &&
+                                      course.timeAndDay[0].day != null &&
+                                      course.timeAndDay[0].duration != null
+                                  ? course.timeAndDay[0].toDate()
                                   : "Time and Day Unknown",
                               style: new TextStyle(
                                   color: const Color(0xFF707070),
@@ -106,12 +98,10 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                   new Expanded(
                     child: new Align(
                       child: new Text(
-                        "Department ${course.department.toString().padLeft(2, '0')}",
+                        "Department ${course.department.number.toString().padLeft(2, '0')}",
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: department != null
-                              ? department.color
-                              : Colors.grey,
+                          color: new Color(course.department.color)
                         ),
                         textScaleFactor: 1.2,
                       ),

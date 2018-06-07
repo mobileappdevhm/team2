@@ -7,23 +7,21 @@ import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class FavoriteListScreen extends StatefulWidget {
   final List<Course> courses;
-  final Iterable<Department> departments;
-  FavoriteListScreen(this.courses, this.departments);
+  FavoriteListScreen(this.courses);
 
   @override
   FavoriteListState createState() =>
-      new FavoriteListState(this.courses, this.departments);
+      new FavoriteListState(this.courses);
 }
 
 class FavoriteListState extends State<FavoriteListScreen>
     implements FavoritesObserver {
   final List<Course> courseList;
-  final Iterable<Department> departments;
 
   List<Course> favs = [];
   final Data data = new Data();
 
-  FavoriteListState(this.courseList, this.departments);
+  FavoriteListState(this.courseList);
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +34,7 @@ class FavoriteListState extends State<FavoriteListScreen>
     //return favs.map((course) => new CourseListEntry(course, department)).toList();
     List<Widget> courseWidgets = new List<Widget>();
     for (var course in favs) {
-      Department department = departments
-          .firstWhere((Department d) => d.number == course.department);
-      courseWidgets.add(new CourseListEntry(course, department));
+      courseWidgets.add(new CourseListEntry(course));
     }
     return courseWidgets;
   }

@@ -37,14 +37,14 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.sort(
       (c1, c2) =>
-          c1.timeAndDay.day * 100 +
-          c1.timeAndDay.slot -
-          c2.timeAndDay.day * 100 +
-          c2.timeAndDay.slot,
+          c1.timeAndDay[0].day * 100 +
+          c1.timeAndDay[0].slot -
+          c2.timeAndDay[0].day * 100 +
+          c2.timeAndDay[0].slot,
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay.day == today.weekday) {
+        if (course.timeAndDay[0].day == today.weekday) {
           timetableEntries.add(new TimetableEntry(course));
           removeCourseList.add(course);
         }
@@ -58,7 +58,7 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay.day > today.weekday) {
+        if (course.timeAndDay[0].day > today.weekday) {
           timetableEntries.add(new TimetableEntry(course));
           removeCourseList.add(course);
         }

@@ -75,7 +75,7 @@ const department12 = const Department(
   12,
   12,
   "Design",
-  0xFF0f364,
+  0xFF0f3647,
 );
 const department13 = const Department(
   13,

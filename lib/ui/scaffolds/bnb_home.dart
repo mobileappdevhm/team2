@@ -55,10 +55,10 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     Widget scaffold;
     if (coursesDownloaded && campusesDownloaded && departmentsDownloaded) {
       List<Widget> screens = [
-        new CourseListScreen(courses, departments),
+        new CourseListScreen(courses),
         new LocationScreen(campuses),
         new TimetableScreen(courses),
-        new FavoriteListScreen(courses, departments),
+        new FavoriteListScreen(courses),
         new SettingsScreen(),
       ];
       scaffold = new Scaffold(

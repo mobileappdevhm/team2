@@ -10,9 +10,8 @@ import 'package:courses_in_english/ui/basic_components/availability_widget.dart'
 
 class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
-  final Department department;
 
-  CourseDetailsScaffold(this.course, this.department);
+  CourseDetailsScaffold(this.course);
 
   @override
   State<StatefulWidget> createState() => new _CourseDetailsScaffold();
@@ -64,9 +63,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                         ),
                       ),
                       new Text(
-                        'Department ${widget.course.department.toString().padLeft(2, '0')}',
+                        'Department ${widget.course.department.number.toString().padLeft(2, '0')}',
                         style: new TextStyle(
-                          color: widget.department.color,
+                          color: new Color(widget.course.department.color),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -110,10 +109,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new Text(
+                      // TODO adjust to list of timeanddays
                         widget.course.timeAndDay != null &&
-                                widget.course.timeAndDay.day != null &&
-                                widget.course.timeAndDay.duration != null
-                            ? widget.course.timeAndDay.toDate()
+                                widget.course.timeAndDay[0].day != null &&
+                                widget.course.timeAndDay[0].duration != null
+                            ? widget.course.timeAndDay[0].toDate()
                             : "Time and Day Unknown",
                         style: new TextStyle(
                             color: Colors.black54,
@@ -169,8 +169,8 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                       top: 4.0,
                     )),
                     new Text(
-                        widget.course.lecturerName != null
-                            ? "${widget.course.lecturerName}"
+                        widget.course.lecturer.name != null
+                            ? "${widget.course.lecturer.name}"
                             : "Professor Unknown",
                         style: new TextStyle(
                             color: Colors.black54,
@@ -211,13 +211,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
   }
 
   sendMail() async {
-    Lecturer lecturer;
-    Data data = new Data();
-    lecturer =
-        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
-    // Android and iOS
+    Lecturer lecturer = widget.course.lecturer;// Android and iOS
     final uri =
-        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${widget.course.lecturerName},';
+        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);

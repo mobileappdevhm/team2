@@ -5,20 +5,18 @@ import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class CourseListScreen extends StatefulWidget {
   final List<Course> courses;
-  final Iterable<Department> departments;
 
-  CourseListScreen(this.courses, this.departments);
+  CourseListScreen(this.courses);
 
   @override
   CourseListState createState() =>
-      new CourseListState(this.courses, this.departments);
+      new CourseListState(this.courses);
 }
 
 class CourseListState extends State<CourseListScreen> {
   final List<Course> courseList;
-  final Iterable<Department> departments;
 
-  CourseListState(this.courseList, this.departments);
+  CourseListState(this.courseList);
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +42,7 @@ class CourseListState extends State<CourseListScreen> {
   List<Widget> courseItems() {
     List<Widget> courseWidgets = new List<Widget>();
     for (var course in courseList) {
-      Department department = departments
-          .firstWhere((Department d) => d.number == course.department);
-      courseWidgets.add(new CourseListEntry(course, department));
+      courseWidgets.add(new CourseListEntry(course));
     }
     return courseWidgets;
   }
