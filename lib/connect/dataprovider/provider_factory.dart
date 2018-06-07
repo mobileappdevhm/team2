@@ -5,6 +5,7 @@ import 'package:courses_in_english/connect/dataprovider/department/department_pr
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 
 /// Factory for all providers.
 abstract class ProviderFactory {
@@ -28,4 +29,7 @@ abstract class ProviderFactory {
 
   /// Create new instance of a campus provider.
   CampusProvider createCampusProvider();
+
+  /// Create a new instance of the settings provider.
+  UserSettingsProvider createSettingsProvider();
 }
