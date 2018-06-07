@@ -5,7 +5,7 @@ import 'package:courses_in_english/connect/dataprovider/course/mock/sqlite_cours
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/sqlite_data.dart';
 //import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/department/mock/sqlite_department_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favorites_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
