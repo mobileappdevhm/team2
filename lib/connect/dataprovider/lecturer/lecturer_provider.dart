@@ -6,4 +6,5 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 abstract class LecturerProvider {
   /// Get lecturer by its id.
   Future<Lecturer> getLecturerById(int lecturerId);
+  Future<Iterable<Lecturer>> getLecturers();
 }
