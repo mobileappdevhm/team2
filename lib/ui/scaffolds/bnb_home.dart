@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -29,14 +30,14 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       title: new Text('Courses in English'),
       centerTitle: true,
       actions:
-      _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
     );
   }
 
   _updateList(String term) {
     List<Course> filteredCourses = new List<Course>();
 
-    for (Course course in allCourses) {
+    for (Course course in session.courses) {
       if ((course.name != null && course.name.contains(term)) ||
           course.description != null && course.description.contains(term)) {
         filteredCourses.add(course);
@@ -52,6 +53,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     session.callbacks.add((session) {
       if (mounted) {
         setState(() {
+          displayedCourses = session.courses;
           loading = false;
         });
       }
