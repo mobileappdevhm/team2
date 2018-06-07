@@ -1,9 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/campus/mock/sqlite_campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/sqlite_course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/selection_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/course/sqlite_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
@@ -27,9 +25,6 @@ class SqliteProviderFactory implements ProviderFactory {
 
   @override
   LecturerProvider createLecturerProvider() => new SqliteLecturerProvider();
-
-  @override
-  SelectionProvider createSelectionProvider() => new MockSelectionProvider();
 
   @override
   UserProvider createUserProvider() => new MockUserProvider();

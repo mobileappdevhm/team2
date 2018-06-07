@@ -7,11 +7,13 @@ abstract class CourseProvider {
   /// Get all available courses.
   Future<List<Course>> getCourses();
 
-  /// Get all available courses for one department.
-  Future<Iterable<Course>> getCoursesByDepartment(int department);
+  Future<List<Course>> getSelectedCourses();
+  Future<bool> selectCourse();
+  Future<bool> unSelectCourse();
 
-  /// Get all available courses for one or more departments.
-  Future<Iterable<Course>> getCoursesByDepartments(List<int> departments);
+  Future<List<Course>> getFavorizedCourses();
+  Future<bool> favorizeCourse();
+  Future<bool> unFavorizeCourse();
 
   /// Get course by id.
   Future<Course> getCourse(int courseId);

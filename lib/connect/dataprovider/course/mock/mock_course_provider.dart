@@ -26,19 +26,39 @@ class MockCourseProvider implements CourseProvider {
   }
 
   @override
-  Future<Iterable<Course>> getCoursesByDepartment(int department) async {
-    return new Future.delayed(
-        const Duration(milliseconds: 500),
-        () => MOCK_COURSES
-            .where((course) => course.department.number == department));
+  Future<bool> favorizeCourse() {
+    // TODO: implement favorizeCourse
+    throw new UnimplementedError();
   }
 
   @override
-  Future<Iterable<Course>> getCoursesByDepartments(
-      List<int> departments) async {
-    return new Future.delayed(
-        const Duration(milliseconds: 600),
-        () => MOCK_COURSES
-            .where((course) => departments.contains(course.department)));
+  Future<List<Course>> getFavorizedCourses() {
+    // TODO: implement getFavorizedCourses
+    throw new UnimplementedError();
+
+  }
+
+  @override
+  Future<List<Course>> getSelectedCourses() {
+    // TODO: implement getSelectedCourses
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> selectCourse() {
+    // TODO: implement selectCourse
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> unFavorizeCourse() {
+    // TODO: implement unFavorizeCourse
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> unSelectCourse() {
+    // TODO: implement unSelectCourse
+    throw new UnimplementedError();
   }
 }

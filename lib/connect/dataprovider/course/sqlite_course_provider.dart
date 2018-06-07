@@ -88,81 +88,8 @@ class SqliteCourseProvider implements CourseProvider {
 
     return (new Future.delayed(const Duration(seconds: 1), () => courses));
   */
-    return null;
+    throw new UnimplementedError();
   }
-
-  @override
-  Future<Iterable<Course>> getCoursesByDepartment(int department) async {
-    // TODO Adjust to new data model
-    /*List<Course> courses = [];
-    DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String, dynamic>> rawCampusData =
-        await dbh.selectWhere("Course", "department", department.toString());
-
-    void addCourse(Map<String, dynamic> data) {
-      String tempCourseStatusName = data["status"];
-      CourseStatus tempCourseStatus = tempCourseStatusName == "red"
-          ? CourseStatus.RED
-          : tempCourseStatusName == "yellow"
-              ? CourseStatus.YELLOW
-              : CourseStatus.GREEN;
-      List<int> courseFacultyAvailableList = [];
-      try {
-        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
-            .map((val) => int.parse(val))
-            .toList();
-      } catch (e) {
-        courseFacultyAvailableList.clear();
-      }
-      Course tempCourse = new Course(
-          data['id'],
-          data["name"],
-          data["location"],
-          data["description"],
-          data["department"],
-          data["lecturerId"],
-          data["lecturerName"],
-          data["room"],
-          tempCourseStatus,
-          courseFacultyAvailableList,
-          data["availableSlots"],
-          data["ects"],
-          data["semesterWeekHours"],
-          new TimeAndDay(data["day"], data["duration"], data["slot"]));
-
-      courses.add(tempCourse);
-    }
-
-    rawCampusData.forEach(addCourse);
-
-    return (new Future.delayed(const Duration(seconds: 1), () => courses));
-  */
-    return null;
-  }
-
-  @override
-  Future<Iterable<Course>> getCoursesByDepartments(
-          List<int> departments) async =>
-      new DatabaseHelper().selectTable("Course").then(
-            (rawData) => rawData.map(
-                  // map each raw element into a course object
-                  (rawElement) => new Course(
-                        rawElement['id'],
-                        rawElement['name'],
-                        rawElement['description'],
-                        rawElement['room'],
-                        rawElement['availableSlots'],
-                        rawElement['ects'],
-                        rawElement['us'],
-                        rawElement['semesterWeekHours'],
-                        null, // TODO get timeandday
-                        stringToStatus(rawElement['status']),
-                        null, // TODO get lecturer
-                        null, // TODO get department
-                        null, // TODO get location
-                      ),
-                ),
-          );
 
   Future<int> putCourses(List<Course> courses) async =>
       new DatabaseHelper().insertTable(
@@ -176,6 +103,42 @@ class SqliteCourseProvider implements CourseProvider {
   @override
   Future<List<Course>> getCourses() {
     // TODO: implement getCourses
-    return null;
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> favorizeCourse() {
+    // TODO: implement favorizeCourse
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<List<Course>> getFavorizedCourses() {
+    // TODO: implement getFavorizedCourses
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<List<Course>> getSelectedCourses() {
+    // TODO: implement getSelectedCourses
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> selectCourse() {
+    // TODO: implement selectCourse
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> unFavorizeCourse() {
+    // TODO: implement unFavorizeCourse
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<bool> unSelectCourse() {
+    // TODO: implement unSelectCourse
+    throw new UnimplementedError();
   }
 }
