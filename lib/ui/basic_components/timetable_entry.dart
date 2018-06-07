@@ -48,7 +48,7 @@ class TimetableEntry extends StatelessWidget {
 //                              fontWeight: FontWeight.w400,
 //                            )),
                       new Text(
-                        shortenCoursName(course.lecturerName),
+                        shortenCoursName(course.lecturer.name),
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize + 1,
@@ -80,7 +80,7 @@ class TimetableEntry extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        course.location,
+                        course.location.name,
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,
@@ -107,7 +107,8 @@ class TimetableEntry extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        course.timeAndDay.duration,
+                        // TODO adjust to list of timeandday
+                        course.timeAndDay[0].duration,
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,
@@ -139,7 +140,8 @@ class TimetableEntry extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        intToDayString(course.timeAndDay.day),
+                        //TODO adjust to list of time and day
+                        intToDayString(course.timeAndDay[0].day),
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,

@@ -1,7 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -20,16 +17,10 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   final PageController _controller =
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
-  bool coursesDownloaded = false;
   List<Course> displayedCourses = [];
-  // Keep an attribute with all courses to avoid repeated requests
-  List<Course> allCourses = [];
-  bool campusesDownloaded = false;
-  List<Campus> campuses = [];
-  bool departmentsDownloaded = false;
-  Iterable<Department> departments;
+  Session session = new Session();
   SearchBar searchBar;
-  Data data = new Data();
+  bool loading = true;
 
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
@@ -38,7 +29,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       title: new Text('Courses in English'),
       centerTitle: true,
       actions:
-          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+      _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
     );
   }
 
@@ -57,29 +48,16 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    data.courseProvider.getCourses().then((courses) {
-      setState(() {
-        this.displayedCourses = this.allCourses = courses;
-        this.coursesDownloaded = true;
-      });
+  _HomeScaffoldState() {
+    session.callbacks.add((session) {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     });
-    data.campusProvider.getCampuses().then((campuses) {
-      setState(() {
-        this.campuses = campuses;
-        this.campusesDownloaded = true;
-      });
-    });
-    data.departmentProvider.getDepartments().then((departments) {
-      setState(() {
-        this.departments = departments;
-        this.departmentsDownloaded = true;
-      });
-    });
-
+    // TODO error handling for download
+    session.download();
     // Initialize searchBar
     searchBar = new SearchBar(
         inBar: true,
@@ -91,12 +69,12 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
-    if (coursesDownloaded && campusesDownloaded && departmentsDownloaded) {
+    if (!loading) {
       List<Widget> screens = [
-        new CourseListScreen(displayedCourses, departments),
-        new LocationScreen(campuses),
-        new TimetableScreen(allCourses),
-        new FavoriteListScreen(allCourses, departments),
+        new CourseListScreen(displayedCourses, session.favorites),
+        new LocationScreen(session.campuses),
+        new TimetableScreen(session.courses),
+        new FavoriteListScreen(session.favorites),
         new SettingsScreen(),
       ];
       scaffold = new Scaffold(
