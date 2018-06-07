@@ -19,4 +19,10 @@ class MockLecturerProvider implements LecturerProvider {
     return new Future.delayed(
         const Duration(milliseconds: 200), () => MOCK_LECTURERS[lecturerId]);
   }
+
+  @override
+  Future<Iterable<Lecturer>> getLecturers() async {
+    // TODO: implement getLecturers
+    return new Future(() => MOCK_LECTURERS.values);
+  }
 }

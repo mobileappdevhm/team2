@@ -12,6 +12,7 @@ class MockCourseProvider implements CourseProvider {
     course04,
     course05,
   ];
+  Set<Course> favorites = new Set();
 
   @override
   Future<Course> getCourse(int courseId) async {
@@ -26,38 +27,37 @@ class MockCourseProvider implements CourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse() {
-    // TODO: implement favorizeCourse
-    throw new UnimplementedError();
+  Future<bool> favorizeCourse(Course course) {
+    return new Future.delayed(
+        new Duration(milliseconds: 200), () => favorites.add(course));
   }
 
   @override
-  Future<List<Course>> getFavorizedCourses() {
-    // TODO: implement getFavorizedCourses
-    throw new UnimplementedError();
-
+  Future<List<Course>> getFavorizedCourses() async {
+    return new Future.delayed(new Duration(milliseconds: 200),
+        () => favorites.toList(growable: false));
   }
 
   @override
   Future<List<Course>> getSelectedCourses() {
     // TODO: implement getSelectedCourses
-    throw new UnimplementedError();
+    return new Future.delayed(new Duration(milliseconds: 200), () => []);
   }
 
   @override
-  Future<bool> selectCourse() {
+  Future<bool> selectCourse(Course course) {
     // TODO: implement selectCourse
     throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unFavorizeCourse() {
-    // TODO: implement unFavorizeCourse
-    throw new UnimplementedError();
+  Future<bool> unFavorizeCourse(Course course) {
+    return new Future.delayed(
+        new Duration(milliseconds: 200), () => favorites.remove(course));
   }
 
   @override
-  Future<bool> unSelectCourse() {
+  Future<bool> unSelectCourse(Course course) {
     // TODO: implement unSelectCourse
     throw new UnimplementedError();
   }

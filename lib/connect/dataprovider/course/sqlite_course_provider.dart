@@ -107,7 +107,7 @@ class SqliteCourseProvider implements CourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse() {
+  Future<bool> favorizeCourse(Course course) {
     // TODO: implement favorizeCourse
     throw new UnimplementedError();
   }
@@ -125,19 +125,19 @@ class SqliteCourseProvider implements CourseProvider {
   }
 
   @override
-  Future<bool> selectCourse() {
+  Future<bool> selectCourse(Course course) {
     // TODO: implement selectCourse
     throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unFavorizeCourse() {
+  Future<bool> unFavorizeCourse(Course course) {
     // TODO: implement unFavorizeCourse
     throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unSelectCourse() {
+  Future<bool> unSelectCourse(Course course) {
     // TODO: implement unSelectCourse
     throw new UnimplementedError();
   }

@@ -8,7 +8,7 @@ import 'package:courses_in_english/connect/dataprovider/department/sqlite_depart
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favorites_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/mock/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';

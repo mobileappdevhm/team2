@@ -1,7 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -19,46 +16,30 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   final PageController _controller =
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
-  bool coursesDownloaded = false;
-  List<Course> courses = [];
-  bool campusesDownloaded = false;
-  List<Campus> campuses = [];
-  bool departmentsDownloaded = false;
-  Iterable<Department> departments;
+  Session session = new Session();
+  bool loading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    Data data = new Data();
-    data.courseProvider.getCourses().then((courses) {
-      setState(() {
-        this.courses = courses;
-        this.coursesDownloaded = true;
-      });
+  _HomeScaffoldState() {
+    session.callbacks.add((session) {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     });
-    data.campusProvider.getCampuses().then((campuses) {
-      setState(() {
-        this.campuses = campuses;
-        this.campusesDownloaded = true;
-      });
-    });
-    data.departmentProvider.getDepartments().then((departments) {
-      setState(() {
-        this.departments = departments;
-        this.departmentsDownloaded = true;
-      });
-    });
+    // TODO error handling for download
+    session.download();
   }
 
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
-    if (coursesDownloaded && campusesDownloaded && departmentsDownloaded) {
+    if (!loading) {
       List<Widget> screens = [
-        new CourseListScreen(courses),
-        new LocationScreen(campuses),
-        new TimetableScreen(courses),
-        new FavoriteListScreen(courses),
+        new CourseListScreen(session.courses, session.favorites),
+        new LocationScreen(session.campuses),
+        new TimetableScreen(session.courses),
+        new FavoriteListScreen(session.favorites),
         new SettingsScreen(),
       ];
       scaffold = new Scaffold(

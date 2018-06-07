@@ -17,6 +17,7 @@ class SqliteLecturerProvider implements LecturerProvider {
         const Duration(milliseconds: 200), () => tempLecturer);
   }
 
+  @override
   Future<List<Lecturer>> getLecturers() async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> lecturerData = await dbh.selectTable("Lecturer");
