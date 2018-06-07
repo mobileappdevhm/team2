@@ -1,14 +1,13 @@
-
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
-import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/settings_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override
