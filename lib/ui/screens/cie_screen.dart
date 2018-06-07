@@ -161,7 +161,8 @@ class CieScreenState extends State<CieScreen> {
     for (Cie cie in cieList) {
       Department department =
           await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
-      tempWidgets.add(new CieListEntry(cie, department, onPressedButton: _setMyState ));
+      tempWidgets
+          .add(new CieListEntry(cie, department, onPressedButton: _setMyState));
 
       ///TODO: fix the null
       tempTotalEcts += cie.ects;
@@ -176,7 +177,10 @@ class CieScreenState extends State<CieScreen> {
   void _addCie() {
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => new AddCieScreen(onPressedButton: _setMyState,)),
+      new MaterialPageRoute(
+          builder: (context) => new AddCieScreen(
+                onPressedButton: _setMyState,
+              )),
     );
   }
 
@@ -187,11 +191,9 @@ class CieScreenState extends State<CieScreen> {
     courseItems();
   }
 
-  void _setMyState(){
+  void _setMyState() {
     courseItems();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
