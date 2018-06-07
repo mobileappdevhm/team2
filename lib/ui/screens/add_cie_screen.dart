@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
+import 'package:flutter/material.dart';
 
 class AddCieScreen extends StatefulWidget {
   AddCieScreen({Key key, this.title, this.onPressedButton}) : super(key: key);
@@ -18,7 +18,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
   final formKey2 = new GlobalKey<FormState>();
   final formKey3 = new GlobalKey<FormState>();
   final formKey4 = new GlobalKey<FormState>();
-  List<Widget> TL = [];
+  List<Widget> tl = [];
   String tempName = "";
   String tempLecturerName = "";
   String tempDescription = "";
@@ -35,7 +35,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
       body: new Column(
         children: <Widget>[
           new Column(
-            children: TL,
+            children: tl,
           ),
           tempNameField(),
           tempLecturerNameField(),
@@ -152,13 +152,13 @@ class _AddCieScreenState extends State<AddCieScreen> {
       form3.save();
       form4.save();
     });
-    TL.clear();
+    tl.clear();
     if (tempEcts == -1 ||
         tempDepartment == -1 ||
         tempName == "" ||
         tempLecturerName == "") {
-      TL.add(new Padding(padding: new EdgeInsets.all(8.0)));
-      TL.add(new Container(
+      tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
+      tl.add(new Container(
         margin: const EdgeInsets.all(3.0),
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -177,8 +177,8 @@ class _AddCieScreenState extends State<AddCieScreen> {
         tempName, tempDepartment, tempLecturerName, tempEcts, tempDescription));
 
     if (result != 0) {
-      TL.add(new Padding(padding: new EdgeInsets.all(8.0)));
-      TL.add(new Container(
+      tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
+      tl.add(new Container(
         margin: const EdgeInsets.all(3.0),
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -192,8 +192,8 @@ class _AddCieScreenState extends State<AddCieScreen> {
       setState(() {});
       return;
     } else {
-      TL.add(new Padding(padding: new EdgeInsets.all(8.0)));
-      TL.add(new Container(
+      tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
+      tl.add(new Container(
         margin: const EdgeInsets.all(3.0),
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
