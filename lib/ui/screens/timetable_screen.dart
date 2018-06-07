@@ -1,4 +1,5 @@
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/timetable/timtable_course.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,13 @@ class TimetableState extends State<TimetableScreen> {
   }
 
   Widget timetableView() {
-    List<Course> courseList = new List();
-    List<Course> removeCourseList = new List();
-    courseList.addAll(courses);
+    List<TimetableCourse> courseList = new List();
+    List<TimetableCourse> removeCourseList = new List();
+    courses.forEach((course) {
+      for (int i = 0; i < course.timeAndDay.length; i++) {
+        courseList.add(new TimetableCourse(course, i));
+      }
+    });
     DateTime today = new DateTime.now();
     List<Widget> timetableEntries = [];
     timetableEntries.add(
@@ -37,20 +42,22 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.sort(
       (c1, c2) =>
-          c1.timeAndDay.day * 100 +
-          c1.timeAndDay.slot -
-          c2.timeAndDay.day * 100 +
-          c2.timeAndDay.slot,
+          c1.course.timeAndDay[0].day * 100 +
+          c1.course.timeAndDay[0].hour -
+          c2.course.timeAndDay[0].day * 100 +
+          c2.course.timeAndDay[0].hour,
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay.day == today.weekday) {
-          timetableEntries.add(new TimetableEntry(course));
+        if (course.course.timeAndDay[0].day == today.weekday) {
+          timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }
       },
     );
+
     removeCourseList.forEach((course) => courseList.remove(course));
+
     timetableEntries.add(
       new LineSeparator(
         title: "Next Week",
@@ -58,16 +65,17 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.forEach(
       (course) {
-        if (course.timeAndDay.day > today.weekday) {
-          timetableEntries.add(new TimetableEntry(course));
+        if (course.course.timeAndDay[0].day > today.weekday) {
+          timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }
       },
     );
     removeCourseList.forEach((course) => courseList.remove(course));
     courseList.forEach(
-      (course) {
-        timetableEntries.add(new TimetableEntry(course));
+      (tCourse) {
+        timetableEntries
+            .add(new TimetableEntry(tCourse.course, tCourse.occurrence));
       },
     );
 
