@@ -1,9 +1,11 @@
 import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/settings_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScaffold extends StatefulWidget {
@@ -16,19 +18,54 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   final PageController _controller =
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
+  List<Course> displayedCourses = [];
   Session session = new Session();
+  SearchBar searchBar;
   bool loading = true;
+
+  // Builds the app bar depending on current screen
+  // When on course_list screen, add search functionality
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      title: new Text('Courses in English'),
+      centerTitle: true,
+      actions:
+          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+    );
+  }
+
+  _updateList(String term) {
+    List<Course> filteredCourses = new List<Course>();
+
+    for (Course course in session.courses) {
+      if ((course.name != null && course.name.contains(term)) ||
+          course.description != null && course.description.contains(term)) {
+        filteredCourses.add(course);
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+    });
+  }
 
   _HomeScaffoldState() {
     session.callbacks.add((session) {
       if (mounted) {
         setState(() {
+          displayedCourses = session.courses;
           loading = false;
         });
       }
     });
     // TODO error handling for download
     session.download();
+    // Initialize searchBar
+    searchBar = new SearchBar(
+        inBar: true,
+        setState: setState,
+        onSubmitted: _updateList,
+        buildDefaultAppBar: buildAppBar);
   }
 
   @override
@@ -36,7 +73,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     Widget scaffold;
     if (!loading) {
       List<Widget> screens = [
-        new CourseListScreen(session.courses, session.favorites),
+        new CourseListScreen(displayedCourses, session.favorites),
         new LocationScreen(session.campuses),
         new TimetableScreen(session.courses),
         new FavoriteListScreen(session.favorites),
@@ -75,10 +112,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             });
           },
         ),
-        appBar: new AppBar(
-          title: new Text('Courses in English'),
-          centerTitle: true,
-        ),
+        appBar: searchBar.build(context),
         body: new PageView(
           controller: _controller,
           children: screens,
