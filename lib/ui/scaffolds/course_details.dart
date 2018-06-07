@@ -1,10 +1,10 @@
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 
 const Color HEART = const Color(0xFFFFA1A1);
 
@@ -17,6 +17,16 @@ class CourseDetailsScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String date = "";
+    course.timeAndDay.forEach((lecture) {
+      date += lecture.toDate() + "\n";
+    });
+
+    if (date == "") {
+      date = "Time and Day Unknown";
+    } else {
+      date.substring(0, date.length - 1);
+    }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(

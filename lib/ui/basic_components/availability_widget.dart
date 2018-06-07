@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:flutter/material.dart';
 
 class AvailabilityWidget extends StatelessWidget {
   static const Color GREEN = const Color(0xFF83D183);

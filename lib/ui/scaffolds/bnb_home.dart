@@ -1,12 +1,13 @@
 import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
-import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/settings_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 class HomeScaffold extends StatefulWidget {
   @override
@@ -26,11 +27,32 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
+    List<Widget> actions;
+    if (_selectedIndex == 2) {
+      actions = [
+        new IconButton(
+          icon: new Icon(Icons.calendar_today),
+          onPressed: () {
+            saveIcsFile(session.courses);
+            AlertDialog dialog = new AlertDialog(
+              content: new Text("Ics was saved to your Phones Storage"),
+            );
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return dialog;
+                });
+          },
+        )
+      ];
+    }
+    if (_selectedIndex == 0) {
+      actions = [searchBar.getSearchAction(context)];
+    }
     return new AppBar(
       title: new Text('Courses in English'),
       centerTitle: true,
-      actions:
-          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+      actions: actions,
     );
   }
 

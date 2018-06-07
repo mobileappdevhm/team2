@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 /// Representation of a course (or lecture) for the timetable.
 class TimetableEntry extends StatelessWidget {
   final Course course;
+  final int listpos;
   static const double fontSize = 14.0;
   static const double horPadding = 14.0;
   static const double vertPadding = 8.0;
 
-  TimetableEntry(this.course);
+  TimetableEntry(this.course, this.listpos);
 
   @override
   Widget build(BuildContext context) {

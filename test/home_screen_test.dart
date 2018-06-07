@@ -22,7 +22,6 @@ void main() {
     await tester.idle();
   });*/
 
-
   testWidgets('SampleScreenTest', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new SampleScreen("Test")));
     expect(find.text("Test"), findsOneWidget);
@@ -40,9 +39,8 @@ void main() {
   testWidgets('LoginTest', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
     expect(find.byType(TextFormField), findsNWidgets(2));
-    expect(find.widgetWithText(RaisedButton, "Continue as Guest"), findsOneWidget);
+    expect(
+        find.widgetWithText(RaisedButton, "Continue as Guest"), findsOneWidget);
     expect(find.widgetWithText(RaisedButton, "Login"), findsOneWidget);
   });
-
-
 }
