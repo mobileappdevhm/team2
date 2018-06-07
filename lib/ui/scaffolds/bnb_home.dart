@@ -98,7 +98,6 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new TimetableScreen(allCourses),
         new FavoriteListScreen(allCourses, departments),
         new SettingsScreen(),
-
       ];
       scaffold = new Scaffold(
         bottomNavigationBar: new BottomNavigationBar(
