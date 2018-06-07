@@ -41,7 +41,7 @@ class CourseListState extends State<CourseListScreen> {
     );
   }
 
-  List<Widget> courseItems() {
+  List<Widget> courseWidgets() {
     List<Widget> courseWidgets = new List<Widget>();
     for (Course course in courseList) {
       Department department = departments
@@ -56,7 +56,7 @@ class CourseListState extends State<CourseListScreen> {
       constraints: new BoxConstraints.expand(),
       alignment: Alignment.center,
       child: new ListView(
-        children: courseItems(),
+        children: courseWidgets(),
       ),
     );
   }
