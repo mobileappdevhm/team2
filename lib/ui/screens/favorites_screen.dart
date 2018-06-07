@@ -2,7 +2,6 @@ import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
 class FavoriteListScreen extends StatefulWidget {
@@ -10,8 +9,7 @@ class FavoriteListScreen extends StatefulWidget {
   FavoriteListScreen(this.courses);
 
   @override
-  FavoriteListState createState() =>
-      new FavoriteListState(this.courses);
+  FavoriteListState createState() => new FavoriteListState(this.courses);
 }
 
 class FavoriteListState extends State<FavoriteListScreen>

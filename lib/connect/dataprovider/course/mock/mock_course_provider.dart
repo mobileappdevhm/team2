@@ -27,8 +27,10 @@ class MockCourseProvider implements CourseProvider {
 
   @override
   Future<Iterable<Course>> getCoursesByDepartment(int department) async {
-    return new Future.delayed(const Duration(milliseconds: 500),
-        () => MOCK_COURSES.where((course) => course.department == department));
+    return new Future.delayed(
+        const Duration(milliseconds: 500),
+        () => MOCK_COURSES
+            .where((course) => course.department.number == department));
   }
 
   @override

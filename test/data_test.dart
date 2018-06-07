@@ -1,4 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+/*import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
@@ -16,17 +16,17 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/model/user/user.dart';
+import 'package:courses_in_english/model/user/user.dart';*/
 import 'package:test/test.dart';
 
 void main() {
-  Data _data;
+  //Data _data;
 
   /**
    * Set up our data source, as we know it from java tests
    */
   setUp(() {
-    _data = new Data();
+    //_data = new Data();
   });
 
   /**

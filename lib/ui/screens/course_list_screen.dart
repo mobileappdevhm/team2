@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 
@@ -9,8 +8,7 @@ class CourseListScreen extends StatefulWidget {
   CourseListScreen(this.courses);
 
   @override
-  CourseListState createState() =>
-      new CourseListState(this.courses);
+  CourseListState createState() => new CourseListState(this.courses);
 }
 
 class CourseListState extends State<CourseListScreen> {

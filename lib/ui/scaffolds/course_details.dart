@@ -1,7 +1,6 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
@@ -109,7 +108,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new Text(
-                      // TODO adjust to list of timeanddays
+                        // TODO adjust to list of timeanddays
                         widget.course.timeAndDay != null &&
                                 widget.course.timeAndDay[0].day != null &&
                                 widget.course.timeAndDay[0].duration != null
@@ -211,7 +210,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
   }
 
   sendMail() async {
-    Lecturer lecturer = widget.course.lecturer;// Android and iOS
+    Lecturer lecturer = widget.course.lecturer; // Android and iOS
     final uri =
         'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${lecturer.name},';
     print(uri);

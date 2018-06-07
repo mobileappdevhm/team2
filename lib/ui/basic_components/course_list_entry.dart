@@ -11,8 +11,7 @@ class CourseListEntry extends StatefulWidget {
   CourseListEntry(this.course);
 
   @override
-  _CourseListEntryState createState() =>
-      new _CourseListEntryState(course);
+  _CourseListEntryState createState() => new _CourseListEntryState(course);
 }
 
 class _CourseListEntryState extends State implements FavoritesObserver {
@@ -82,7 +81,7 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                   new Expanded(
                       child: new Container(
                           child: new Text(
-                            // TODO adjust to list of time and days
+                              // TODO adjust to list of time and days
                               course.timeAndDay != null &&
                                       course.timeAndDay[0].day != null &&
                                       course.timeAndDay[0].duration != null
@@ -100,9 +99,8 @@ class _CourseListEntryState extends State implements FavoritesObserver {
                       child: new Text(
                         "Department ${course.department.number.toString().padLeft(2, '0')}",
                         style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: new Color(course.department.color)
-                        ),
+                            fontWeight: FontWeight.bold,
+                            color: new Color(course.department.color)),
                         textScaleFactor: 1.2,
                       ),
                       alignment: Alignment.centerLeft,

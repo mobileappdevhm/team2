@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-
+*/
 /*const Map<int, Department> MOCK_DEPARTMENTS = const <int, Department>{
   1: const Department(1, "Architecture", const Color(0xFF014085)),
   2: const Department(2, "Civil Engineering", const Color(0xFF008db8)),

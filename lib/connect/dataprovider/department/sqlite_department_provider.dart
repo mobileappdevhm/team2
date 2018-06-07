@@ -35,9 +35,11 @@ class SqliteDepartmentProvider implements DepartmentProvider {
   Future<int> putDepartments(List<Department> departments) async =>
       new DatabaseHelper().insertTable(
         "Department",
-        departments.map(
-          // map each department into raw data
-          (department) => department.toMap(),
-        ).toList(),
+        departments
+            .map(
+              // map each department into raw data
+              (department) => department.toMap(),
+            )
+            .toList(),
       );
 }

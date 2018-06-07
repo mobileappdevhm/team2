@@ -87,7 +87,9 @@ class SqliteCourseProvider implements CourseProvider {
     rawCampusData.forEach(addCourse);
 
     return (new Future.delayed(const Duration(seconds: 1), () => courses));
-  */ return null;}
+  */
+    return null;
+  }
 
   @override
   Future<Iterable<Course>> getCoursesByDepartment(int department) async {
@@ -134,7 +136,9 @@ class SqliteCourseProvider implements CourseProvider {
     rawCampusData.forEach(addCourse);
 
     return (new Future.delayed(const Duration(seconds: 1), () => courses));
-  */return null;}
+  */
+    return null;
+  }
 
   @override
   Future<Iterable<Course>> getCoursesByDepartments(

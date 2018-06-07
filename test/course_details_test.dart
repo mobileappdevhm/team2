@@ -1,5 +1,4 @@
 import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/scaffolds/course_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
