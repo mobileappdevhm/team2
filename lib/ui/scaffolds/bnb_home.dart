@@ -27,11 +27,32 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
+    List<Widget> actions;
+    if (_selectedIndex == 2) {
+      actions = [
+        new IconButton(
+          icon: new Icon(Icons.calendar_today),
+          onPressed: () {
+            saveIcsFile(session.courses);
+            AlertDialog dialog = new AlertDialog(
+              content: new Text("Ics was saved to your Phones Storage"),
+            );
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return dialog;
+                });
+          },
+        )
+      ];
+    }
+    if (_selectedIndex == 0) {
+      actions = [searchBar.getSearchAction(context)];
+    }
     return new AppBar(
       title: new Text('Courses in English'),
       centerTitle: true,
-      actions:
-          _selectedIndex == 0 ? [searchBar.getSearchAction(context)] : null,
+      actions: actions,
     );
   }
 
@@ -113,29 +134,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             });
           },
         ),
-        appBar: new AppBar(
-          title: new Text('Courses in English'),
-          centerTitle: true,
-          actions: _selectedIndex == 2
-              ? [
-                  new IconButton(
-                    icon: new Icon(Icons.calendar_today),
-                    onPressed: () {
-                      saveIcsFile(session.courses);
-                      AlertDialog dialog = new AlertDialog(
-                        content:
-                            new Text("Ics was saved to your Phones Storage"),
-                      );
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return dialog;
-                          });
-                    },
-                  )
-                ]
-              : null,
-        ),
+        appBar: searchBar.build(context),
         body: new PageView(
           controller: _controller,
           children: screens,
