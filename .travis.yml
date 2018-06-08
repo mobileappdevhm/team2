@@ -9,21 +9,22 @@ addons:
     packages:
       - libstdc++6
       - fonts-droid
+before_script:
+  - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+  - ../flutter/bin/flutter doctor
+  - gem install coveralls-lcov
 jobs:
   include:
     - stage: Test
       language: dart
-      dart_task:
-      - test: --platform vm
-      - dartfmt
-      before_script:
-        # file names are not allowed to include capital letters
-        - chmod 777 ./.no_camel.sh
-        - ./.no_camel.sh
-        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
-        - ./flutter/bin/flutter analyze
       script:
-        - ./flutter/bin/flutter test
+        - chmod 777 ./.no_camel.sh
+        - ./.no_camel.sh # file names are not allowed to include capital letters
+        - $(../flutter/bin/cache/dart-sdk/bin/dartfmt -n lib) # check if files are formatted according to dartfmt
+        - ../flutter/bin/flutter analyze
+        - ../flutter/bin/flutter test --coverage test/*
+      after_success:
+        - coveralls-lcov coverage/lcov.info
     - stage: Deploy
       if: branch = master
       language: android
@@ -40,9 +41,21 @@ jobs:
         - 'android-sdk-license-.+'
         - 'google-gdk-license-.+'
       before_script:
-        - ../flutter/bin/flutter doctor
+        - ../flutter/bin/flutter doctor --android-licenses
       script:
         - ../flutter/bin/flutter -v build apk
+      before_deploy:
+        - git config --global user.email "builds@travis-ci.com"
+        - git config --global user.name "Travis CI"
+        - export GIT_TAG=$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
+        - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+        - git push -q https://$TAGPERM@github.com/mobileappdevhm/team2 --tags
+        - ls -R
+      deploy:
+        provider: releases
+        api_key: ${GithubToken}
+        file: "/build/app/outputs/apk/release/app-release.apk"
+        skip_cleanup: true
 cache:
   directories:
   - $HOME/.pub-cache
