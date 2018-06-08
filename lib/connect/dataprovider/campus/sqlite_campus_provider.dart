@@ -13,7 +13,8 @@ class SqliteCampusProvider implements CampusProvider {
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Campus");
 
     void iterate(Map<String, dynamic> data) {
-      campuses.add(new Campus(data['id'], data["name"], data["imagePath"], data["mapUrl"]));
+      campuses.add(new Campus(
+          data['id'], data["name"], data["imagePath"], data["mapUrl"]));
     }
 
     rawCampusData.forEach(iterate);

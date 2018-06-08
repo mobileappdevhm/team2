@@ -3,7 +3,6 @@ import 'package:courses_in_english/ui/scaffolds/location_details.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 /// Location screen showing the different campuses of the munich university of applied sciences.
 class LocationScreen extends StatefulWidget {
   final List<Campus> campuses;
@@ -32,7 +31,8 @@ class _LocationState extends State<LocationScreen> {
           return new Container(
               child: new GestureDetector(
                   onTap: () {
-                    goToMaps('https://www.google.com/maps/place/University+of+Applied+Science+Munich/@48.1542311,11.5570298,17.62z/data=!4m8!1m2!2m1!1shochschule+m%C3%BCnchen!3m4!1s0x0:0x18bfe7f8741350da!8m2!3d48.1548088!4d11.5561071');
+                    goToMaps(
+                        'https://www.google.com/maps/place/University+of+Applied+Science+Munich/@48.1542311,11.5570298,17.62z/data=!4m8!1m2!2m1!1shochschule+m%C3%BCnchen!3m4!1s0x0:0x18bfe7f8741350da!8m2!3d48.1548088!4d11.5561071');
                     //goToMaps(campus.mapUrl); TODO: Uncomment and delete line above
                   },
                   child: new Stack(
