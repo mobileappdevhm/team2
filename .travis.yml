@@ -26,7 +26,7 @@ jobs:
       after_success:
         - coveralls-lcov coverage/lcov.info
     - stage: Deploy
-      if: branch = master
+      if: branch = travis-test
       language: android
       android:
         components:
