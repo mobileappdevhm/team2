@@ -86,7 +86,7 @@ class SqliteCourseProvider implements CourseProvider {
 
     rawCampusData.forEach(addCourse);
 
-    return (new Future.delayed(const Duration(seconds: 1), () => courses));
+    return (new Future( () => courses));
   */
     throw new UnimplementedError();
   }

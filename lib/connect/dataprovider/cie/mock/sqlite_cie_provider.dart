@@ -19,7 +19,7 @@ class SqliteCieProvider implements CieProvider {
 
     rawCampusData.forEach(iterate);
 
-    return (new Future.delayed(const Duration(seconds: 1), () => campuses));
+    return (new Future( () => campuses));
   }
 
   @override
