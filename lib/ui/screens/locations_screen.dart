@@ -1,5 +1,4 @@
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/ui/scaffolds/location_details.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
