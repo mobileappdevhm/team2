@@ -29,7 +29,7 @@ void main() {
     expect(find.byIcon(Icons.favorite_border), findsOneWidget);
     expect(find.byIcon(Icons.favorite), findsNothing);
   });
-  testWidgets('Test information display', (WidgetTester tester) async {
+  testWidgets('Test information display - favorite', (WidgetTester tester) async {
     await tester.pumpWidget(
       new MaterialApp(
         home: new CourseDetailsScaffold(course01, true), // favorite = false
