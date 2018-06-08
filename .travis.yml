@@ -16,7 +16,7 @@ before_script:
 jobs:
   include:
     - stage: Test
-      language: dart
+      language: general
       script:
         - chmod 777 ./.no_camel.sh
         - ./.no_camel.sh # file names are not allowed to include capital letters
