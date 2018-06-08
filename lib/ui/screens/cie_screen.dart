@@ -1,7 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
@@ -132,8 +130,8 @@ class CieScreenState extends State<CieScreen> {
   void courseItems() async {
     List<Widget> tempWidgets = new List<Widget>();
     SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    SqliteDepartmentProvider sqlitedepartmentprovider =
-        new SqliteDepartmentProvider();
+    //SqliteDepartmentProvider sqlitedepartmentprovider =
+    //    new SqliteDepartmentProvider();
 
 //    List<Department> departments = [];
 //    departments.add(new Department(1, "Architecture", const Color(0xFF014085)));
@@ -159,10 +157,10 @@ class CieScreenState extends State<CieScreen> {
     double tempTotalEcts = 0.0;
 
     for (Cie cie in cieList) {
-      Department department =
-          await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
+      //Department department =
+        //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
       tempWidgets
-          .add(new CieListEntry(cie, department, onPressedButton: _setMyState));
+          .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
 
       ///TODO: fix the null
       tempTotalEcts += cie.ects;
