@@ -18,7 +18,7 @@ class SqliteCampusProvider implements CampusProvider {
 
     rawCampusData.forEach(iterate);
 
-    return (new Future( () => campuses));
+    return (new Future(() => campuses));
   }
 
   Future<int> putCampuses(List<Campus> campuses) async {

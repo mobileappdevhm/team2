@@ -13,7 +13,7 @@ class SqliteLecturerProvider implements LecturerProvider {
         await dbh.selectOneWhere("Lecturer", "id", lecturerId.toString());
     Lecturer tempLecturer = new Lecturer(
         lecturerData["id"], lecturerData["name"], lecturerData["email"]);
-    return new Future( () => tempLecturer);
+    return new Future(() => tempLecturer);
   }
 
   @override
@@ -31,7 +31,7 @@ class SqliteLecturerProvider implements LecturerProvider {
 
     lecturerData.forEach(addLecturer);
 
-    return new Future( () => lecturers);
+    return new Future(() => lecturers);
   }
 
   Future<int> putLecturer(List<Lecturer> lecturers) async {
