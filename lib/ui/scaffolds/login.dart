@@ -3,7 +3,6 @@ import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
-import 'package:courses_in_english/ui/scaffolds/create_user.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,20 +28,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   new Expanded(
                     child: login(),
                   ),
-                  new Container(
-                    child: new LineSeparator(),
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  ),
-                  new Container(
-                    child: createButton(),
-                  ),
-                  new Container(
-                    child: new LineSeparator(),
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  ),
-                  new Container(
-                    child: continueAsGuest(),
-                  ),
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          child: new LineSeparator(),
+                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                        ),
+                        new Container(
+                          child: continueAsGuest(),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -73,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
-          margin: EdgeInsets.symmetric(vertical: 25.0),
+          margin: new EdgeInsets.symmetric(vertical: 25.0),
         ),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
         textColor: Colors.white,
       ),
       alignment: AlignmentDirectional.center,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: new EdgeInsets.symmetric(vertical: 20.0),
     );
   }
 
@@ -120,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            maxLength: 20,
+            //maxLength: 20, TODO REINSTATE
             decoration: new InputDecoration(
               labelText: "Input Username",
               icon: new Icon(Icons.person),
@@ -130,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
               FocusScope.of(context).requestFocus(passwordNode);
             },
           ),
-          margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment.topCenter),
     );
   }
@@ -144,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
         child: new TextFormField(
           maxLines: 1,
-          maxLength: 30,
+          //maxLength: 30,TODO REINSTATE
           decoration: new InputDecoration(
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
@@ -154,29 +152,28 @@ class _LoginScreenState extends State<LoginScreen> {
           controller: controller,
           focusNode: passwordNode,
         ),
-        margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       ),
     );
   }
 
-  Container createButton() {
-    return new Container(
-      child: new FlatButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new CreateUserScreen()));
-        },
-        child: new Text(
-          "No Account yet? -> Create new User",
-          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-        ),
-      ),
-      alignment: AlignmentDirectional.topCenter,
-      margin: EdgeInsets.only(top: 5.0),
-    );
-  }
+  ///Later Needed for Implementation of registration for the Apps Server.
+  ///
+  ///Container createButton() {
+  //    return new Container(
+  //      child: new FlatButton(
+  //        onPressed: () {
+  //
+  //        },
+  //        child: new Text(
+  //          "No Account yet? -> Create new User",
+  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
+  //        ),
+  //      ),
+  //      alignment: AlignmentDirectional.topCenter,
+  //      margin: EdgeInsets.only(top: 5.0),
+  //    );
+  //  }
 
   Container titleRow() {
     return new Container(
@@ -185,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontWeight: FontWeight.w100, color: new Color(0xFF707070)),
             textScaleFactor: 2.5),
         alignment: AlignmentDirectional.center,
-        margin: EdgeInsets.symmetric(vertical: 20.0));
+        margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
   void doLogin() {

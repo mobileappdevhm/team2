@@ -15,6 +15,14 @@ class User {
   /// Department number the user is belonging to.
   final int department;
 
+  final String token;
+
   const User(
-      this.id, this.username, this.firstName, this.lastName, this.department);
+    this.id,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.department,
+    this.token,
+  );
 }
