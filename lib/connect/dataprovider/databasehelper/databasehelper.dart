@@ -34,7 +34,7 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location TEXT, description TEXT, department INTEGER, lecturerId INTEGER, lecturerName TEXT, room TEXT, status TEXT, courseFacultyAvailable TEXT, availableSlots INTEGER, ects INTEGER, semesterWeekHours INTEGER, duration TEXT, day INTEGER, slot INTEGER )");
     await db.execute(
-        "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color String)");
+        "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color TEXT)");
     await db.execute(
         "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, classname TEXT, note TEXT)");
     await db.execute(

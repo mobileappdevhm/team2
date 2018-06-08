@@ -72,7 +72,7 @@ class CieListEntry extends StatelessWidget {
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
                           color: department != null
-                              ? department.color
+                              ? new Color(department.color)
                               : Colors.grey,
                         ),
                         textScaleFactor: 1.2,
