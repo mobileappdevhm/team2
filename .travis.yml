@@ -32,17 +32,18 @@ jobs:
         components:
           - tools
           - platform-tools
-          - tools
-          # The BuildTools version used by your project
-          - build-tools-26.1.1
-          # The SDK version used to compile your project
-          - android-26
-          # Sys image for eventual virtual devices
-          - sys-img-armeabi-v7a-android-26
+          - build-tools-27.0.3
+          - android-27
+          - sys-img-armeabi-v7a-google_apis-27
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
       licenses:
         - 'android-sdk-preview-license-.+'
         - 'android-sdk-license-.+'
         - 'google-gdk-license-.+'
+      jdk:
+        - oraclejdk8
       before_script:
         - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
         - /usr/local/android-sdk/tools/bin/sdkmanager --update
