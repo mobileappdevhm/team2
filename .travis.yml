@@ -42,8 +42,7 @@ jobs:
         - 'android-sdk-preview-license-.+'
         - 'android-sdk-license-.+'
         - 'google-gdk-license-.+'
-      jdk:
-        - oraclejdk8
+      jdk: oraclejdk8
       before_script:
         - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
         - /usr/local/android-sdk/tools/bin/sdkmanager --update
