@@ -45,6 +45,7 @@ jobs:
       jdk: oraclejdk8
       before_script:
         - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+        - yes|/usr/local/android-sdk/tools/bin/sdkmanager --update
         - ../flutter/bin/flutter doctor --android-licenses
       script:
         - ../flutter/bin/flutter -v build apk
