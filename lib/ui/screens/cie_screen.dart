@@ -158,7 +158,7 @@ class CieScreenState extends State<CieScreen> {
 
     for (Cie cie in cieList) {
       //Department department =
-        //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
+      //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
       tempWidgets
           .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
 
