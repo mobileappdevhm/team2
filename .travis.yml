@@ -32,15 +32,17 @@ jobs:
         components:
           - tools
           - platform-tools
-          - build-tools-25.0.3
-          - android-25
-          - sys-img-armeabi-v7a-google_apis-25
+          - build-tools-27.0.3
+          - android-27
+          - sys-img-armeabi-v7a-google_apis-27
+          - android-21
           - extra-android-m2repository
           - extra-google-m2repository
           - extra-google-android-support
       jdk: oraclejdk8
       before_script:
         - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+        - yes|/usr/local/android-sdk/tools/bin/sdkmanager --update
         - ../flutter/bin/flutter doctor --android-licenses
       script:
         - ../flutter/bin/flutter -v build apk
