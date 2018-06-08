@@ -60,8 +60,8 @@ void main() {
   test('SQL Campus Test', () async {
 //    SqliteCampusProvider campusProvider = _data.campusProvider;
     List<Campus> campuses = [];
-    campuses.add(new Campus(0, "Campus1", "/path/to/image"));
-    campuses.add(new Campus(1, "Campus2", "/path/to/image2"));
+    campuses.add(new Campus(0, "Campus1", "/path/to/image", ""));
+    campuses.add(new Campus(1, "Campus2", "/path/to/image2", ""));
 
 //    int res = await campusProvider.putCampuses(campuses);
 //    expect(res, 0);

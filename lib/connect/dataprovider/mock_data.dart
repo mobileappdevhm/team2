@@ -97,10 +97,10 @@ const lecturer04 = const Lecturer(3, "Koebler", "test@hm.edu");
 const lecturer05 = const Lecturer(4, "Wolfsteiner", "test@hm.edu");
 
 const campus01 =
-    const Campus(0, "Lothstraße", "res/location/campus_lothstr.png");
+    const Campus(0, "Lothstraße", "res/location/campus_lothstr.png", 'https://www.google.com/maps/place/University+of+Applied+Science+Munich/@48.1542311,11.5570298,17.62z/data=!4m8!1m2!2m1!1shochschule+m%C3%BCnchen!3m4!1s0x0:0x18bfe7f8741350da!8m2!3d48.1548088!4d11.5561071');
 const campus02 =
-    const Campus(1, "Karlstraße", "res/location/campus_karlstr.png");
-const campus03 = const Campus(2, "Pasing", "res/location/campus_pasing.png");
+    const Campus(1, "Karlstraße", "res/location/campus_karlstr.png", 'https://www.google.com/maps/place/University+of+Applied+Science+Munich/@48.1542311,11.5570298,17.62z/data=!4m8!1m2!2m1!1shochschule+m%C3%BCnchen!3m4!1s0x0:0x18bfe7f8741350da!8m2!3d48.1548088!4d11.5561071');
+const campus03 = const Campus(2, "Pasing", "res/location/campus_pasing.png", 'https://www.google.com/maps/place/University+of+Applied+Science+Munich/@48.1542311,11.5570298,17.62z/data=!4m8!1m2!2m1!1shochschule+m%C3%BCnchen!3m4!1s0x0:0x18bfe7f8741350da!8m2!3d48.1548088!4d11.5561071');
 
 const course01 = const Course(
   0,
