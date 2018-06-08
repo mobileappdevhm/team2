@@ -36,7 +36,7 @@ jobs:
           # The BuildTools version used by your project
           - build-tools-26.1.1
           # The SDK version used to compile your project
-          - android-27
+          - android-26
           # Sys image for eventual virtual devices
           - sys-img-armeabi-v7a-android-26
       licenses:
