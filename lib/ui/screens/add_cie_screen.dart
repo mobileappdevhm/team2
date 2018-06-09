@@ -30,7 +30,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
 
     double width = MediaQuery.of(context).size.width;
     if (orientation == Orientation.portrait) {
-      return verticalScaffold(null);
+      return verticalScaffold(width);
     } else {
       return horizontalScaffold(width);
     }
@@ -42,34 +42,47 @@ class _AddCieScreenState extends State<AddCieScreen> {
       appBar: new AppBar(
         title: new Text("Add C.I.E."),
       ),
-      body: new Column(
+      body: new ListView(
         children: <Widget>[
           new Column(
             children: tl,
           ),
-          tempNameField(width),
-          tempLecturerNameField(width),
-          tempEctsField(width),
-          tempDepartmentField(width),
+          tempNameField(null),
+          tempLecturerNameField(null),
+          tempEctsField(null),
+          tempDepartmentField(null),
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
-          new RawMaterialButton(
-            constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
-            onPressed: _onFloatingActionButtonPressed,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Add CIE",
-              style: new TextStyle(fontSize: 18.0, color: Colors.white),
-            ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.all(8.0),
+              ),
+              new RawMaterialButton(
+                constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0, maxWidth: width-30, maxHeight: 50.0),
+                onPressed: _onFloatingActionButtonPressed,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(100000.0)),
+                fillColor: Colors.red,
+                child: new Text(
+                  "Add CIE",
+                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.all(8.0),
+              ),
+            ],
           ),
+
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
         ],
-        mainAxisAlignment: MainAxisAlignment.start,
+//        mainAxisAlignment: MainAxisAlignment.start,
       ),
     );
   }
@@ -80,7 +93,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
       appBar: new AppBar(
         title: new Text("Add C.I.E."),
       ),
-      body: new Column(
+      body: new ListView(
         children: <Widget>[
           new Column(
             children: tl,
@@ -100,22 +113,34 @@ class _AddCieScreenState extends State<AddCieScreen> {
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
-          new RawMaterialButton(
-            constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
-            onPressed: _onFloatingActionButtonPressed,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Add CIE",
-              style: new TextStyle(fontSize: 18.0, color: Colors.white),
-            ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.all(8.0),
+              ),
+              new RawMaterialButton(
+                constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0, maxWidth: width-30, maxHeight: 50.0),
+                onPressed: _onFloatingActionButtonPressed,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(100000.0)),
+                fillColor: Colors.red,
+                child: new Text(
+                  "Add CIE",
+                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                ),
+              ),
+              new Padding(
+                padding: new EdgeInsets.all(8.0),
+              ),
+            ],
           ),
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
         ],
-        mainAxisAlignment: MainAxisAlignment.start,
+//        mainAxisAlignment: MainAxisAlignment.start,
       ),
     );
   }
