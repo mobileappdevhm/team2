@@ -132,16 +132,12 @@ Topics include:
   //room
   30,
   //availableSlots
-  5,
+  5.0,
   //ects
-  4,
+  4.0,
   //us credits
-  4,
+  4.0,
   //semester week hours
-  [
-    const TimeAndDay(5, "1h30min", 15, 15),
-  ],
-  //timeandday
   CourseStatus.GREEN,
   //status
   lecturer01,
@@ -149,6 +145,10 @@ Topics include:
   department07,
   //department
   campus01, //location
+  [
+    const TimeAndDay(1, 5, 15, 15, 90, 0),
+  ],
+  //timeandday
 );
 const course02 = const Course(
   1,
@@ -174,15 +174,13 @@ experience in teamwork
   //room
   20,
   //availableSlots
-  4,
+  .0,
   //ects
-  4,
+  4.0,
   //us credits
-  3,
+  3.0,
   //semester week hours
-  [
-    const TimeAndDay(3, "1h30min", 11, 45),
-  ],
+
   //timeandday
   CourseStatus.RED,
   //status
@@ -191,6 +189,9 @@ experience in teamwork
   department09,
   //department
   campus03, //location
+  [
+    const TimeAndDay(2, 3, 11, 45, 90, 1),
+  ],
 );
 const course03 = const Course(
   2,
@@ -214,12 +215,8 @@ and how much of these are still relevant for modern Social Work.
   //ects
   2.5,
   //us credits
-  2,
+  2.0,
   //semester week hours
-  [
-    const TimeAndDay(4, "1h30min", 8, 15),
-  ],
-  //timeandday
   CourseStatus.YELLOW,
   //status
   lecturer03,
@@ -227,6 +224,10 @@ and how much of these are still relevant for modern Social Work.
   department11,
   //department
   campus03, //location
+  [
+    const TimeAndDay(2, 4, 8, 15, 90, 2),
+  ],
+  //timeandday
 );
 const course04 = const Course(
   3,
@@ -245,16 +246,13 @@ time will be a mixture of lectures, project work, case discussions and guest lec
   //room
   20,
   //availableSlots
-  6,
+  6.0,
   //ects
   4.5,
   //us credits
-  4,
+  4.0,
   //semester week hours
-  [
-    const TimeAndDay(1, "1h30min", 10, 0),
-  ],
-  //timeandday
+
   CourseStatus.YELLOW,
   //status
   lecturer04,
@@ -262,6 +260,10 @@ time will be a mixture of lectures, project work, case discussions and guest lec
   department12,
   //department
   campus03, //location
+  [
+    const TimeAndDay(3, 1, 10, 0, 90, 3),
+  ],
+  //timeandday
 );
 const course05 = const Course(
   4,
@@ -278,15 +280,13 @@ Multidimensional Oscillations. Applications for engineering problems.
   //room
   45,
   //availableSlots
-  5,
+  5.0,
   //ects
-  4,
+  4.0,
   //us credits
-  4,
+  4.0,
   //semester week hours
-  [
-    const TimeAndDay(1, "1h30min", 8, 15),
-  ],
+
   //timeandday
   CourseStatus.GREEN,
   //status
@@ -295,4 +295,7 @@ Multidimensional Oscillations. Applications for engineering problems.
   department03,
   //department
   campus02, //location
+  [
+    const TimeAndDay(4, 1, 8, 15, 90, 4),
+  ],
 );

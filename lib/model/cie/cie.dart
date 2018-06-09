@@ -4,10 +4,8 @@ class Cie {
   final double ects;
   final String lecturerName;
   final int department;
-  final String description;
 
   Cie(this.name, this.department, this.lecturerName, this.ects,
-      this.description,
       [this.id]);
 
   Map<String, dynamic> toMap() {
@@ -17,7 +15,6 @@ class Cie {
     tempMap["department"] = this.department;
     tempMap["lecturerName"] = this.lecturerName;
     tempMap["ects"] = this.ects;
-    tempMap["description"] = this.description;
     return tempMap;
   }
 
@@ -27,7 +24,6 @@ class Cie {
     tempMap["department"] = this.department;
     tempMap["lecturerName"] = this.lecturerName;
     tempMap["ects"] = this.ects;
-    tempMap["description"] = this.description;
     return tempMap;
   }
 }

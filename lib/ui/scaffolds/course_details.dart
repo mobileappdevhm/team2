@@ -18,7 +18,7 @@ class CourseDetailsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String date = "";
-    course.timeAndDay.forEach((lecture) {
+    course.dates.forEach((lecture) {
       date += lecture.toDate() + "\n";
     });
 
@@ -99,10 +99,10 @@ class CourseDetailsScaffold extends StatelessWidget {
                   children: <Widget>[
                     new Text(
                         // TODO adjust to list of timeanddays
-                        course.timeAndDay != null &&
-                                course.timeAndDay[0].day != null &&
-                                course.timeAndDay[0].duration != null
-                            ? course.timeAndDay[0].toDate()
+                        course.dates != null &&
+                                course.dates[0].weekday != null &&
+                                course.dates[0].duration != null
+                            ? course.dates[0].toDate()
                             : "Time and Day Unknown",
                         style: new TextStyle(
                             color: Colors.black54,
@@ -152,7 +152,7 @@ class CourseDetailsScaffold extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    new AvailabilityWidget(course.status),
+                    new AvailabilityWidget(course.courseStatus),
                     new Padding(
                         padding: new EdgeInsets.only(
                       top: 4.0,

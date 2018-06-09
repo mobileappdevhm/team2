@@ -21,12 +21,26 @@ class _AddCieScreenState extends State<AddCieScreen> {
   List<Widget> tl = [];
   String tempName = "";
   String tempLecturerName = "";
-  String tempDescription = "";
   double tempEcts = -1.0;
   int tempDepartment = -1;
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery
+        .of(context)
+        .orientation;
+
+    double width = MediaQuery.of(context).size.width;
+    if(orientation == Orientation.portrait){
+      return verticalScaffold(null);
+    }
+    else{
+      return horizontalScaffold(width);
+    }
+
+  }
+
+  Scaffold verticalScaffold(double width){
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
@@ -37,10 +51,10 @@ class _AddCieScreenState extends State<AddCieScreen> {
           new Column(
             children: tl,
           ),
-          tempNameField(),
-          tempLecturerNameField(),
-          tempEctsField(),
-          tempDepartmentField(),
+          tempNameField(width),
+          tempLecturerNameField(width),
+          tempEctsField(width),
+          tempDepartmentField(width),
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
@@ -64,7 +78,53 @@ class _AddCieScreenState extends State<AddCieScreen> {
     );
   }
 
-  Container tempNameField() {
+  Scaffold horizontalScaffold(double width){
+    return new Scaffold(
+      resizeToAvoidBottomPadding: false,
+      appBar: new AppBar(
+        title: new Text("Add C.I.E."),
+      ),
+      body: new Column(
+        children: <Widget>[
+          new Column(
+            children: tl,
+          ),
+          new Row(
+            children: <Widget>[
+              tempNameField(width/2 - 30.0),
+              tempLecturerNameField(width/2 - 30.0),
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              tempEctsField(width/2 - 30.0),
+              tempDepartmentField(width/2 - 30.0),
+            ],
+          ),
+          new Padding(
+            padding: new EdgeInsets.all(8.0),
+          ),
+          new RawMaterialButton(
+            constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
+            onPressed: _onFloatingActionButtonPressed,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(100000.0)),
+            fillColor: Colors.red,
+            child: new Text(
+              "Add CIE",
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
+            ),
+          ),
+          new Padding(
+            padding: new EdgeInsets.all(8.0),
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.start,
+      ),
+    );
+  }
+
+  Container tempNameField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
       tempName = controller.text.toString();
@@ -80,10 +140,11 @@ class _AddCieScreenState extends State<AddCieScreen> {
         ),
       ),
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      width: width,
     );
   }
 
-  Container tempLecturerNameField() {
+  Container tempLecturerNameField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
       tempLecturerName = controller.text.toString();
@@ -99,10 +160,11 @@ class _AddCieScreenState extends State<AddCieScreen> {
         ),
       ),
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      width: width,
     );
   }
 
-  Container tempEctsField() {
+  Container tempEctsField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
       tempEcts = tryCatchDub(controller.text.toString());
@@ -118,10 +180,11 @@ class _AddCieScreenState extends State<AddCieScreen> {
         ),
       ),
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      width: width,
     );
   }
 
-  Container tempDepartmentField() {
+  Container tempDepartmentField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
       tempDepartment = tryCatchInt(controller.text.toString());
@@ -137,6 +200,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
         ),
       ),
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      width: width,
     );
   }
 
@@ -174,7 +238,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
 
     SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
     int result = await sqlitecieprovider.putCie(new Cie(
-        tempName, tempDepartment, tempLecturerName, tempEcts, tempDescription));
+        tempName, tempDepartment, tempLecturerName, tempEcts));
 
     if (result != 0) {
       tl.add(new Padding(padding: new EdgeInsets.all(8.0)));

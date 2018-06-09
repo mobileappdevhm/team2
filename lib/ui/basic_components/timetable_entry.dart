@@ -109,7 +109,7 @@ class TimetableEntry extends StatelessWidget {
                       ),
                       new Text(
                         // TODO adjust to list of timeandday
-                        course.timeAndDay[0].duration,
+                        course.dates[0].duration.toString(),
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,
@@ -142,7 +142,7 @@ class TimetableEntry extends StatelessWidget {
                       ),
                       new Text(
                         //TODO adjust to list of time and day
-                        intToDayString(course.timeAndDay[0].day),
+                        intToDayString(course.dates[0].weekday),
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,

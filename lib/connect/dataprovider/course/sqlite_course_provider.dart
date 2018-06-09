@@ -1,16 +1,19 @@
 import 'dart:async';
-
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 class SqliteCourseProvider implements CourseProvider {
   @override
   Future<Course> getCourse(int courseId) async {
-    // TODO adjust to new data model
-    /*DatabaseHelper dbh = new DatabaseHelper();
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<TimeAndDay> dates = [];
     Map<String, dynamic> data =
         await dbh.selectOneWhere("Course", "id", courseId.toString());
+    List<Map<String, dynamic>> dateData =
+        await dbh.selectWhere("Date", "course", courseId.toString());
+
 
     CourseStatus tempCourseStatus;
     String tempCourseStatusName = data["status"];
@@ -19,29 +22,28 @@ class SqliteCourseProvider implements CourseProvider {
         : tempCourseStatusName == "yellow"
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
-    List<int> courseFacultyAvailableList = [];
-    try {
-      courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
-          .map((val) => int.parse(val))
-          .toList();
-    } catch (e) {
-      courseFacultyAvailableList.clear();
+
+    void addDate(Map<String, dynamic> data) {
+      dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"], data["startMinute"], data["duration"], data["course"]));
     }
+
+    dateData.forEach(addDate);
+
     return new Course(
-        data['id'],
-        data["name"],
-        data["location"],
-        data["description"],
-        data["department"],
-        data["lecturerId"],
-        data["lecturerName"],
-        data["room"],
-        tempCourseStatus,
-        courseFacultyAvailableList,
-        data["availableSlots"],
-        data["ects"],
-        data["semesterWeekHours"],
-        new TimeAndDay(data["duration"], data["day"], data["slot"]));
+      data['id'],
+      data["name"],
+      data["description"],
+      data["room"],
+      data["availableSlots"],
+      data["ects"],
+      data["usCredits"],
+      data["semesterWeekHours"],
+      tempCourseStatus,
+      data["lecturer"],
+      data["department"],
+      data["location"],
+      dates
+    );
   }
 
   @override
@@ -50,45 +52,48 @@ class SqliteCourseProvider implements CourseProvider {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Course");
 
-    void addCourse(Map<String, dynamic> data) {
+    Future addCourse(Map<String, dynamic> data) async{
+      List<TimeAndDay> dates = [];
+      List<Map<String, dynamic>> dateData =
+          await dbh.selectWhere("Date", "course", data["id"].toString());
       String tempCourseStatusName = data["status"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
           : tempCourseStatusName == "yellow"
               ? CourseStatus.YELLOW
               : CourseStatus.GREEN;
-      List<int> courseFacultyAvailableList = [];
-      try {
-        courseFacultyAvailableList = (data["courseFacultyAvailable"].split(','))
-            .map((val) => int.parse(val))
-            .toList();
-      } catch (e) {
-        courseFacultyAvailableList.clear();
+
+      void addDate(Map<String, dynamic> data) {
+        dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"], data["startMinute"], data["duration"], data["course"]));
       }
+
+      dateData.forEach(addDate);
+
       Course tempCourse = new Course(
           data['id'],
           data["name"],
-          data["location"],
           data["description"],
-          data["department"],
-          data["lecturerId"],
-          data["lecturerName"],
           data["room"],
-          tempCourseStatus,
-          courseFacultyAvailableList,
           data["availableSlots"],
           data["ects"],
+          data["usCredits"],
           data["semesterWeekHours"],
-          new TimeAndDay(data["day"], data["duration"], data["slot"]));
+          tempCourseStatus,
+          data["lecturer"],
+          data["department"],
+          data["location"],
+          dates
+      );
 
       courses.add(tempCourse);
     }
 
-    rawCampusData.forEach(addCourse);
+    for(Map<String, dynamic> data in rawCampusData){
+      await addCourse(data);
+    }
 
     return (new Future( () => courses));
-  */
-    throw new UnimplementedError();
+//    throw new UnimplementedError();
   }
 
   Future<int> putCourses(List<Course> courses) async =>
@@ -100,11 +105,11 @@ class SqliteCourseProvider implements CourseProvider {
         ),
       );
 
-  @override
-  Future<List<Course>> getCourses() {
-    // TODO: implement getCourses
-    throw new UnimplementedError();
-  }
+//  @override
+//  Future<List<Course>> getCourses() {
+//    // TODO: implement getCourses
+//    throw new UnimplementedError();
+//  }
 
   @override
   Future<bool> favorizeCourse(Course course) {
