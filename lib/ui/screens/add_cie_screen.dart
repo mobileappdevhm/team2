@@ -62,7 +62,11 @@ class _AddCieScreenState extends State<AddCieScreen> {
                 padding: new EdgeInsets.all(8.0),
               ),
               new RawMaterialButton(
-                constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0, maxWidth: width-30, maxHeight: 50.0),
+                constraints: new BoxConstraints(
+                    minWidth: 180.0,
+                    minHeight: 48.0,
+                    maxWidth: width - 30,
+                    maxHeight: 50.0),
                 onPressed: _onFloatingActionButtonPressed,
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(100000.0)),
@@ -77,7 +81,6 @@ class _AddCieScreenState extends State<AddCieScreen> {
               ),
             ],
           ),
-
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
@@ -121,7 +124,11 @@ class _AddCieScreenState extends State<AddCieScreen> {
                 padding: new EdgeInsets.all(8.0),
               ),
               new RawMaterialButton(
-                constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0, maxWidth: width-30, maxHeight: 50.0),
+                constraints: new BoxConstraints(
+                    minWidth: 180.0,
+                    minHeight: 48.0,
+                    maxWidth: width - 30,
+                    maxHeight: 50.0),
                 onPressed: _onFloatingActionButtonPressed,
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(100000.0)),

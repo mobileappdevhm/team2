@@ -1,7 +1,7 @@
 class Campus {
   final int id;
   final String name;
-  final String image;
+  final String image; //TODO: CHANGE THIS TO SOMETHING THAT IS AN IMAGE?
   final String address;
 
   const Campus(this.id, this.name, this.image, this.address);

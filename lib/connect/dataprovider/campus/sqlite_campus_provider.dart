@@ -22,6 +22,15 @@ class SqliteCampusProvider implements CampusProvider {
     return (new Future(() => campuses));
   }
 
+  Future<Campus> getCampusesById(int campusID) async {
+    DatabaseHelper dbh = new DatabaseHelper();
+    Map<String, dynamic> data =
+        await dbh.selectOneWhere("Campus", "id", campusID.toString());
+
+    return (new Future(() =>
+        new Campus(data['id'], data["name"], data["image"], data["address"])));
+  }
+
   Future<int> putCampuses(List<Campus> campuses) async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> campusesList = [];

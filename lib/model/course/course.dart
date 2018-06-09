@@ -52,10 +52,10 @@ class Course {
 
     tempMap['id'] = this.id;
     tempMap["name"] = this.name;
-    tempMap["location"] = this.location;
+    tempMap["location"] = this.location.id;
     tempMap["description"] = this.description;
-    tempMap["department"] = this.department;
-    tempMap["lecturer"] = this.lecturer;
+    tempMap["department"] = this.department.number;
+    tempMap["lecturer"] = this.lecturer.id;
     tempMap["room"] = this.room;
     tempMap["courseStatus"] = this.courseStatus == CourseStatus.RED
         ? "red"

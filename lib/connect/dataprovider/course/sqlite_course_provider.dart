@@ -3,6 +3,12 @@ import 'package:courses_in_english/connect/dataprovider/course/course_provider.d
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
+import 'package:courses_in_english/model/campus/campus.dart';
+import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
 
 class SqliteCourseProvider implements CourseProvider {
   @override
@@ -22,6 +28,13 @@ class SqliteCourseProvider implements CourseProvider {
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
 
+    Lecturer lecturerData =
+        await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
+    Department departmentData = await new SqliteDepartmentProvider()
+        .getDepartmentByNumber(data["department"]);
+    Campus locationData =
+        await new SqliteCampusProvider().getCampusesById(data["location"]);
+
     void addDate(Map<String, dynamic> data) {
       dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
           data["startMinute"], data["duration"], data["course"]));
@@ -39,9 +52,9 @@ class SqliteCourseProvider implements CourseProvider {
         data["usCredits"],
         data["semesterWeekHours"],
         tempCourseStatus,
-        data["lecturer"],
-        data["department"],
-        data["location"],
+        lecturerData,
+        departmentData,
+        locationData,
         dates);
   }
 
@@ -55,6 +68,12 @@ class SqliteCourseProvider implements CourseProvider {
       List<TimeAndDay> dates = [];
       List<Map<String, dynamic>> dateData =
           await dbh.selectWhere("Date", "course", data["id"].toString());
+      Lecturer lecturerData =
+          await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
+      Department departmentData = await new SqliteDepartmentProvider()
+          .getDepartmentByNumber(data["department"]);
+      Campus locationData =
+          await new SqliteCampusProvider().getCampusesById(data["location"]);
       String tempCourseStatusName = data["status"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
@@ -79,9 +98,9 @@ class SqliteCourseProvider implements CourseProvider {
           data["usCredits"],
           data["semesterWeekHours"],
           tempCourseStatus,
-          data["lecturer"],
-          data["department"],
-          data["location"],
+          lecturerData,
+          departmentData,
+          locationData,
           dates);
 
       courses.add(tempCourse);
@@ -102,7 +121,7 @@ class SqliteCourseProvider implements CourseProvider {
           // Map each course to raw data
           (course) => course.toMap(),
         ),
-      );
+      ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE?
 
 //  @override
 //  Future<List<Course>> getCourses() {

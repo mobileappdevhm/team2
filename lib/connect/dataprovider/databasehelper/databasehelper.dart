@@ -32,13 +32,13 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, image BLOB, address TEXT)");
     await db.execute(
-        "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL, duration INTEGER)");
+        "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL)");
     await db.execute(
         "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color TEXT)");
     await db.execute(
         "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, classname TEXT, note TEXT)");
     await db.execute(
-        "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT)");
+        "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT, courseID INTEGER)");
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
