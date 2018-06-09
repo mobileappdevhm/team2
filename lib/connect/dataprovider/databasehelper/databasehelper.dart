@@ -30,7 +30,7 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, imagePath TEXT)");
+        "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, imagePath TEXT, mapUrl TEXT)");
     await db.execute(
         "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location TEXT, description TEXT, department INTEGER, lecturerId INTEGER, lecturerName TEXT, room TEXT, status TEXT, courseFacultyAvailable TEXT, availableSlots INTEGER, ects INTEGER, semesterWeekHours INTEGER, duration TEXT, day INTEGER, slot INTEGER )");
     await db.execute(
