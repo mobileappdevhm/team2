@@ -31,23 +31,25 @@ class CieScreenState extends State<CieScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    double width = MediaQuery.of(context).size.width;
+    if (orientation == Orientation.portrait) {
+      return verticalScaffold(width);
+    } else {
+      return horizontalScaffold(width);
+    }
+  }
+
+  Scaffold verticalScaffold(double width) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(
-          "CIE Profile",
-          textAlign: TextAlign.center,
-        ),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.add), onPressed: _addCie)
-        ],
-      ),
       body: new Container(
         constraints: new BoxConstraints.expand(),
         alignment: Alignment.center,
-        child: new ListView(
+        child: new Column(
           children: <Widget>[
             new Column(
               children: <Widget>[
+                new Padding(padding: new EdgeInsets.all(12.0)),
                 new Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -64,18 +66,12 @@ class CieScreenState extends State<CieScreen> {
                     ),
                     new Column(
                       children: <Widget>[
-                        new Padding(
-                          padding: new EdgeInsets.all(8.0),
-                        ),
                         new Row(
                           children: <Widget>[
                             new Text(
                               "Logged in as " + userName,
                               style: new TextStyle(fontSize: 18.0),
                             ),
-//                            new Padding(
-//                              padding: new EdgeInsets.all(4.0),
-//                            ),
                           ],
                         ),
                         new Padding(
@@ -113,13 +109,165 @@ class CieScreenState extends State<CieScreen> {
             new Divider(
               color: Colors.black,
             ),
+            new Expanded(
+              child: new ListView(
+                children: <Widget>[
+                  new Column(
+                    children: cieWidgets,
+                  ),
+                  new Padding(
+                    padding: new EdgeInsets.all(8.0),
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Padding(
+                        padding: new EdgeInsets.all(8.0),
+                      ),
+                      new RawMaterialButton(
+                        constraints: new BoxConstraints(
+                            minWidth: 180.0,
+                            minHeight: 48.0,
+                            maxWidth: width - 30,
+                            maxHeight: 50.0),
+                        onPressed: _addCie,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(100000.0)),
+                        fillColor: Colors.red,
+                        child: new Text(
+                          "Add CIE",
+                          style: new TextStyle(
+                              fontSize: 18.0, color: Colors.white),
+                        ),
+                      ),
+                      new Padding(
+                        padding: new EdgeInsets.all(8.0),
+                      ),
+                    ],
+                  ),
+                  new Padding(
+                    padding: new EdgeInsets.all(8.0),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Scaffold horizontalScaffold(double width) {
+    return new Scaffold(
+      body: new Container(
+        constraints: new BoxConstraints.expand(),
+        alignment: Alignment.center,
+        child: new ListView(
+          children: <Widget>[
+            new Column(
+              children: <Widget>[
+                new Padding(padding: new EdgeInsets.all(12.0)),
+                new Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    new Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Icon(
+                          Icons.account_circle,
+                          size: 70.0,
+                        )
+                      ],
+                    ),
+                    new Column(
+                      children: <Widget>[
+                        new Row(
+                          children: <Widget>[
+                            new Text(
+                              "Logged in as " + userName,
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(8.0),
+                        ),
+                        new RawMaterialButton(
+                          onPressed: null,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius:
+                                  new BorderRadius.circular(100000.0)),
+                          fillColor: Colors.red,
+                          child: new Text(
+                            "Logout",
+                            style: new TextStyle(
+                                fontSize: 16.0, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                new Padding(
+                  padding: new EdgeInsets.all(10.0),
+                ),
+                new Text("CIE Progress: " + totalEcts.toString() + " / 50",
+                    style: new TextStyle(fontSize: 18.0)),
+                new Container(
+                  padding: new EdgeInsets.all(32.0),
+                  child: new LinearProgressIndicator(
+                    value: totalEcts / 50.0,
+                  ),
+                ),
+              ],
+            ),
+            new Divider(
+              color: Colors.black,
+            ),
+//            new Expanded(child:
 //            new ListView(
 //              children: <Widget>[
             new Column(
               children: cieWidgets,
-            )
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+            ),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Padding(
+                  padding: new EdgeInsets.all(8.0),
+                ),
+                new RawMaterialButton(
+                  constraints: new BoxConstraints(
+                      minWidth: 180.0,
+                      minHeight: 48.0,
+                      maxWidth: width - 30,
+                      maxHeight: 50.0),
+                  onPressed: _addCie,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(100000.0)),
+                  fillColor: Colors.red,
+                  child: new Text(
+                    "Add CIE",
+                    style: new TextStyle(fontSize: 18.0, color: Colors.white),
+                  ),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.all(8.0),
+                ),
+              ],
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+            ),
 //              ],
-
+//            ),
 //            ),
           ],
         ),

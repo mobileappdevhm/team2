@@ -21,17 +21,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             isBold: true,
           )
         ]),
-        new RawMaterialButton(
-          constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
-          onPressed: _profilePage,
-          shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(100000.0)),
-          fillColor: Colors.red,
-          child: new Text(
-            "Profile",
-            style: new TextStyle(fontSize: 18.0, color: Colors.white),
-          ),
-        ),
+//        new RawMaterialButton(
+//          constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
+//          onPressed: _profilePage,
+//          shape: new RoundedRectangleBorder(
+//              borderRadius: new BorderRadius.circular(100000.0)),
+//          fillColor: Colors.red,
+//          child: new Text(
+//            "Profile",
+//            style: new TextStyle(fontSize: 18.0, color: Colors.white),
+//          ),
+//        ),
         _newElement([
           new LineSeparator(
             title: 'Synchronisation Settings',

@@ -72,7 +72,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
                     borderRadius: new BorderRadius.circular(100000.0)),
                 fillColor: Colors.red,
                 child: new Text(
-                  "Add CIE",
+                  "Add",
                   style: new TextStyle(fontSize: 18.0, color: Colors.white),
                 ),
               ),
@@ -134,7 +134,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
                     borderRadius: new BorderRadius.circular(100000.0)),
                 fillColor: Colors.red,
                 child: new Text(
-                  "Add CIE",
+                  "Add",
                   style: new TextStyle(fontSize: 18.0, color: Colors.white),
                 ),
               ),
