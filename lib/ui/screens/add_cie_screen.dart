@@ -26,21 +26,17 @@ class _AddCieScreenState extends State<AddCieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery
-        .of(context)
-        .orientation;
+    Orientation orientation = MediaQuery.of(context).orientation;
 
     double width = MediaQuery.of(context).size.width;
-    if(orientation == Orientation.portrait){
+    if (orientation == Orientation.portrait) {
       return verticalScaffold(null);
-    }
-    else{
+    } else {
       return horizontalScaffold(width);
     }
-
   }
 
-  Scaffold verticalScaffold(double width){
+  Scaffold verticalScaffold(double width) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
@@ -78,7 +74,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
     );
   }
 
-  Scaffold horizontalScaffold(double width){
+  Scaffold horizontalScaffold(double width) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
@@ -91,14 +87,14 @@ class _AddCieScreenState extends State<AddCieScreen> {
           ),
           new Row(
             children: <Widget>[
-              tempNameField(width/2 - 30.0),
-              tempLecturerNameField(width/2 - 30.0),
+              tempNameField(width / 2 - 30.0),
+              tempLecturerNameField(width / 2 - 30.0),
             ],
           ),
           new Row(
             children: <Widget>[
-              tempEctsField(width/2 - 30.0),
-              tempDepartmentField(width/2 - 30.0),
+              tempEctsField(width / 2 - 30.0),
+              tempDepartmentField(width / 2 - 30.0),
             ],
           ),
           new Padding(
@@ -237,8 +233,8 @@ class _AddCieScreenState extends State<AddCieScreen> {
     }
 
     SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    int result = await sqlitecieprovider.putCie(new Cie(
-        tempName, tempDepartment, tempLecturerName, tempEcts));
+    int result = await sqlitecieprovider
+        .putCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts));
 
     if (result != 0) {
       tl.add(new Padding(padding: new EdgeInsets.all(8.0)));

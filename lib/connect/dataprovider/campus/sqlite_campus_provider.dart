@@ -7,15 +7,14 @@ import 'package:courses_in_english/connect/dataprovider/databasehelper/databaseh
 /// Provider for campuses providing mock data.
 class SqliteCampusProvider implements CampusProvider {
   @override
-
   Future<List<Campus>> getCampuses() async {
     List<Campus> campuses = [];
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Campus");
 
     void iterate(Map<String, dynamic> data) {
-      campuses.add(new Campus(
-          data['id'], data["name"], data["image"], data["address"]));
+      campuses.add(
+          new Campus(data['id'], data["name"], data["image"], data["address"]));
     }
 
     rawCampusData.forEach(iterate);

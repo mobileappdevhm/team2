@@ -5,8 +5,7 @@ class Cie {
   final String lecturerName;
   final int department;
 
-  Cie(this.name, this.department, this.lecturerName, this.ects,
-      [this.id]);
+  Cie(this.name, this.department, this.lecturerName, this.ects, [this.id]);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();

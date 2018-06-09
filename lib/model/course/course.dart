@@ -5,7 +5,6 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
 /// Representation of a course (or lecture).
 class Course {
-
   final int id;
 
   final String name;
@@ -21,7 +20,6 @@ class Course {
   final double usCredits;
 
   final double semesterWeekHours;
-
 
   final List<TimeAndDay> dates;
 

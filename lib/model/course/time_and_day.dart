@@ -25,13 +25,17 @@ class TimeAndDay {
 
   final int course;
 
-  const TimeAndDay(this.id, this.weekday, this.startHour, this.startMinute, this.duration, this.course);
+  const TimeAndDay(this.id, this.weekday, this.startHour, this.startMinute,
+      this.duration, this.course);
 
   String toDate() {
     String date = "";
     var nowTime = new DateTime.now();
-    var startTime = new DateTime(nowTime.year, nowTime.month, nowTime.month, weekday, startHour, startMinute);
-    var endTime = new DateTime(nowTime.year, nowTime.month, nowTime.month, weekday, startHour, startMinute).add(new Duration(minutes: duration));
+    var startTime = new DateTime(nowTime.year, nowTime.month, nowTime.month,
+        weekday, startHour, startMinute);
+    var endTime = new DateTime(nowTime.year, nowTime.month, nowTime.month,
+            weekday, startHour, startMinute)
+        .add(new Duration(minutes: duration));
     List<String> dayOfWeek = [
       "Monday",
       "Tuesday",
@@ -41,7 +45,15 @@ class TimeAndDay {
       "Saturday",
       "Sunday",
     ];
-    date = dayOfWeek[weekday] + " " + startTime.hour.toString() + ":" + startTime.minute.toString() + " - " +endTime.hour.toString() + ":" + endTime.minute.toString() ;
+    date = dayOfWeek[weekday] +
+        " " +
+        startTime.hour.toString() +
+        ":" +
+        startTime.minute.toString() +
+        " - " +
+        endTime.hour.toString() +
+        ":" +
+        endTime.minute.toString();
     return date;
   }
 
@@ -71,4 +83,3 @@ class TimeAndDay {
     return tempMap;
   }
 }
-
