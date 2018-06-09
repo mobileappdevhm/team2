@@ -37,7 +37,7 @@ class _LocationState extends State<LocationScreen> {
                   child: new Stack(
                     children: <Widget>[
                       new Image.asset(
-                        campus.imagePath,
+                        campus.image,
                         height: width / 2,
                         width: width,
                         fit: BoxFit.fitWidth,

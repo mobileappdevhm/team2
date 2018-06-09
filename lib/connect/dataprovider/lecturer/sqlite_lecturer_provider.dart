@@ -39,7 +39,7 @@ class SqliteLecturerProvider implements LecturerProvider {
     List<Map<String, dynamic>> lecturerList = [];
 
     void iterate(Lecturer data) {
-      lecturerList.add(data.toMap());
+      lecturerList.add(data.toMap(-1));
     }
 
     lecturers.forEach(iterate);

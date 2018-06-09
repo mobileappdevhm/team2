@@ -29,7 +29,7 @@ class TimetableState extends State<TimetableScreen> {
     List<TimetableCourse> courseList = new List();
     List<TimetableCourse> removeCourseList = new List();
     courses.forEach((course) {
-      for (int i = 0; i < course.timeAndDay.length; i++) {
+      for (int i = 0; i < course.dates.length; i++) {
         courseList.add(new TimetableCourse(course, i));
       }
     });
@@ -42,14 +42,14 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.sort(
       (c1, c2) =>
-          c1.course.timeAndDay[0].day * 100 +
-          c1.course.timeAndDay[0].hour -
-          c2.course.timeAndDay[0].day * 100 +
-          c2.course.timeAndDay[0].hour,
+          c1.course.dates[0].weekday * 100 +
+          c1.course.dates[0].startHour -
+          c2.course.dates[0].weekday * 100 +
+          c2.course.dates[0].startHour,
     );
     courseList.forEach(
       (course) {
-        if (course.course.timeAndDay[0].day == today.weekday) {
+        if (course.course.dates[0].weekday == today.weekday) {
           timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }
@@ -65,7 +65,7 @@ class TimetableState extends State<TimetableScreen> {
     );
     courseList.forEach(
       (course) {
-        if (course.course.timeAndDay[0].day > today.weekday) {
+        if (course.course.dates[0].weekday > today.weekday) {
           timetableEntries.add(new TimetableEntry(course.course, 0));
           removeCourseList.add(course);
         }

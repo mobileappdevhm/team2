@@ -61,10 +61,12 @@ class CourseListEntry extends StatelessWidget {
                       child: new Container(
                           child: new Text(
                               // TODO adjust to list of time and days
-                              course.timeAndDay != null &&
-                                      course.timeAndDay[0].day != null &&
-                                      course.timeAndDay[0].duration != null
-                                  ? course.timeAndDay[0].toDate()
+                              course.dates != null &&
+                                      course.dates[0].weekday != null &&
+                                      course.dates[0].startMinute != null &&
+                                      course.dates[0].startHour != null &&
+                                      course.dates[0].duration != null
+                                  ? course.dates[0].toDate()
                                   : "Time and Day Unknown",
                               style: new TextStyle(
                                   color: const Color(0xFF707070),
@@ -88,7 +90,7 @@ class CourseListEntry extends StatelessWidget {
                   ),
                   new Container(
                       child: new Align(
-                          child: new AvailabilityWidget(course.status)))
+                          child: new AvailabilityWidget(course.courseStatus)))
                 ])
               ]),
               decoration: new BoxDecoration(

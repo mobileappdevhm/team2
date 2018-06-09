@@ -69,8 +69,8 @@ String _dayshort(Course c) {
     "SA",
     "SU",
   ];
-  c.timeAndDay.forEach((time) {
-    result += dayOfWeek[time.day - 1] + ",";
+  c.dates.forEach((time) {
+    result += dayOfWeek[time.weekday - 1] + ",";
   });
   return result.substring(0, result.length - 1);
 }

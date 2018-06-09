@@ -11,11 +11,12 @@ class Lecturer {
 
   const Lecturer(this.id, this.name, this.email);
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(int courseID) {
     Map<String, dynamic> tempMap = new Map();
     tempMap["id"] = this.id;
     tempMap["name"] = this.name;
     tempMap["email"] = this.email;
+    tempMap["courseID"] = courseID;
     return tempMap;
   }
 }

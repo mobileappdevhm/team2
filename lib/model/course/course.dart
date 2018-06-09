@@ -5,41 +5,30 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
 /// Representation of a course (or lecture).
 class Course {
-  /// Id of the course
   final int id;
 
-  /// Name (or title) of the course
   final String name;
 
-  /// What is the course about
   final String description;
 
-  /// Where the course will be located
   final String room;
 
-  /// How many slots are available
   final int availableSlots;
 
-  /// ECTS you can get
-  final num ects;
+  final double ects;
 
-  final num usCredits;
+  final double usCredits;
 
-  /// SWS, how many hours per weeks
-  final num semesterWeekHours;
+  final double semesterWeekHours;
 
-  final List<TimeAndDay> timeAndDay;
+  final List<TimeAndDay> dates;
 
-  /// Status of the course
-  final CourseStatus status;
+  final CourseStatus courseStatus;
 
-  /// Lecturer id
   final Lecturer lecturer;
 
-  /// Department (faculty)
   final Department department;
 
-  /// Location e.g. Pasing
   final Campus location;
 
   const Course([
@@ -51,11 +40,11 @@ class Course {
     this.ects,
     this.usCredits,
     this.semesterWeekHours,
-    this.timeAndDay,
-    this.status,
+    this.courseStatus,
     this.lecturer,
     this.department,
     this.location,
+    this.dates,
   ]);
 
   Map<String, dynamic> toMap() {
@@ -65,15 +54,15 @@ class Course {
     tempMap["name"] = this.name;
     tempMap["location"] = this.location.id;
     tempMap["description"] = this.description;
-    tempMap["department"] = this.department.id;
+    tempMap["department"] = this.department.number;
     tempMap["lecturer"] = this.lecturer.id;
     tempMap["room"] = this.room;
-    tempMap["status"] = this.status == CourseStatus.GREEN
+    tempMap["courseStatus"] = this.courseStatus == CourseStatus.RED
         ? "red"
-        : this.status == CourseStatus.YELLOW ? "yellow" : "green";
+        : this.courseStatus == CourseStatus.YELLOW ? "yellow" : "green";
     tempMap["availableSlots"] = this.availableSlots;
     tempMap["ects"] = this.ects;
-    tempMap["us"] = this.usCredits;
+    tempMap["usCredits"] = this.usCredits;
     tempMap["semesterWeekHours"] = this.semesterWeekHours;
 
     return tempMap;

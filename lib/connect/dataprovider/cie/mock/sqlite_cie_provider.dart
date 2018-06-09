@@ -14,7 +14,7 @@ class SqliteCieProvider implements CieProvider {
 
     void iterate(Map<String, dynamic> data) {
       campuses.add(new Cie(data["name"], data["department"],
-          data["lecturerName"], data["ects"], data["description"], data["id"]));
+          data["lecturerName"], data["ects"], data["id"]));
     }
 
     rawCampusData.forEach(iterate);
