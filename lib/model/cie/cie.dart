@@ -1,4 +1,4 @@
-import 'package:courses_in_english/model/globals/globals.dart'  as globals;
+import 'package:courses_in_english/model/globals/globals.dart' as globals;
 
 class Cie {
   int id = -1;

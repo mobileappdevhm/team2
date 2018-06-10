@@ -2,9 +2,8 @@ import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
-import 'package:courses_in_english/model/globals/globals.dart'  as globals;
+import 'package:courses_in_english/model/globals/globals.dart' as globals;
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
-
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -25,16 +24,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if(globals.userId == -1){
+    if (globals.userId == -1) {
       return notLoggedInView();
-    }else{
+    } else {
       return loggedInView(width);
     }
   }
 
-  ListView notLoggedInView(){
+  ListView notLoggedInView() {
     return new ListView(
-      
       children: <Widget>[
         new Padding(padding: new EdgeInsets.all(4.0)),
         _newElement([
@@ -47,17 +45,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Text("Guest Users can't save settings")
-          ],
+          children: <Widget>[new Text("Guest Users can't save settings")],
         )
-
-
       ],
     );
   }
 
-  ListView loggedInView(double width){
+  ListView loggedInView(double width) {
     return new ListView(
       children: <Widget>[
         new Padding(padding: new EdgeInsets.all(4.0)),
@@ -182,7 +176,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ]),
         new Padding(padding: new EdgeInsets.all(6.0)),
-
         _newWideElement([
           new RawMaterialButton(
             constraints: new BoxConstraints(
@@ -190,7 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 minHeight: 48.0,
                 maxWidth: width - 30,
                 maxHeight: 50.0),
-            onPressed: () => _showDeleteAlert(5) ,
+            onPressed: () => _showDeleteAlert(5),
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(100000.0)),
             fillColor: Colors.red,
@@ -245,16 +238,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         case "offlineMode":
           _states[0] = value;
           _data.settingsProvider.putCurrentSettings(
-              new UserSettings(
-                  globals.userId, offlineMode: _states[0], feedbackMode: _states[1]),
-              );
+            new UserSettings(globals.userId,
+                offlineMode: _states[0], feedbackMode: _states[1]),
+          );
           return;
         case "feedbackMode":
           _states[1] = value;
           _data.settingsProvider.putCurrentSettings(
-              new UserSettings(
-                  globals.userId, offlineMode: _states[0], feedbackMode: _states[1]),
-              );
+            new UserSettings(globals.userId,
+                offlineMode: _states[0], feedbackMode: _states[1]),
+          );
           return;
       }
     });
@@ -278,7 +271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _showDeleteAlert(int index) {
-    int length =_info.length;
+    int length = _info.length;
     if (_info[index] == null) return;
 
     AlertDialog alertDialog = new AlertDialog(
@@ -288,7 +281,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       actions: <Widget>[
         new FlatButton(
-            onPressed: () => Navigator.pop(context), child: new Text("No, Cancle")),
+            onPressed: () => Navigator.pop(context),
+            child: new Text("No, Cancle")),
         new FlatButton(
             onPressed: () => clearApp(), child: new Text("Yes, Delete"))
       ],
@@ -304,14 +298,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
-    UserSettings userSettings = await _data.settingsProvider
-        .getCurrentSettings();
+    UserSettings userSettings =
+        await _data.settingsProvider.getCurrentSettings();
     _states[0] = userSettings.offlineMode;
     _states[1] = userSettings.feedbackMode;
     setState(() {});
   }
 
-  void clearApp() async{
+  void clearApp() async {
     DatabaseHelper dbh = await new DatabaseHelper();
     dbh.truncateAllTable();
   }

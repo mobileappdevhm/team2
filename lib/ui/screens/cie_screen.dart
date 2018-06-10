@@ -3,9 +3,8 @@ import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/globals/globals.dart'  as globals;import 'package:courses_in_english/ui/basic_components/line_separator.dart';
-
-
+import 'package:courses_in_english/model/globals/globals.dart' as globals;
+import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
@@ -36,9 +35,9 @@ class CieScreenState extends State<CieScreen> {
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
     double width = MediaQuery.of(context).size.width;
-    if(globals.userId == -1){
+    if (globals.userId == -1) {
       return notLoggedInView();
-    }else{
+    } else {
       if (orientation == Orientation.portrait) {
         return verticalScaffold(width);
       } else {
@@ -47,9 +46,8 @@ class CieScreenState extends State<CieScreen> {
     }
   }
 
-  ListView notLoggedInView(){
+  ListView notLoggedInView() {
     return new ListView(
-
       children: <Widget>[
         new Padding(padding: new EdgeInsets.all(4.0)),
         new Row(
@@ -64,12 +62,8 @@ class CieScreenState extends State<CieScreen> {
         new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Text("Guest Users don't have profiles")
-          ],
+          children: <Widget>[new Text("Guest Users don't have profiles")],
         )
-
-
       ],
     );
   }

@@ -14,7 +14,7 @@ class MockUserSettingsProvider extends UserSettingsProvider {
     return new Future(() => 0);
   }
 
-  Future<int> putSettings(UserSettings userSettings){
+  Future<int> putSettings(UserSettings userSettings) {
     return new Future(() => 0);
   }
 }

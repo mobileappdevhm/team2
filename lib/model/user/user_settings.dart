@@ -1,12 +1,12 @@
-import 'package:courses_in_english/model/globals/globals.dart'  as globals;
-
+import 'package:courses_in_english/model/globals/globals.dart' as globals;
 
 class UserSettings {
   bool offlineMode;
   bool feedbackMode;
   int userId;
 
-  UserSettings(this.userId, {
+  UserSettings(
+    this.userId, {
     bool offlineMode = true,
     bool feedbackMode = false,
   })  : offlineMode = offlineMode,
