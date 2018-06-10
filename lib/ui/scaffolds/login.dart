@@ -1,5 +1,6 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/model/user/user.dart';
+import 'dart:async';
+
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
@@ -11,41 +12,46 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username;
+  String email;
   String password;
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new SceneryWrapperWidget(
-        new Column(
-          children: <Widget>[
-            titleRow(),
-            new Expanded(
-              child: new Column(
-                children: <Widget>[
-                  new Expanded(
-                    child: login(),
+      body: new Builder(
+        builder: (BuildContext context) {
+          return new SceneryWrapperWidget(
+            new Column(
+              children: <Widget>[
+                titleRow(),
+                new Expanded(
+                  child: new Column(
+                    children: <Widget>[
+                      new Expanded(
+                        child: login(context),
+                      ),
+                      new Expanded(
+                        child: new Column(
+                          children: <Widget>[
+                            new Container(
+                              child: new LineSeparator(),
+                              margin:
+                                  new EdgeInsets.symmetric(horizontal: 10.0),
+                            ),
+                            new Container(
+                              child: continueAsGuest(),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  new Expanded(
-                    child: new Column(
-                      children: <Widget>[
-                        new Container(
-                          child: new LineSeparator(),
-                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
-                        ),
-                        new Container(
-                          child: continueAsGuest(),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -78,23 +84,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Column login() {
+  Column login(BuildContext context) {
     FocusNode passwordNode = new FocusNode();
     return new Column(
       children: <Widget>[
-        userNameField(passwordNode),
+        eMailField(passwordNode),
         passwordField(passwordNode),
-        loginButton(),
+        loginButton(context),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
-  Container loginButton() {
+  Container loginButton(BuildContext context) {
     return new Container(
       child: new RaisedButton(
         onPressed: () {
-          doLogin();
+          if (checkInput(context)) {
+            doLogin(context);
+          }
         },
         child: new Text(
           "Login",
@@ -109,10 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Expanded userNameField(FocusNode passwordNode) {
+  Expanded eMailField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      username = controller.text.toString();
+      email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
@@ -120,11 +128,11 @@ class _LoginScreenState extends State<LoginScreen> {
             maxLines: 1,
             //maxLength: 20, TODO REINSTATE
             decoration: new InputDecoration(
-              labelText: "Input Username",
+              labelText: "Input E-Mail",
               icon: new Icon(Icons.person),
             ),
             onFieldSubmitted: (String input) {
-              this.username = input;
+              this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
           ),
@@ -157,24 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  ///Later Needed for Implementation of registration for the Apps Server.
-  ///
-  ///Container createButton() {
-  //    return new Container(
-  //      child: new FlatButton(
-  //        onPressed: () {
-  //
-  //        },
-  //        child: new Text(
-  //          "No Account yet? -> Create new User",
-  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-  //        ),
-  //      ),
-  //      alignment: AlignmentDirectional.topCenter,
-  //      margin: EdgeInsets.only(top: 5.0),
-  //    );
-  //  }
-
   Container titleRow() {
     return new Container(
         child: new Text("Courses in English",
@@ -185,18 +175,89 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
-  void doLogin() {
-    if (username != null && password != null) {
-      User user;
-      new Data().userProvider.login(username, password).then((success) {
-        user = success;
-      });
-      if (user != null) {
-        Navigator.push(
-          context,
-          new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-        );
+  void doLogin(BuildContext context) {
+    Session().login(
+      email,
+      password,
+      success: (session) {
+        Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                content: new Text("Yaaay you're logged in!"),
+                duration: new Duration(seconds: 1),
+              ),
+            );
+        new Future.delayed(new Duration(seconds: 1), () {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+          );
+        });
+      },
+      failure: (session, error) {
+        Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                content: new Text("Login failure!"),
+                duration: new Duration(seconds: 2),
+              ),
+            );
+      },
+    );
+  }
+
+  bool checkInput(BuildContext context) {
+    bool emailEmpty = true;
+    bool containsATandDOT = true;
+    bool passwordEmpty = true;
+    if(this.email != null) {
+      if (this.email.length > 0 ){
+        emailEmpty = false;
+        if(!this.email.contains("@") && !this.email.contains(".")){
+          containsATandDOT = false;
+        }
       }
     }
+    if(this.password != null) {
+      if (this.password.length > 0) {
+        passwordEmpty = false;
+      }
+    }
+    if (emailEmpty == true && passwordEmpty == false) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text("Please enter a E-Mail!"),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if (emailEmpty == false && passwordEmpty == true) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text("Please enter a Password!"),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if (emailEmpty == true && passwordEmpty == true) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text("Please Enter a E-Mail and a Password!"),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if(containsATandDOT == false){
+      Scaffold.of(context).showSnackBar(
+        new SnackBar(
+          content: new Text("Please enter a proper E-Mail e.G: 'abc@d.e'"),
+          duration: new Duration(seconds: 2),
+        ),
+      );
+      return false;
+    }
+
+    return true;
   }
 }

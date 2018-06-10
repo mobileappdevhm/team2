@@ -8,7 +8,6 @@ class MockUserProvider implements UserProvider {
   @override
   Future<User> login(String username, String password) async {
     print("Trying to log in.");
-
     return new User(-1, "", "", "", 7, "holzwurm3");
   }
 
