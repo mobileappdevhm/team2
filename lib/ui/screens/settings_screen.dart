@@ -282,7 +282,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       actions: <Widget>[
         new FlatButton(
             onPressed: () => Navigator.pop(context),
-            child: new Text("No, Cancle")),
+            child: new Text("No, Cancel")),
         new FlatButton(
             onPressed: () => clearApp(), child: new Text("Yes, Delete"))
       ],
