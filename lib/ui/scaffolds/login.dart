@@ -208,15 +208,15 @@ class _LoginScreenState extends State<LoginScreen> {
     bool emailEmpty = true;
     bool containsATandDOT = true;
     bool passwordEmpty = true;
-    if(this.email != null) {
-      if (this.email.length > 0 ){
+    if (this.email != null) {
+      if (this.email.length > 0) {
         emailEmpty = false;
-        if(!this.email.contains("@") && !this.email.contains(".")){
+        if (!this.email.contains("@") && !this.email.contains(".")) {
           containsATandDOT = false;
         }
       }
     }
-    if(this.password != null) {
+    if (this.password != null) {
       if (this.password.length > 0) {
         passwordEmpty = false;
       }
@@ -248,13 +248,13 @@ class _LoginScreenState extends State<LoginScreen> {
           );
       return false;
     }
-    if(containsATandDOT == false){
+    if (containsATandDOT == false) {
       Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          content: new Text("Please enter a proper E-Mail e.G: 'abc@d.e'"),
-          duration: new Duration(seconds: 2),
-        ),
-      );
+            new SnackBar(
+              content: new Text("Please enter a proper E-Mail e.G: 'abc@d.e'"),
+              duration: new Duration(seconds: 2),
+            ),
+          );
       return false;
     }
 

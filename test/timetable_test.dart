@@ -4,11 +4,7 @@ import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-const courses = [
-  course01,
-  course03,
-  course05
-];
+const courses = [course01, course03, course05];
 
 void main() {
   testWidgets('Test timetable screen', (WidgetTester tester) async {

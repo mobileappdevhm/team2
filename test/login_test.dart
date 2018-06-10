@@ -4,10 +4,8 @@ import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 
-
-
-void main(){
-  testWidgets("testLoginLayout", (WidgetTester tester) async{
+void main() {
+  testWidgets("testLoginLayout", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
     expect(find.byType(RaisedButton), findsNWidgets(2));
     expect(find.byType(TextFormField), findsNWidgets(2));
@@ -15,20 +13,11 @@ void main(){
     expect(find.byType(LineSeparator), findsOneWidget);
   });
 
-  testWidgets("testLogin", (WidgetTester tester) async{
-  });
+  testWidgets("testLogin", (WidgetTester tester) async {});
 
-  testWidgets("testLoginNoAT", (WidgetTester tester) async{
+  testWidgets("testLoginNoAT", (WidgetTester tester) async {});
 
-  });
-
-  testWidgets("testLoginNoDot", (WidgetTester tester) async{
-
-  });
-  testWidgets("testLogin", (WidgetTester tester) async{
-
-  });
-  testWidgets("testLogin", (WidgetTester tester) async{
-
-  });
+  testWidgets("testLoginNoDot", (WidgetTester tester) async {});
+  testWidgets("testLogin", (WidgetTester tester) async {});
+  testWidgets("testLogin", (WidgetTester tester) async {});
 }

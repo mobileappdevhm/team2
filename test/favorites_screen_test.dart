@@ -4,10 +4,7 @@ import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-const favs = [
-  course01,
-  course03
-];
+const favs = [course01, course03];
 
 void main() {
   testWidgets('Test favorites screen', (WidgetTester tester) async {

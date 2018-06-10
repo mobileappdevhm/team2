@@ -3,10 +3,7 @@ import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-const locations = [
-  campus01,
-  campus03
-];
+const locations = [campus01, campus03];
 
 void main() {
   testWidgets('Test location screen', (WidgetTester tester) async {
