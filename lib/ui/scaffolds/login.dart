@@ -7,6 +7,18 @@ import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  static final String noPassword = "Please enter a Password!";
+  static final String noEmail = "Please enter a E-Mail!";
+  static final String noEmailAndNoPassword =
+      "Please Enter a E-Mail and a Password!";
+  static final String emailWrongFormat =
+      "Please enter a proper E-Mail e.G: 'abc@d.e'";
+  static final String loginSuccess = "Yaaay you're logged in!";
+  static final Key loginButtonKey = new Key("loginButton");
+  static final Key guestButtonKey = new Key("guestButton");
+  static final Key emailFieldKey = new Key("emailField");
+  static final Key passwordFieldKey = new Key("passwordField");
+
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
 }
@@ -75,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Continue as Guest",
               style: new TextStyle(fontSize: 18.0),
             ),
+            key: LoginScreen.guestButtonKey,
           ),
           alignment: AlignmentDirectional.bottomCenter,
           margin: new EdgeInsets.symmetric(vertical: 25.0),
@@ -88,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusNode passwordNode = new FocusNode();
     return new Column(
       children: <Widget>[
-        eMailField(passwordNode),
+        eMailField(passwordNode, context),
         passwordField(passwordNode),
         loginButton(context),
       ],
@@ -111,33 +124,35 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: new BorderRadius.circular(100000.0)),
         color: Colors.black,
         textColor: Colors.white,
+        key: LoginScreen.loginButtonKey,
       ),
       alignment: AlignmentDirectional.center,
       margin: new EdgeInsets.symmetric(vertical: 20.0),
     );
   }
 
-  Expanded eMailField(FocusNode passwordNode) {
+  Expanded eMailField(FocusNode passwordNode, BuildContext context) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
       email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
-          child: new TextFormField(
-            maxLines: 1,
-            //maxLength: 20, TODO REINSTATE
-            decoration: new InputDecoration(
-              labelText: "Input E-Mail",
-              icon: new Icon(Icons.person),
-            ),
-            onFieldSubmitted: (String input) {
-              this.email = input;
-              FocusScope.of(context).requestFocus(passwordNode);
-            },
-          ),
-          margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          alignment: Alignment.topCenter),
+        child: new TextFormField(
+          maxLines: 1,
+          //maxLength: 30,TODO REINSTATE
+          decoration: new InputDecoration(
+              labelText: "Input e-Mail", icon: new Icon(Icons.person)),
+          //obscureText: true,
+          onFieldSubmitted: (String input) {
+            this.email = input;
+            FocusScope.of(context).requestFocus(passwordNode);
+          },
+          key: LoginScreen.emailFieldKey,
+          controller: controller,
+        ),
+        margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      ),
     );
   }
 
@@ -157,6 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onFieldSubmitted: (String input) {
             this.password = input;
           },
+          key: LoginScreen.passwordFieldKey,
           controller: controller,
           focusNode: passwordNode,
         ),
@@ -176,17 +192,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void doLogin(BuildContext context) {
-    Session().login(
+    new Session().login(
       email,
       password,
       success: (session) {
         Scaffold.of(context).showSnackBar(
               new SnackBar(
-                content: new Text("Yaaay you're logged in!"),
+                content: new Text(LoginScreen.loginSuccess),
                 duration: new Duration(seconds: 1),
               ),
             );
-        new Future.delayed(new Duration(seconds: 1), () {
+        new Future.delayed(new Duration(milliseconds: 1200), () {
           Navigator.push(
             context,
             new MaterialPageRoute(builder: (context) => new HomeScaffold()),
@@ -206,13 +222,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool checkInput(BuildContext context) {
     bool emailEmpty = true;
-    bool containsATandDOT = true;
+    bool containsAtAndDot = true;
     bool passwordEmpty = true;
     if (this.email != null) {
       if (this.email.length > 0) {
         emailEmpty = false;
         if (!this.email.contains("@") && !this.email.contains(".")) {
-          containsATandDOT = false;
+          containsAtAndDot = false;
         }
       }
     }
@@ -224,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == true && passwordEmpty == false) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text("Please enter a E-Mail!"),
+              content: new Text(LoginScreen.noEmail),
               duration: new Duration(seconds: 2),
             ),
           );
@@ -233,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == false && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text("Please enter a Password!"),
+              content: new Text(LoginScreen.noPassword),
               duration: new Duration(seconds: 2),
             ),
           );
@@ -242,22 +258,21 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == true && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text("Please Enter a E-Mail and a Password!"),
+              content: new Text(LoginScreen.noEmailAndNoPassword),
               duration: new Duration(seconds: 2),
             ),
           );
       return false;
     }
-    if (containsATandDOT == false) {
+    if (containsAtAndDot == false) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text("Please enter a proper E-Mail e.G: 'abc@d.e'"),
+              content: new Text(LoginScreen.emailWrongFormat),
               duration: new Duration(seconds: 2),
             ),
           );
       return false;
     }
-
     return true;
   }
 }
