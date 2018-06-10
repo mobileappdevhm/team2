@@ -40,7 +40,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
           new Container(
               decoration: new BoxDecoration(
                   image: new DecorationImage(
-                image: new ExactAssetImage(this.campus.imagePath),
+                image: new ExactAssetImage(this.campus.image),
                 fit: BoxFit.cover,
               )),
               child: new BackdropFilter(
@@ -52,7 +52,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
               )),
           new Container(
               margin: new EdgeInsets.all(p * 3),
-              child: new Image.asset(this.campus.imagePath))
+              child: new Image.asset(this.campus.image))
         ],
         alignment: Alignment.center,
       );

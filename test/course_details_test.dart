@@ -1,57 +1,47 @@
-import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/course/course_status.dart';
-import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
 import 'package:courses_in_english/ui/scaffolds/course_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Course course = new Course(
-  0, // Course id
-  "Test course", // Course name
-  "test", // Location
-  "Lorem ipsum dolor sit amet.", // Description
-  7, // department
-  0, // lecturer id
-  'Mustermann', // lecturer name
-  'R1.337', // room
-  CourseStatus.GREEN, // course status
-  [], // courseFacultyAvailable dafuq
-  0, // available slots
-  5, // ects credits
-  4, // semester week hours
-  null, // time and day
-);
-Department department = new Department(
-  7,
-  "Computer Science and Mathematics",
-  const Color(0xFF029fd0),
-);
+final course = course01;
+final department = department07;
+final lecturer = lecturer01;
 
 void main() {
   testWidgets('Test information display', (WidgetTester tester) async {
     await tester.pumpWidget(
       new MaterialApp(
-        home: new CourseDetailsScaffold(course, department),
+        home: new CourseDetailsScaffold(course01, false), // favorite = false
       ),
     );
 
     // Search course name
-    expect(find.text(course.name), findsOneWidget);
+    expect(find.text(course01.name), findsOneWidget);
     // Search course description
-    expect(find.text(course.description), findsOneWidget);
+    expect(find.text(course01.description), findsOneWidget);
     // Search department number
     expect(
-      find.text('Department ${department.number.toString().padLeft(2, '0')}'),
+      find.text('Department ${department07.number.toString().padLeft(2, '0')}'),
       findsOneWidget,
     );
     // Search professor name
-    expect(find.text(course.lecturerName), findsOneWidget);
+    expect(find.text(lecturer01.name), findsOneWidget);
+    expect(find.byIcon(Icons.favorite_border), findsOneWidget);
+    expect(find.byIcon(Icons.favorite), findsNothing);
   });
-
-  testWidgets('Test favorite mechaninism', (WidgetTester tester) async {
+  testWidgets('Test information display - favorite', (WidgetTester tester) async {
     await tester.pumpWidget(
       new MaterialApp(
-        home: new CourseDetailsScaffold(course, department),
+        home: new CourseDetailsScaffold(course01, true), // favorite = false
+      ),
+    );
+    expect(find.byIcon(Icons.favorite), findsOneWidget);
+    expect(find.byIcon(Icons.favorite_border), findsNothing);
+  });
+  /*testWidgets('Test favorite mechaninism', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      new MaterialApp(
+        home: new CourseDetailsScaffold(course, false),
       ),
     );
 
@@ -66,5 +56,6 @@ void main() {
     await tester.pump();
     expect(find.byIcon(Icons.favorite_border), findsOneWidget);
     expect(find.byIcon(Icons.favorite), findsNothing);
-  });
+  });*/
+
 }

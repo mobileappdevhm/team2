@@ -13,10 +13,10 @@ class SqliteLecturerProvider implements LecturerProvider {
         await dbh.selectOneWhere("Lecturer", "id", lecturerId.toString());
     Lecturer tempLecturer = new Lecturer(
         lecturerData["id"], lecturerData["name"], lecturerData["email"]);
-    return new Future.delayed(
-        const Duration(milliseconds: 200), () => tempLecturer);
+    return new Future(() => tempLecturer);
   }
 
+  @override
   Future<List<Lecturer>> getLecturers() async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> lecturerData = await dbh.selectTable("Lecturer");
@@ -31,8 +31,7 @@ class SqliteLecturerProvider implements LecturerProvider {
 
     lecturerData.forEach(addLecturer);
 
-    return new Future.delayed(
-        const Duration(milliseconds: 200), () => lecturers);
+    return new Future(() => lecturers);
   }
 
   Future<int> putLecturer(List<Lecturer> lecturers) async {
@@ -40,7 +39,7 @@ class SqliteLecturerProvider implements LecturerProvider {
     List<Map<String, dynamic>> lecturerList = [];
 
     void iterate(Lecturer data) {
-      lecturerList.add(data.toMap());
+      lecturerList.add(data.toMap(-1));
     }
 
     lecturers.forEach(iterate);

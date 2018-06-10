@@ -1,15 +1,12 @@
 //import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/campus/mock/sqlite_campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/sqlite_course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/mock/mock_selection_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/course/sqlite_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/sqlite_data.dart';
 //import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/department/mock/sqlite_department_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/favorites/favorites_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/favorites/mock/mock_favorites_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/mock/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
@@ -44,8 +41,6 @@ void main() {
     expect(_data.lecturerProvider, new isInstanceOf<SqliteLecturerProvider>());
     expect(
         _data.departmentProvider, new isInstanceOf<SqliteDepartmentProvider>());
-    expect(_data.favoritesProvider, new isInstanceOf<MockFavoritesProvider>());
-    expect(_data.selectionProvider, new isInstanceOf<MockSelectionProvider>());
     expect(_data.userProvider, new isInstanceOf<MockUserProvider>());
     expect(_data.campusProvider, new isInstanceOf<SqliteCampusProvider>());
   });
@@ -60,18 +55,13 @@ void main() {
     });
   });
 
-  test('SQL Favorites Provider Test', () {
-    FavoritesProvider favoritesProvider = _data.favoritesProvider;
-    expect(favoritesProvider.getFavorites(), isEmpty);
-  });
-
   /**Start of SQL tests*/
 
   test('SQL Campus Test', () async {
 //    SqliteCampusProvider campusProvider = _data.campusProvider;
     List<Campus> campuses = [];
-    campuses.add(new Campus(0, "Campus1", "/path/to/image"));
-    campuses.add(new Campus(1, "Campus2", "/path/to/image2"));
+    campuses.add(new Campus(0, "Campus1", "/path/to/image", ""));
+    campuses.add(new Campus(1, "Campus2", "/path/to/image2", ""));
 
 //    int res = await campusProvider.putCampuses(campuses);
 //    expect(res, 0);
