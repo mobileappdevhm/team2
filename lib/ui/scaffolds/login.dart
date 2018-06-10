@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
   static final Key guestButtonKey = new Key("guestButton");
   static final Key emailFieldKey = new Key("emailField");
   static final Key passwordFieldKey = new Key("passwordField");
+  static final String continueAsGuest = "Hello Guest :)";
 
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   new EdgeInsets.symmetric(horizontal: 10.0),
                             ),
                             new Container(
-                              child: continueAsGuest(),
+                              child: continueAsGuest(context),
                             ),
                           ],
                         ),
@@ -68,16 +69,28 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Row continueAsGuest() {
+  Row continueAsGuest(BuildContext context) {
     return new Row(
       children: <Widget>[
         new Container(
           child: new RaisedButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-              );
+              Scaffold.of(context).showSnackBar(
+                    new SnackBar(
+                      content: new Text(
+                        LoginScreen.continueAsGuest,
+                        textAlign: TextAlign.center,
+                      ),
+                      duration: new Duration(seconds: 1),
+                    ),
+                  );
+              new Duration(seconds: 1);
+              new Future.delayed(new Duration(milliseconds: 1200), () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new HomeScaffold()));
+              });
             },
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(100000.0)),
@@ -198,7 +211,10 @@ class _LoginScreenState extends State<LoginScreen> {
       success: (session) {
         Scaffold.of(context).showSnackBar(
               new SnackBar(
-                content: new Text(LoginScreen.loginSuccess),
+                content: new Text(
+                  LoginScreen.loginSuccess,
+                  textAlign: TextAlign.center,
+                ),
                 duration: new Duration(seconds: 1),
               ),
             );
@@ -240,7 +256,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == true && passwordEmpty == false) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(LoginScreen.noEmail),
+              content: new Text(
+                LoginScreen.noEmail,
+                textAlign: TextAlign.center,
+              ),
               duration: new Duration(seconds: 2),
             ),
           );
@@ -249,7 +268,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == false && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(LoginScreen.noPassword),
+              content: new Text(
+                LoginScreen.noPassword,
+                textAlign: TextAlign.center,
+              ),
               duration: new Duration(seconds: 2),
             ),
           );
@@ -258,7 +280,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (emailEmpty == true && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(LoginScreen.noEmailAndNoPassword),
+              content: new Text(
+                LoginScreen.noEmailAndNoPassword,
+                textAlign: TextAlign.center,
+              ),
               duration: new Duration(seconds: 2),
             ),
           );
@@ -267,7 +292,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (containsAtAndDot == false) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(LoginScreen.emailWrongFormat),
+              content: new Text(
+                LoginScreen.emailWrongFormat,
+                textAlign: TextAlign.center,
+              ),
               duration: new Duration(seconds: 2),
             ),
           );

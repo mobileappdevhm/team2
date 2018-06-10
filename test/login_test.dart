@@ -1,5 +1,6 @@
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
+import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
@@ -65,5 +66,12 @@ void main() {
     await tester.tap(find.byKey(LoginScreen.loginButtonKey));
     await tester.pump(const Duration(milliseconds: 1000)); // schedule animation
     expect(find.text(LoginScreen.emailWrongFormat), findsOneWidget);
+  });*/
+
+  /*testWidgets("testGuest", (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
+    await tester.tap(find.byKey(LoginScreen.guestButtonKey));
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text(LoginScreen.continueAsGuest), findsOneWidget);
   });*/
 }
