@@ -1,7 +1,6 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/ui/screens/cie_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -21,17 +20,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             isBold: true,
           )
         ]),
-//        new RawMaterialButton(
-//          constraints: new BoxConstraints(minWidth: 180.0, minHeight: 48.0),
-//          onPressed: _profilePage,
-//          shape: new RoundedRectangleBorder(
-//              borderRadius: new BorderRadius.circular(100000.0)),
-//          fillColor: Colors.red,
-//          child: new Text(
-//            "Profile",
-//            style: new TextStyle(fontSize: 18.0, color: Colors.white),
-//          ),
-//        ),
         _newElement([
           new LineSeparator(
             title: 'Synchronisation Settings',
@@ -125,12 +113,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return;
       }
     });
-  }
-
-  void _profilePage() {
-    Navigator.push(
-      context,
-      new MaterialPageRoute(builder: (context) => new CieScreen()),
-    );
   }
 }

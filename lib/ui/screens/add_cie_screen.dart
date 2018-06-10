@@ -94,7 +94,8 @@ class _AddCieScreenState extends State<AddCieScreen> {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
-        title: new Text("Add C.I.E."),
+        title: new Text("Add Past CIE"),
+        centerTitle: true,
       ),
       body: new ListView(
         children: <Widget>[
