@@ -1,6 +1,10 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
+import 'package:courses_in_english/model/globals/globals.dart'  as globals;
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -8,12 +12,55 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  List<bool> _states = [false, false, false, true];
+  List<bool> _states = [false, false];
+  List<String> _info = [
+    "This will stop automatic syncing of your files to our server",
+    "This will allow us to collect data on what features you use most to improve the app",
+    "This button backs up your favorites on our server",
+    "This button will take the favorites you have previously pushed to our servers and import them to your favorites tab",
+    "This button will pull the courses that you have gotten into with the lottery system and out them into your favorites tab",
+    "Continuing will delete all user data from your local device and close the application, are you sure you want to continue?"
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    double width = MediaQuery.of(context).size.width;
+    if(globals.userId == -1){
+      return notLoggedInView();
+    }else{
+      return loggedInView(width);
+    }
+  }
+
+  ListView notLoggedInView(){
+    return new ListView(
+      
       children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(4.0)),
+        _newElement([
+          new LineSeparator(
+            title: 'General Settings',
+            isBold: true,
+          )
+        ]),
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Text("Guest Users can't save settings")
+          ],
+        )
+
+
+      ],
+    );
+  }
+
+  ListView loggedInView(double width){
+    return new ListView(
+      children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(4.0)),
         _newElement([
           new LineSeparator(
             title: 'General Settings',
@@ -21,53 +68,140 @@ class _SettingsScreenState extends State<SettingsScreen> {
           )
         ]),
         _newElement([
-          new LineSeparator(
-            title: 'Synchronisation Settings',
-          )
-        ]),
-        _newElement([
-          Text('Enable automatic sync'),
-          Switch(
-              value: _states[0],
-              onChanged: (bool onChanged) => _doClick("autoSync", onChanged)),
-        ]),
-        _newElement([
-          new Text('Offline mode'),
+          new Text(
+            'Offline mode',
+            style: new TextStyle(fontSize: 16.0),
+          ),
+          IconButton(
+            onPressed: () => _showAlert(0),
+            icon: new Icon(
+              Icons.info,
+              size: 28.0,
+            ),
+          ),
           new Switch(
-              value: _states[1],
+              value: _states[0],
               onChanged: (bool onChanged) => _doClick("offlineMode", onChanged))
         ]),
         _newElement([
+          new Text(
+            'Feedback mode',
+            style: new TextStyle(fontSize: 16.0),
+          ),
+          IconButton(
+            onPressed: () => _showAlert(1),
+            icon: new Icon(
+              Icons.info,
+              size: 28.0,
+            ),
+          ),
+          new Switch(
+              value: _states[1],
+              onChanged: (bool onChanged) =>
+                  _doClick("feedbackMode", onChanged))
+        ]),
+        _newElement([
           new LineSeparator(
-            title: 'UI Settings',
+            title: 'Sync Options',
             isBold: true,
           )
         ]),
-        _newElement([
-          new Text('Use alternative layout'),
-          new Switch(
-              value: _states[2],
-              onChanged: (bool onChanged) => _doClick("altLayout", onChanged))
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        _newWideElement([
+          new RawMaterialButton(
+            constraints: new BoxConstraints(
+                minWidth: 130.0,
+                minHeight: 48.0,
+                maxWidth: width / 2 - 30,
+                maxHeight: 50.0),
+            onPressed: null,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(100000.0)),
+            fillColor: Colors.red,
+            child: new Text(
+              "Push Favorites",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ),
+          IconButton(
+            onPressed: () => _showAlert(2),
+            icon: new Icon(
+              Icons.info,
+              size: 28.0,
+            ),
+          ),
         ]),
-        _newElement([
-          new LineSeparator(
-            title: 'Language Settings',
-            isBold: true,
-          )
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        _newWideElement([
+          new RawMaterialButton(
+            constraints: new BoxConstraints(
+                minWidth: 130.0,
+                minHeight: 48.0,
+                maxWidth: width / 2 - 30,
+                maxHeight: 50.0),
+            onPressed: null,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(100000.0)),
+            fillColor: Colors.red,
+            child: new Text(
+              "Sync Favorites",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ),
+          IconButton(
+            onPressed: () => _showAlert(3),
+            icon: new Icon(
+              Icons.info,
+              size: 28.0,
+            ),
+          ),
         ]),
-        _newElement([
-          new LineSeparator(
-            title: 'Secret Settings ;)',
-          )
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        _newWideElement([
+          new RawMaterialButton(
+            constraints: new BoxConstraints(
+                minWidth: 130.0,
+                minHeight: 48.0,
+                maxWidth: width / 2 - 30,
+                maxHeight: 50.0),
+            onPressed: null,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(100000.0)),
+            fillColor: Colors.red,
+            child: new Text(
+              "Sync Lottery",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ),
+          IconButton(
+            onPressed: () => _showAlert(4),
+            icon: new Icon(
+              Icons.info,
+              size: 28.0,
+            ),
+          ),
         ]),
-        _newElement([
-          new Text('Secret 1'),
-          new Switch(
-              value: _states[3],
-              onChanged: (bool onChanged) => _doClick("secret1", onChanged))
+        new Padding(padding: new EdgeInsets.all(6.0)),
+
+        _newWideElement([
+          new RawMaterialButton(
+            constraints: new BoxConstraints(
+                minWidth: 180.0,
+                minHeight: 48.0,
+                maxWidth: width - 30,
+                maxHeight: 50.0),
+            onPressed: () => _showDeleteAlert(5) ,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(100000.0)),
+            fillColor: Colors.red,
+            child: new Text(
+              "Delete application data",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ),
         ]),
       ],
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
   }
 
@@ -87,31 +221,98 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Widget _newWideElement(var children) {
+    if (children[0] is LineSeparator) {
+      return new Row(
+        children: children,
+      );
+    } else {
+      return Container(
+        child: Row(
+          children: children,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        ),
+        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+      );
+    }
+  }
+
   Data _data = new Data();
 
   void _doClick(String toggle, var value) {
     setState(() {
       switch (toggle) {
-        case "autoSync":
-          _data.settingsProvider.getCurrentSettings().autoSync = value;
-          _states[0] = value;
-          return;
         case "offlineMode":
-          _data.settingsProvider.getCurrentSettings().offlineMode = value;
+          _states[0] = value;
+          _data.settingsProvider.putCurrentSettings(
+              new UserSettings(
+                  globals.userId, offlineMode: _states[0], feedbackMode: _states[1]),
+              );
+          return;
+        case "feedbackMode":
           _states[1] = value;
-          return;
-        case "altLayout":
-          _data.settingsProvider.getCurrentSettings().usesDrawer = value;
-          _states[2] = value;
-          return;
-        case "language":
-          _data.settingsProvider.getCurrentSettings().language = value;
-          return;
-        case "secret1":
-          _data.settingsProvider.getCurrentSettings().secret1 = value;
-          _states[3] = value;
+          _data.settingsProvider.putCurrentSettings(
+              new UserSettings(
+                  globals.userId, offlineMode: _states[0], feedbackMode: _states[1]),
+              );
           return;
       }
     });
+  }
+
+  void _showAlert(int index) {
+    if (_info[index] == null) return;
+
+    AlertDialog alertDialog = new AlertDialog(
+      content: new Text(
+        _info[index],
+        style: new TextStyle(fontSize: 16.0),
+      ),
+      actions: <Widget>[
+        new FlatButton(
+            onPressed: () => Navigator.pop(context), child: new Text("close"))
+      ],
+    );
+
+    showDialog(context: context, child: alertDialog);
+  }
+
+  void _showDeleteAlert(int index) {
+    int length =_info.length;
+    if (_info[index] == null) return;
+
+    AlertDialog alertDialog = new AlertDialog(
+      content: new Text(
+        _info[index],
+        style: new TextStyle(fontSize: 16.0),
+      ),
+      actions: <Widget>[
+        new FlatButton(
+            onPressed: () => Navigator.pop(context), child: new Text("No, Cancle")),
+        new FlatButton(
+            onPressed: () => clearApp(), child: new Text("Yes, Delete"))
+      ],
+    );
+
+    showDialog(context: context, child: alertDialog);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initSettings();
+  }
+
+  void initSettings() async {
+    UserSettings userSettings = await _data.settingsProvider
+        .getCurrentSettings();
+    _states[0] = userSettings.offlineMode;
+    _states[1] = userSettings.feedbackMode;
+    setState(() {});
+  }
+
+  void clearApp() async{
+    DatabaseHelper dbh = await new DatabaseHelper();
+    dbh.truncateAllTable();
   }
 }

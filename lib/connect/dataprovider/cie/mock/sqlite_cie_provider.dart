@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+import 'package:courses_in_english/model/globals/globals.dart'  as globals;
 
 /// Provider for campuses providing mock data.
 class SqliteCieProvider implements CieProvider {
@@ -11,6 +12,21 @@ class SqliteCieProvider implements CieProvider {
     List<Cie> campuses = [];
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Cie");
+
+    void iterate(Map<String, dynamic> data) {
+      campuses.add(new Cie(data["name"], data["department"],
+          data["lecturerName"], data["ects"], data["id"]));
+    }
+
+    rawCampusData.forEach(iterate);
+
+    return (new Future(() => campuses));
+  }
+
+  Future<List<Cie>> getCiesByCurrentUserId() async {
+    List<Cie> campuses = [];
+    DatabaseHelper dbh = new DatabaseHelper();
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere("Cie", "userId", globals.userId.toString());
 
     void iterate(Map<String, dynamic> data) {
       campuses.add(new Cie(data["name"], data["department"],

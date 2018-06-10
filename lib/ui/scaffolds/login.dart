@@ -4,6 +4,9 @@ import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
+
+import 'package:courses_in_english/model/globals/globals.dart'  as globals;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -56,6 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
         new Container(
           child: new RaisedButton(
             onPressed: () {
+              Data data = new Data();
+              globals.userId = 0; //TODO: Take this out guest should not set globals.userId to anything (needs to be -1 to trigger guest pages)
+              data.settingsProvider.putSettings(new UserSettings(globals.userId));
               Navigator.pushReplacement(
                 context,
                 new MaterialPageRoute(builder: (context) => new HomeScaffold()),
@@ -186,12 +192,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void doLogin() {
+    Data data = new Data();
     if (username != null && password != null) {
       User user;
       new Data().userProvider.login(username, password).then((success) {
         user = success;
       });
       if (user != null) {
+        globals.userId = user.id; //TODO: does this work?
+        data.settingsProvider.putSettings(new UserSettings(user.id));
         Navigator.push(
           context,
           new MaterialPageRoute(builder: (context) => new HomeScaffold()),

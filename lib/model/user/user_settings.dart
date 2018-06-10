@@ -1,19 +1,22 @@
-class UserSettings {
-  bool autoSync;
-  bool offlineMode;
-  bool usesDrawer;
-  String language;
-  bool secret1;
+import 'package:courses_in_english/model/globals/globals.dart'  as globals;
 
-  UserSettings({
-    String language = "en",
-    bool sync = false,
-    bool offlineMode = false,
-    bool usesDrawer = false,
-    bool secret1 = true,
-  })  : autoSync = sync,
-        offlineMode = offlineMode,
-        usesDrawer = usesDrawer,
-        secret1 = secret1,
-        language = language;
+
+class UserSettings {
+  bool offlineMode;
+  bool feedbackMode;
+  int userId;
+
+  UserSettings(this.userId, {
+    bool offlineMode = true,
+    bool feedbackMode = false,
+  })  : offlineMode = offlineMode,
+        feedbackMode = feedbackMode;
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> tempMap = new Map();
+    tempMap["offlineMode"] = this.offlineMode.toString();
+    tempMap["feedbackMode"] = this.feedbackMode.toString();
+    tempMap["userId"] = userId;
+    return tempMap;
+  }
 }

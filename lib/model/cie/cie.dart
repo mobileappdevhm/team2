@@ -1,3 +1,5 @@
+import 'package:courses_in_english/model/globals/globals.dart'  as globals;
+
 class Cie {
   int id = -1;
   final String name;
@@ -14,6 +16,7 @@ class Cie {
     tempMap["department"] = this.department;
     tempMap["lecturerName"] = this.lecturerName;
     tempMap["ects"] = this.ects;
+    tempMap["userId"] = globals.userId;
     return tempMap;
   }
 
@@ -23,6 +26,7 @@ class Cie {
     tempMap["department"] = this.department;
     tempMap["lecturerName"] = this.lecturerName;
     tempMap["ects"] = this.ects;
+    tempMap["userId"] = globals.userId;
     return tempMap;
   }
 }
