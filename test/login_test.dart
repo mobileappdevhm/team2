@@ -1,6 +1,5 @@
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
