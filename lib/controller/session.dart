@@ -34,7 +34,7 @@ class Session {
     OnSuccess success,
     OnFailure failure,
   }) async {
-    data.userProvider.login(email, password).then(
+    await data.userProvider.login(email, password).then(
       (user) {
         _user = user;
         // TODO save user to cache

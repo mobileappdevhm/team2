@@ -5,13 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
 
-const MOCK_COURSES = [
-  course01,
-  course02,
-  course03,
-  course04,
-  course05
-];
+const MOCK_COURSES = [course01, course02, course03, course04, course05];
 
 const FAVS = <Course>[];
 
@@ -25,8 +19,8 @@ void main() {
     for (var course in MOCK_COURSES) {
       expect(find.text(course.name), findsOneWidget);
       expect(
-          find.text(
-              "Department " + course.department.number.toString().padLeft(2, '0')),
+          find.text("Department " +
+              course.department.number.toString().padLeft(2, '0')),
           findsOneWidget);
     }
   });

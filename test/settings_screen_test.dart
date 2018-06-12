@@ -18,7 +18,7 @@ void main() {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new SettingsScreen())));
     expect(find.text("Profile"), findsOneWidget);
-    expect(find.widgetWithText(RawMaterialButton,"Profile"), findsOneWidget);
+    expect(find.widgetWithText(RawMaterialButton, "Profile"), findsOneWidget);
   });
 
   testWidgets('OfflineModeTest', (WidgetTester tester) async {
