@@ -13,14 +13,7 @@ void main() {
     await tester.tap(find.byType(Switch).first);
     expect(_data.getCurrentSettings().autoSync, true);
   });
-
-  testWidgets('ProfileTest', (WidgetTester tester) async {
-    await tester.pumpWidget(
-        new MaterialApp(home: new Scaffold(body: new SettingsScreen())));
-    expect(find.text("Profile"), findsOneWidget);
-    expect(find.widgetWithText(RawMaterialButton, "Profile"), findsOneWidget);
-  });
-
+  
   testWidgets('OfflineModeTest', (WidgetTester tester) async {
     UserSettingsProvider _data = new Data().settingsProvider;
     await tester.pumpWidget(

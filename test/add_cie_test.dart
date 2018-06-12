@@ -6,7 +6,7 @@ void main() {
   testWidgets('AddButtonTest', (WidgetTester tester) async {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new AddCieScreen())));
-    expect(find.widgetWithText(RawMaterialButton, "Add CIE"), findsOneWidget);
+    expect(find.widgetWithText(RawMaterialButton, "Add"), findsOneWidget);
   });
 
   testWidgets('formTest', (WidgetTester tester) async {
@@ -25,6 +25,7 @@ void main() {
   testWidgets('form2Test', (WidgetTester tester) async {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new AddCieScreen())));
+    await tester.pump(new Duration(milliseconds: 5000));
 
     Finder finder = find.widgetWithText(TextFormField, " Input Name");
     await tester.enterText(finder, "name");
@@ -34,10 +35,10 @@ void main() {
     await tester.enterText(finder, "2.0");
     finder = find.widgetWithText(TextFormField, " Input Department (Integer)");
     await tester.enterText(finder, "1");
-    finder = find.widgetWithText(RawMaterialButton, "Add CIE");
+    finder = find.widgetWithText(RawMaterialButton, "Add");
     await tester.tap(finder);
     await tester.pump(new Duration(milliseconds: 5000));
-    //expect(find.text("Succesfully added \"name\""), findsOneWidget);
+//    expect(find.text("Succesfully added \"name\""), findsOneWidget);
     //TODO: figure out why wait is not happening for setState to finish
   });
 }

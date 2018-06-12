@@ -5,6 +5,7 @@ import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
 import 'package:courses_in_english/ui/screens/settings_screen.dart';
+import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -99,7 +100,8 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new LocationScreen(session.campuses),
         new TimetableScreen(session.courses),
         new FavoriteListScreen(session.favorites),
-        new SettingsScreen(),
+        new CieScreen(),
+        new SettingsScreen()
       ];
       scaffold = new Scaffold(
         bottomNavigationBar: new BottomNavigationBar(
@@ -119,6 +121,10 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             new BottomNavigationBarItem(
               icon: new Icon(Icons.favorite_border),
               title: new Text('Favorites'),
+            ),
+            new BottomNavigationBarItem(
+              icon: new Icon(Icons.account_circle),
+              title: new Text('Profile'),
             ),
             new BottomNavigationBarItem(
               icon: new Icon(Icons.settings),

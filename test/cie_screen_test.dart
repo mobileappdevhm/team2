@@ -16,15 +16,15 @@ void main() {
     expect(find.widgetWithText(RawMaterialButton, "Logout"), findsOneWidget);
   });
 
-  testWidgets('NextPageTest', (WidgetTester tester) async {
-    await tester
-        .pumpWidget(new MaterialApp(home: new Scaffold(body: new CieScreen())));
-    expect(find.widgetWithIcon(IconButton, Icons.add), findsOneWidget);
-  });
-
   testWidgets('BarTest', (WidgetTester tester) async {
     await tester
         .pumpWidget(new MaterialApp(home: new Scaffold(body: new CieScreen())));
     expect(find.byType(Divider), findsOneWidget);
+  });
+
+  testWidgets('AddButtonTest', (WidgetTester tester) async {
+    await tester
+        .pumpWidget(new MaterialApp(home: new Scaffold(body: new CieScreen())));
+    expect(find.widgetWithText(RawMaterialButton, "Add CIE"), findsOneWidget);
   });
 }
