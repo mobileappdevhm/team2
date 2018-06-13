@@ -298,11 +298,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
-    UserSettings userSettings =
-        await _data.settingsProvider.getCurrentSettings();
-    _states[0] = userSettings.offlineMode;
-    _states[1] = userSettings.feedbackMode;
-    setState(() {});
+    if (globals.userId != -1) {
+      UserSettings userSettings =
+          await _data.settingsProvider.getCurrentSettings();
+      _states[0] = userSettings.offlineMode;
+      _states[1] = userSettings.feedbackMode;
+      setState(() {});
+    }
   }
 
   void clearApp() async {
