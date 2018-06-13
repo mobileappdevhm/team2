@@ -308,7 +308,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void clearApp() async {
-    DatabaseHelper dbh = await new DatabaseHelper();
+    DatabaseHelper dbh = new DatabaseHelper();
     dbh.truncateAllTable();
   }
 }
