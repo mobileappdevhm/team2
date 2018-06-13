@@ -1,44 +1,32 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/connect/dataprovider/favorites/favorites_observer.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 
-class CourseDetailsScaffold extends StatefulWidget {
+const Color HEART = const Color(0xFFFFA1A1);
+
+class CourseDetailsScaffold extends StatelessWidget {
   final Course course;
-  final Department department;
+  final bool isFavored;
+  final Session session = new Session();
 
-  CourseDetailsScaffold(this.course, this.department);
-
-  @override
-  State<StatefulWidget> createState() => new _CourseDetailsScaffold();
-}
-
-class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
-    implements FavoritesObserver {
-  static const Color HEART = const Color(0xFFFFA1A1);
-  bool isFavored = false;
-  final Data data = new Data();
-
-  @override
-  void initState() {
-    super.initState();
-    data.favoritesProvider.addObserver(this);
-    isFavored = data.favoritesProvider.isFavored(widget.course.id);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    data.favoritesProvider.removeObserver(this);
-  }
+  CourseDetailsScaffold(this.course, this.isFavored);
 
   @override
   Widget build(BuildContext context) {
+    String date = "";
+    course.dates.forEach((lecture) {
+      date += lecture.toDate() + "\n";
+    });
+
+    if (date == "") {
+      date = "Time and Day Unknown";
+    } else {
+      date.substring(0, date.length - 1);
+    }
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -57,16 +45,16 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   child: new Column(
                     children: <Widget>[
                       new Text(
-                        widget.course.name,
+                        course.name,
                         style: new TextStyle(
                           fontSize: 20.0,
                           color: Colors.black54,
                         ),
                       ),
                       new Text(
-                        'Department ${widget.course.department.toString().padLeft(2, '0')}',
+                        'Department ${course.department.number.toString().padLeft(2, '0')}',
                         style: new TextStyle(
-                          color: widget.department.color,
+                          color: new Color(course.department.color),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -83,9 +71,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   tooltip: isFavored
                       ? 'Remove this course from your favorites.'
                       : 'Add this course to your favorites.',
-                  onPressed: () => new Data()
-                      .favoritesProvider
-                      .toggleFavorite(widget.course.id),
+                  onPressed: isFavored
+                      ? () => session.unfavorize(course)
+                      : () => session.favorize(course),
                 ),
               ],
             ),
@@ -95,7 +83,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                 padding: new EdgeInsets.only(top: 16.0, bottom: 16.0),
                 child: new SingleChildScrollView(
                   child: new Text(
-                    widget.course.description,
+                    course.description,
                     style: new TextStyle(color: Colors.black45),
                   ),
                 ),
@@ -110,10 +98,11 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     new Text(
-                        widget.course.timeAndDay != null &&
-                                widget.course.timeAndDay.day != null &&
-                                widget.course.timeAndDay.duration != null
-                            ? widget.course.timeAndDay.toDate()
+                        // TODO adjust to list of timeanddays
+                        course.dates != null &&
+                                course.dates[0].weekday != null &&
+                                course.dates[0].duration != null
+                            ? course.dates[0].toDate()
                             : "Time and Day Unknown",
                         style: new TextStyle(
                             color: Colors.black54,
@@ -131,7 +120,7 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                         ),
                         children: [
                           new TextSpan(
-                              text: widget.course.ects.toString(),
+                              text: course.ects.toString(),
                               style: new TextStyle(fontWeight: FontWeight.bold))
                         ],
                       ),
@@ -163,14 +152,14 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    new AvailabilityWidget(widget.course.status),
+                    new AvailabilityWidget(course.courseStatus),
                     new Padding(
                         padding: new EdgeInsets.only(
                       top: 4.0,
                     )),
                     new Text(
-                        widget.course.lecturerName != null
-                            ? "${widget.course.lecturerName}"
+                        course.lecturer.name != null
+                            ? "${course.lecturer.name}"
                             : "Professor Unknown",
                         style: new TextStyle(
                             color: Colors.black54,
@@ -211,13 +200,9 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
   }
 
   sendMail() async {
-    Lecturer lecturer;
-    Data data = new Data();
-    lecturer =
-        await data.lecturerProvider.getLecturerById(widget.course.lecturerId);
-    // Android and iOS
+    Lecturer lecturer = course.lecturer; // Android and iOS
     final uri =
-        'mailto:${lecturer.email}?subject=${widget.course.name}&body=Hello Professor ${widget.course.lecturerName},';
+        'mailto:${lecturer.email}?subject=${course.name}&body=Hello Professor ${lecturer.name},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);
@@ -225,8 +210,4 @@ class _CourseDetailsScaffold extends State<CourseDetailsScaffold>
       throw 'Could not launch $uri';
     }
   }
-
-  @override
-  void onFavoriteToggled() => setState(
-      () => isFavored = data.favoritesProvider.isFavored(widget.course.id));
 }
