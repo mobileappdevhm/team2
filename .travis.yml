@@ -12,7 +12,7 @@ addons:
       - fonts-droid
 jobs:
   include:
-    - stage: Test
+    - stage: Testing
       language: generic
       before_script:
         - chmod 777 ./.no_camel.sh
@@ -26,7 +26,7 @@ jobs:
         - ../flutter/bin/flutter test --coverage test/*
       after_success:
         - coveralls-lcov coverage/lcov.info
-    - stage: Building Android
+    - stage: Building
       if: branch = master
       language: android
       android:
@@ -42,7 +42,7 @@ jobs:
         - yes|../flutter/bin/flutter doctor --android-licenses
       script:
         - ../flutter/bin/flutter -v build apk
-    - stage: Building iOS
+    - stage: Building
       if: branch = master
       language: generic
       os: osx
@@ -56,7 +56,7 @@ jobs:
         - ../flutter/bin/flutter doctor
       script:
         - ../flutter/bin/flutter -v build ios --no-codesign
-    - stage: Github Deploy
+    - stage: Deploying
       if: branch = master
       skript: skip
       before_deploy:
