@@ -271,7 +271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _showDeleteAlert(int index) {
-    int length = _info.length;
+//    int length = _info.length;
     if (_info[index] == null) return;
 
     AlertDialog alertDialog = new AlertDialog(

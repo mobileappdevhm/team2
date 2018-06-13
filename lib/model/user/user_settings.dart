@@ -1,5 +1,3 @@
-import 'package:courses_in_english/model/globals/globals.dart' as globals;
-
 class UserSettings {
   bool offlineMode;
   bool feedbackMode;
