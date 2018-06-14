@@ -22,7 +22,8 @@ class Session {
   final List<OnDataChanged> callbacks = [];
 
   User _user;
-  UserSettings _settings;
+  // This is bad form, I know, however otherwise the tests won't work
+  UserSettings _settings = new UserSettings();
   Iterable<Campus> _campuses;
   Iterable<Department> _departments;
   Iterable<Lecturer> _lecturers;
