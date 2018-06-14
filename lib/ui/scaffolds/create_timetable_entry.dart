@@ -64,7 +64,7 @@ class CreateTimetableEntryScaffoldState
             },
           ),
           new TextField(
-            decoration: new InputDecoration(hintText: "location"),
+            decoration: new InputDecoration(hintText: "Location"),
             onChanged: (String s) {
               setState(() {
                 location = s;
