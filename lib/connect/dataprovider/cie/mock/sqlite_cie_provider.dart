@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+
 /// Provider for campuses providing mock data.
 class SqliteCieProvider implements CieProvider {
   @override
