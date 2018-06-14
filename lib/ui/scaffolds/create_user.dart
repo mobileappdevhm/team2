@@ -152,8 +152,8 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   firstName != null &&
                   lastName != null &&
                   userDepartment != null) {
-                new Data().userProvider.createUser(
-                    userName, firstName, lastName, userDepartment.number);
+                /*new Data().userProvider.createUser(
+                    userName, firstName, lastName, userDepartment.number);*/
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
