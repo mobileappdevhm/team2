@@ -40,13 +40,14 @@ class CreateTimetableEntryScaffoldState
       body: new Container(
           child: new Column(
         children: <Widget>[
-          new Card(child: new Text(
-              "Enter the following data to create a custom timetable enrty:",
-              style: new TextStyle(
-                color: Colors.black,
-                fontSize: 22.0,
-                fontWeight: FontWeight.w600,
-              ))),
+          new Card(
+              child: new Text(
+                  "Enter the following data to create a custom timetable enrty:",
+                  style: new TextStyle(
+                    color: Colors.black,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.w600,
+                  ))),
           new TextField(
             decoration: new InputDecoration(hintText: "Course Name"),
             onChanged: (String s) {
@@ -121,11 +122,12 @@ class CreateTimetableEntryScaffoldState
                     new Campus(null, location, null, null)));
               });
             },
-            child: new Text("submit",style: new TextStyle(
-              color: Colors.black,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w600,
-            )),
+            child: new Text("submit",
+                style: new TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                )),
             color: Colors.redAccent,
             elevation: 3.5,
           )

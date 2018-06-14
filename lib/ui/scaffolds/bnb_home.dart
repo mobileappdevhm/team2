@@ -48,14 +48,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         ),
         new IconButton(
           icon: new Icon(Icons.add),
-          onPressed: () { Navigator.push(
-            context,
-            new MaterialPageRoute(
-              builder: (context) {
-                return new CreateTimetableEntryScaffold(session.courses);
-              },
-            ),
-          );
+          onPressed: () {
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (context) {
+                  return new CreateTimetableEntryScaffold(session.courses);
+                },
+              ),
+            );
           },
         )
       ];
