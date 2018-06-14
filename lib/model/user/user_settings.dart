@@ -2,8 +2,7 @@ class UserSettings {
   bool offlineMode;
   bool feedbackMode;
 
-  UserSettings(
-    {
+  UserSettings({
     bool offlineMode = true,
     bool feedbackMode = true,
   })  : offlineMode = offlineMode,
