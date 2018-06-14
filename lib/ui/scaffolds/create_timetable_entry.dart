@@ -3,10 +3,7 @@ import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
-import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CreateTimetableEntryScaffold extends StatefulWidget {
   final Session session = new Session();
