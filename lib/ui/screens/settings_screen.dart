@@ -1,9 +1,8 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-import 'package:courses_in_english/model/user/user_settings.dart';
-import 'package:courses_in_english/model/globals/globals.dart' as globals;
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  List<bool> _states = [false, false];
+  List<bool> _states = [false, true];
   List<String> _info = [
     "This will stop automatic syncing of your files to our server",
     "This will allow us to collect data on what features you use most to improve the app",
@@ -24,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (globals.userId == -1) {
+    if (new Session().user == null) {
       return notLoggedInView();
     } else {
       return loggedInView(width);
@@ -230,26 +229,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  Data _data = new Data();
-
   void _doClick(String toggle, var value) {
     setState(() {
       switch (toggle) {
         case "offlineMode":
           _states[0] = value;
-          _data.settingsProvider.putCurrentSettings(
-            new UserSettings(globals.userId,
-                offlineMode: _states[0], feedbackMode: _states[1]),
-          );
           return;
         case "feedbackMode":
           _states[1] = value;
-          _data.settingsProvider.putCurrentSettings(
-            new UserSettings(globals.userId,
-                offlineMode: _states[0], feedbackMode: _states[1]),
-          );
           return;
       }
+      new Session().setSettings(
+          new UserSettings(offlineMode: _states[0], feedbackMode: _states[1]));
     });
   }
 
@@ -267,7 +258,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ],
     );
 
-    showDialog(context: context, child: alertDialog);
+    showDialog(context: context, builder: (context) => alertDialog);
   }
 
   void _showDeleteAlert(int index) {
@@ -287,8 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: () => clearApp(), child: new Text("Yes, Delete"))
       ],
     );
-
-    showDialog(context: context, child: alertDialog);
+    showDialog(context: context, builder: (context) => alertDialog);
   }
 
   @override
@@ -298,11 +288,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
-    if (globals.userId != -1) {
-      UserSettings userSettings =
-          await _data.settingsProvider.getCurrentSettings();
-      _states[0] = userSettings.offlineMode;
-      _states[1] = userSettings.feedbackMode;
+    Session s = new Session();
+    if (s.user == null) {
+      _states[0] = s.settings.offlineMode;
+      _states[1] = s.settings.feedbackMode;
       setState(() {});
     }
   }

@@ -1,12 +1,11 @@
 class UserSettings {
   bool offlineMode;
   bool feedbackMode;
-  int userId;
 
   UserSettings(
-    this.userId, {
+    {
     bool offlineMode = true,
-    bool feedbackMode = false,
+    bool feedbackMode = true,
   })  : offlineMode = offlineMode,
         feedbackMode = feedbackMode;
 
@@ -14,7 +13,6 @@ class UserSettings {
     Map<String, dynamic> tempMap = new Map();
     tempMap["offlineMode"] = this.offlineMode.toString();
     tempMap["feedbackMode"] = this.feedbackMode.toString();
-    tempMap["userId"] = userId;
     return tempMap;
   }
 }

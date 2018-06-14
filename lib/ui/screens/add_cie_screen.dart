@@ -1,8 +1,8 @@
 import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
-import 'package:courses_in_english/model/globals/globals.dart' as globals;
 
 class AddCieScreen extends StatefulWidget {
   AddCieScreen({Key key, this.title, this.onPressedButton}) : super(key: key);
@@ -31,7 +31,7 @@ class _AddCieScreenState extends State<AddCieScreen> {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     double width = MediaQuery.of(context).size.width;
-    if (globals.userId == -1) {
+    if (new Session().user == null) {
       return notLoggedInView();
     } else {
       if (orientation == Orientation.portrait) {

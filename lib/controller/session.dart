@@ -4,6 +4,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
 
 typedef void OnSuccess(Session s);
 typedef void OnDataChanged(Session s);
@@ -21,6 +22,7 @@ class Session {
   final List<OnDataChanged> callbacks = [];
 
   User _user;
+  UserSettings _settings;
   Iterable<Campus> _campuses;
   Iterable<Department> _departments;
   Iterable<Lecturer> _lecturers;
@@ -124,6 +126,10 @@ class Session {
     throw new UnimplementedError();
   }
 
+  void setSettings(UserSettings settings) {
+    _settings = settings;
+  }
+
   get user => _user;
 
   get campuses => _campuses;
@@ -137,4 +143,6 @@ class Session {
   get favorites => _favorites;
 
   get selected => _selected;
+
+  get settings => _settings;
 }
