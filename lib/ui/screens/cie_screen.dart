@@ -362,12 +362,16 @@ class CieScreenState extends State<CieScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    courseItems();
+    if (new Session().user != null) {
+      courseItems();
+    }
   }
 
   void _setMyState() {
-    courseItems();
-    setState(() {});
+    if (new Session().user != null) {
+      courseItems();
+      setState(() {});
+    }
   }
 
   @override
