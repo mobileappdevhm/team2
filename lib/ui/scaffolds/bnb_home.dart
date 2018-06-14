@@ -1,6 +1,7 @@
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/ui/scaffolds/create_timetable_entry.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:courses_in_english/ui/screens/locations_screen.dart';
@@ -43,6 +44,18 @@ class _HomeScaffoldState extends State<HomeScaffold> {
                 builder: (context) {
                   return dialog;
                 });
+          },
+        ),
+        new IconButton(
+          icon: new Icon(Icons.add),
+          onPressed: () { Navigator.push(
+            context,
+            new MaterialPageRoute(
+              builder: (context) {
+                return new CreateTimetableEntryScaffold(session.courses);
+              },
+            ),
+          );
           },
         )
       ];
