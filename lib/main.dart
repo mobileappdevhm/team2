@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(new CieApp());
 }
-  final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+
+final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 
 class CieApp extends StatelessWidget {
   @override

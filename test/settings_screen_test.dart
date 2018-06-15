@@ -13,7 +13,7 @@ void main() {
     await tester.tap(find.byType(Switch).first);
     expect(_data.getCurrentSettings().autoSync, true);
   });
-  
+
   testWidgets('OfflineModeTest', (WidgetTester tester) async {
     UserSettingsProvider _data = new Data().settingsProvider;
     await tester.pumpWidget(
