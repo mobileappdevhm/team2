@@ -59,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: new RaisedButton(
             onPressed: () {
               Session s = new Session();
-              s.login(email, password);
               s.setSettings(new UserSettings());
               Navigator.pushReplacement(
                 context,
@@ -225,7 +224,6 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
     if (s.user != null) {
-      s.setSettings(new UserSettings());
       Navigator.push(
         context,
         new MaterialPageRoute(builder: (context) => new HomeScaffold()),
