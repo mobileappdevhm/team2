@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -11,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username;
+  String email;
   String password;
 
   @override
@@ -57,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: new RaisedButton(
             onPressed: () {
               Session s = new Session();
-              s.login(username, password);
+              s.login(email, password);
               s.setSettings(new UserSettings());
               Navigator.pushReplacement(
                 context,
@@ -115,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded userNameField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      username = controller.text.toString();
+      email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
@@ -127,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
               icon: new Icon(Icons.person),
             ),
             onFieldSubmitted: (String input) {
-              this.username = input;
+              this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
           ),
@@ -190,15 +192,112 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void doLogin() {
     Session s = new Session();
-    if (username != null && password != null) {
-      s.login(username, password);
-      if (s.user != null) {
-        s.setSettings(new UserSettings());
-        Navigator.push(
-          context,
-          new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-        );
+    new Session().login(
+      email,
+      password,
+      success: (session) {
+        Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                content: new Text(
+                  "You're successfully logged in",
+                  textAlign: TextAlign.center,
+                ),
+                duration: new Duration(seconds: 1),
+              ),
+            );
+        new Future.delayed(new Duration(milliseconds: 1200), () {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+          );
+        });
+      },
+      failure: (session, error) {
+        Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                content: new Text(
+                  "Login failure!",
+                  textAlign: TextAlign.center,
+                ),
+                duration: new Duration(seconds: 2),
+              ),
+            );
+      },
+    );
+    if (s.user != null) {
+      s.setSettings(new UserSettings());
+      Navigator.push(
+        context,
+        new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+      );
+    }
+  }
+
+  bool checkInput(BuildContext context) {
+    bool emailEmpty = true;
+    bool containsAtAndDot = true;
+    bool passwordEmpty = true;
+    if (this.email != null) {
+      if (this.email.length > 0) {
+        emailEmpty = false;
+        if (!this.email.contains("@") && !this.email.contains(".")) {
+          containsAtAndDot = false;
+        }
       }
     }
+    if (this.password != null) {
+      if (this.password.length > 0) {
+        passwordEmpty = false;
+      }
+    }
+    if (emailEmpty == true && passwordEmpty == false) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text(
+                "Please enter a valid email!",
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if (emailEmpty == false && passwordEmpty == true) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text(
+                "Please enter a valid password!",
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if (emailEmpty == true && passwordEmpty == true) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text(
+                "Please enter data",
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    if (containsAtAndDot == false) {
+      Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text(
+                "Please enter data in a valid format",
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
+      return false;
+    }
+    return true;
   }
 }
