@@ -1,26 +1,24 @@
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:flutter/material.dart';
 
 class CreateTimetableEntryScaffold extends StatefulWidget {
-  final Session session = new Session();
-  final List<Course> courses;
-
-  CreateTimetableEntryScaffold(this.courses);
+  CreateTimetableEntryScaffold();
 
   @override
   State<StatefulWidget> createState() {
-    return new CreateTimetableEntryScaffoldState(courses);
+    return new CreateTimetableEntryScaffoldState();
   }
 }
 
 class CreateTimetableEntryScaffoldState
     extends State<CreateTimetableEntryScaffold> {
-  CreateTimetableEntryScaffoldState(this.courses);
-  final List<Course> courses;
+  final Session session = new Session();
+  CreateTimetableEntryScaffoldState();
   String title = "";
   String professor = "";
   String location = "";
@@ -101,11 +99,11 @@ class CreateTimetableEntryScaffoldState
               });
             },
           ),
-          new MaterialButton(
+          new RaisedButton(
             onPressed: () {
               setState(() {
-                courses.add(new Course(
-                    99,
+                Course newCourse = new Course(
+                    -1,
                     title,
                     "",
                     room,
@@ -115,8 +113,9 @@ class CreateTimetableEntryScaffoldState
                     0.0,
                     CourseStatus.GREEN,
                     new Lecturer(99, professor, ""),
-                    new Department(null, null, location),
-                    new Campus(null, location, null, null)));
+                    new Department(null, null, null),
+                    new Campus(null, location, null, null), []);
+                session.addTimetableCourse(newCourse);
               });
             },
             child: new Text("submit",

@@ -119,6 +119,13 @@ class Session {
     throw new UnimplementedError();
   }
 
+  void addTimetableCourse(Course c,
+      {OnSuccess success, OnFailure failure}) async {
+    print(c);
+    // TODO to be implemented
+    throw new UnimplementedError();
+  }
+
   void deselect(Course c, {OnSuccess success, OnFailure failure}) async {
     // TODO to be implemented
     throw new UnimplementedError();
@@ -133,6 +140,8 @@ class Session {
   get lecturers => _lecturers;
 
   get courses => _courses;
+
+  get timetableCourses => _courses; // TODO to be implemented
 
   get favorites => _favorites;
 

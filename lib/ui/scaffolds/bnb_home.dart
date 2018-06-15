@@ -53,7 +53,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
               context,
               new MaterialPageRoute(
                 builder: (context) {
-                  return new CreateTimetableEntryScaffold(session.courses);
+                  return new CreateTimetableEntryScaffold();
                 },
               ),
             );

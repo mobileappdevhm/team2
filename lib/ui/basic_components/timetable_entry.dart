@@ -13,6 +13,12 @@ class TimetableEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int endHour = course.dates[listpos].startHour;
+    String duration = course.dates[listpos].startHour.toString() + ":"+course.dates[listpos].startMinute.toString();
+    int endMin =course.dates[listpos].startMinute + course.dates[listpos].duration;
+    if(endMin>=60) endHour=endHour +1;
+    endMin = endMin%60;
+    duration+="-"+endHour.toString()+":"+endMin.toString();
     return new Card(
       child: new Center(
         child: new Column(
@@ -108,8 +114,7 @@ class TimetableEntry extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        // TODO adjust to list of timeandday
-                        course.dates[0].duration.toString(),
+                        duration,
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,
@@ -141,8 +146,7 @@ class TimetableEntry extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        //TODO adjust to list of time and day
-                        intToDayString(course.dates[0].weekday),
+                        intToDayString(course.dates[listpos].weekday),
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: fontSize,
