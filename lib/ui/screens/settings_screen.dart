@@ -2,6 +2,7 @@ import 'package:courses_in_english/connect/dataprovider/databasehelper/databaseh
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -101,21 +102,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
-          new RawMaterialButton(
-            constraints: new BoxConstraints(
-                minWidth: 130.0,
-                minHeight: 48.0,
-                maxWidth: width / 2 - 30,
-                maxHeight: 50.0),
-            onPressed: null,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Push Favorites",
-              style: new TextStyle(fontSize: 16.0, color: Colors.white),
-            ),
-          ),
+          RoundedButton(
+              text: new Text(
+                "Push favorites",
+                style: new TextStyle(fontSize: 16.0, color: Colors.white),
+              ),
+              onPressed: () => _showDeleteAlert(5)),
           IconButton(
             onPressed: () => _showAlert(2),
             icon: new Icon(
@@ -126,20 +118,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
-          new RawMaterialButton(
-            constraints: new BoxConstraints(
-                minWidth: 130.0,
-                minHeight: 48.0,
-                maxWidth: width / 2 - 30,
-                maxHeight: 50.0),
-            onPressed: null,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Sync Favorites",
+          new RoundedButton(
+            text: new Text(
+              "Sync favorites",
               style: new TextStyle(fontSize: 16.0, color: Colors.white),
             ),
+            onPressed: () => _showDeleteAlert(5),
           ),
           IconButton(
             onPressed: () => _showAlert(3),
@@ -151,21 +135,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
-          new RawMaterialButton(
-            constraints: new BoxConstraints(
-                minWidth: 130.0,
-                minHeight: 48.0,
-                maxWidth: width / 2 - 30,
-                maxHeight: 50.0),
-            onPressed: null,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Sync Lottery",
-              style: new TextStyle(fontSize: 16.0, color: Colors.white),
-            ),
-          ),
+          RoundedButton(
+              maxwidth: 120.0,
+              text: new Text(
+                "Sync Lottery",
+                style: new TextStyle(fontSize: 16.0, color: Colors.white),
+              ),
+              onPressed: () => _showDeleteAlert(5)),
           IconButton(
             onPressed: () => _showAlert(4),
             icon: new Icon(
@@ -176,21 +152,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
-          new RawMaterialButton(
-            constraints: new BoxConstraints(
-                minWidth: 180.0,
-                minHeight: 48.0,
-                maxWidth: width - 30,
-                maxHeight: 50.0),
-            onPressed: () => _showDeleteAlert(5),
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
-            fillColor: Colors.red,
-            child: new Text(
-              "Delete application data",
-              style: new TextStyle(fontSize: 16.0, color: Colors.white),
-            ),
-          ),
+          new RoundedButton(
+              text: new Text(
+                "Delete application data",
+                style: new TextStyle(fontSize: 16.0, color: Colors.white),
+              ),
+              onPressed: () => _showDeleteAlert(5)),
         ]),
       ],
 //      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
