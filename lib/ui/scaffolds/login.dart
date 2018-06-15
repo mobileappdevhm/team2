@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
         new Future.delayed(new Duration(milliseconds: 1200), () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             new MaterialPageRoute(builder: (context) => new HomeScaffold()),
           );
