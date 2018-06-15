@@ -1,4 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
@@ -18,6 +19,7 @@ class Data {
   UserProvider userProvider;
   CampusProvider campusProvider;
   UserSettingsProvider settingsProvider;
+  CieProvider cieProvider;
 
   /// Singleton factory
   factory Data() {
@@ -31,5 +33,6 @@ class Data {
         lecturerProvider = providerFactory.createLecturerProvider(),
         userProvider = providerFactory.createUserProvider(),
         campusProvider = providerFactory.createCampusProvider(),
-        settingsProvider = providerFactory.createSettingsProvider();
+        settingsProvider = providerFactory.createSettingsProvider(),
+        cieProvider = providerFactory.createCieProvider();
 }

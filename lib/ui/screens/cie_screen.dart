@@ -1,6 +1,7 @@
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
+import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,6 @@ class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
 
   static const String routeName = "/CieScreen";
-
   final String title;
 
   @override
@@ -23,7 +23,6 @@ class CieScreen extends StatefulWidget {
 /// // 2. Then this could be used to navigate to the page.
 /// Navigator.pushNamed(context, CieScreen.routeName);
 ///
-
 class CieScreenState extends State<CieScreen> {
   List<Widget> cieWidgets = [];
   String userName = "TempUser";
@@ -33,11 +32,37 @@ class CieScreenState extends State<CieScreen> {
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
     double width = MediaQuery.of(context).size.width;
-    if (orientation == Orientation.portrait) {
-      return verticalScaffold(width);
+    if (new Session().user == null) {
+      return notLoggedInView();
     } else {
-      return horizontalScaffold(width);
+      if (orientation == Orientation.portrait) {
+        return verticalScaffold(width);
+      } else {
+        return horizontalScaffold(width);
+      }
     }
+  }
+
+  ListView notLoggedInView() {
+    return new ListView(
+      children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(4.0)),
+        new Row(
+          children: <Widget>[
+            new LineSeparator(
+              title: 'User Profile',
+              isBold: true,
+            )
+          ],
+        ),
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[new Text("Guest Users don't have profiles")],
+        )
+      ],
+    );
   }
 
   Scaffold verticalScaffold(double width) {
@@ -277,7 +302,6 @@ class CieScreenState extends State<CieScreen> {
 
   void courseItems() async {
     List<Widget> tempWidgets = new List<Widget>();
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
     //SqliteDepartmentProvider sqlitedepartmentprovider =
     //    new SqliteDepartmentProvider();
 
@@ -300,7 +324,7 @@ class CieScreenState extends State<CieScreen> {
 
 //    List<Department> d = await sqlitedepartmentprovider.getDepartments();
 
-    List<Cie> cieList = await sqlitecieprovider.getCies();
+    List<Cie> cieList = new Session().enteredCies;
 
     double tempTotalEcts = 0.0;
 
@@ -334,12 +358,16 @@ class CieScreenState extends State<CieScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    courseItems();
+    if (new Session().user != null) {
+      courseItems();
+    }
   }
 
   void _setMyState() {
-    courseItems();
-    setState(() {});
+    if (new Session().user != null) {
+      courseItems();
+      setState(() {});
+    }
   }
 
   @override

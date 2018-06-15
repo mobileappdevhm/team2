@@ -52,7 +52,8 @@ class CourseDetailsScaffold extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        'Department ${course.department.number.toString().padLeft(2, '0')}',
+                        'Department ${course.department.number.toString()
+                            .padLeft(2, '0')}',
                         style: new TextStyle(
                           color: new Color(course.department.color),
                           fontWeight: FontWeight.bold,
@@ -201,8 +202,8 @@ class CourseDetailsScaffold extends StatelessWidget {
 
   sendMail() async {
     Lecturer lecturer = course.lecturer; // Android and iOS
-    final uri =
-        'mailto:${lecturer.email}?subject=${course.name}&body=Hello Professor ${lecturer.name},';
+    final uri = 'mailto:${lecturer.email}?subject=${course
+        .name}&body=Hello Professor ${lecturer.name},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);

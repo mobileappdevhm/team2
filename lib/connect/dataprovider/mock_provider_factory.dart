@@ -1,5 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/campus/mock/mock_campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/mock/mock_cie_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/mock/mock_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
@@ -7,10 +9,11 @@ import 'package:courses_in_english/connect/dataprovider/department/mock/mock_dep
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
-import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
 class MockProviderFactory implements ProviderFactory {
@@ -32,4 +35,9 @@ class MockProviderFactory implements ProviderFactory {
   @override
   UserSettingsProvider createSettingsProvider() =>
       new MockUserSettingsProvider();
+
+  @override
+  CieProvider createCieProvider() {
+    return new MockCieProvider();
+  }
 }

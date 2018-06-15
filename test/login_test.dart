@@ -24,7 +24,7 @@ void main() {
     await tester.tap(find.byKey(LoginScreen.loginButtonKey));
     await tester.pump(const Duration(milliseconds: 500)); // schedule animation
     expect(find.text(LoginScreen.loginSuccess), findsOneWidget);
-  });*/
+  });
 
   testWidgets("testLoginNoEmailNoPassword", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
@@ -47,7 +47,7 @@ void main() {
     await tester.tap(find.byKey(LoginScreen.loginButtonKey));
     await tester.pump(const Duration(milliseconds: 1000)); // schedule animation
     expect(find.text(LoginScreen.noPassword), findsOneWidget);
-  });
+  }); */
 
   /*testWidgets("testLoginNoAT", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));

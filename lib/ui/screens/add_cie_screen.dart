@@ -1,5 +1,7 @@
 import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
+import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 
 class AddCieScreen extends StatefulWidget {
@@ -29,11 +31,39 @@ class _AddCieScreenState extends State<AddCieScreen> {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     double width = MediaQuery.of(context).size.width;
-    if (orientation == Orientation.portrait) {
-      return verticalScaffold(width);
+    if (new Session().user == null) {
+      return notLoggedInView();
     } else {
-      return horizontalScaffold(width);
+      if (orientation == Orientation.portrait) {
+        return verticalScaffold(width);
+      } else {
+        return horizontalScaffold(width);
+      }
     }
+  }
+
+  ListView notLoggedInView() {
+    return new ListView(
+      children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(4.0)),
+        new Row(
+          children: <Widget>[
+            new LineSeparator(
+              title: 'Add CIE Course',
+              isBold: true,
+            )
+          ],
+        ),
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Text("Guest Users can't save past CIE courses")
+          ],
+        )
+      ],
+    );
   }
 
   Scaffold verticalScaffold(double width) {
