@@ -48,9 +48,7 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
-    try {
-      data.settingsProvider.getCurrentSettings().then(_settings = settings);
-    } catch (e) {}
+    data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
   void download({OnFailure failure}) async {

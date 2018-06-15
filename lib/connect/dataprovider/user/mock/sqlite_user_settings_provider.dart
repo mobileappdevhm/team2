@@ -10,9 +10,13 @@ class SqliteUserSettingsProvider extends UserSettingsProvider {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> data =
         await dbh.selectWhere("Settings", "userId", new Session().user.id);
-    return new UserSettings(
-        feedbackMode: data[0]["feedbackMode"].toLowerCase() == 'true',
-        offlineMode: data[0]["offlineMode"].toLowerCase() == 'true');
+    if (data.isNotEmpty) {
+      return new UserSettings(
+          feedbackMode: data[0]["feedbackMode"].toLowerCase() == 'true',
+          offlineMode: data[0]["offlineMode"].toLowerCase() == 'true');
+    } else {
+      return new UserSettings();
+    }
   }
 
   Future<int> putSettings(UserSettings userSettings) async {
