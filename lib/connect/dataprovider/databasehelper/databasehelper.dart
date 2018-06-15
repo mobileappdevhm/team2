@@ -1,8 +1,9 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
+
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = new DatabaseHelper.internal();
@@ -42,7 +43,9 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
-        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER)");
+        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER, userId INTEGER)");
+    await db.execute(
+        "CREATE TABLE Settings(id INTEGER PRIMARY KEY, offlineMode TEXT, feedbackMode TEXT, userId INTEGER)");
     await db.execute(
         "CREATE TABLE Date(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
   }
@@ -62,10 +65,33 @@ class DatabaseHelper {
     return returnValue;
   }
 
+  Future<int> updateTablebyId(String table, Map<String, dynamic> data,
+      String whereColumn, String whereArgs) async {
+    var dbClient = await db;
+
+    return dbClient
+        .update(table, data, where: '$whereColumn = ?', whereArgs: [whereArgs]);
+  }
+
   Future<int> truncateTable(String table) async {
     var dbClient = await db;
 
     return await dbClient.delete(table);
+  }
+
+  void truncateAllTable() async {
+    var dbClient = await db;
+
+    await dbClient.delete("Campus");
+    await dbClient.delete("Course");
+    await dbClient.delete("Department");
+    await dbClient.delete("Favorites");
+    await dbClient.delete("Lecturer");
+    await dbClient.delete("User");
+    await dbClient.delete("Cie");
+    await dbClient.delete("Settings");
+    await dbClient.delete("Date");
+    exit(0);
   }
 
   Future<List<Map<String, dynamic>>> selectTable(String table) async {

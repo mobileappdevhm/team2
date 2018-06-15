@@ -1,4 +1,5 @@
 import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
@@ -24,4 +25,7 @@ abstract class ProviderFactory {
 
   /// Create a new instance of the settings provider.
   UserSettingsProvider createSettingsProvider();
+
+  /// Create the Cie Provider
+  CieProvider createCieProvider();
 }
