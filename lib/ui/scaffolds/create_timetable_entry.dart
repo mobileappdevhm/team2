@@ -5,6 +5,7 @@ import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CreateTimetableEntryScaffold extends StatefulWidget {
   CreateTimetableEntryScaffold();
@@ -68,7 +69,8 @@ class CreateTimetableEntryScaffoldState
             },
           ),
           new TextField(
-            decoration: new InputDecoration(hintText: "Day"),
+            decoration:
+                new InputDecoration(hintText: "Day(Number from 1 to 7)"),
             onChanged: (String s) {
               setState(() {
                 day = s;
@@ -102,6 +104,11 @@ class CreateTimetableEntryScaffoldState
           new RaisedButton(
             onPressed: () {
               setState(() {
+                int dayumber = int.tryParse(day);
+                int durationnumber = int.tryParse(duration);
+                int hour = int.tryParse(time.split(":")[0]);
+                int min = int.tryParse(time.split(":")[1]);
+
                 Course newCourse = new Course(
                     -1,
                     title,
@@ -112,9 +119,11 @@ class CreateTimetableEntryScaffoldState
                     0.0,
                     0.0,
                     CourseStatus.GREEN,
-                    new Lecturer(99, professor, ""),
+                    new Lecturer(-1, professor, ""),
                     new Department(null, null, null),
-                    new Campus(null, location, null, null), []);
+                    new Campus(null, location, null, null), [
+                  new TimeAndDay(-1, dayumber, hour, min, durationnumber, -1)
+                ]);
                 session.addTimetableCourse(newCourse);
               });
             },
