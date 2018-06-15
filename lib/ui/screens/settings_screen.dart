@@ -258,7 +258,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void initSettings() async {
     Session s = new Session();
-    if (s.user == null) {
+    if (s.settings != null) {
       _states[0] = s.settings.offlineMode;
       _states[1] = s.settings.feedbackMode;
       setState(() {});

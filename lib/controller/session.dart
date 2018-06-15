@@ -25,7 +25,7 @@ class Session {
   User _user;
 
   // This is bad form, I know, however otherwise the tests won't work
-  UserSettings _settings = new UserSettings();
+  UserSettings _settings;
   Iterable<Campus> _campuses;
   Iterable<Department> _departments;
   Iterable<Lecturer> _lecturers;
