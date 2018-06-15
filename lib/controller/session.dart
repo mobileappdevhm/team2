@@ -1,5 +1,6 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
+import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
@@ -31,6 +32,7 @@ class Session {
   Iterable<Course> _courses;
   Iterable<Course> _favorites;
   Iterable<Course> _selected;
+  Iterable<Cie> _enteredCie;
 
   void login(
     String email,
@@ -129,6 +131,14 @@ class Session {
     throw new UnimplementedError();
   }
 
+  void enterCie(Cie cie) {
+    data.cieProvider.putCie(cie);
+  }
+
+  void removeCie(Cie cie) {
+    data.cieProvider.removeCie(cie);
+  }
+
   void setSettings(UserSettings settings) {
     _settings = settings;
   }
@@ -148,4 +158,6 @@ class Session {
   get selected => _selected;
 
   get settings => _settings;
+
+  get enteredCies => _enteredCie;
 }

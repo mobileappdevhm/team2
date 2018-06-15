@@ -10,4 +10,6 @@ abstract class CieProvider {
   Future<int> putCies(List<Cie> cies);
 
   Future<int> putCie(Cie cie);
+
+  void removeCie(Cie cie);
 }

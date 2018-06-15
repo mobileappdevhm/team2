@@ -1,4 +1,3 @@
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
@@ -10,7 +9,6 @@ class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
 
   static const String routeName = "/CieScreen";
-
   final String title;
 
   @override
@@ -25,7 +23,6 @@ class CieScreen extends StatefulWidget {
 /// // 2. Then this could be used to navigate to the page.
 /// Navigator.pushNamed(context, CieScreen.routeName);
 ///
-
 class CieScreenState extends State<CieScreen> {
   List<Widget> cieWidgets = [];
   String userName = "TempUser";
@@ -305,7 +302,6 @@ class CieScreenState extends State<CieScreen> {
 
   void courseItems() async {
     List<Widget> tempWidgets = new List<Widget>();
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
     //SqliteDepartmentProvider sqlitedepartmentprovider =
     //    new SqliteDepartmentProvider();
 
@@ -328,7 +324,7 @@ class CieScreenState extends State<CieScreen> {
 
 //    List<Department> d = await sqlitedepartmentprovider.getDepartments();
 
-    List<Cie> cieList = await sqlitecieprovider.getCiesByCurrentUserId();
+    List<Cie> cieList = new Session().enteredCies;
 
     double tempTotalEcts = 0.0;
 

@@ -5,7 +5,7 @@ import 'package:courses_in_english/connect/dataprovider/user/user_settings_provi
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 
-class SqlUserSettingsProvider extends UserSettingsProvider {
+class SqliteUserSettingsProvider extends UserSettingsProvider {
   Future<UserSettings> getCurrentSettings() async {
     DatabaseHelper dbh = new DatabaseHelper();
     Map<String, dynamic> data = await dbh.selectOneWhere(
