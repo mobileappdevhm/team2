@@ -23,6 +23,8 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   List<Course> displayedCourses = [];
   Session session = new Session();
   SearchBar searchBar;
+  bool isFiltered = false;
+  String _searchTerm;
   bool loading = true;
 
   // Builds the app bar depending on current screen
@@ -46,18 +48,33 @@ class _HomeScaffoldState extends State<HomeScaffold> {
           },
         )
       ];
-    }
-    if (_selectedIndex == 0) {
+    } else if (_selectedIndex == 0) {
       actions = [searchBar.getSearchAction(context)];
     }
+
+    if (_selectedIndex == 0 && isFiltered) {
+      actions.insert(
+          0,
+          IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () {
+                setState(() {
+                  this.displayedCourses = session.courses;
+                  isFiltered = false;
+                });
+              }));
+    }
+
     return new AppBar(
-      title: new Text('Courses in English'),
+      title: isFiltered
+          ? Text("search: \"" + _searchTerm + "\"")
+          : Text('Courses in English'),
       centerTitle: true,
       actions: actions,
     );
   }
 
-  _updateList(String term) {
+  _filterCourses(String term) {
     List<Course> filteredCourses = new List<Course>();
 
     for (Course course in session.courses) {
@@ -69,6 +86,8 @@ class _HomeScaffoldState extends State<HomeScaffold> {
 
     setState(() {
       this.displayedCourses = filteredCourses;
+      isFiltered = true;
+      _searchTerm = term;
     });
   }
 
@@ -87,7 +106,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     searchBar = new SearchBar(
         inBar: true,
         setState: setState,
-        onSubmitted: _updateList,
+        onSubmitted: _filterCourses,
         buildDefaultAppBar: buildAppBar);
   }
 
