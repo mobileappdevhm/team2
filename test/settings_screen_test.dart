@@ -25,8 +25,7 @@ void main() {
 //    expect(_data.settings.feedbackMode, true);
 //    await tester.tap(find.byType(Switch).at(1));
 //    expect(_data.settings.feedbackMode, false);
-//  });
-
+  
 //  testWidgets('AutoSyncTest', (WidgetTester tester) async {
 //
 //    await tester.pumpWidget(
