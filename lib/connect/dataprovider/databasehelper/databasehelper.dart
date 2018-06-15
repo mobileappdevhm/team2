@@ -43,9 +43,9 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
-        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER, userId INTEGER)");
+        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER)");
     await db.execute(
-        "CREATE TABLE Settings(id INTEGER PRIMARY KEY, offlineMode TEXT, feedbackMode TEXT, userId INTEGER)");
+        "CREATE TABLE Settings(id INTEGER PRIMARY KEY, offlineMode TEXT, feedbackMode TEXT)");
     await db.execute(
         "CREATE TABLE Date(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
   }
