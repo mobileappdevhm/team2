@@ -1,10 +1,10 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
-import 'package:courses_in_english/controller/session.dart';
-import 'package:courses_in_english/model/user/user_settings.dart';
-import 'package:courses_in_english/ui/screens/settings_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+//import 'package:courses_in_english/connect/dataprovider/data.dart';
+//import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
+//import 'package:courses_in_english/controller/session.dart';
+//import 'package:courses_in_english/model/user/user_settings.dart';
+//import 'package:courses_in_english/ui/screens/settings_screen.dart';
+//import 'package:flutter/material.dart';
+//import 'package:flutter_test/flutter_test.dart';
 
 void main() {
 //  testWidgets('notLoggedInTest', (WidgetTester tester) async {
