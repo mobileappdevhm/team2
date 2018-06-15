@@ -103,6 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
           RoundedButton(
+              minwidth: 160.0,
               text: new Text(
                 "Push favorites",
                 style: new TextStyle(fontSize: 16.0, color: Colors.white),
@@ -119,6 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
           new RoundedButton(
+            minwidth: 160.0,
             text: new Text(
               "Sync favorites",
               style: new TextStyle(fontSize: 16.0, color: Colors.white),
@@ -136,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new Padding(padding: new EdgeInsets.all(6.0)),
         _newWideElement([
           RoundedButton(
-              maxwidth: 120.0,
+              minwidth: 160.0,
               text: new Text(
                 "Sync Lottery",
                 style: new TextStyle(fontSize: 16.0, color: Colors.white),
