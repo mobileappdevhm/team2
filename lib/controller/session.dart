@@ -5,7 +5,7 @@ import 'package:courses_in_english/connect/dataprovider/department/department_pr
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
 import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/course/course.dart';
@@ -32,13 +32,13 @@ class Session {
 
   // This is bad form, I know, however otherwise the tests won't work
   UserSettings _settings;
-  Iterable<Campus> _campuses;
-  Iterable<Department> _departments;
-  Iterable<Lecturer> _lecturers;
-  Iterable<Course> _courses;
-  Iterable<Course> _favorites;
-  Iterable<Course> _selected;
-  Iterable<Cie> _enteredCie;
+  Iterable<Campus> _campuses = [];
+  Iterable<Department> _departments = [];
+  Iterable<Lecturer> _lecturers = [];
+  Iterable<Course> _courses = [];
+  Iterable<Course> _favorites = [];
+  Iterable<Course> _selected = [];
+  Iterable<Cie> _enteredCie = [];
 
   // Providers
   UserProvider _userProvider;
@@ -47,7 +47,7 @@ class Session {
   LecturerProvider _lecturerProvider;
   CourseProvider _courseProvider;
   CieProvider _cieProvider;
-  UserSettingsProvider _settingsProvider;
+  //UserSettingsProvider _settingsProvider;
 
   /// Call this to set up the data providers.
   /// In the prod code this should be called in main.dart.
@@ -59,26 +59,23 @@ class Session {
     _lecturerProvider = providerFactory.createLecturerProvider();
     _courseProvider = providerFactory.createCourseProvider();
     _cieProvider = providerFactory.createCieProvider();
-    _settingsProvider = providerFactory.createSettingsProvider();
+    //_settingsProvider = providerFactory.createSettingsProvider();
   }
 
-  void login(
-    String email,
-    String password, {
-    OnSuccess success,
-    OnFailure failure,
-  }) async {
+  void login(String email, String password,
+      {OnSuccess success, OnFailure failure}) async {
     await _userProvider.login(email, password).then(
       (user) {
         _user = user;
         // TODO save user to cache
         if (success != null) success(this);
       },
-      onError: (Error e) {
+      onError: (e) {
         if (failure != null) failure(this, e);
       },
     );
-    _settingsProvider.getCurrentSettings().then(_settings = settings);
+    // TODO This doesnt work yet
+    // _settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
   void download({OnFailure failure}) async {

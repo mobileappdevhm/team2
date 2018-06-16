@@ -3,6 +3,9 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/model/user/user.dart';
+
+const user = const User(1, "Memax", "Max", "Mustermann", department07, "1234");
 
 const department01 = const Department(
   1,
