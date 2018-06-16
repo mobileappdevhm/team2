@@ -8,12 +8,23 @@ import 'package:url_launcher/url_launcher.dart';
 
 const Color HEART = const Color(0xFFFFA1A1);
 
-class CourseDetailsScaffold extends StatelessWidget {
+class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
   final bool isFavored;
-  final Session session = new Session();
 
   CourseDetailsScaffold(this.course, this.isFavored);
+
+  @override
+  State<StatefulWidget> createState() =>
+      new _CourseDetailsScaffoldState(course, isFavored);
+}
+
+class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
+  final Course course;
+  bool isFavored;
+  final Session session = new Session();
+
+  _CourseDetailsScaffoldState(this.course, this.isFavored);
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +83,16 @@ class CourseDetailsScaffold extends StatelessWidget {
                   tooltip: isFavored
                       ? 'Remove this course from your favorites.'
                       : 'Add this course to your favorites.',
-                  onPressed: isFavored
-                      ? () => session.unfavorize(course)
-                      : () => session.favorize(course),
+                  onPressed: () {
+                    if (isFavored) {
+                      session.unfavorize(course);
+                    } else {
+                      session.favorize(course);
+                    }
+                    setState(() {
+                      isFavored = !isFavored;
+                    });
+                  },
                 ),
               ],
             ),
