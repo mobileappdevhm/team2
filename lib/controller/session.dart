@@ -1,9 +1,11 @@
 import 'package:courses_in_english/connect/dataprovider/data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
+import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
 
 typedef void OnSuccess(Session s);
 typedef void OnDataChanged(Session s);
@@ -21,12 +23,16 @@ class Session {
   final List<OnDataChanged> callbacks = [];
 
   User _user;
+
+  // This is bad form, I know, however otherwise the tests won't work
+  UserSettings _settings;
   Iterable<Campus> _campuses;
   Iterable<Department> _departments;
   Iterable<Lecturer> _lecturers;
   Iterable<Course> _courses;
   Iterable<Course> _favorites;
   Iterable<Course> _selected;
+  Iterable<Cie> _enteredCie;
 
   void login(
     String email,
@@ -42,9 +48,10 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
+    data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
-  void requestPasswordReset(){
+  void requestPasswordReset(String userEmail){
     //TODO request email for password reset
   }
 
@@ -132,6 +139,18 @@ class Session {
     throw new UnimplementedError();
   }
 
+  void enterCie(Cie cie) {
+    data.cieProvider.putCie(cie);
+  }
+
+  void removeCie(Cie cie) {
+    data.cieProvider.removeCie(cie);
+  }
+
+  void setSettings(UserSettings settings) {
+    _settings = settings;
+  }
+
   get user => _user;
 
   get campuses => _campuses;
@@ -145,4 +164,8 @@ class Session {
   get favorites => _favorites;
 
   get selected => _selected;
+
+  get settings => _settings;
+
+  get enteredCies => _enteredCie;
 }
