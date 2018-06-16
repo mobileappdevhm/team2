@@ -23,15 +23,8 @@ void main() {
     await tester.enterText(find.byKey(LoginScreen.passwordFieldKey), password);
     await tester.tap(find.byKey(LoginScreen.loginButtonKey));
     await tester.pump(const Duration(milliseconds: 500)); // schedule animation
-<<<<<<< HEAD
-    expectAsync1((loginscreen){
-      expect(find.text(LoginScreen.loginSuccess), findsOneWidget);
-    });
-  });*/
-=======
     expect(find.text(LoginScreen.loginSuccess), findsOneWidget);
   });
->>>>>>> sprint3
 
   testWidgets("testLoginNoEmailNoPassword", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
