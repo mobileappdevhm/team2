@@ -9,13 +9,14 @@ import 'package:courses_in_english/connect/dataprovider/user/user_settings_provi
 import 'package:mockito/mockito.dart';
 
 class MockitoProviderFactory implements ProviderFactory {
-
   MockitoCampusProvider campusProvider = new MockitoCampusProvider();
   MockitoCieProvider cieProvider = new MockitoCieProvider();
   MockitoCourseProvider courseProvider = new MockitoCourseProvider();
-  MockitoDepartmentProvider departmentProvider = new MockitoDepartmentProvider();
+  MockitoDepartmentProvider departmentProvider =
+      new MockitoDepartmentProvider();
   MockitoLecturerProvider lecturerProvider = new MockitoLecturerProvider();
-  MockitoUserSettingsProvider userSettingsProvider = new MockitoUserSettingsProvider();
+  MockitoUserSettingsProvider userSettingsProvider =
+      new MockitoUserSettingsProvider();
   MockitoUserProvider userProvider = new MockitoUserProvider();
 
   @override
@@ -52,13 +53,19 @@ class MockitoProviderFactory implements ProviderFactory {
   UserProvider createUserProvider() {
     return userProvider;
   }
-
 }
 
 class MockitoCampusProvider extends Mock implements CampusProvider {}
+
 class MockitoCieProvider extends Mock implements CieProvider {}
+
 class MockitoCourseProvider extends Mock implements CourseProvider {}
+
 class MockitoDepartmentProvider extends Mock implements DepartmentProvider {}
+
 class MockitoLecturerProvider extends Mock implements LecturerProvider {}
-class MockitoUserSettingsProvider extends Mock implements UserSettingsProvider {}
+
+class MockitoUserSettingsProvider extends Mock implements UserSettingsProvider {
+}
+
 class MockitoUserProvider extends Mock implements UserProvider {}
