@@ -43,12 +43,14 @@ class Session {
     await data.userProvider.login(email, password).then(
       (user) {
         _user = user;
-        // TODO save user to cache
+        // TODO save user to cache if logged in worked
         success(this);
       },
-      onError: (Error e) => failure(this, e),
+      onError: (Error e) => failure(this,
+          e), //TODO: if user wasnt cahces need to cache the user returned from the server
     );
-    data.settingsProvider.getCurrentSettings().then(_settings = settings);
+    data.settingsProvider.getCurrentSettings().then(_settings =
+        settings); //TODO: this is wrong we need to check if the users settins exist and if they dont create them
   }
 
   void download({OnFailure failure}) async {
