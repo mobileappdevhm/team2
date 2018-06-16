@@ -4,6 +4,7 @@ import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+import 'package:courses_in_english/ui/scaffolds/reset_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,6 +48,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       new Expanded(
                         child: new Column(
                           children: <Widget>[
+                            new Container(
+                              child: new LineSeparator(),
+                              margin:
+                              new EdgeInsets.symmetric(horizontal: 10.0),
+                            ),
+                            new Container(child: new FlatButton(onPressed: ((){
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => new ResetPassword()));
+                            }), child: new Text("Reset Password!"),),),
                             new Container(
                               child: new LineSeparator(),
                               margin:

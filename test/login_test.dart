@@ -13,7 +13,7 @@ void main() {
     expect(find.byType(RaisedButton), findsNWidgets(2));
     expect(find.byType(TextFormField), findsNWidgets(2));
     expect(find.byType(SceneryWidget), findsOneWidget);
-    expect(find.byType(LineSeparator), findsOneWidget);
+    expect(find.byType(LineSeparator), findsNWidgets(2));
   });
 
   /*testWidgets("testLogin", (WidgetTester tester) async {
@@ -23,7 +23,9 @@ void main() {
     await tester.enterText(find.byKey(LoginScreen.passwordFieldKey), password);
     await tester.tap(find.byKey(LoginScreen.loginButtonKey));
     await tester.pump(const Duration(milliseconds: 500)); // schedule animation
-    expect(find.text(LoginScreen.loginSuccess), findsOneWidget);
+    expectAsync1((loginscreen){
+      expect(find.text(LoginScreen.loginSuccess), findsOneWidget);
+    });
   });*/
 
   testWidgets("testLoginNoEmailNoPassword", (WidgetTester tester) async {
