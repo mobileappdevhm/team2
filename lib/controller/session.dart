@@ -1,4 +1,11 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
+import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/course/course.dart';
@@ -19,7 +26,6 @@ class Session {
 
   Session._internal();
 
-  final Data data = new Data();
   final List<OnDataChanged> callbacks = [];
 
   User _user;
@@ -34,13 +40,35 @@ class Session {
   Iterable<Course> _selected;
   Iterable<Cie> _enteredCie;
 
+  // Providers
+  UserProvider _userProvider;
+  CampusProvider _campusProvider;
+  DepartmentProvider _departmentProvider;
+  LecturerProvider _lecturerProvider;
+  CourseProvider _courseProvider;
+  CieProvider _cieProvider;
+  UserSettingsProvider _settingsProvider;
+
+  /// Call this to set up the data providers.
+  /// In the prod code this should be called in main.dart.
+  /// This method is useful for mocking the data providers in tests.
+  void setUpProviders(ProviderFactory providerFactory) {
+    _userProvider = providerFactory.createUserProvider();
+    _campusProvider = providerFactory.createCampusProvider();
+    _departmentProvider = providerFactory.createDepartmentProvider();
+    _lecturerProvider = providerFactory.createLecturerProvider();
+    _courseProvider = providerFactory.createCourseProvider();
+    _cieProvider = providerFactory.createCieProvider();
+    _settingsProvider = providerFactory.createSettingsProvider();
+  }
+
   void login(
     String email,
     String password, {
     OnSuccess success,
     OnFailure failure,
   }) async {
-    await data.userProvider.login(email, password).then(
+    await _userProvider.login(email, password).then(
       (user) {
         _user = user;
         // TODO save user to cache
@@ -48,42 +76,42 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
-    data.settingsProvider.getCurrentSettings().then(_settings = settings);
+    _settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
   void download({OnFailure failure}) async {
     bool successful = true;
-    _campuses = await data.campusProvider.getCampuses().catchError(
+    _campuses = await _campusProvider.getCampuses().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
       },
     );
-    _departments = await data.departmentProvider.getDepartments().catchError(
+    _departments = await _departmentProvider.getDepartments().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
       },
     );
-    _lecturers = await data.lecturerProvider.getLecturers().catchError(
+    _lecturers = await _lecturerProvider.getLecturers().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
       },
     );
-    _courses = await data.courseProvider.getCourses().catchError(
+    _courses = await _courseProvider.getCourses().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
       },
     );
-    _favorites = await data.courseProvider.getFavorizedCourses().catchError(
+    _favorites = await _courseProvider.getFavorizedCourses().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
       },
     );
-    _selected = await data.courseProvider.getSelectedCourses().catchError(
+    _selected = await _courseProvider.getSelectedCourses().catchError(
       (error) {
         successful = false;
         if (failure != null) failure(this, error);
@@ -97,8 +125,8 @@ class Session {
 
   void favorize(Course c, {OnSuccess success, OnFailure failure}) async {
     bool successful = true;
-    _favorites = await data.courseProvider.favorizeCourse(c).then((_) {
-      return data.courseProvider.getFavorizedCourses();
+    _favorites = await _courseProvider.favorizeCourse(c).then((_) {
+      return _courseProvider.getFavorizedCourses();
     }).catchError((error) {
       successful = false;
       if (failure != null) failure(this, error);
@@ -110,8 +138,8 @@ class Session {
 
   void unfavorize(Course c, {OnSuccess success, OnFailure failure}) async {
     bool successful = true;
-    _favorites = await data.courseProvider.unFavorizeCourse(c).then((_) {
-      return data.courseProvider.getFavorizedCourses();
+    _favorites = await _courseProvider.unFavorizeCourse(c).then((_) {
+      return _courseProvider.getFavorizedCourses();
     }).catchError((error) {
       successful = false;
       if (failure != null) failure(this, error);
@@ -132,11 +160,11 @@ class Session {
   }
 
   void enterCie(Cie cie) {
-    data.cieProvider.putCie(cie);
+    _cieProvider.putCie(cie);
   }
 
   void removeCie(Cie cie) {
-    data.cieProvider.removeCie(cie);
+    _cieProvider.removeCie(cie);
   }
 
   void setSettings(UserSettings settings) {
