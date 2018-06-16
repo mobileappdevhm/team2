@@ -26,7 +26,8 @@ class ResetPassword extends StatelessWidget {
     passwordRepeatController.addListener(() {
       newPasswordRepeat = passwordRepeatController.text.toString();
     });
-    Text buttonText = new Text("Reset Password",style: new TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500));
+    Text buttonText = new Text("Reset Password",
+        style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500));
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Reset Password"),

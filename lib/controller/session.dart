@@ -51,11 +51,11 @@ class Session {
     data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
-  void requestPasswordReset(String userEmail){
+  void requestPasswordReset(String userEmail) {
     //TODO request email for password reset
   }
 
-  void passwordReset(String eMail,String newPassword,String securityCode){
+  void passwordReset(String eMail, String newPassword, String securityCode) {
     //TODO passwordReset
   }
 

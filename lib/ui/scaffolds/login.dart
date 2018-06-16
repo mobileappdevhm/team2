@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return new Container(
       child: new RaisedButton(
         onPressed: () {
-          if(checkInput(context)) {
+          if (checkInput(context)) {
             doLogin(context);
           }
         },
@@ -311,7 +311,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (containsAtAndDot == false) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(emailWrongFormat,
+              content: new Text(
+                emailWrongFormat,
                 textAlign: TextAlign.center,
               ),
               duration: new Duration(seconds: 2),
