@@ -72,9 +72,11 @@ class Session {
       (user) {
         _user = user;
         // TODO save user to cache
-        success(this);
+        if (success != null) success(this);
       },
-      onError: (Error e) => failure(this, e),
+      onError: (Error e) {
+        if (failure != null) failure(this, e);
+      },
     );
     _settingsProvider.getCurrentSettings().then(_settings = settings);
   }
