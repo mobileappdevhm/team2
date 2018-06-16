@@ -44,6 +44,14 @@ class Session {
     );
   }
 
+  void requestPasswordReset(){
+    //TODO request email for password reset
+  }
+
+  void passwordReset(String eMail,String newPassword,String securityCode){
+    //TODO passwordReset
+  }
+
   void download({OnFailure failure}) async {
     bool successful = true;
     _campuses = await data.campusProvider.getCampuses().catchError(
@@ -83,7 +91,7 @@ class Session {
       },
     );
     if (successful) {
-      // TODO save downloaded data to cache
+      // TODO save downloaded data to cach
       callbacks.forEach((callback) => callback(this));
     }
   }
