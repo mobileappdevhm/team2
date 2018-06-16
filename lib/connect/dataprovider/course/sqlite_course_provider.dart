@@ -157,7 +157,7 @@ class SqliteCourseProvider implements CourseProvider {
         (0 == await dbh.deleteWhere("Favorites", "id", course.id.toString()));
     return (new Future(() => b));
     // TODO: implement unFavorizeCourse
-    throw new UnimplementedError();
+//    throw new UnimplementedError();
   }
 
   @override
