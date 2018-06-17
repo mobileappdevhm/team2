@@ -67,10 +67,9 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold verticalScaffold(double width) {
-    try{
+    try {
       userName = new Session().user.lastName;
-    }catch(e){
-    }
+    } catch (e) {}
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
@@ -189,10 +188,9 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold horizontalScaffold(double width) {
-    try{
+    try {
       userName = new Session().user.lastName;
-    }catch(e){
-    }
+    } catch (e) {}
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
