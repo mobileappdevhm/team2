@@ -1,6 +1,6 @@
 //import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
-//import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/course/custom_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/sqlite_course_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/sqlite_data.dart';
 //import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';

@@ -15,7 +15,9 @@ class SqliteUserSettingsProvider extends UserSettingsProvider {
           feedbackMode: data[0]["feedbackMode"].toLowerCase() == 'true',
           offlineMode: data[0]["offlineMode"].toLowerCase() == 'true');
     } else {
-      return new UserSettings();
+      UserSettings userSettings = new UserSettings();
+      putSettings(userSettings);
+      return userSettings;
     }
   }
 
