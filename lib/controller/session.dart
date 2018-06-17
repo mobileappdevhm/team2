@@ -91,6 +91,12 @@ class Session {
         if (failure != null) failure(this, error);
       },
     );
+    _enteredCie = await data.cieProvider.getCies().catchError(
+      (error) {
+        successful = false;
+        if (failure != null) failure(this, error);
+      },
+    );
     if (successful) {
       // TODO save downloaded data to cache
       callbacks.forEach((callback) => callback(this));

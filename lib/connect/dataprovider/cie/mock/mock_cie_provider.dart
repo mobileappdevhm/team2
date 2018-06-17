@@ -12,8 +12,8 @@ class MockCieProvider implements CieProvider {
   Future<List<Cie>> getCies() async {
     List<Cie> campuses = [];
     DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String, dynamic>> rawCampusData =
-        await dbh.selectWhere("Cie", "userId", new Session().user.id);
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
+        "Cie", "userId", new Session().user.id.toString());
 
     void iterate(Map<String, dynamic> data) {
       campuses.add(new Cie(data["name"], data["department"],
@@ -31,7 +31,7 @@ class MockCieProvider implements CieProvider {
     List<Map<String, dynamic>> cieList = [];
 
     void iterate(Cie data) {
-      cieList.add(data.toMap().putIfAbsent("userId", new Session().user.id));
+      cieList.add(data.toMap().putIfAbsent("userId", new Session().user.id.to));
     }
 
     cies.forEach(iterate);
