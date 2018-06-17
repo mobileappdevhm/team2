@@ -26,7 +26,7 @@ class CieScreen extends StatefulWidget {
 ///
 class CieScreenState extends State<CieScreen> {
   List<Widget> cieWidgets = [];
-  String userName = new Session().user.lastName;
+  String userName = "N/a";
   double totalEcts = 0.0;
 
   @override
@@ -67,6 +67,10 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold verticalScaffold(double width) {
+    try{
+      userName = new Session().user.lastName;
+    }catch(e){
+    }
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
@@ -185,6 +189,10 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold horizontalScaffold(double width) {
+    try{
+      userName = new Session().user.lastName;
+    }catch(e){
+    }
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
