@@ -8,14 +8,14 @@ import 'package:courses_in_english/connect/dataprovider/department/sqlite_depart
 //import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+//import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 //import 'package:courses_in_english/model/course/course.dart';
 //import 'package:courses_in_english/model/course/course_status.dart';
 //import 'package:courses_in_english/model/course/time_and_day.dart';
 //import 'package:courses_in_english/model/department/department.dart';
 //import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/model/user/user.dart';
+//import 'package:courses_in_english/model/user/user.dart';
 import 'package:test/test.dart';
 //import "dart:async";
 //import 'package:path_provider/path_provider.dart';
@@ -45,7 +45,7 @@ void main() {
     expect(_data.campusProvider, new isInstanceOf<SqliteCampusProvider>());
   });
 
-  test('SQL User Provider Test', () {
+/*  test('SQL User Provider Test', () {
     UserProvider userProvider = _data.userProvider;
     User test;
     userProvider.login("test", "test").then((User value) {
@@ -53,7 +53,7 @@ void main() {
       expect(test.id, equals(-1));
       expect(test.department, equals(7));
     });
-  });
+  });*/
 
   /**Start of SQL tests*/
 
