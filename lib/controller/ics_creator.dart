@@ -1,8 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
+import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 
 String createIcs(List<Course> courses) {
@@ -79,9 +76,7 @@ saveIcsFile(List<Course> courses) async {
   requestPermission();
 
   String ics = createIcs(courses);
-  final file = await _localFile;
-  file.writeAsString(ics);
-  print(ics);
+  writeFile(ics);
 }
 
 requestPermission() async {
@@ -90,12 +85,4 @@ requestPermission() async {
   print("permission request result is " + res.toString());
 }
 
-Future<String> get _localPath async {
-  final directory = await getExternalStorageDirectory();
-  return directory.path;
-}
 
-Future<File> get _localFile async {
-  final path = await _localPath;
-  return new File('$path/CiE.ics');
-}

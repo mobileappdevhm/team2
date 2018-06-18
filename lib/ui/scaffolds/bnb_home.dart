@@ -1,5 +1,5 @@
 import 'package:courses_in_english/controller/session.dart';
-import 'package:courses_in_english/io/ics_creator.dart';
+import 'package:courses_in_english/controller/ics_creator.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
