@@ -1,9 +1,8 @@
-import 'package:courses_in_english/io/cache/providers/prod/sqlite_cie_provider.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
-
+// TODO move this file to scaffolds
 class AddCieScreen extends StatefulWidget {
   AddCieScreen({Key key, this.title, this.onPressedButton}) : super(key: key);
 
@@ -295,9 +294,8 @@ class _AddCieScreenState extends State<AddCieScreen> {
       return;
     }
 
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    int result = await sqlitecieprovider
-        .putCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts));
+    int result = await new Session()
+        .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts));
 
     if (result != 0) {
       tl.add(new Padding(padding: new EdgeInsets.all(8.0)));

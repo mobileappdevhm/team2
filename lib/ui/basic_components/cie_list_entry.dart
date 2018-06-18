@@ -1,7 +1,7 @@
+import 'package:courses_in_english/controller/session.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/io/cache/providers/prod/sqlite_cie_provider.dart';
 
 class CieListEntry extends StatelessWidget {
   static const Color GREEN = const Color(0xFF83D183);
@@ -20,8 +20,7 @@ class CieListEntry extends StatelessWidget {
   CieListEntry(this.cie, this.department, {this.onPressedButton});
 
   void _toggle() async {
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    await sqlitecieprovider.removeCie(cie);
+    await new Session().removeCie(cie);
     onPressedButton();
     //cieScreenState.setState((){});
   }

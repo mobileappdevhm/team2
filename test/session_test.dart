@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:courses_in_english/io/cache/sqlite_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/io/connect/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
@@ -36,20 +37,17 @@ void main() {
     when(providerFactory.userProvider.login("test@hm.edu", "test1234"))
         .thenAnswer((_) => new Future(() => user));
 
-    session.setUpProviders(providerFactory);
+    // TODO Mock cache provider out
+    session.setUpProviders(providerFactory, new SqliteProviderFactory());
   });
   test("Download", () {
     verifyZeroInteractions(providerFactory.userProvider);
-    verifyZeroInteractions(providerFactory.userSettingsProvider);
     verifyZeroInteractions(providerFactory.lecturerProvider);
     verifyZeroInteractions(providerFactory.departmentProvider);
     verifyZeroInteractions(providerFactory.courseProvider);
     verifyZeroInteractions(providerFactory.campusProvider);
-    verifyZeroInteractions(providerFactory.cieProvider);
     session.download();
     verifyZeroInteractions(providerFactory.userProvider);
-    verifyZeroInteractions(providerFactory.cieProvider);
-    verifyZeroInteractions(providerFactory.userSettingsProvider);
     untilCalled(providerFactory.lecturerProvider.getLecturers());
     untilCalled(providerFactory.departmentProvider.getDepartments());
     untilCalled(providerFactory.courseProvider.getFavorizedCourses());

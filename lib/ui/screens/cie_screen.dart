@@ -5,7 +5,7 @@ import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:courses_in_english/model/user/user.dart';
-
+// TODO remove usage of scaffolds
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
 
@@ -309,33 +309,14 @@ class CieScreenState extends State<CieScreen> {
 
   void courseItems() async {
     List<Widget> tempWidgets = new List<Widget>();
-    //SqliteDepartmentProvider sqlitedepartmentprovider =
-    //    new SqliteDepartmentProvider();
-
-//    List<Department> departments = [];
-//    departments.add(new Department(1, "Architecture", const Color(0xFF014085)));
-//    departments.add(new Department(2, "Civil Engineering", const Color(0xFF008db8)));
-//    departments.add(new Department(3, "Mechanical, Automotive and Aeronautical Engineering", const Color(0xFF018bc9)));
-//    departments.add(new Department(4, "Electrical Engineering and Information Technology", const Color(0xFF0198ab)));
-//    departments.add(new Department(5, "Building Services Engineering, Paper and Packaging Technology and Print and Media Technology", const Color(0xFF016fb2)));
-//    departments.add(new Department(6, "Applied Sciences and Mechatronics", const Color(0xFF04539d)));
-//    departments.add(new Department(7, "Computer Science and Mathematics", const Color(0xFF029fd0)));
-//    departments.add(new Department(8, "Geoinformatics", const Color(0xFF018a8a)));
-//    departments.add(new Department(9, "Engineering and Management", const Color(0xFF018e62)));
-//    departments.add(new Department(10, "Business Administration", const Color(0xFF028d7c)));
-//    departments.add(new Department(11, "Applied Social Sciences", const Color(0xFFed7406)));
-//    departments.add(new Department(12, "Design", const Color(0xFF0f3647)));
-//    departments.add(new Department(13, "General and Interdisciplinary Studies", const Color(0xFFbf0179)));
-//    departments.add(new Department(14, "Tourism", const Color(0xFFa41948)));
-//    await sqlitedepartmentprovider.putDepartments(departments);
-
-//    List<Department> d = await sqlitedepartmentprovider.getDepartments();
 
     List<Cie> cieList = new Session().enteredCies;
 
     double tempTotalEcts = 0.0;
-
     if (cieList != null) {
+      // TODO
+      print("Cielist not null");
+      print(cieList);
       for (Cie cie in cieList) {
         //Department department =
         //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
@@ -374,6 +355,7 @@ class CieScreenState extends State<CieScreen> {
 
   void _setMyState() {
     if (new Session().user != null) {
+      print("User not null");
       courseItems();
       setState(() {});
     }

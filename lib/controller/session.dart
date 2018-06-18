@@ -1,5 +1,8 @@
+import 'dart:async';
+
+import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
+import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
-import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/course_provider.dart';
 import 'package:courses_in_english/io/connect/providers/department_provider.dart';
 import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
@@ -38,7 +41,7 @@ class Session {
   Iterable<Course> _courses = [];
   Iterable<Course> _favorites = [];
   Iterable<Course> _selected = [];
-  Iterable<Cie> _enteredCie = [];
+  List<Cie> _enteredCie = [];
 
   // Providers
   InetUserProvider _userProvider;
@@ -46,19 +49,19 @@ class Session {
   InetDepartmentProvider _departmentProvider;
   InetLecturerProvider _lecturerProvider;
   InetCourseProvider _courseProvider;
-  InetCieProvider _cieProvider;
+  CacheCieProvider _cieProvider;
   //UserSettingsProvider _settingsProvider;
 
   /// Call this to set up the data providers.
   /// In the prod code this should be called in main.dart.
   /// This method is useful for mocking the data providers in tests.
-  void setUpProviders(InetProviderFactory providerFactory) {
-    _userProvider = providerFactory.createUserProvider();
-    _campusProvider = providerFactory.createCampusProvider();
-    _departmentProvider = providerFactory.createDepartmentProvider();
-    _lecturerProvider = providerFactory.createLecturerProvider();
-    _courseProvider = providerFactory.createCourseProvider();
-    _cieProvider = providerFactory.createCieProvider();
+  void setUpProviders(InetProviderFactory inetProviderFactory, CacheProviderFactory cacheProviderFactory) {
+    _userProvider = inetProviderFactory.createUserProvider();
+    _campusProvider = inetProviderFactory.createCampusProvider();
+    _departmentProvider = inetProviderFactory.createDepartmentProvider();
+    _lecturerProvider = inetProviderFactory.createLecturerProvider();
+    _courseProvider = inetProviderFactory.createCourseProvider();
+    _cieProvider = cacheProviderFactory.createCieProvider();
     //_settingsProvider = providerFactory.createSettingsProvider();
   }
 
@@ -165,12 +168,16 @@ class Session {
     throw new UnimplementedError();
   }
 
-  void enterCie(Cie cie) {
-    _cieProvider.putCie(cie);
+  Future<int> enterCie(Cie cie) async {
+    // TODO use callback
+    _enteredCie.add(cie);
+    return _cieProvider.putCie(cie);
   }
 
-  void removeCie(Cie cie) {
-    _cieProvider.removeCie(cie);
+  Future<int> removeCie(Cie cie) async {
+    // TODO use callback
+    _enteredCie.remove(cie);
+    return _cieProvider.removeCie(cie);
   }
 
   void setSettings(UserSettings settings) {

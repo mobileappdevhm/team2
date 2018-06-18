@@ -1,10 +1,8 @@
 import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
-import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/course_provider.dart';
 import 'package:courses_in_english/io/connect/providers/department_provider.dart';
 import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
-import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
 
 /// Factory for all internet providers.
 abstract class InetProviderFactory {
@@ -23,9 +21,4 @@ abstract class InetProviderFactory {
   /// Create new instance of a campus provider.
   InetCampusProvider createCampusProvider();
 
-  /// Create a new instance of the settings provider.
-  InetUserSettingsProvider createSettingsProvider();
-
-  /// Create the Cie Provider
-  InetCieProvider createCieProvider();
 }

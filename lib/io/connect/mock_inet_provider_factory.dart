@@ -1,7 +1,5 @@
 import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_campus_provider.dart';
-import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
-import 'package:courses_in_english/io/connect/providers/mock/mock_cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/course_provider.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_course_provider.dart';
 import 'package:courses_in_english/io/connect/providers/department_provider.dart';
@@ -10,9 +8,7 @@ import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/io/connect/inet_provider_factory.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_user_provider.dart';
-import 'package:courses_in_english/io/connect/providers/mock/mock_user_settings_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
-import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
@@ -32,12 +28,4 @@ class MockProviderFactory implements InetProviderFactory {
   @override
   InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
 
-  @override
-  InetUserSettingsProvider createSettingsProvider() =>
-      new MockInetUserSettingsProvider();
-
-  @override
-  InetCieProvider createCieProvider() {
-    return new MockInetCieProvider();
-  }
 }

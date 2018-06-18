@@ -1,3 +1,4 @@
+import 'package:courses_in_english/io/cache/sqlite_provider_factory.dart';
 import 'package:courses_in_english/io/connect/mock_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/services.dart';
 void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-  new Session().setUpProviders(new MockProviderFactory());
+  new Session().setUpProviders(new MockProviderFactory(), new SqliteProviderFactory());
   runApp(new CieApp());
 }
 
