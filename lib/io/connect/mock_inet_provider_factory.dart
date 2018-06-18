@@ -17,15 +17,16 @@ class MockProviderFactory implements InetProviderFactory {
   InetCourseProvider createCourseProvider() => new MockInetCourseProvider();
 
   @override
-  InetDepartmentProvider createDepartmentProvider() => new MockInetDepartmentProvider();
+  InetDepartmentProvider createDepartmentProvider() =>
+      new MockInetDepartmentProvider();
 
   @override
-  InetLecturerProvider createLecturerProvider() => new MockInetLecturerProvider();
+  InetLecturerProvider createLecturerProvider() =>
+      new MockInetLecturerProvider();
 
   @override
   InetUserProvider createUserProvider() => new MockInetUserProvider();
 
   @override
   InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
-
 }

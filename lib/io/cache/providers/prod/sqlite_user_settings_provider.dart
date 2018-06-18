@@ -6,7 +6,6 @@ import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 
 class SqliteUserSettingsProvider extends CacheUserSettingsProvider {
-
   @override
   Future<UserSettings> getCurrentSettings() async {
     DatabaseHelper dbh = new DatabaseHelper();

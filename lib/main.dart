@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-  new Session().setUpProviders(new MockProviderFactory(), new SqliteProviderFactory());
+  new Session()
+      .setUpProviders(new MockProviderFactory(), new SqliteProviderFactory());
   runApp(new CieApp());
 }
 

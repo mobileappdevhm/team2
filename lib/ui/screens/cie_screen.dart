@@ -4,6 +4,7 @@ import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
+
 //import 'package:courses_in_english/model/user/user.dart';
 // TODO remove usage of scaffolds
 class CieScreen extends StatefulWidget {

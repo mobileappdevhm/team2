@@ -20,5 +20,4 @@ abstract class InetProviderFactory {
 
   /// Create new instance of a campus provider.
   InetCampusProvider createCampusProvider();
-
 }

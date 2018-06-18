@@ -17,10 +17,10 @@ import 'package:courses_in_english/io/cache/providers/user_settings_provider.dar
 
 /// Provider factory producing mock providers.
 class SqliteProviderFactory implements CacheProviderFactory {
-
   // TODO User cache?
   @override
-  CacheUserProvider createCacheUserProvider() => throw new UnimplementedError("There is no user cache yet!");
+  CacheUserProvider createCacheUserProvider() =>
+      throw new UnimplementedError("There is no user cache yet!");
 
   @override
   CacheCampusProvider createCampusProvider() => new SqliteCampusProvider();
@@ -32,14 +32,18 @@ class SqliteProviderFactory implements CacheProviderFactory {
   CacheCourseProvider createCourseProvider() => new SqliteCourseProvider();
 
   @override
-  CacheCustomCourseProvider createCustomCourseProvider() => new SqliteCustomCourseProvider();
+  CacheCustomCourseProvider createCustomCourseProvider() =>
+      new SqliteCustomCourseProvider();
 
   @override
-  CacheDepartmentProvider createDepartmentProvider() => new SqliteDepartmentProvider();
+  CacheDepartmentProvider createDepartmentProvider() =>
+      new SqliteDepartmentProvider();
 
   @override
-  CacheLecturerProvider createLecturerProvider() => new SqliteLecturerProvider();
+  CacheLecturerProvider createLecturerProvider() =>
+      new SqliteLecturerProvider();
 
   @override
-  CacheUserSettingsProvider createSettingsProvider() => new SqliteUserSettingsProvider();
+  CacheUserSettingsProvider createSettingsProvider() =>
+      new SqliteUserSettingsProvider();
 }

@@ -20,35 +20,38 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new Builder(builder: (context) => new SceneryWrapperWidget(
-        new Column(
-          children: <Widget>[
-            titleRow(),
-            new Expanded(
-              child: new Column(
+      body: new Builder(
+        builder: (context) => new SceneryWrapperWidget(
+              new Column(
                 children: <Widget>[
-                  new Expanded(
-                    child: login(context),
-                  ),
+                  titleRow(),
                   new Expanded(
                     child: new Column(
                       children: <Widget>[
-                        new Container(
-                          child: new LineSeparator(),
-                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                        new Expanded(
+                          child: login(context),
                         ),
-                        new Container(
-                          child: continueAsGuest(),
-                        ),
+                        new Expanded(
+                          child: new Column(
+                            children: <Widget>[
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: continueAsGuest(),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),),
+      ),
     );
   }
 

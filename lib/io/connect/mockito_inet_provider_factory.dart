@@ -11,7 +11,8 @@ class MockitoProviderFactory implements InetProviderFactory {
   MockitoInetCourseProvider courseProvider = new MockitoInetCourseProvider();
   MockitoInetDepartmentProvider departmentProvider =
       new MockitoInetDepartmentProvider();
-  MockitoInetLecturerProvider lecturerProvider = new MockitoInetLecturerProvider();
+  MockitoInetLecturerProvider lecturerProvider =
+      new MockitoInetLecturerProvider();
   MockitoInetUserProvider userProvider = new MockitoInetUserProvider();
 
   @override
@@ -44,8 +45,10 @@ class MockitoInetCampusProvider extends Mock implements InetCampusProvider {}
 
 class MockitoInetCourseProvider extends Mock implements InetCourseProvider {}
 
-class MockitoInetDepartmentProvider extends Mock implements InetDepartmentProvider {}
+class MockitoInetDepartmentProvider extends Mock
+    implements InetDepartmentProvider {}
 
-class MockitoInetLecturerProvider extends Mock implements InetLecturerProvider {}
+class MockitoInetLecturerProvider extends Mock implements InetLecturerProvider {
+}
 
 class MockitoInetUserProvider extends Mock implements InetUserProvider {}

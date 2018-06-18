@@ -56,7 +56,8 @@ class Session {
   /// Call this to set up the data providers.
   /// In the prod code this should be called in main.dart.
   /// This method is useful for mocking the data providers in tests.
-  void setUpProviders(InetProviderFactory inetProviderFactory, CacheProviderFactory cacheProviderFactory) {
+  void setUpProviders(InetProviderFactory inetProviderFactory,
+      CacheProviderFactory cacheProviderFactory) {
     _userProvider = inetProviderFactory.createUserProvider();
     _campusProvider = inetProviderFactory.createCampusProvider();
     _departmentProvider = inetProviderFactory.createDepartmentProvider();

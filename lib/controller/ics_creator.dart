@@ -84,5 +84,3 @@ requestPermission() async {
       .requestPermission(Permission.WriteExternalStorage);
   print("permission request result is " + res.toString());
 }
-
-
