@@ -1,10 +1,10 @@
-import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/cie/cie_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/connect/dataprovider/provider_factory.dart';
-import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
+import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
+import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
+import 'package:courses_in_english/io/connect/providers/course_provider.dart';
+import 'package:courses_in_english/io/connect/providers/department_provider.dart';
+import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/connect/provider_factory.dart';
+import 'package:courses_in_english/io/connect/providers/user_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
@@ -177,21 +177,21 @@ class Session {
     _settings = settings;
   }
 
-  get user => _user;
+  User get user => _user;
 
-  get campuses => _campuses;
+  Iterable<Campus> get campuses => _campuses;
 
-  get departments => _departments;
+  Iterable<Department> get departments => _departments;
 
-  get lecturers => _lecturers;
+  Iterable<Lecturer> get lecturers => _lecturers;
 
-  get courses => _courses;
+  Iterable<Course> get courses => _courses;
 
-  get favorites => _favorites;
+  Iterable<Course> get favorites => _favorites;
 
-  get selected => _selected;
+  Iterable<Course> get selected => _selected;
 
-  get settings => _settings;
+  UserSettings get settings => _settings;
 
-  get enteredCies => _enteredCie;
+  Iterable<Cie> get enteredCies => _enteredCie;
 }

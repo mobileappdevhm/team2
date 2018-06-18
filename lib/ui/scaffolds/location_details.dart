@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,11 +21,7 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
   Campus campus;
 
   _LocationDetailScreenState(this.campusId) {
-    new Data().campusProvider.getCampuses().then((campuses) {
-      setState(() {
-        this.campus = campuses.firstWhere((campus) => campus.id == campusId);
-      });
-    });
+    campus = new Session().campuses.firstWhere((campus) => campus.id == campusId);
   }
 
   @override

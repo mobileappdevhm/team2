@@ -1,20 +1,24 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
+import 'package:courses_in_english/controller/user_creation_controller.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/basic_components/my_dropdown_button.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+//import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 
 typedef void SaveTo(String saveTo);
 
 class CreateUserScreen extends StatefulWidget {
+  final UserCreationController controller;
+
+  CreateUserScreen(this.controller);
+
   @override
-  State<StatefulWidget> createState() => new _CreateUserScreenState();
+  State<StatefulWidget> createState() => new _CreateUserScreenState(controller);
 }
 
 class _CreateUserScreenState extends State<CreateUserScreen> {
-  List<Department> departments = new List<Department>();
+  final UserCreationController controller;
   User newUser;
   Department userDepartment;
   String firstName;
@@ -22,15 +26,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
   String userName;
   String userDepartmentName;
 
-  @override
-  void initState() {
-    new Data().departmentProvider.getDepartments().then((deps) {
-      setState(() {
-        departments.addAll(deps);
-      });
-    });
-    super.initState();
-  }
+  _CreateUserScreenState(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +105,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   scrollDirection: Axis.horizontal,
                 ),
                 value: userDepartmentName,
-                items: departments.map((Department department) {
+                items: controller.departments.map((Department department) {
                   return new MyDropdownMenuItem(
                     child: new SingleChildScrollView(
                       child: new Text(
@@ -142,7 +138,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
         children: <Widget>[
           new RaisedButton(
             onPressed: (() {
-              for (Department department in departments) {
+              for (Department department in controller.departments) {
                 if (userDepartmentName == department.name) {
                   userDepartment = department;
                 }
@@ -152,13 +148,14 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                   firstName != null &&
                   lastName != null &&
                   userDepartment != null) {
-                /*new Data().userProvider.createUser(
-                    userName, firstName, lastName, userDepartment.number);*/
-                Navigator.push(
+                // TODO implement UserCreation using controller
+                throw new UnimplementedError("User creation not implemented!");
+                // controller.createUser(...)
+                /*Navigator.push(
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new HomeScaffold()),
-                );
+                );*/
               }
             }),
             child: new Text("Save"),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/io/cache/cie/sqlite_cie_provider.dart';
 
 class CieListEntry extends StatelessWidget {
   static const Color GREEN = const Color(0xFF83D183);

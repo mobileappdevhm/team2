@@ -1,4 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
+import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/ui/basic_components/course_list_entry.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
 import 'package:flutter/material.dart';

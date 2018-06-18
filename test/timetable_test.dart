@@ -1,4 +1,4 @@
-import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
+import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/ui/basic_components/timetable_entry.dart';
 import 'package:courses_in_english/ui/screens/timetable_screen.dart';
 import 'package:flutter/material.dart';

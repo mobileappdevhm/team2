@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
-import 'package:courses_in_english/connect/dataprovider/mockito_provider_factory.dart';
+import 'package:courses_in_english/io/mock_data.dart';
+import 'package:courses_in_english/io/connect/mockito_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';

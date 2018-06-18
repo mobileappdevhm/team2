@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
-import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
+import 'package:courses_in_english/io/mock_data.dart';
 
 const MOCK_COURSES = [course01, course02, course03, course04, course05];
 
