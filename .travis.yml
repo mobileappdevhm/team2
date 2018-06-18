@@ -16,6 +16,7 @@ jobs:
       language: generic
       before_script:
         - chmod 777 ./.no_camel.sh
+        - chmod 777 ./.no_io_in_ui.sh
         - ./.no_io_in_ui.sh
         - ./.no_camel.sh # file names are not allowed to include capital letters
         - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
