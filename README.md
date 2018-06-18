@@ -1,13 +1,13 @@
-# Team 2
-[![Build Status](https://travis-ci.org/mobileappdevhm/team2.svg?branch=sprint2)](https://travis-ci.org/mobileappdevhm/team2)
-[![Coverage Status](https://coveralls.io/repos/github/mobileappdevhm/team2/badge.svg?branch=sprint3)](https://coveralls.io/github/mobileappdevhm/team2?branch=sprint3)
-
-Please see our wiki for more information: https://github.com/mobileappdevhm/team2/wiki
-
-
-
-Our CiE Backend: ttps://github.com/mobileappdevhm/cie-server-team-2
-
-> Which aims to be a alternative solution to using nine
+# The Team 2 CiE-App
+Every year a lot of exchange Students come to the Hochschule München to do an exchange year.
+ But instead of enjoying their year abroad they first have to face the troubles of finding 
+ and selecting fitting lectures for their course. To help both the exchange students as
+ well as the Courses in English team we developed an app to make this process easier and paperless.
+    
+## Features:
+### Browsing the Courses in English
+The App provides a list of all the english courses available as well as a search function.
+This way students can look for courses everywhere they are.
+![CourseListView](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 
