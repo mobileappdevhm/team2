@@ -6,6 +6,9 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 typedef void OnSuccess(Session s);
 typedef void OnDataChanged(Session s);
@@ -17,14 +20,22 @@ class Session {
 
   factory Session() => _instance;
 
-  Session._internal();
+  Session._internal() {
+    if (_firebaseMessaging == null) {
+      _initializeFirebaseMessaging();
+    }
+    if (_firebaseAnalytics == null) {
+      _initializeFirebaseAnalytics();
+    }
+  }
 
   final Data data = new Data();
   final List<OnDataChanged> callbacks = [];
 
+  FirebaseAnalytics _firebaseAnalytics;
+  FirebaseMessaging _firebaseMessaging;
+  FirebaseAnalyticsObserver _firebaseObserver;
   User _user;
-
-  // This is bad form, I know, however otherwise the tests won't work
   UserSettings _settings;
   Iterable<Campus> _campuses;
   Iterable<Department> _departments;
@@ -142,6 +153,43 @@ class Session {
   void setSettings(UserSettings settings) {
     _settings = settings;
   }
+
+  void _initializeFirebaseMessaging() {
+    _firebaseMessaging = new FirebaseMessaging();
+    _firebaseMessaging.configure(
+      ///Fires on notification message if the app is active. Fires on data messages when app is in background (Android, iOS)
+      onMessage: (Map<String, dynamic> message) {
+        print("onMessage: $message");
+      },
+
+      ///Fires on notification message if the app is in the background (Android only)
+      onLaunch: (Map<String, dynamic> message) {
+        print("onLaunch: $message");
+      },
+
+      ///Fires if app is opened from notification (Android only)
+      onResume: (Map<String, dynamic> message) {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.getToken().then((String token) {
+      //Todo do we need the user-token?
+    });
+    _firebaseMessaging.getToken().then((token) {});
+    _firebaseMessaging.subscribeToTopic("all");
+  }
+
+  /// Initialized our Firebase Analytics instance. As we need this more often, it's good to have it in the session.
+  void _initializeFirebaseAnalytics() {
+    _firebaseAnalytics = new FirebaseAnalytics();
+    _firebaseObserver =
+        new FirebaseAnalyticsObserver(analytics: _firebaseAnalytics);
+    _firebaseAnalytics.logAppOpen();
+  }
+
+  get firebaseObserver => _firebaseObserver;
 
   get user => _user;
 
