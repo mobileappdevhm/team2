@@ -12,7 +12,7 @@ This way students can look for courses everywhere they are.
 
 ![CourseListView]("") ![Course Details]("")
 
-###Keeping track of your courses
+### Keeping track of your courses
 To make the course selection process easier it is possible to like a course to find it again later.
 
 ![FavCourses]("")
