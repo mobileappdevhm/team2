@@ -12,6 +12,7 @@ class UserCreationController {
   final DepartmentProvider departmentProvider;
 
   Iterable<Department> _departments;
+
   /// Call UserCreationController.prepare before accessing this getter.
   /// UserCreationController.ready tells if this getter is prepared.
   Iterable<Department> get departments => _departments;
@@ -27,11 +28,11 @@ class UserCreationController {
     return this;
   }
 
-  Future<User> createUser(String firstName, String lastName, String password, String email) {
+  Future<User> createUser(
+      String firstName, String lastName, String password, String email) {
     // TODO Implement user creation using userProvider
     throw new UnimplementedError("User creation not implemented yet!");
   }
 
   bool get ready => departments != null;
-
 }

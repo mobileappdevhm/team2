@@ -21,7 +21,8 @@ class _LocationDetailScreenState extends State<LocationDetailScreen> {
   Campus campus;
 
   _LocationDetailScreenState(this.campusId) {
-    campus = new Session().campuses.firstWhere((campus) => campus.id == campusId);
+    campus =
+        new Session().campuses.firstWhere((campus) => campus.id == campusId);
   }
 
   @override

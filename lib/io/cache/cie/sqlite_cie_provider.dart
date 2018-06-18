@@ -30,7 +30,8 @@ class SqliteCieProvider implements CieProvider {
     List<Map<String, dynamic>> cieList = [];
 
     void iterate(Cie data) {
-      cieList.add(data.toMap().putIfAbsent("userId", () => new Session().user.id));
+      cieList
+          .add(data.toMap().putIfAbsent("userId", () => new Session().user.id));
     }
 
     cies.forEach(iterate);
