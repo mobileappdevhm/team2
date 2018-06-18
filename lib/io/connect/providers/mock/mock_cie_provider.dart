@@ -7,7 +7,7 @@ import 'package:courses_in_english/model/cie/cie.dart';
 
 /// Provider for campuses providing mock data.
 /// TODO Actually mock stuff
-class MockCieProvider implements CieProvider {
+class MockInetCieProvider implements InetCieProvider {
   @override
   Future<List<Cie>> getCies() async {
     List<Cie> campuses = [];

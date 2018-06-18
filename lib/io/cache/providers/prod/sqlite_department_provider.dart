@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/providers/department_provider.dart';
+import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/io/cache/databasehelper.dart';
 
-class SqliteDepartmentProvider implements DepartmentProvider {
+class SqliteDepartmentProvider implements CacheDepartmentProvider {
   @override
   Future<Department> getDepartmentByNumber(int departmentNumber) async =>
       new DatabaseHelper()

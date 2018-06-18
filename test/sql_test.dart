@@ -1,13 +1,7 @@
 //import 'package:courses_in_english/connect/dataprovider/campus/campus_provider.dart';
-import 'package:courses_in_english/io/cache/campus/sqlite_campus_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/course/custom_course_provider.dart';
-import 'package:courses_in_english/io/cache/course/sqlite_course_provider.dart';
-import 'package:courses_in_english/io/cache/sqlite_data.dart';
 //import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
-import 'package:courses_in_english/io/cache/department/sqlite_department_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
-import 'package:courses_in_english/io/cache/lecturer/sqlite_lecturer_provider.dart';
-import 'package:courses_in_english/io/connect/providers/mock/mock_user_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/user/user_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 //import 'package:courses_in_english/model/course/course.dart';
@@ -23,26 +17,22 @@ import 'package:test/test.dart';
 //import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 void main() {
-  SqliteData _data;
 
   /**
    * Set up our data source, as we know it from java tests
    */
-  setUp(() {
-    _data = new SqliteData();
-  });
 
   /**
    * Sadly, we cannot test the Factory overall, so that's why we need all the imports.
    */
   test('SQL Mock Factory Test', () {
     /// As Classes are not really types in Dart, we can only test instances using the wrapper
-    expect(_data.courseProvider, new isInstanceOf<SqliteCourseProvider>());
+    /*expect(_data.courseProvider, new isInstanceOf<SqliteCourseProvider>());
     expect(_data.lecturerProvider, new isInstanceOf<SqliteLecturerProvider>());
     expect(
         _data.departmentProvider, new isInstanceOf<SqliteDepartmentProvider>());
-    expect(_data.userProvider, new isInstanceOf<MockUserProvider>());
-    expect(_data.campusProvider, new isInstanceOf<SqliteCampusProvider>());
+    expect(_data.userProvider, new isInstanceOf<MockInetUserProvider>());
+    expect(_data.campusProvider, new isInstanceOf<SqliteCampusProvider>());*/
   });
 
 /*  test('SQL User Provider Test', () {

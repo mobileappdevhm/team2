@@ -6,26 +6,26 @@ import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
 
-/// Factory for all providers.
-abstract class ProviderFactory {
+/// Factory for all internet providers.
+abstract class InetProviderFactory {
   /// Create new instance of a course provider.
-  CourseProvider createCourseProvider();
+  InetCourseProvider createCourseProvider();
 
   /// Create new instance of an user provider.
-  UserProvider createUserProvider();
+  InetUserProvider createUserProvider();
 
   /// Create new instance of an lecturer provider.
-  LecturerProvider createLecturerProvider();
+  InetLecturerProvider createLecturerProvider();
 
   /// Create new instance of a department provider.
-  DepartmentProvider createDepartmentProvider();
+  InetDepartmentProvider createDepartmentProvider();
 
   /// Create new instance of a campus provider.
-  CampusProvider createCampusProvider();
+  InetCampusProvider createCampusProvider();
 
   /// Create a new instance of the settings provider.
-  UserSettingsProvider createSettingsProvider();
+  InetUserSettingsProvider createSettingsProvider();
 
   /// Create the Cie Provider
-  CieProvider createCieProvider();
+  InetCieProvider createCieProvider();
 }

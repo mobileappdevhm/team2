@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:courses_in_english/io/cache/databasehelper.dart';
-import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
+import 'package:courses_in_english/io/cache/providers/user_settings_provider.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 
-class SqliteUserSettingsProvider extends UserSettingsProvider {
+class SqliteUserSettingsProvider extends CacheUserSettingsProvider {
+
+  @override
   Future<UserSettings> getCurrentSettings() async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> data = await dbh.selectWhere(
@@ -21,6 +23,7 @@ class SqliteUserSettingsProvider extends UserSettingsProvider {
     }
   }
 
+  @override
   Future<int> putSettings(UserSettings userSettings) async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> userList = [];

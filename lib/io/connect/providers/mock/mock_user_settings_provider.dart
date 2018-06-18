@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 
-class MockUserSettingsProvider extends UserSettingsProvider {
+class MockInetUserSettingsProvider extends InetUserSettingsProvider {
   UserSettings _settings = new UserSettings();
 
   @override

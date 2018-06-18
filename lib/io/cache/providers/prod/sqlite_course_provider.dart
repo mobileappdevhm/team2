@@ -1,24 +1,24 @@
 import 'dart:async';
-import 'package:courses_in_english/io/connect/providers/custom_course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/io/cache/databasehelper.dart';
-import 'package:courses_in_english/io/cache/lecturer/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/io/cache/department/sqlite_department_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_department_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/io/cache/campus/sqlite_campus_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_campus_provider.dart';
 
-class SqliteCustomCourseProvider implements CustomCourseProvider {
+class SqliteCourseProvider implements CacheCourseProvider {
   @override
   Future<Course> getCourse(int courseId) async {
     DatabaseHelper dbh = new DatabaseHelper();
     List<TimeAndDay> dates = [];
     Map<String, dynamic> data =
-        await dbh.selectOneWhere("CustomCourse", "id", courseId.toString());
+        await dbh.selectOneWhere("Course", "id", courseId.toString());
     List<Map<String, dynamic>> dateData =
-        await dbh.selectWhere("CustomDate", "course", courseId.toString());
+        await dbh.selectWhere("Date", "course", courseId.toString());
 
     CourseStatus tempCourseStatus;
     String tempCourseStatusName = data["status"];
@@ -62,13 +62,12 @@ class SqliteCustomCourseProvider implements CustomCourseProvider {
   Future<List<Course>> getCourses() async {
     List<Course> courses = [];
     DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String, dynamic>> rawCampusData =
-        await dbh.selectTable("CustomCourse");
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Course");
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
       List<Map<String, dynamic>> dateData =
-          await dbh.selectWhere("CustomDate", "course", data["id"].toString());
+          await dbh.selectWhere("Date", "course", data["id"].toString());
       Lecturer lecturerData =
           await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
       Department departmentData = await new SqliteDepartmentProvider()
@@ -115,24 +114,23 @@ class SqliteCustomCourseProvider implements CustomCourseProvider {
 //    throw new UnimplementedError();
   }
 
-  Future<int> putCourses(List<Course> courses) =>
+  @override
+  Future<int> putCourses(List<Course> courses) async =>
       new DatabaseHelper().insertTable(
-        "CustomCourse",
+        "Course",
         courses.map(
           // Map each course to raw data
           (course) => course.toMap(),
         ),
-      ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
-
-  Future<int> getCount() async {
-    return new DatabaseHelper().getCount(
-        "CustomCourse"); //TODO:use this to set the ID when making new custom course
-  }
+      ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE?Arnt those going to be put in at the start?
 
   @override
-  Future<bool> favorizeCourse(Course course) {
+  Future<bool> favorizeCourse(Course course) async {
     // TODO: implement favorizeCourse
-    throw new UnimplementedError();
+    DatabaseHelper dbh = new DatabaseHelper();
+    bool b = (0 == await dbh.insertOneTable("Favorites", course.toMap()));
+    return (new Future(() => b));
+//    throw new UnimplementedError();
   }
 
   @override
@@ -154,9 +152,13 @@ class SqliteCustomCourseProvider implements CustomCourseProvider {
   }
 
   @override
-  Future<bool> unFavorizeCourse(Course course) {
+  Future<bool> unFavorizeCourse(Course course) async {
+    DatabaseHelper dbh = new DatabaseHelper();
+    bool b =
+        (0 == await dbh.deleteWhere("Favorites", "id", course.id.toString()));
+    return (new Future(() => b));
     // TODO: implement unFavorizeCourse
-    throw new UnimplementedError();
+//    throw new UnimplementedError();
   }
 
   @override

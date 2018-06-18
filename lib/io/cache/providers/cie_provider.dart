@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:courses_in_english/model/cie/cie.dart';
 
 /// Provider for campuses.
-abstract class InetCieProvider {
+abstract class CacheCieProvider {
   /// Return list of campuses.
   Future<List<Cie>> getCies();
 

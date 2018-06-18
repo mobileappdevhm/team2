@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/provider_factory.dart';
+import 'package:courses_in_english/io/connect/inet_provider_factory.dart';
 import 'package:courses_in_english/io/connect/providers/department_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -8,8 +8,8 @@ import 'package:courses_in_english/model/user/user.dart';
 
 /// This class controls the creation of users.
 class UserCreationController {
-  final UserProvider userProvider;
-  final DepartmentProvider departmentProvider;
+  final InetUserProvider userProvider;
+  final InetDepartmentProvider departmentProvider;
 
   Iterable<Department> _departments;
 
@@ -17,7 +17,7 @@ class UserCreationController {
   /// UserCreationController.ready tells if this getter is prepared.
   Iterable<Department> get departments => _departments;
 
-  UserCreationController(ProviderFactory providerFactory)
+  UserCreationController(InetProviderFactory providerFactory)
       : userProvider = providerFactory.createUserProvider(),
         departmentProvider = providerFactory.createDepartmentProvider();
 

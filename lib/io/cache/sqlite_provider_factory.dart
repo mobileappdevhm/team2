@@ -1,43 +1,45 @@
-import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
-import 'package:courses_in_english/io/cache/campus/sqlite_campus_provider.dart';
-import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
-import 'package:courses_in_english/io/cache/cie/sqlite_cie_provider.dart';
-import 'package:courses_in_english/io/connect/providers/course_provider.dart';
-import 'package:courses_in_english/io/cache/course/sqlite_course_provider.dart';
-import 'package:courses_in_english/io/connect/providers/department_provider.dart';
-import 'package:courses_in_english/io/cache/department/sqlite_department_provider.dart';
-import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
-import 'package:courses_in_english/io/cache/lecturer/sqlite_lecturer_provider.dart';
-import 'package:courses_in_english/io/connect/provider_factory.dart';
-import 'package:courses_in_english/io/connect/providers/mock/mock_user_provider.dart';
-import 'package:courses_in_english/io/cache/user/sqlite_user_settings_provider.dart';
-import 'package:courses_in_english/io/connect/providers/user_provider.dart';
-import 'package:courses_in_english/io/connect/providers/user_settings_provider.dart';
+import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
+import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
+import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
+import 'package:courses_in_english/io/cache/providers/course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/department_provider.dart';
+import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_campus_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_cie_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_custom_course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_department_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/prod/sqlite_user_settings_provider.dart';
+import 'package:courses_in_english/io/cache/providers/user_provider.dart';
+import 'package:courses_in_english/io/cache/providers/user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
-class SqliteProviderFactory implements ProviderFactory {
+class SqliteProviderFactory implements CacheProviderFactory {
+
+  // TODO User cache?
   @override
-  CourseProvider createCourseProvider() => new SqliteCourseProvider();
+  CacheUserProvider createCacheUserProvider() => throw new UnimplementedError("There is no user cache yet!");
 
   @override
-  DepartmentProvider createDepartmentProvider() =>
-      new SqliteDepartmentProvider();
+  CacheCampusProvider createCampusProvider() => new SqliteCampusProvider();
 
   @override
-  LecturerProvider createLecturerProvider() => new SqliteLecturerProvider();
+  CacheCieProvider createCieProvider() => new SqliteCieProvider();
 
   @override
-  UserProvider createUserProvider() => new MockUserProvider();
+  CacheCourseProvider createCourseProvider() => new SqliteCourseProvider();
 
   @override
-  CampusProvider createCampusProvider() => new SqliteCampusProvider();
+  CacheCustomCourseProvider createCustomCourseProvider() => new SqliteCustomCourseProvider();
 
   @override
-  UserSettingsProvider createSettingsProvider() =>
-      new SqliteUserSettingsProvider();
+  CacheDepartmentProvider createDepartmentProvider() => new SqliteDepartmentProvider();
 
   @override
-  CieProvider createCieProvider() {
-    return new SqliteCieProvider();
-  }
+  CacheLecturerProvider createLecturerProvider() => new SqliteLecturerProvider();
+
+  @override
+  CacheUserSettingsProvider createSettingsProvider() => new SqliteUserSettingsProvider();
 }

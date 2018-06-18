@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 
 /// Mock department provider holding mock department data.
-class MockDepartmentProvider implements DepartmentProvider {
+class MockInetDepartmentProvider implements InetDepartmentProvider {
   static const Map<int, Department> MOCK_DEPARTMENTS = <int, Department>{
     1: department01,
     2: department02,

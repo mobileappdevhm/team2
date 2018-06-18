@@ -8,7 +8,7 @@ import 'package:courses_in_english/io/connect/providers/department_provider.dart
 import 'package:courses_in_english/io/connect/providers/mock/mock_department_provider.dart';
 import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_lecturer_provider.dart';
-import 'package:courses_in_english/io/connect/provider_factory.dart';
+import 'package:courses_in_english/io/connect/inet_provider_factory.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_user_provider.dart';
 import 'package:courses_in_english/io/connect/providers/mock/mock_user_settings_provider.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
@@ -16,28 +16,28 @@ import 'package:courses_in_english/io/connect/providers/user_settings_provider.d
 //import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
-class MockProviderFactory implements ProviderFactory {
+class MockProviderFactory implements InetProviderFactory {
   @override
-  CourseProvider createCourseProvider() => new MockCourseProvider();
+  InetCourseProvider createCourseProvider() => new MockInetCourseProvider();
 
   @override
-  DepartmentProvider createDepartmentProvider() => new MockDepartmentProvider();
+  InetDepartmentProvider createDepartmentProvider() => new MockInetDepartmentProvider();
 
   @override
-  LecturerProvider createLecturerProvider() => new MockLecturerProvider();
+  InetLecturerProvider createLecturerProvider() => new MockInetLecturerProvider();
 
   @override
-  UserProvider createUserProvider() => new MockUserProvider();
+  InetUserProvider createUserProvider() => new MockInetUserProvider();
 
   @override
-  CampusProvider createCampusProvider() => new MockCampusProvider();
+  InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
 
   @override
-  UserSettingsProvider createSettingsProvider() =>
-      new MockUserSettingsProvider();
+  InetUserSettingsProvider createSettingsProvider() =>
+      new MockInetUserSettingsProvider();
 
   @override
-  CieProvider createCieProvider() {
-    return new MockCieProvider();
+  InetCieProvider createCieProvider() {
+    return new MockInetCieProvider();
   }
 }

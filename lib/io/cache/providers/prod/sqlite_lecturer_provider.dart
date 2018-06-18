@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/io/cache/databasehelper.dart';
 
 /// Mock lecturer provider providing lecturers from the mock courses.
-class SqliteLecturerProvider implements LecturerProvider {
+class SqliteLecturerProvider implements CacheLecturerProvider {
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
     DatabaseHelper dbh = new DatabaseHelper();

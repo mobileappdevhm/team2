@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 
 /// Mock user provider.
-class MockUserProvider implements UserProvider {
+class MockInetUserProvider implements InetUserProvider {
   @override
   Future<User> login(String username, String password) async {
     return user;

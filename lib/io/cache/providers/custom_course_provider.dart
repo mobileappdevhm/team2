@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:courses_in_english/model/course/course.dart';
 
 /// Provider for courses.
-abstract class InetCourseProvider {
+abstract class CacheCustomCourseProvider {
   /// Get all available courses.
   Future<List<Course>> getCourses();
 
@@ -12,6 +12,8 @@ abstract class InetCourseProvider {
   Future<bool> selectCourse(Course course);
 
   Future<bool> unSelectCourse(Course course);
+
+  Future<int> putCourses(List<Course> courses);
 
   Future<List<Course>> getFavorizedCourses();
 

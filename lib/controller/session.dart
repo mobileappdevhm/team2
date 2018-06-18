@@ -3,7 +3,7 @@ import 'package:courses_in_english/io/connect/providers/cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/course_provider.dart';
 import 'package:courses_in_english/io/connect/providers/department_provider.dart';
 import 'package:courses_in_english/io/connect/providers/lecturer_provider.dart';
-import 'package:courses_in_english/io/connect/provider_factory.dart';
+import 'package:courses_in_english/io/connect/inet_provider_factory.dart';
 import 'package:courses_in_english/io/connect/providers/user_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/user/user_settings_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
@@ -41,18 +41,18 @@ class Session {
   Iterable<Cie> _enteredCie = [];
 
   // Providers
-  UserProvider _userProvider;
-  CampusProvider _campusProvider;
-  DepartmentProvider _departmentProvider;
-  LecturerProvider _lecturerProvider;
-  CourseProvider _courseProvider;
-  CieProvider _cieProvider;
+  InetUserProvider _userProvider;
+  InetCampusProvider _campusProvider;
+  InetDepartmentProvider _departmentProvider;
+  InetLecturerProvider _lecturerProvider;
+  InetCourseProvider _courseProvider;
+  InetCieProvider _cieProvider;
   //UserSettingsProvider _settingsProvider;
 
   /// Call this to set up the data providers.
   /// In the prod code this should be called in main.dart.
   /// This method is useful for mocking the data providers in tests.
-  void setUpProviders(ProviderFactory providerFactory) {
+  void setUpProviders(InetProviderFactory providerFactory) {
     _userProvider = providerFactory.createUserProvider();
     _campusProvider = providerFactory.createCampusProvider();
     _departmentProvider = providerFactory.createDepartmentProvider();

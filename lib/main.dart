@@ -1,4 +1,4 @@
-import 'package:courses_in_english/io/connect/mock_provider_factory.dart';
+import 'package:courses_in_english/io/connect/mock_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

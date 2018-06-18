@@ -5,7 +5,7 @@ import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 
 /// Provider for campuses providing mock data.
-class MockCampusProvider implements CampusProvider {
+class MockInetCampusProvider implements InetCampusProvider {
   static const List<Campus> CAMPUSES = const <Campus>[
     campus01,
     campus02,

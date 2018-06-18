@@ -5,7 +5,7 @@ import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
 /// Mock lecturer provider providing lecturers from the mock courses.
-class MockLecturerProvider implements LecturerProvider {
+class MockInetLecturerProvider implements InetLecturerProvider {
   static const Map<int, Lecturer> MOCK_LECTURERS = const <int, Lecturer>{
     0: lecturer01,
     1: lecturer02,
