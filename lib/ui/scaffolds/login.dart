@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new SceneryWrapperWidget(
+      body: new Builder(builder: (context) => new SceneryWrapperWidget(
         new Column(
           children: <Widget>[
             titleRow(),
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: new Column(
                 children: <Widget>[
                   new Expanded(
-                    child: login(),
+                    child: login(context),
                   ),
                   new Expanded(
                     child: new Column(
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ),
-      ),
+      ),),
     );
   }
 
@@ -82,23 +82,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Column login() {
+  Column login(BuildContext context) {
     FocusNode passwordNode = new FocusNode();
     return new Column(
       children: <Widget>[
         userNameField(passwordNode),
         passwordField(passwordNode),
-        loginButton(),
+        loginButton(context),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
-  Container loginButton() {
+  Container loginButton(BuildContext context) {
     return new Container(
       child: new RaisedButton(
         onPressed: () {
-          doLogin();
+          doLogin(context);
         },
         child: new Text(
           "Login",
@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
-  void doLogin() {
+  void doLogin(BuildContext context) {
     Session s = new Session();
     new Session().login(
       email,
