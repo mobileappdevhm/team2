@@ -4,13 +4,13 @@ Every year a lot of exchange Students come to the Hochschule München to do an e
  and selecting fitting lectures for their course. To help both the exchange students as
  well as the Courses in English team we developed an app to make this process easier and paperless.
  
- ![LoginScreen]("https://github.com/mobileappdevhm/team2/blob/gh-pages/gh-pagesImages/loginScreen.png")   
+ ![LoginScreen](https://github.com/mobileappdevhm/team2/blob/gh-pages/gh-pagesImages/loginScreen.png)   
 ## Features:
 ### Browsing the Courses in English
 The App provides a list of all the english courses available as well as a search function.
 This way students can look for courses everywhere they are.
 
-![CourseListView]("https://github.com/mobileappdevhm/team2/blob/gh-pages/gh-pagesImages/courses.png") ![Course Details]("https://github.com/mobileappdevhm/team2/blob/gh-pages/gh-pagesImages/detailsCourses.png")
+![CourseListView](https://raw.githubusercontent.com/mobileappdevhm/team2/gh-pages/gh-pagesImages/courses.png) ![Course Details]("https://github.com/mobileappdevhm/team2/blob/gh-pages/gh-pagesImages/detailsCourses.png")
 
 ### Keeping track of your courses
 To make the course selection process easier it is possible to like a course to find it again later.
