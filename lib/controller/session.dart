@@ -9,6 +9,7 @@ import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:meta/meta.dart';
 
 typedef void OnSuccess(Session s);
 typedef void OnDataChanged(Session s);
@@ -59,6 +60,7 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
+    _firebaseAnalytics.logLogin();
     data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
@@ -154,6 +156,10 @@ class Session {
     _settings = settings;
   }
 
+  void setCurrentScreen({@required screenName}) async {
+    await _firebaseAnalytics.setCurrentScreen(screenName: screenName);
+  }
+
   void _initializeFirebaseMessaging() {
     _firebaseMessaging = new FirebaseMessaging();
     _firebaseMessaging.configure(
@@ -181,15 +187,27 @@ class Session {
     _firebaseMessaging.subscribeToTopic("all");
   }
 
+  void logAppOpen() async {
+    await _firebaseAnalytics.logAppOpen();
+  }
+
   /// Initialized our Firebase Analytics instance. As we need this more often, it's good to have it in the session.
-  void _initializeFirebaseAnalytics() {
+  void _initializeFirebaseAnalytics() async {
     _firebaseAnalytics = new FirebaseAnalytics();
     _firebaseObserver =
         new FirebaseAnalyticsObserver(analytics: _firebaseAnalytics);
-    _firebaseAnalytics.logAppOpen();
+  }
+
+  void addUserProperty({String name, String value}) {
+    if (_user != null) {
+      _firebaseAnalytics.setUserId(_user.id.toString());
+      _firebaseAnalytics.setUserProperty(name: name, value: value);
+    }
   }
 
   get firebaseObserver => _firebaseObserver;
+
+  get firebaseAnalytics => _firebaseAnalytics;
 
   get user => _user;
 

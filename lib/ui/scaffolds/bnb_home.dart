@@ -138,6 +138,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
               _selectedIndex = newIndex;
               _controller.jumpToPage(newIndex);
             });
+            new Session().setCurrentScreen(screenName: "click/"+screens[newIndex].toStringShort());
           },
         ),
         appBar: searchBar.build(context),
@@ -148,6 +149,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             setState(() {
               _selectedIndex = newIndex;
             });
+            new Session().setCurrentScreen(screenName: "bnb/"+screens[newIndex].toStringShort());
           },
         ),
       );

@@ -18,7 +18,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="courses_in_english"
+        android:label="Courses in English"
         android:icon="@mipmap/cow_icon">
         <activity
             android:name=".MainActivity"
