@@ -60,7 +60,7 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
-    _firebaseAnalytics.logLogin();
+    await _firebaseAnalytics.logLogin();
     data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
