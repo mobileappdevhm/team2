@@ -3,13 +3,12 @@ import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/model/firebase/CieAnalytics.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:meta/meta.dart';
 
 typedef void OnSuccess(Session s);
 typedef void OnDataChanged(Session s);
@@ -33,7 +32,7 @@ class Session {
   final Data data = new Data();
   final List<OnDataChanged> callbacks = [];
 
-  FirebaseAnalytics _firebaseAnalytics;
+  CieAnalytics _firebaseAnalytics;
   FirebaseMessaging _firebaseMessaging;
   FirebaseAnalyticsObserver _firebaseObserver;
   User _user;
@@ -60,7 +59,17 @@ class Session {
       },
       onError: (Error e) => failure(this, e),
     );
-    await _firebaseAnalytics.logLogin();
+    _firebaseAnalytics.logLogin();
+    if (user != null) {
+      _firebaseAnalytics.setUserId(id: _user.id.toString());
+      _firebaseAnalytics.setUserProperty(
+          name: "department", value: _user.department.toString());
+      _firebaseAnalytics.setUserProperty(
+          name: "offline_mode", value: _settings.offlineMode.toString());
+      _firebaseAnalytics.setUserProperty(name: "logged_in", value: "true");
+    } else {
+      _firebaseAnalytics.setUserProperty(name: "logged_in", value: "false");
+    }
     data.settingsProvider.getCurrentSettings().then(_settings = settings);
   }
 
@@ -156,10 +165,6 @@ class Session {
     _settings = settings;
   }
 
-  void setCurrentScreen({@required screenName}) async {
-    await _firebaseAnalytics.setCurrentScreen(screenName: screenName);
-  }
-
   void _initializeFirebaseMessaging() {
     _firebaseMessaging = new FirebaseMessaging();
     _firebaseMessaging.configure(
@@ -188,19 +193,19 @@ class Session {
   }
 
   void logAppOpen() async {
-    await _firebaseAnalytics.logAppOpen();
+    await _firebaseAnalytics.logOpen();
   }
 
   /// Initialized our Firebase Analytics instance. As we need this more often, it's good to have it in the session.
   void _initializeFirebaseAnalytics() async {
-    _firebaseAnalytics = new FirebaseAnalytics();
+    _firebaseAnalytics = new CieAnalytics();
     _firebaseObserver =
-        new FirebaseAnalyticsObserver(analytics: _firebaseAnalytics);
+        new FirebaseAnalyticsObserver(analytics: _firebaseAnalytics.analytics);
   }
 
   void addUserProperty({String name, String value}) {
     if (_user != null) {
-      _firebaseAnalytics.setUserId(_user.id.toString());
+      _firebaseAnalytics.setUserId(id: _user.id.toString());
       _firebaseAnalytics.setUserProperty(name: name, value: value);
     }
   }
