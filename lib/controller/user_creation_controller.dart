@@ -13,13 +13,13 @@ class UserCreationController {
 
   Iterable<Department> _departments;
 
-  /// Call UserCreationController.prepare before accessing this getter.
-  /// UserCreationController.ready tells if this getter is prepared.
-  Iterable<Department> get departments => _departments;
-
   UserCreationController(InetProviderFactory providerFactory)
       : userProvider = providerFactory.createUserProvider(),
         departmentProvider = providerFactory.createDepartmentProvider();
+
+  /// Call UserCreationController.prepare before accessing this getter.
+  /// UserCreationController.ready tells if this getter is prepared.
+  Iterable<Department> get departments => _departments;
 
   /// Prepare UserCreationController by downloading available departments for selection.
   /// Returns prepared UserCreationController
