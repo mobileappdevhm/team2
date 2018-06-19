@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
@@ -23,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (new Session().user == null) {
+    if (!new SessionController().isLoggedIn) {
       return notLoggedInView();
     } else {
       return loggedInView(width);

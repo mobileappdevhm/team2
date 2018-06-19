@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/cache/sqlite_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
@@ -36,9 +35,6 @@ void main() {
 
     when(providerFactory.userProvider.login("test@hm.edu", "test1234"))
         .thenAnswer((_) => new Future(() => user));
-
-    // TODO Mock cache provider out
-    session.setUpProviders(providerFactory, new SqliteProviderFactory());
   });
   test("Test getters", () {
     // Expect empty lists

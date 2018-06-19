@@ -12,5 +12,5 @@ abstract class CacheCieProvider {
 
   Future<int> putCie(Cie cie, User user);
 
-  void removeCie(Cie cie);
+  Future<int> removeCie(Cie cie);
 }

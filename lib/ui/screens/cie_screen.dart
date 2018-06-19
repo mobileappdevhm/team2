@@ -1,10 +1,12 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:flutter/material.dart';
 
+// TODO handle null department
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
 
@@ -23,16 +25,20 @@ class CieScreen extends StatefulWidget {
 /// // 2. Then this could be used to navigate to the page.
 /// Navigator.pushNamed(context, CieScreen.routeName);
 ///
-class CieScreenState extends State<CieScreen> {
-  List<Widget> cieWidgets = [];
+class CieScreenState extends State<CieScreen> implements CieListObserver {
+  List<Cie> cies = [];
   String userName = "N/a";
   double totalEcts = 0.0;
+
+  CieScreenState() {
+    new CieController().addObserver(this);
+  }
 
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
     double width = MediaQuery.of(context).size.width;
-    if (new Session().user == null) {
+    if (!new SessionController().isLoggedIn) {
       return notLoggedInView();
     } else {
       if (orientation == Orientation.portrait) {
@@ -67,7 +73,7 @@ class CieScreenState extends State<CieScreen> {
 
   Widget verticalView(double width) {
     try {
-      userName = new Session().user.lastName;
+      userName = new SessionController().user.lastName;
     } catch (e) {}
     return new Container(
       constraints: new BoxConstraints.expand(),
@@ -139,7 +145,7 @@ class CieScreenState extends State<CieScreen> {
             child: new ListView(
               children: <Widget>[
                 new Column(
-                  children: cieWidgets,
+                  children: mapCiesToWidgets(cies),
                 ),
                 new Padding(
                   padding: new EdgeInsets.all(8.0),
@@ -185,7 +191,7 @@ class CieScreenState extends State<CieScreen> {
 
   Widget horizontalView(double width) {
     try {
-      userName = new Session().user.lastName;
+      userName = new SessionController().user.lastName;
     } catch (e) {}
     return new Container(
       constraints: new BoxConstraints.expand(),
@@ -257,7 +263,7 @@ class CieScreenState extends State<CieScreen> {
 //            new ListView(
 //              children: <Widget>[
           new Column(
-            children: cieWidgets,
+            children: mapCiesToWidgets(cies),
           ),
           new Padding(
             padding: new EdgeInsets.all(8.0),
@@ -300,57 +306,22 @@ class CieScreenState extends State<CieScreen> {
     );
   }
 
-  void courseItems() async {
-    List<Widget> tempWidgets = new List<Widget>();
-
-    List<Cie> cieList = new Session().enteredCies;
-
-    double tempTotalEcts = 0.0;
-    if (cieList != null) {
-      for (Cie cie in cieList) {
-        tempWidgets
-            .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
-
-        ///TODO: fix the null
-        tempTotalEcts += cie.ects;
-      }
-    }
-
-    cieWidgets = tempWidgets;
-    totalEcts = tempTotalEcts;
-
-    setState(() {});
-  }
-
   void _addCie() {
     Navigator.push(
       context,
-      new MaterialPageRoute(
-          builder: (context) => new AddCieScaffold(
-                onPressedButton: _setMyState,
-              )),
+      new MaterialPageRoute(builder: (context) => new AddCieScaffold()),
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (new Session().user != null) {
-      courseItems();
-    }
-  }
-
-  void _setMyState() {
-    if (new Session().user != null) {
-      courseItems();
-      setState(() {});
-    }
-  }
+  List<Widget> mapCiesToWidgets(List<Cie> cies) =>
+      cies.map((cie) => new CieListEntry(cie, null)).toList();
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  void onCieListUpdate(List<Cie> cies) => setState(() {
+        this.cies = cies;
+        this.totalEcts =
+            cies.length > 0 // There must be at least one element for reducing
+                ? cies.map((cie) => cie.ects).reduce((a, b) => a + b)
+                : 0.0;
+      });
 }

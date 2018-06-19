@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:courses_in_english/controller/cie_controller.dart';
 import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
@@ -193,6 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
       new SessionController().login(email, password).then(
         (user) {
           showSnackBar("You're successfully logged in", context);
+          new CieController().user = user;
           new Future.delayed(
               new Duration(milliseconds: 1000),
               () => Navigator.pushReplacement(

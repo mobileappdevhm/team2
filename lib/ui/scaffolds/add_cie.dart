@@ -1,13 +1,13 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 
 class AddCieScaffold extends StatefulWidget {
-  AddCieScaffold({Key key, this.title, this.onPressedButton}) : super(key: key);
+  AddCieScaffold({Key key, this.title}) : super(key: key);
 
   static const String routeName = "/CieScreen";
-  final VoidCallback onPressedButton;
   final String title;
 
   @override
@@ -30,7 +30,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     double width = MediaQuery.of(context).size.width;
-    if (new Session().user == null) {
+    if (!new SessionController().isLoggedIn) {
       return notLoggedInView();
     } else {
       if (orientation == Orientation.portrait) {
@@ -293,42 +293,41 @@ class _AddCieScreenState extends State<AddCieScaffold> {
       ));
       return;
     }
-
-    int result = await new Session().enterCie(
-        new Cie(tempName, tempDepartment, tempLecturerName, tempEcts));
-
-    if (result != 0) {
-      tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
-      tl.add(new Container(
-        margin: const EdgeInsets.all(3.0),
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            borderRadius: new BorderRadius.circular(100000.0),
-            color: Colors.red),
-        child: new Text(
-          "Error: Could not add \"" + tempName + "\"",
-          style: new TextStyle(fontSize: 16.0, color: Colors.white),
-        ),
-      ));
-      setState(() {});
-      return;
-    } else {
-      tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
-      tl.add(new Container(
-        margin: const EdgeInsets.all(3.0),
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            borderRadius: new BorderRadius.circular(100000.0),
-            color: Colors.red),
-        child: new Text(
-          "Succesfully added \"" + tempName + "\"",
-          style: new TextStyle(fontSize: 16.0, color: Colors.white),
-        ),
-      ));
-    }
-
-    setState(() {});
-    widget.onPressedButton();
+    new CieController()
+        .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
+        .then((result) {
+      if (result != 0) {
+        setState(() {
+          tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
+          tl.add(new Container(
+            margin: const EdgeInsets.all(3.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                borderRadius: new BorderRadius.circular(100000.0),
+                color: Colors.red),
+            child: new Text(
+              "Error: Could not add \"" + tempName + "\"",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ));
+        });
+      } else {
+        setState(() {
+          tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
+          tl.add(new Container(
+            margin: const EdgeInsets.all(3.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                borderRadius: new BorderRadius.circular(100000.0),
+                color: Colors.red),
+            child: new Text(
+              "Succesfully added \"" + tempName + "\"",
+              style: new TextStyle(fontSize: 16.0, color: Colors.white),
+            ),
+          ));
+        });
+      }
+    });
   }
 
   int tryCatchInt(String stringToInt) {

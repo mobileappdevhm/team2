@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/cie_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -10,20 +10,11 @@ class CieListEntry extends StatelessWidget {
   static const Color HEART = const Color(0xFFFFA1A1);
 
   final Cie cie;
-  //final CieScreenState cieScreenState;
   final Department department;
-//  final String lecturer;
-//  final TimeAndDay timeAndDay;
-  final VoidCallback onPressedButton;
 
-//  _CieListEntryState(this.cie, this.department, this.cieScreenState);
-  CieListEntry(this.cie, this.department, {this.onPressedButton});
+  CieListEntry(this.cie, this.department);
 
-  void _toggle() async {
-    await new Session().removeCie(cie);
-    onPressedButton();
-    //cieScreenState.setState((){});
-  }
+  void _toggle() async => new CieController().removeCie(cie);
 
   @override
   Widget build(BuildContext context) {

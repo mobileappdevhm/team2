@@ -15,7 +15,7 @@ class SessionController {
   // CacheUserProvider _cacheUserProvider;
   User _user;
 
-  bool get loggedIn => _user != null;
+  bool get isLoggedIn => _user != null;
   User get user => _user;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
