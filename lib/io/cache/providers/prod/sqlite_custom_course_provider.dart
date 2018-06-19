@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/prod/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -11,9 +11,11 @@ import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/io/cache/providers/prod/sqlite_campus_provider.dart';
 
 class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
+  final DatabaseHelper dbh;
+
+  SqliteCustomCourseProvider(this.dbh);
   @override
   Future<Course> getCourse(int courseId) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<TimeAndDay> dates = [];
     Map<String, dynamic> data =
         await dbh.selectOneWhere("CustomCourse", "id", courseId.toString());
@@ -29,11 +31,11 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
             : CourseStatus.GREEN;
 
     Lecturer lecturerData =
-        await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
-    Department departmentData = await new SqliteDepartmentProvider()
+        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+    Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
     Campus locationData =
-        await new SqliteCampusProvider().getCampusesById(data["location"]);
+        await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
 
     void addDate(Map<String, dynamic> data) {
       dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
@@ -61,7 +63,6 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
   @override
   Future<List<Course>> getCourses() async {
     List<Course> courses = [];
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData =
         await dbh.selectTable("CustomCourse");
 
@@ -70,11 +71,11 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
       List<Map<String, dynamic>> dateData =
           await dbh.selectWhere("CustomDate", "course", data["id"].toString());
       Lecturer lecturerData =
-          await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
-      Department departmentData = await new SqliteDepartmentProvider()
+          await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+      Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
-          await new SqliteCampusProvider().getCampusesById(data["location"]);
+          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
       String tempCourseStatusName = data["status"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
@@ -117,7 +118,7 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
 
   @override
   Future<int> putCourses(List<Course> courses) =>
-      new DatabaseHelper().insertTable(
+      dbh.insertTable(
         "CustomCourse",
         courses.map(
           // Map each course to raw data
@@ -126,7 +127,7 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
       ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
 
   Future<int> getCount() async {
-    return new DatabaseHelper().getCount(
+    return dbh.getCount(
         "CustomCourse"); //TODO:use this to set the ID when making new custom course
   }
 

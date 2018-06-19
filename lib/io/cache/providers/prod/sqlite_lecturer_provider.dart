@@ -1,14 +1,16 @@
 import 'dart:async';
 
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 
 /// Mock lecturer provider providing lecturers from the mock courses.
 class SqliteLecturerProvider implements CacheLecturerProvider {
+  final DatabaseHelper dbh;
+
+  SqliteLecturerProvider(this.dbh);
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     Map<String, dynamic> lecturerData =
         await dbh.selectOneWhere("Lecturer", "id", lecturerId.toString());
     Lecturer tempLecturer = new Lecturer(
@@ -18,7 +20,6 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
 
   @override
   Future<List<Lecturer>> getLecturers() async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> lecturerData = await dbh.selectTable("Lecturer");
     List<Lecturer> lecturers = [];
 
@@ -35,7 +36,6 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
   }
 
   Future<int> putLecturer(List<Lecturer> lecturers) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> lecturerList = [];
 
     void iterate(Lecturer data) {

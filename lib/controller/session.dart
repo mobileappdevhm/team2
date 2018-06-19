@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
+import 'package:courses_in_english/io/cache/data_access/prod_databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/connect/providers/campus_provider.dart';
 import 'package:courses_in_english/io/connect/providers/course_provider.dart';
@@ -187,7 +187,7 @@ class Session {
   }
 
   void resetApp() {
-    DatabaseHelper dbh = new DatabaseHelper();
+    ProdDatabaseHelper dbh = new ProdDatabaseHelper();
     dbh.truncateAllTable();
   }
 

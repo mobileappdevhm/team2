@@ -1,14 +1,16 @@
 import 'dart:async';
 
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 
 class SqliteDepartmentProvider implements CacheDepartmentProvider {
+  final DatabaseHelper dbh;
+
+  SqliteDepartmentProvider(this.dbh);
   @override
   Future<Department> getDepartmentByNumber(int departmentNumber) async =>
-      new DatabaseHelper()
-          .selectOneWhere("Department", "number", departmentNumber.toString())
+          dbh.selectOneWhere("Department", "number", departmentNumber.toString())
           .then(
             (rawElement) => new Department(
                   rawElement["id"],
@@ -20,7 +22,7 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
 
   @override
   Future<Iterable<Department>> getDepartments() async =>
-      new DatabaseHelper().selectTable("Department").then(
+      dbh.selectTable("Department").then(
             (rawData) => rawData.map(
                   // map each raw element into a department
                   (rawElement) => new Department(
@@ -33,7 +35,7 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
           );
 
   Future<int> putDepartments(List<Department> departments) async =>
-      new DatabaseHelper().insertTable(
+      dbh.insertTable(
         "Department",
         departments
             .map(

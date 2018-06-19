@@ -1,15 +1,18 @@
 import 'dart:async';
 
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 
 /// Provider for campuses providing mock data.
 class SqliteCampusProvider implements CacheCampusProvider {
+  final DatabaseHelper dbh;
+
+  SqliteCampusProvider(this.dbh);
+
   @override
   Future<List<Campus>> getCampuses() async {
     List<Campus> campuses = [];
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Campus");
 
     void iterate(Map<String, dynamic> data) {
@@ -24,7 +27,6 @@ class SqliteCampusProvider implements CacheCampusProvider {
 
   @override
   Future<Campus> getCampusesById(int campusID) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     Map<String, dynamic> data =
         await dbh.selectOneWhere("Campus", "id", campusID.toString());
 
@@ -34,7 +36,6 @@ class SqliteCampusProvider implements CacheCampusProvider {
 
   @override
   Future<int> putCampuses(List<Campus> campuses) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> campusesList = [];
 
     void iterate(Campus data) {

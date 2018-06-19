@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/prod/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -11,9 +11,12 @@ import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/io/cache/providers/prod/sqlite_campus_provider.dart';
 
 class SqliteCourseProvider implements CacheCourseProvider {
+  final DatabaseHelper dbh;
+
+  SqliteCourseProvider(this.dbh);
+
   @override
   Future<Course> getCourse(int courseId) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<TimeAndDay> dates = [];
     Map<String, dynamic> data =
         await dbh.selectOneWhere("Course", "id", courseId.toString());
@@ -29,11 +32,11 @@ class SqliteCourseProvider implements CacheCourseProvider {
             : CourseStatus.GREEN;
 
     Lecturer lecturerData =
-        await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
-    Department departmentData = await new SqliteDepartmentProvider()
+        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+    Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
     Campus locationData =
-        await new SqliteCampusProvider().getCampusesById(data["location"]);
+        await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
 
     void addDate(Map<String, dynamic> data) {
       dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
@@ -61,7 +64,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
   @override
   Future<List<Course>> getCourses() async {
     List<Course> courses = [];
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Course");
 
     Future addCourse(Map<String, dynamic> data) async {
@@ -69,11 +71,11 @@ class SqliteCourseProvider implements CacheCourseProvider {
       List<Map<String, dynamic>> dateData =
           await dbh.selectWhere("Date", "course", data["id"].toString());
       Lecturer lecturerData =
-          await new SqliteLecturerProvider().getLecturerById(data["lecturer"]);
-      Department departmentData = await new SqliteDepartmentProvider()
+          await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+      Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
-          await new SqliteCampusProvider().getCampusesById(data["location"]);
+          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
       String tempCourseStatusName = data["status"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
@@ -116,7 +118,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<int> putCourses(List<Course> courses) async =>
-      new DatabaseHelper().insertTable(
+      dbh.insertTable(
         "Course",
         courses.map(
           // Map each course to raw data
@@ -127,7 +129,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
   @override
   Future<bool> favorizeCourse(Course course) async {
     // TODO: implement favorizeCourse
-    DatabaseHelper dbh = new DatabaseHelper();
     bool b = (0 == await dbh.insertOneTable("Favorites", course.toMap()));
     return (new Future(() => b));
 //    throw new UnimplementedError();
@@ -153,7 +154,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> unFavorizeCourse(Course course) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     bool b =
         (0 == await dbh.deleteWhere("Favorites", "id", course.id.toString()));
     return (new Future(() => b));

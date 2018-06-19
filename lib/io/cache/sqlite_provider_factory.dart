@@ -1,4 +1,6 @@
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
+import 'package:courses_in_english/io/cache/data_access/prod_databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
@@ -17,33 +19,34 @@ import 'package:courses_in_english/io/cache/providers/user_settings_provider.dar
 
 /// Provider factory producing mock providers.
 class SqliteProviderFactory implements CacheProviderFactory {
+  final DatabaseHelper dbh = new ProdDatabaseHelper();
   // TODO User cache?
   @override
   CacheUserProvider createCacheUserProvider() =>
       throw new UnimplementedError("There is no user cache yet!");
 
   @override
-  CacheCampusProvider createCampusProvider() => new SqliteCampusProvider();
+  CacheCampusProvider createCampusProvider() => new SqliteCampusProvider(dbh);
 
   @override
-  CacheCieProvider createCieProvider() => new SqliteCieProvider();
+  CacheCieProvider createCieProvider() => new SqliteCieProvider(dbh);
 
   @override
-  CacheCourseProvider createCourseProvider() => new SqliteCourseProvider();
+  CacheCourseProvider createCourseProvider() => new SqliteCourseProvider(dbh);
 
   @override
   CacheCustomCourseProvider createCustomCourseProvider() =>
-      new SqliteCustomCourseProvider();
+      new SqliteCustomCourseProvider(dbh);
 
   @override
   CacheDepartmentProvider createDepartmentProvider() =>
-      new SqliteDepartmentProvider();
+      new SqliteDepartmentProvider(dbh);
 
   @override
   CacheLecturerProvider createLecturerProvider() =>
-      new SqliteLecturerProvider();
+      new SqliteLecturerProvider(dbh);
 
   @override
   CacheUserSettingsProvider createSettingsProvider() =>
-      new SqliteUserSettingsProvider();
+      new SqliteUserSettingsProvider(dbh);
 }

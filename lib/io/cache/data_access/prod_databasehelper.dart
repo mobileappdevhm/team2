@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper {
-  static final DatabaseHelper _instance = new DatabaseHelper.internal();
+class ProdDatabaseHelper implements DatabaseHelper {
+  static final ProdDatabaseHelper _instance = new ProdDatabaseHelper.internal();
 
-  factory DatabaseHelper() => _instance;
+  factory ProdDatabaseHelper() => _instance;
 
   static Database _db;
 
@@ -20,7 +21,7 @@ class DatabaseHelper {
     return _db;
   }
 
-  DatabaseHelper.internal();
+  ProdDatabaseHelper.internal();
 
   initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
@@ -54,6 +55,7 @@ class DatabaseHelper {
         "CREATE TABLE CustomDate(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
   }
 
+  @override
   Future<int> insertTable(
       String table, List<Map<String, dynamic>> dataList) async {
     var dbClient = await db;
@@ -69,12 +71,14 @@ class DatabaseHelper {
     return returnValue;
   }
 
+  @override
   Future<int> insertOneTable(String table, Map<String, dynamic> data) async {
     var dbClient = await db;
     return dbClient.insert(table, data);
   }
 
-  Future<int> updateTablebyId(String table, Map<String, dynamic> data,
+  @override
+  Future<int> updateTableById(String table, Map<String, dynamic> data,
       String whereColumn, String whereArgs) async {
     var dbClient = await db;
 
@@ -82,12 +86,7 @@ class DatabaseHelper {
         .update(table, data, where: '$whereColumn = ?', whereArgs: [whereArgs]);
   }
 
-  Future<int> truncateTable(String table) async {
-    var dbClient = await db;
-
-    return await dbClient.delete(table);
-  }
-
+  @override
   void truncateAllTable() async {
     var dbClient = await db;
 
@@ -103,6 +102,7 @@ class DatabaseHelper {
     exit(0);
   }
 
+  @override
   Future<List<Map<String, dynamic>>> selectTable(String table) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res =
@@ -110,6 +110,7 @@ class DatabaseHelper {
     return res;
   }
 
+  @override
   Future<List<Map<String, dynamic>>> selectWhere(
       String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
@@ -118,6 +119,7 @@ class DatabaseHelper {
     return res;
   }
 
+  @override
   Future<Map<String, dynamic>> selectOneWhere(
       String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
@@ -126,6 +128,7 @@ class DatabaseHelper {
     return res[0];
   }
 
+  @override
   Future<int> deleteWhere(
       String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
@@ -134,6 +137,7 @@ class DatabaseHelper {
     return res;
   }
 
+  @override
   Future<int> getCount(String table) async {
     var dbClient = await db;
     return Sqflite

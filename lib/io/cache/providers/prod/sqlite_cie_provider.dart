@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
-import 'package:courses_in_english/io/cache/databasehelper.dart';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 
 /// Provider for campuses providing mock data.
 class SqliteCieProvider implements CacheCieProvider {
+  final DatabaseHelper dbh;
+
+  SqliteCieProvider(this.dbh);
+
   @override
   Future<List<Cie>> getCies() async {
     List<Cie> campuses = [];
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
         "Cie", "userId", new Session().user.id.toString());
 
@@ -26,7 +29,6 @@ class SqliteCieProvider implements CacheCieProvider {
 
   @override
   Future<int> putCies(List<Cie> cies) async {
-    DatabaseHelper dbh = new DatabaseHelper();
     List<Map<String, dynamic>> cieList = [];
 
     cies.map((cie) => cie.toMap()).forEach((raw) {
@@ -44,8 +46,6 @@ class SqliteCieProvider implements CacheCieProvider {
 
   @override
   Future<int> removeCie(Cie cie) async {
-    DatabaseHelper dbh = new DatabaseHelper();
-
     return dbh.deleteWhere("Cie", "id", cie.id.toString());
     //return dbh.truncateTable("Cie");
   }
