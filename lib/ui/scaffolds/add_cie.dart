@@ -279,6 +279,22 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         tempDepartment == -1 ||
         tempName == "" ||
         tempLecturerName == "") {
+      showMessage("Fields must be filled with proper types");
+      return;
+    }
+    new CieController()
+        .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
+        .then((result) {
+      if (result != 0) {
+        showMessage("Error: Could not add \"$tempName\"");
+      } else {
+        showMessage("Succesfully added \"$tempName\"");
+      }
+    });
+  }
+
+  void showMessage(String msg) {
+    setState(() {
       tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
       tl.add(new Container(
         margin: const EdgeInsets.all(3.0),
@@ -287,46 +303,10 @@ class _AddCieScreenState extends State<AddCieScaffold> {
             borderRadius: new BorderRadius.circular(100000.0),
             color: Colors.red),
         child: new Text(
-          "Feilds must be filled with proper types",
+          msg,
           style: new TextStyle(fontSize: 16.0, color: Colors.white),
         ),
       ));
-      return;
-    }
-    new CieController()
-        .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
-        .then((result) {
-      if (result != 0) {
-        setState(() {
-          tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
-          tl.add(new Container(
-            margin: const EdgeInsets.all(3.0),
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                borderRadius: new BorderRadius.circular(100000.0),
-                color: Colors.red),
-            child: new Text(
-              "Error: Could not add \"" + tempName + "\"",
-              style: new TextStyle(fontSize: 16.0, color: Colors.white),
-            ),
-          ));
-        });
-      } else {
-        setState(() {
-          tl.add(new Padding(padding: new EdgeInsets.all(8.0)));
-          tl.add(new Container(
-            margin: const EdgeInsets.all(3.0),
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                borderRadius: new BorderRadius.circular(100000.0),
-                color: Colors.red),
-            child: new Text(
-              "Succesfully added \"" + tempName + "\"",
-              style: new TextStyle(fontSize: 16.0, color: Colors.white),
-            ),
-          ));
-        });
-      }
     });
   }
 
