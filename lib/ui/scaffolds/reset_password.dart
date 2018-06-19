@@ -2,32 +2,50 @@ import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
-class ResetPassword extends StatelessWidget {
+class ResetPassword extends StatefulWidget {
   final String _userEmail;
 
   ResetPassword(String email) : _userEmail = email;
 
   @override
-  Widget build(BuildContext context) {
-    String code;
-    String newPassword;
-    String newPasswordRepeat;
+  State<StatefulWidget> createState() => _ResetPasswordState(_userEmail);
+}
 
-    TextEditingController codeController = new TextEditingController();
+class _ResetPasswordState extends State<ResetPassword> {
+  String _code;
+  String _newPassword;
+  String _newPasswordRepeat;
+  String _userEmail;
+  TextEditingController codeController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordRepeatController = new TextEditingController();
+
+  _ResetPasswordState(String string) : _userEmail = string;
+
+  @override
+  Widget build(BuildContext context) {
     codeController.addListener(() {
-      code = codeController.text.toString();
+      _code = codeController.text.toString();
     });
-    TextEditingController passwordController = new TextEditingController();
+
     passwordController.addListener(() {
-      newPassword = passwordController.text.toString();
+      _newPassword = passwordController.text.toString();
     });
-    TextEditingController passwordRepeatController =
-        new TextEditingController();
+
     passwordRepeatController.addListener(() {
-      newPasswordRepeat = passwordRepeatController.text.toString();
+      _newPasswordRepeat = passwordRepeatController.text.toString();
     });
-    Text buttonText = new Text("Reset Password",
-        style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500));
+
+    emailController = new TextEditingController(text: _userEmail);
+    emailController.addListener(() {
+      _userEmail = emailController.text.toString();
+    });
+
+    FocusNode resetNode = new FocusNode();
+    FocusNode passwordNode = new FocusNode();
+    FocusNode repeatNode = new FocusNode();
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Reset Password"),
@@ -37,46 +55,15 @@ class ResetPassword extends StatelessWidget {
         builder: (BuildContext context) {
           return new Column(
             children: <Widget>[
-              new Expanded(
-                child: new Column(
-                  children: <Widget>[
-                    new Expanded(
-                      child: new Container(
-                        child: new Text(
-                          "Reset password for User with the E-Mail: ",
-                          textAlign: TextAlign.center,
-                          style: new TextStyle(fontSize: 15.0),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                    new Expanded(
-                      child: new Container(
-                        child: new Text(
-                          _userEmail,
-                          textAlign: TextAlign.center,
-                          style: new TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              inputField("Reset Code"),
-              inputField("Password"),
-              inputField("Repeat Password"),
-              new Container(
-                child: new RoundedButton(
-                  text: buttonText,
-                  onPressed: (() {
-                    resetPassword(_userEmail, code, newPassword,
-                        newPasswordRepeat, context);
-                  }),
-                ),
-                margin: const EdgeInsets.only(bottom: 30.0),
-              ),
+              inputField("User E-Mail", _userEmail, emailController, null,
+                  resetNode, false, context),
+              inputField("Reset Code", _code, codeController, resetNode,
+                  passwordNode, false, context),
+              inputField("Password", _newPassword, passwordController,
+                  passwordNode, repeatNode, true, context),
+              inputField("Repeat Password", _newPasswordRepeat,
+                  passwordRepeatController, repeatNode, null, true, context),
+              resetButton(),
             ],
           );
         },
@@ -85,16 +72,29 @@ class ResetPassword extends StatelessWidget {
   }
 
   Expanded inputField(
-    String labelText,
-  ) {
+      String labelText,
+      String saveTo,
+      TextEditingController controller,
+      FocusNode own,
+      FocusNode next,
+      bool obscured,
+      BuildContext context) {
     return new Expanded(
       child: new Container(
         child: new TextFormField(
           decoration: new InputDecoration(
             labelText: labelText,
           ),
+          onFieldSubmitted: ((text) {
+            saveTo = text;
+            FocusScope.of(context).requestFocus(next);
+          }),
+          focusNode: own,
+          controller: controller,
+          obscureText: obscured,
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 40.0),
+        margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+        alignment: Alignment.center,
       ),
     );
   }
@@ -111,5 +111,21 @@ class ResetPassword extends StatelessWidget {
       new Session().passwordReset(userMail, newPassword, code);
       //TODO show Snackbar based upon succes of passwordReset
     }
+  }
+
+  Widget resetButton() {
+    return new Container(
+        child: new RoundedButton(
+          text: new Text("Reset Password",
+              style: new TextStyle(fontSize: 18.0, color: Colors.white)),
+          onPressed: (() {
+            resetPassword(
+                _userEmail, _code, _newPassword, _newPasswordRepeat, context);
+          }),
+          color: Colors.black,
+        ),
+        margin: const EdgeInsets.symmetric(vertical: 15.0),
+        alignment: Alignment.center,
+      );
   }
 }

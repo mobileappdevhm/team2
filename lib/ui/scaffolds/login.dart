@@ -3,12 +3,31 @@ import 'dart:async';
 import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:courses_in_english/ui/scaffolds/reset_password_request.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  static final String noPasswordSnack = "Please enter a Password!";
+  static final String noEmailSnack = "Please enter a E-Mail!";
+  static final String noEmailAndNoPasswordSnack =
+      "Please Enter a E-Mail and a Password!";
+  static final String emailWrongFormatSnack =
+      "Please enter a proper E-Mail e.G: 'abc@d.e'";
+  static final String continueAsGuestSnack = "Hello Guest :)";
+  static final String loginFailureSnack = "Login Failure!";
+  static final String loginSuccessSnack = "Yaaay you're logged in!";
+  static final Key keyLoginButton = new Key("loginButton");
+  static final Key keyGuestButton = new Key("guestButton");
+  static final Key keyEmailField = new Key("emailField");
+  static final Key keyPasswordField = new Key("passwordField");
+  static final Key keyResetKey = new Key("resetKey");
+  static final String continueAsGuestButton = "Continue as Guest";
+  static final String resetPasswordButton = "Reset Password!";
+  static final String loginButton = "Login";
+
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
 }
@@ -16,22 +35,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
-  static final String noPassword = "Please enter a Password!";
-  static final String noEmail = "Please enter a E-Mail!";
-  static final String noEmailAndNoPassword =
-      "Please Enter a E-Mail and a Password!";
-  static final String emailWrongFormat =
-      "Please enter a proper E-Mail e.G: 'abc@d.e'";
-  static final String loginSuccess = "Yaaay you're logged in!";
-
-  static final Key loginButtonKey = new Key("loginButton");
-  static final Key guestButtonKey = new Key("guestButton");
-  static final Key emailFieldKey = new Key("emailField");
-  static final Key passwordFieldKey = new Key("passwordField");
-  static final Key resetPasswordKey = new Key("resetPasswordKey");
-  static final String continueAsGuestString = "Hello Guest :)";
-
-  static final String loginFailure = "Login Failure!";
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: new LineSeparator(),
                             margin: new EdgeInsets.symmetric(horizontal: 10.0),
                           ),
-                          new Container(
-                            child: new FlatButton(
-                              onPressed: (() {
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (context) =>
-                                            new ResetPasswordRequest()));
-                              }),
-                              child: new Text("Reset Password!"),
-                              key: resetPasswordKey,
-                            ),
+                          new Container(child:
+                              resetButton(context),
                           ),
                           new Container(
                             child: new LineSeparator(),
                             margin: new EdgeInsets.symmetric(horizontal: 10.0),
                           ),
                           new Container(
-                            child: continueAsGuest(),
+                            child: continueAsGuest(context),
                           ),
                         ],
                       ),
@@ -88,28 +81,31 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Row continueAsGuest() {
+  Row continueAsGuest(BuildContext context) {
     return new Row(
       children: <Widget>[
         new Container(
-          child: new RaisedButton(
-            onPressed: () {
+          child: new RoundedButton(
+            text: new Text(
+              LoginScreen.continueAsGuestButton,
+              style: new TextStyle(fontSize: 18.0,color: Colors.white),
+            ),
+            onPressed: (() {
               Session s = new Session();
               s.setSettings(new UserSettings());
-              Navigator.pushReplacement(
-                context,
-                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-              );
-            },
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text(LoginScreen.continueAsGuestSnack),
+                duration: new Duration(seconds: 1),));
+              new Future.delayed(new Duration(seconds: 1), () {
+                Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new HomeScaffold()),
+                );
+              });
+            }),
             color: Colors.black,
-            textColor: Colors.white,
-            child: new Text(
-              continueAsGuestString,
-              style: new TextStyle(fontSize: 18.0),
-            ),
-            key: guestButtonKey,
+            key: LoginScreen.keyGuestButton,
           ),
           alignment: AlignmentDirectional.bottomCenter,
           margin: new EdgeInsets.symmetric(vertical: 25.0),
@@ -133,20 +129,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Container loginButton(BuildContext context) {
     return new Container(
-      child: new RaisedButton(
-        onPressed: () {
+      child: new RoundedButton(
+        onPressed: (() {
           if (checkInput(context)) {
             doLogin(context);
           }
-        },
-        child: new Text(
-          "Login",
+        }),
+        text: new Text(
+          LoginScreen.loginButton,style: TextStyle(fontSize: 18.0,color: Colors.white),
         ),
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(100000.0)),
         color: Colors.black,
-        textColor: Colors.white,
-        key: loginButtonKey,
+        key: LoginScreen.keyLoginButton,
       ),
       alignment: AlignmentDirectional.center,
       margin: new EdgeInsets.symmetric(vertical: 20.0),
@@ -171,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
               this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
-            key: emailFieldKey,
+            key: LoginScreen.keyEmailField,
           ),
           margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment.topCenter),
@@ -196,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           controller: controller,
           focusNode: passwordNode,
-          key: passwordFieldKey,
+          key: LoginScreen.keyPasswordField,
         ),
         margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       ),
@@ -220,14 +213,14 @@ class _LoginScreenState extends State<LoginScreen> {
       password,
       success: (session) {
         Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                content: new Text(
-                  loginSuccess,
-                  textAlign: TextAlign.center,
-                ),
-                duration: new Duration(seconds: 1),
-              ),
-            );
+          new SnackBar(
+            content: new Text(
+              LoginScreen.loginSuccessSnack,
+              textAlign: TextAlign.center,
+            ),
+            duration: new Duration(seconds: 1),
+          ),
+        );
         new Future.delayed(new Duration(milliseconds: 1200), () {
           Navigator.pushReplacement(
             context,
@@ -237,14 +230,14 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       failure: (session, error) {
         Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                content: new Text(
-                  loginFailure,
-                  textAlign: TextAlign.center,
-                ),
-                duration: new Duration(seconds: 2),
-              ),
-            );
+          new SnackBar(
+            content: new Text(
+              LoginScreen.loginFailureSnack,
+              textAlign: TextAlign.center,
+            ),
+            duration: new Duration(seconds: 2),
+          ),
+        );
       },
     );
     if (s.user != null) {
@@ -274,52 +267,67 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     if (emailEmpty == true && passwordEmpty == false) {
       Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                noEmail,
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+        new SnackBar(
+          content: new Text(
+            LoginScreen.noEmailSnack,
+            textAlign: TextAlign.center,
+          ),
+          duration: new Duration(seconds: 2),
+        ),
+      );
       return false;
     }
     if (emailEmpty == false && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                noPassword,
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+        new SnackBar(
+          content: new Text(
+            LoginScreen.noPasswordSnack,
+            textAlign: TextAlign.center,
+          ),
+          duration: new Duration(seconds: 2),
+        ),
+      );
       return false;
     }
     if (emailEmpty == true && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                noEmailAndNoPassword,
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+        new SnackBar(
+          content: new Text(
+            LoginScreen.noEmailAndNoPasswordSnack,
+            textAlign: TextAlign.center,
+          ),
+          duration: new Duration(seconds: 2),
+        ),
+      );
       return false;
     }
     if (containsAtAndDot == false) {
       Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                emailWrongFormat,
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+        new SnackBar(
+          content: new Text(
+            LoginScreen.emailWrongFormatSnack,
+            textAlign: TextAlign.center,
+          ),
+          duration: new Duration(seconds: 2),
+        ),
+      );
       return false;
     }
     return true;
+  }
+
+  resetButton(BuildContext context) {
+    return new FlatButton(
+      onPressed: (() {
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) =>
+                new ResetPasswordRequest()));
+      }),
+      child: new Text(
+        LoginScreen.resetPasswordButton, style: TextStyle(fontSize: 15.0,color: Colors.redAccent.withOpacity(0.8),),),
+      key: LoginScreen.keyResetKey,
+    );
   }
 }

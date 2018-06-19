@@ -2,6 +2,7 @@ import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:courses_in_english/ui/scaffolds/login.dart';
 
 void main() {
   /*
@@ -23,7 +24,7 @@ void main() {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
     expect(find.byType(TextFormField), findsNWidgets(2));
     expect(
-        find.widgetWithText(RaisedButton, "Continue as Guest"), findsOneWidget);
+        find.widgetWithText(RaisedButton, LoginScreen.continueAsGuestButton), findsOneWidget);
     expect(find.widgetWithText(RaisedButton, "Login"), findsOneWidget);
   });
 }
