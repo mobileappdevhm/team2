@@ -56,10 +56,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new DropdownButton<Department>(
           items: dropdownMenuItems,
           onChanged: (Department dep) {
-            //TODO: Filter by department
+            _filterCoursesByDepartment(dep);
           },
-        )];
-
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        )
+      ];
     }
 
     if (_selectedIndex == 0 && isFiltered) {
@@ -84,7 +85,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     );
   }
 
-  _filterCourses(String term) {
+  _searchCourses(String term) {
     List<Course> filteredCourses = new List<Course>();
 
     for (Course course in session.courses) {
@@ -101,16 +102,40 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     });
   }
 
+  _filterCoursesByDepartment(Department dep) {
+    List<Course> filteredCourses = new List<Course>();
+
+    if (dep.id == -1) {
+      // If user selected "All departments", display all the courses
+      filteredCourses = session.courses;
+      isFiltered = false;
+    } else {
+      // Else filter out only those that correspond to the selected department
+      _searchTerm = "FK " + dep.number.toString();
+      for (Course course in session.courses) {
+        if ((course.department.id == dep.id)) {
+          filteredCourses.add(course);
+        }
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+      isFiltered = true;
+    });
+  }
+
   _HomeScaffoldState() {
     session.callbacks.add((session) {
       if (mounted) {
         setState(() {
           displayedCourses = session.courses;
-          for (Department dep in session.departments){
+          dropdownMenuItems.add(DropdownMenuItem(
+              value: Department(-1, -1, "ALL", 0),
+              child: Text("All departments")));
+          for (Department dep in session.departments) {
             dropdownMenuItems.add(DropdownMenuItem(
-              value: dep,
-              child: Text("FK" + dep.number.toString())
-            ));
+                value: dep, child: Text("FK" + dep.number.toString())));
           }
           loading = false;
         });
@@ -122,7 +147,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     searchBar = new SearchBar(
         inBar: true,
         setState: setState,
-        onSubmitted: _filterCourses,
+        onSubmitted: _searchCourses,
         buildDefaultAppBar: buildAppBar);
   }
 
