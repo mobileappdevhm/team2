@@ -2,16 +2,19 @@ import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
-class ResetPassword extends StatefulWidget {
+class PasswordReset extends StatefulWidget {
+  static final String resetPasswordButton = "Reset Password";
+  static final String passwordsNoMatchSnack = "Passwords must match!";
+
   final String _userEmail;
 
-  ResetPassword(String email) : _userEmail = email;
+  PasswordReset(String email) : _userEmail = email;
 
   @override
-  State<StatefulWidget> createState() => _ResetPasswordState(_userEmail);
+  State<StatefulWidget> createState() => _PasswordResetState(_userEmail);
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class _PasswordResetState extends State<PasswordReset> {
   String _code;
   String _newPassword;
   String _newPasswordRepeat;
@@ -21,7 +24,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordRepeatController = new TextEditingController();
 
-  _ResetPasswordState(String string) : _userEmail = string;
+  _PasswordResetState(String string) : _userEmail = string;
 
   @override
   Widget build(BuildContext context) {
@@ -46,29 +49,31 @@ class _ResetPasswordState extends State<ResetPassword> {
     FocusNode passwordNode = new FocusNode();
     FocusNode repeatNode = new FocusNode();
 
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Reset Password"),
-        centerTitle: true,
-      ),
-      body: new Builder(
-        builder: (BuildContext context) {
-          return new Column(
-            children: <Widget>[
-              inputField("User E-Mail", _userEmail, emailController, null,
-                  resetNode, false, context),
-              inputField("Reset Code", _code, codeController, resetNode,
-                  passwordNode, false, context),
-              inputField("Password", _newPassword, passwordController,
-                  passwordNode, repeatNode, true, context),
-              inputField("Repeat Password", _newPasswordRepeat,
-                  passwordRepeatController, repeatNode, null, true, context),
-              resetButton(),
-            ],
-          );
-        },
-      ),
-    );
+    return new Builder(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Reset Password"),
+          centerTitle: true,
+        ),
+        body: new Builder(
+          builder: (BuildContext context) {
+            return new Column(
+              children: <Widget>[
+                inputField("User E-Mail", _userEmail, emailController, null,
+                    resetNode, false, context),
+                inputField("Reset Code", _code, codeController, resetNode,
+                    passwordNode, false, context),
+                inputField("Password", _newPassword, passwordController,
+                    passwordNode, repeatNode, true, context),
+                inputField("Repeat Password", _newPasswordRepeat,
+                    passwordRepeatController, repeatNode, null, true, context),
+                resetButton(context),
+              ],
+            );
+          },
+        ),
+      );
+    });
   }
 
   Expanded inputField(
@@ -101,10 +106,11 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   void resetPassword(String userMail, String code, String newPassword,
       String newPasswordRepeat, BuildContext context) {
-    if (newPasswordRepeat != newPassword) {
+    //TODO reinstantiate pw length.
+    if (newPasswordRepeat != newPassword || newPassword.length < 1) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text("Passwords must match!"),
+              content: new Text(PasswordReset.passwordsNoMatchSnack,style: new TextStyle(fontSize: 24.0),textAlign: TextAlign.center,),
             ),
           );
     } else {
@@ -113,10 +119,10 @@ class _ResetPasswordState extends State<ResetPassword> {
     }
   }
 
-  Widget resetButton() {
+  Widget resetButton(BuildContext context) {
     return new Container(
       child: new RoundedButton(
-        text: new Text("Reset Password",
+        text: new Text(PasswordReset.resetPasswordButton,
             style: new TextStyle(fontSize: 18.0, color: Colors.white)),
         onPressed: (() {
           resetPassword(
