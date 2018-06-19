@@ -54,14 +54,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       actions = [
         searchBar.getSearchAction(context),
         new DropdownButton<Department>(
-          items: dropdownMenuItems,
-          onChanged: (Department dep) {
-            _filterCoursesByDepartment(dep);
-          },
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-          hint: Text("All Departments"),
-
-        )
+            items: dropdownMenuItems,
+            onChanged: (Department dep) {
+              _filterCoursesByDepartment(dep);
+            },
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            hint: Text(
+              "Departments",
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ))
       ];
     }
 
@@ -85,9 +86,6 @@ class _HomeScaffoldState extends State<HomeScaffold> {
           : Text('All Courses'),
       centerTitle: false,
       actions: actions,
-      automaticallyImplyLeading: true,
-
-
     );
   }
 
@@ -111,17 +109,11 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   _filterCoursesByDepartment(Department dep) {
     List<Course> filteredCourses = new List<Course>();
 
-    if (dep.id == -1) {
-      // If user selected "All departments", display all the courses
-      filteredCourses = session.courses;
-      isFiltered = false;
-    } else {
-      // Else filter out only those that correspond to the selected department
-      _searchTerm = "FK " + dep.number.toString();
-      for (Course course in session.courses) {
-        if ((course.department.id == dep.id)) {
-          filteredCourses.add(course);
-        }
+    // Filter out only those that correspond to the selected department
+    _searchTerm = "FK " + dep.number.toString();
+    for (Course course in session.courses) {
+      if ((course.department.id == dep.id)) {
+        filteredCourses.add(course);
       }
     }
 
@@ -136,9 +128,6 @@ class _HomeScaffoldState extends State<HomeScaffold> {
       if (mounted) {
         setState(() {
           displayedCourses = session.courses;
-          dropdownMenuItems.add(DropdownMenuItem(
-              value: Department(-1, -1, "ALL", 0),
-              child: Text("All departments")));
           for (Department dep in session.departments) {
             dropdownMenuItems.add(DropdownMenuItem(
                 value: dep, child: Text("FK" + dep.number.toString())));
