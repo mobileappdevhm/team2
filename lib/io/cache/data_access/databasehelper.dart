@@ -1,8 +1,7 @@
 import 'dart:async';
 
 abstract class DatabaseHelper {
-  Future<int> insertTable(
-      String table, List<Map<String, dynamic>> dataList);
+  Future<int> insertTable(String table, List<Map<String, dynamic>> dataList);
   Future<int> insertOneTable(String table, Map<String, dynamic> data);
   Future<int> updateTableById(String table, Map<String, dynamic> data,
       String whereColumn, String whereArgs);
@@ -12,7 +11,6 @@ abstract class DatabaseHelper {
       String table, String whereColumn, String whereArgs);
   Future<Map<String, dynamic>> selectOneWhere(
       String table, String whereColumn, String whereArgs);
-  Future<int> deleteWhere(
-      String table, String whereColumn, String whereArgs);
+  Future<int> deleteWhere(String table, String whereColumn, String whereArgs);
   Future<int> getCount(String table);
 }

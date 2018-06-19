@@ -70,8 +70,8 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
       List<TimeAndDay> dates = [];
       List<Map<String, dynamic>> dateData =
           await dbh.selectWhere("CustomDate", "course", data["id"].toString());
-      Lecturer lecturerData =
-          await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+      Lecturer lecturerData = await new SqliteLecturerProvider(dbh)
+          .getLecturerById(data["lecturer"]);
       Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
@@ -117,8 +117,7 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
   }
 
   @override
-  Future<int> putCourses(List<Course> courses) =>
-      dbh.insertTable(
+  Future<int> putCourses(List<Course> courses) => dbh.insertTable(
         "CustomCourse",
         courses.map(
           // Map each course to raw data

@@ -9,16 +9,16 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
 
   SqliteDepartmentProvider(this.dbh);
   @override
-  Future<Department> getDepartmentByNumber(int departmentNumber) async =>
-          dbh.selectOneWhere("Department", "number", departmentNumber.toString())
-          .then(
-            (rawElement) => new Department(
-                  rawElement["id"],
-                  rawElement["number"],
-                  rawElement["name"],
-                  rawElement["color"],
-                ),
-          );
+  Future<Department> getDepartmentByNumber(int departmentNumber) async => dbh
+      .selectOneWhere("Department", "number", departmentNumber.toString())
+      .then(
+        (rawElement) => new Department(
+              rawElement["id"],
+              rawElement["number"],
+              rawElement["name"],
+              rawElement["color"],
+            ),
+      );
 
   @override
   Future<Iterable<Department>> getDepartments() async =>
