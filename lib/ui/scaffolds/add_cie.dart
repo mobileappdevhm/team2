@@ -1,7 +1,5 @@
 import 'package:courses_in_english/controller/cie_controller.dart';
-import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
-import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:flutter/material.dart';
 
 class AddCieScaffold extends StatefulWidget {
@@ -27,45 +25,12 @@ class _AddCieScreenState extends State<AddCieScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
-
     double width = MediaQuery.of(context).size.width;
-    if (!new SessionController().isLoggedIn) {
-      return notLoggedInView();
-    } else {
-      if (orientation == Orientation.portrait) {
-        return verticalScaffold(width);
-      } else {
-        return horizontalScaffold(width);
-      }
-    }
+
+    return loggedInView(width);
   }
 
-  ListView notLoggedInView() {
-    return new ListView(
-      children: <Widget>[
-        new Padding(padding: new EdgeInsets.all(4.0)),
-        new Row(
-          children: <Widget>[
-            new LineSeparator(
-              title: 'Add CIE Course',
-              isBold: true,
-            )
-          ],
-        ),
-        new Padding(padding: new EdgeInsets.all(6.0)),
-        new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Text("Guest Users can't save past CIE courses")
-          ],
-        )
-      ],
-    );
-  }
-
-  Scaffold verticalScaffold(double width) {
+  Scaffold loggedInView(double width) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
@@ -80,69 +45,6 @@ class _AddCieScreenState extends State<AddCieScaffold> {
           tempLecturerNameField(null),
           tempEctsField(null),
           tempDepartmentField(null),
-          new Padding(
-            padding: new EdgeInsets.all(8.0),
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-              new RawMaterialButton(
-                constraints: new BoxConstraints(
-                    minWidth: 180.0,
-                    minHeight: 48.0,
-                    maxWidth: width - 30,
-                    maxHeight: 50.0),
-                onPressed: _onFloatingActionButtonPressed,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(100000.0)),
-                fillColor: Colors.red,
-                child: new Text(
-                  "Add",
-                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-            ],
-          ),
-          new Padding(
-            padding: new EdgeInsets.all(8.0),
-          ),
-        ],
-//        mainAxisAlignment: MainAxisAlignment.start,
-      ),
-    );
-  }
-
-  Scaffold horizontalScaffold(double width) {
-    return new Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: new AppBar(
-        title: new Text("Add Past CIE"),
-        centerTitle: true,
-      ),
-      body: new ListView(
-        children: <Widget>[
-          new Column(
-            children: tl,
-          ),
-          new Row(
-            children: <Widget>[
-              tempNameField(width / 2 - 30.0),
-              tempLecturerNameField(width / 2 - 30.0),
-            ],
-          ),
-          new Row(
-            children: <Widget>[
-              tempEctsField(width / 2 - 30.0),
-              tempDepartmentField(width / 2 - 30.0),
-            ],
-          ),
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
