@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/providers/course_provider.dart';
+import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/course/course.dart';
 
-class MockInetCustomCourseProvider implements InetCourseProvider {
+class MockInetCourseProvider implements InetCourseProvider {
   static const List<Course> MOCK_COURSES = const <Course>[
     course01,
     course02,

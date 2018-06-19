@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/inet_provider_factory.dart';
-import 'package:courses_in_english/io/connect/providers/department_provider.dart';
-import 'package:courses_in_english/io/connect/providers/user_provider.dart';
+import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
+import 'package:courses_in_english/io/inet/providers/department_provider.dart';
+import 'package:courses_in_english/io/inet/providers/user_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/user/user.dart';
 

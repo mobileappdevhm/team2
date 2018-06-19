@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/connect/providers/user_provider.dart';
+import 'package:courses_in_english/io/inet/providers/user_provider.dart';
 import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 
