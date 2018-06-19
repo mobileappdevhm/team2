@@ -1,5 +1,5 @@
-import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/settings_controller.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
@@ -208,7 +208,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _states[1] = value;
           return;
       }
-      new Session().setSettings(
+      new SettingsController().setSettings(
           new UserSettings(offlineMode: _states[0], feedbackMode: _states[1]));
     });
   }
@@ -257,13 +257,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
+    /* TODO Use settingscontroller
     Session s = new Session();
     if (s.settings != null) {
       _states[0] = s.settings.offlineMode;
       _states[1] = s.settings.feedbackMode;
       setState(() {});
     }
+    */
   }
 
-  void clearApp() => new Session().resetApp();
+  // TODO Use settingscontroller
+  void clearApp() => throw new UnimplementedError();
 }

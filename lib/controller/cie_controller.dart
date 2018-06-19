@@ -23,7 +23,9 @@ class CieController {
 
   void addObserver(CieListObserver observer) {
     _observers.add(observer);
-    cies.then((cies) => observer.onCieListUpdate(cies));
+    cies
+        .then((cies) => observer.onCieListUpdate(cies))
+        .catchError((e) => null);
   }
 
   Future<int> enterCie(Cie cie) async {
