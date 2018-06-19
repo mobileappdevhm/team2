@@ -26,16 +26,18 @@ class FavoritesController {
     favorites.then((favorites) => observer.onFavoritesUpdated(favorites));
   }
 
-  void favorizeCourse(Course course) async {
-    await _cacheCourseProvider.favorizeCourse(course);
+  Future<bool> favorizeCourse(Course course) async {
+    bool result = await _cacheCourseProvider.favorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
+    return result;
   }
 
-  void unFavorizeCourse(Course course) async {
-    await _cacheCourseProvider.unFavorizeCourse(course);
+  Future<bool> unFavorizeCourse(Course course) async {
+    bool result = await _cacheCourseProvider.unFavorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
+    return result;
   }
 
   void pushFavorites() async {
