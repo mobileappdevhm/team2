@@ -11,8 +11,8 @@ class SqliteCieProvider implements CieProvider {
   Future<List<Cie>> getCies() async {
     List<Cie> campuses = [];
     DatabaseHelper dbh = new DatabaseHelper();
-    List<Map<String, dynamic>> rawCampusData =
-        await dbh.selectWhere("Cie", "userId", new Session().user.id);
+    List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
+        "Cie", "userId", new Session().user.id.toString());
 
     void iterate(Map<String, dynamic> data) {
       campuses.add(new Cie(data["name"], data["department"],

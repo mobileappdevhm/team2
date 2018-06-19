@@ -1,3 +1,5 @@
+import 'package:courses_in_english/connect/dataprovider/mock_provider_factory.dart';
+import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/services.dart';
 void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  new Session().setUpProviders(new MockProviderFactory());
   runApp(new CieApp());
 }
 

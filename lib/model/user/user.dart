@@ -1,3 +1,5 @@
+import 'package:courses_in_english/model/department/department.dart';
+
 /// User representation.
 class User {
   /// ID of the user
@@ -13,7 +15,7 @@ class User {
   final String lastName;
 
   /// Department number the user is belonging to.
-  final int department;
+  final Department department;
 
   final String token;
 

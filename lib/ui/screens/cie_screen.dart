@@ -4,6 +4,7 @@ import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
+//import 'package:courses_in_english/model/user/user.dart';
 
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
@@ -25,7 +26,7 @@ class CieScreen extends StatefulWidget {
 ///
 class CieScreenState extends State<CieScreen> {
   List<Widget> cieWidgets = [];
-  String userName = "TempUser";
+  String userName = "N/a";
   double totalEcts = 0.0;
 
   @override
@@ -66,6 +67,9 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold verticalScaffold(double width) {
+    try {
+      userName = new Session().user.lastName;
+    } catch (e) {}
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
@@ -184,6 +188,9 @@ class CieScreenState extends State<CieScreen> {
   }
 
   Scaffold horizontalScaffold(double width) {
+    try {
+      userName = new Session().user.lastName;
+    } catch (e) {}
     return new Scaffold(
       body: new Container(
         constraints: new BoxConstraints.expand(),
@@ -328,14 +335,16 @@ class CieScreenState extends State<CieScreen> {
 
     double tempTotalEcts = 0.0;
 
-    for (Cie cie in cieList) {
-      //Department department =
-      //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
-      tempWidgets
-          .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
+    if (cieList != null) {
+      for (Cie cie in cieList) {
+        //Department department =
+        //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
+        tempWidgets
+            .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
 
-      ///TODO: fix the null
-      tempTotalEcts += cie.ects;
+        ///TODO: fix the null
+        tempTotalEcts += cie.ects;
+      }
     }
 
     cieWidgets = tempWidgets;
