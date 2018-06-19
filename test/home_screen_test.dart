@@ -1,3 +1,4 @@
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:courses_in_english/ui/screens/sample_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ void main() {
   testWidgets('LoginTest', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
     expect(find.byType(TextFormField), findsNWidgets(2));
-    expect(find.widgetWithText(RaisedButton, LoginScreen.continueAsGuestButton),
+    expect(find.widgetWithText(RoundedButton, LoginScreen.continueAsGuestButton),
         findsOneWidget);
-    expect(find.widgetWithText(RaisedButton, "Login"), findsOneWidget);
+    expect(find.widgetWithText(RoundedButton, LoginScreen.loginButton), findsOneWidget);
   });
 }
