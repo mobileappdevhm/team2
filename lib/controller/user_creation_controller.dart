@@ -2,20 +2,21 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
 import 'package:courses_in_english/io/inet/providers/department_provider.dart';
-import 'package:courses_in_english/io/inet/providers/user_provider.dart';
+// import 'package:courses_in_english/io/inet/providers/user_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 /// This class controls the creation of users.
 class UserCreationController {
-  final InetUserProvider userProvider;
-  final InetDepartmentProvider departmentProvider;
+  // InetUserProvider _userProvider;
+  InetDepartmentProvider _departmentProvider;
 
   Iterable<Department> _departments;
 
-  UserCreationController(InetProviderFactory providerFactory)
-      : userProvider = providerFactory.createUserProvider(),
-        departmentProvider = providerFactory.createDepartmentProvider();
+  void injectDependencies(InetProviderFactory providerFactory) {
+    // _userProvider = providerFactory.createUserProvider();
+    _departmentProvider = providerFactory.createDepartmentProvider();
+  }
 
   /// Call UserCreationController.prepare before accessing this getter.
   /// UserCreationController.ready tells if this getter is prepared.
@@ -24,7 +25,7 @@ class UserCreationController {
   /// Prepare UserCreationController by downloading available departments for selection.
   /// Returns prepared UserCreationController
   Future<UserCreationController> prepare() async {
-    _departments = await departmentProvider.getDepartments();
+    _departments = await _departmentProvider.getDepartments();
     return this;
   }
 

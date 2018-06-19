@@ -40,21 +40,6 @@ void main() {
     // TODO Mock cache provider out
     session.setUpProviders(providerFactory, new SqliteProviderFactory());
   });
-  test("Download", () {
-    verifyZeroInteractions(providerFactory.userProvider);
-    verifyZeroInteractions(providerFactory.lecturerProvider);
-    verifyZeroInteractions(providerFactory.departmentProvider);
-    verifyZeroInteractions(providerFactory.courseProvider);
-    verifyZeroInteractions(providerFactory.campusProvider);
-    session.download();
-    verifyZeroInteractions(providerFactory.userProvider);
-    untilCalled(providerFactory.lecturerProvider.getLecturers());
-    untilCalled(providerFactory.departmentProvider.getDepartments());
-    untilCalled(providerFactory.courseProvider.getFavorizedCourses());
-    untilCalled(providerFactory.courseProvider.getSelectedCourses());
-    untilCalled(providerFactory.courseProvider.getCourses());
-    untilCalled(providerFactory.campusProvider.getCampuses());
-  });
   test("Favorize", () {
     verifyZeroInteractions(providerFactory.courseProvider);
     session.favorize(course01);
@@ -75,10 +60,5 @@ void main() {
     expect(session.favorites, []);
     expect(session.selected, []);
     expect(session.courses, []);
-  });
-  test("Login", () {
-    verifyZeroInteractions(providerFactory.userProvider);
-    session.login("test@hm.edu", "test1234");
-    untilCalled(providerFactory.userProvider.login("test@hm.edu", "test1234"));
   });
 }

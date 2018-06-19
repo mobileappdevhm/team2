@@ -1,4 +1,6 @@
 import 'package:courses_in_english/controller/content_controller.dart';
+import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/user_creation_controller.dart';
 import 'package:courses_in_english/io/cache/sqlite_provider_factory.dart';
 import 'package:courses_in_english/io/inet/mock_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
@@ -14,6 +16,9 @@ void main() {
       .setUpProviders(new MockProviderFactory(), new SqliteProviderFactory());
   new ContentController().injectDependencies(
       new MockProviderFactory(), new SqliteProviderFactory());
+  new SessionController().injectDependencies(
+      new MockProviderFactory(), new SqliteProviderFactory());
+  new UserCreationController().injectDependencies(new MockProviderFactory());
   runApp(new CieApp());
 }
 
