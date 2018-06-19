@@ -59,10 +59,13 @@ class _HomeScaffoldState extends State<HomeScaffold> {
             _filterCoursesByDepartment(dep);
           },
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          hint: Text("All Departments"),
+
         )
       ];
     }
 
+    // If we are currently in filter mode, add clear button
     if (_selectedIndex == 0 && isFiltered) {
       actions.insert(
           0,
@@ -79,9 +82,12 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     return new AppBar(
       title: isFiltered
           ? Text("search: \"" + _searchTerm + "\"")
-          : Text('Courses in English'),
-      centerTitle: true,
+          : Text('All Courses'),
+      centerTitle: false,
       actions: actions,
+      automaticallyImplyLeading: true,
+
+
     );
   }
 
