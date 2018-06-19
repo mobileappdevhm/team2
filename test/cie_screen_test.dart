@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 
-
 void main() {
   testWidgets('testTest', (WidgetTester tester) async {
-    await tester.pumpWidget(
-        new MaterialApp(home: new Scaffold(body: new CieScreen())));
+    await tester
+        .pumpWidget(new MaterialApp(home: new Scaffold(body: new CieScreen())));
     expect(find.text("Guest Users don't have profiles"), findsOneWidget);
     expect(find.byType(LineSeparator), findsOneWidget);
   });

@@ -115,17 +115,17 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Widget resetButton() {
     return new Container(
-        child: new RoundedButton(
-          text: new Text("Reset Password",
-              style: new TextStyle(fontSize: 18.0, color: Colors.white)),
-          onPressed: (() {
-            resetPassword(
-                _userEmail, _code, _newPassword, _newPasswordRepeat, context);
-          }),
-          color: Colors.black,
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 15.0),
-        alignment: Alignment.center,
-      );
+      child: new RoundedButton(
+        text: new Text("Reset Password",
+            style: new TextStyle(fontSize: 18.0, color: Colors.white)),
+        onPressed: (() {
+          resetPassword(
+              _userEmail, _code, _newPassword, _newPasswordRepeat, context);
+        }),
+        color: Colors.black,
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 15.0),
+      alignment: Alignment.center,
+    );
   }
 }

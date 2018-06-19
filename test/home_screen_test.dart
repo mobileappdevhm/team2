@@ -23,8 +23,8 @@ void main() {
   testWidgets('LoginTest', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
     expect(find.byType(TextFormField), findsNWidgets(2));
-    expect(
-        find.widgetWithText(RaisedButton, LoginScreen.continueAsGuestButton), findsOneWidget);
+    expect(find.widgetWithText(RaisedButton, LoginScreen.continueAsGuestButton),
+        findsOneWidget);
     expect(find.widgetWithText(RaisedButton, "Login"), findsOneWidget);
   });
 }

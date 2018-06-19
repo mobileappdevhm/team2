@@ -33,8 +33,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email;
-  String password;
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: new LineSeparator(),
                             margin: new EdgeInsets.symmetric(horizontal: 10.0),
                           ),
-                          new Container(child:
-                              resetButton(context),
+                          new Container(
+                            child: resetButton(context),
                           ),
                           new Container(
                             child: new LineSeparator(),
@@ -88,14 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
           child: new RoundedButton(
             text: new Text(
               LoginScreen.continueAsGuestButton,
-              style: new TextStyle(fontSize: 18.0,color: Colors.white),
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
             ),
             onPressed: (() {
               Session s = new Session();
               s.setSettings(new UserSettings());
               Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text(LoginScreen.continueAsGuestSnack),
-                duration: new Duration(seconds: 1),));
+                    content: new Text(LoginScreen.continueAsGuestSnack),
+                    duration: new Duration(seconds: 1),
+                  ));
               new Future.delayed(new Duration(seconds: 1), () {
                 Navigator.pushReplacement(
                   context,
@@ -136,7 +137,8 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         }),
         text: new Text(
-          LoginScreen.loginButton,style: TextStyle(fontSize: 18.0,color: Colors.white),
+          LoginScreen.loginButton,
+          style: TextStyle(fontSize: 18.0, color: Colors.white),
         ),
         color: Colors.black,
         key: LoginScreen.keyLoginButton,
@@ -149,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded userNameField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      email = controller.text.toString();
+      _email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
@@ -161,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
               icon: new Icon(Icons.person),
             ),
             onFieldSubmitted: (String input) {
-              this.email = input;
+              this._email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
             key: LoginScreen.keyEmailField,
@@ -174,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded passwordField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      password = controller.text.toString();
+      _password = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
@@ -185,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
           onFieldSubmitted: (String input) {
-            this.password = input;
+            this._password = input;
           },
           controller: controller,
           focusNode: passwordNode,
@@ -209,18 +211,18 @@ class _LoginScreenState extends State<LoginScreen> {
   void doLogin(BuildContext context) {
     Session s = new Session();
     new Session().login(
-      email,
-      password,
+      _email,
+      _password,
       success: (session) {
         Scaffold.of(context).showSnackBar(
-          new SnackBar(
-            content: new Text(
-              LoginScreen.loginSuccessSnack,
-              textAlign: TextAlign.center,
-            ),
-            duration: new Duration(seconds: 1),
-          ),
-        );
+              new SnackBar(
+                content: new Text(
+                  LoginScreen.loginSuccessSnack,
+                  textAlign: TextAlign.center,
+                ),
+                duration: new Duration(seconds: 1),
+              ),
+            );
         new Future.delayed(new Duration(milliseconds: 1200), () {
           Navigator.pushReplacement(
             context,
@@ -230,14 +232,14 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       failure: (session, error) {
         Scaffold.of(context).showSnackBar(
-          new SnackBar(
-            content: new Text(
-              LoginScreen.loginFailureSnack,
-              textAlign: TextAlign.center,
-            ),
-            duration: new Duration(seconds: 2),
-          ),
-        );
+              new SnackBar(
+                content: new Text(
+                  LoginScreen.loginFailureSnack,
+                  textAlign: TextAlign.center,
+                ),
+                duration: new Duration(seconds: 2),
+              ),
+            );
       },
     );
     if (s.user != null) {
@@ -252,65 +254,65 @@ class _LoginScreenState extends State<LoginScreen> {
     bool emailEmpty = true;
     bool containsAtAndDot = true;
     bool passwordEmpty = true;
-    if (this.email != null) {
-      if (this.email.length > 0) {
+    if (this._email != null) {
+      if (this._email.length > 0) {
         emailEmpty = false;
-        if (!this.email.contains("@") && !this.email.contains(".")) {
+        if (!this._email.contains("@") && !this._email.contains(".")) {
           containsAtAndDot = false;
         }
       }
     }
-    if (this.password != null) {
-      if (this.password.length > 0) {
+    if (this._password != null) {
+      if (this._password.length > 0) {
         passwordEmpty = false;
       }
     }
     if (emailEmpty == true && passwordEmpty == false) {
       Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          content: new Text(
-            LoginScreen.noEmailSnack,
-            textAlign: TextAlign.center,
-          ),
-          duration: new Duration(seconds: 2),
-        ),
-      );
+            new SnackBar(
+              content: new Text(
+                LoginScreen.noEmailSnack,
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
       return false;
     }
     if (emailEmpty == false && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          content: new Text(
-            LoginScreen.noPasswordSnack,
-            textAlign: TextAlign.center,
-          ),
-          duration: new Duration(seconds: 2),
-        ),
-      );
+            new SnackBar(
+              content: new Text(
+                LoginScreen.noPasswordSnack,
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
       return false;
     }
     if (emailEmpty == true && passwordEmpty == true) {
       Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          content: new Text(
-            LoginScreen.noEmailAndNoPasswordSnack,
-            textAlign: TextAlign.center,
-          ),
-          duration: new Duration(seconds: 2),
-        ),
-      );
+            new SnackBar(
+              content: new Text(
+                LoginScreen.noEmailAndNoPasswordSnack,
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
       return false;
     }
     if (containsAtAndDot == false) {
       Scaffold.of(context).showSnackBar(
-        new SnackBar(
-          content: new Text(
-            LoginScreen.emailWrongFormatSnack,
-            textAlign: TextAlign.center,
-          ),
-          duration: new Duration(seconds: 2),
-        ),
-      );
+            new SnackBar(
+              content: new Text(
+                LoginScreen.emailWrongFormatSnack,
+                textAlign: TextAlign.center,
+              ),
+              duration: new Duration(seconds: 2),
+            ),
+          );
       return false;
     }
     return true;
@@ -322,11 +324,15 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(
             context,
             new MaterialPageRoute(
-                builder: (context) =>
-                new ResetPasswordRequest()));
+                builder: (context) => new ResetPasswordRequest()));
       }),
       child: new Text(
-        LoginScreen.resetPasswordButton, style: TextStyle(fontSize: 15.0,color: Colors.redAccent.withOpacity(0.8),),),
+        LoginScreen.resetPasswordButton,
+        style: TextStyle(
+          fontSize: 15.0,
+          color: Colors.redAccent.withOpacity(0.8),
+        ),
+      ),
       key: LoginScreen.keyResetKey,
     );
   }

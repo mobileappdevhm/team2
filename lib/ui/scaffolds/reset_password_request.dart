@@ -8,17 +8,18 @@ class ResetPasswordRequest extends StatelessWidget {
   Widget build(BuildContext context) {
     String userEmail;
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Request Reset Code"),
-        centerTitle: true,
-      ),
-      body: new Builder(builder: (BuildContext context){return new Column(
-        children: <Widget>[
-          topHalf(userEmail),
-          lowerHalf(userEmail, context),
-        ],
-      );
-    }));
+        appBar: new AppBar(
+          title: new Text("Request Reset Code"),
+          centerTitle: true,
+        ),
+        body: new Builder(builder: (BuildContext context) {
+          return new Column(
+            children: <Widget>[
+              topHalf(userEmail),
+              lowerHalf(userEmail, context),
+            ],
+          );
+        }));
   }
 
   Widget topHalf(String userEmail) {
@@ -68,13 +69,20 @@ class ResetPasswordRequest extends StatelessWidget {
               userEmail.contains("@") &&
               userEmail.contains(".")) {
             new Session().requestPasswordReset(userEmail);
+            //TODO show message if email is in database or not.
             Navigator.pushReplacement(
               context,
               new MaterialPageRoute(
                   builder: (context) => new ResetPassword(userEmail)),
             );
-          }else{
-            Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("Please Enter a Valid E-Mail in the Format: abc@d.e",textAlign: TextAlign.center,),duration: new Duration(seconds: 3),));
+          } else {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: new Text(
+                    "Please Enter a Valid E-Mail in the Format: abc@d.e",
+                    textAlign: TextAlign.center,
+                  ),
+                  duration: new Duration(seconds: 3),
+                ));
           }
         }),
         color: Colors.black,
