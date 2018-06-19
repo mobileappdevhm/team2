@@ -21,8 +21,8 @@ class MockInetLecturerProvider implements InetLecturerProvider {
   }
 
   @override
-  Future<Iterable<Lecturer>> getLecturers() async {
-    // TODO: implement getLecturers
-    return new Future(() => MOCK_LECTURERS.values);
-  }
+  Future<List<Lecturer>> getLecturers() async => new Future.delayed(
+        new Duration(milliseconds: 200),
+        () => MOCK_LECTURERS.values.toList(),
+      );
 }

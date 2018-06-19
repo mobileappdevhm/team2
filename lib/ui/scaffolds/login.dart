@@ -4,7 +4,7 @@ import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+import 'package:courses_in_english/ui/scaffolds/loading.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
               s.setSettings(new UserSettings());
               Navigator.pushReplacement(
                 context,
-                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+                new MaterialPageRoute(
+                    builder: (context) => new LoadingScaffold()),
               );
             },
             shape: new RoundedRectangleBorder(
@@ -210,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
         new Future.delayed(new Duration(milliseconds: 1200), () {
           Navigator.pushReplacement(
             context,
-            new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+            new MaterialPageRoute(builder: (context) => new LoadingScaffold()),
           );
         });
       },
@@ -229,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (s.user != null) {
       Navigator.push(
         context,
-        new MaterialPageRoute(builder: (context) => new HomeScaffold()),
+        new MaterialPageRoute(builder: (context) => new LoadingScaffold()),
       );
     }
   }

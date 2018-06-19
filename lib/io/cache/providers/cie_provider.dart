@@ -1,15 +1,16 @@
 import 'dart:async';
 
 import 'package:courses_in_english/model/cie/cie.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 /// Provider for campuses.
 abstract class CacheCieProvider {
   /// Return list of campuses.
-  Future<List<Cie>> getCies();
+  Future<List<Cie>> getCies(User user);
 
-  Future<int> putCies(List<Cie> cies);
+  Future<int> putCies(List<Cie> cies, User user);
 
-  Future<int> putCie(Cie cie);
+  Future<int> putCie(Cie cie, User user);
 
   void removeCie(Cie cie);
 }

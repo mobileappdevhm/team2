@@ -34,6 +34,7 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
                 ),
           );
 
+  @override
   Future<int> putDepartments(List<Department> departments) async =>
       dbh.insertTable(
         "Department",

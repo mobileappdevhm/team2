@@ -1,5 +1,5 @@
-import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/controller/ics_creator.dart';
+import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -11,8 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 class HomeScaffold extends StatefulWidget {
+  final Content content;
+
+  HomeScaffold(this.content);
+
   @override
-  State<StatefulWidget> createState() => new _HomeScaffoldState();
+  State<StatefulWidget> createState() => new _HomeScaffoldState(this.content);
 }
 
 class _HomeScaffoldState extends State<HomeScaffold> {
@@ -20,13 +24,22 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   final PageController _controller =
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
+  final Content content;
   List<Course> displayedCourses = [];
-  Session session = new Session();
   SearchBar searchBar;
   bool isFiltered = false;
   String _searchTerm;
-  bool loading = true;
+  bool loading = false;
 
+  _HomeScaffoldState(this.content) {
+    displayedCourses = content.courses;
+    // Initialize searchBar
+    searchBar = new SearchBar(
+        inBar: true,
+        setState: setState,
+        onSubmitted: _filterCourses,
+        buildDefaultAppBar: buildAppBar);
+  }
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
@@ -36,7 +49,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         new IconButton(
           icon: new Icon(Icons.calendar_today),
           onPressed: () {
-            saveIcsFile(session.courses);
+            saveIcsFile(content.courses);
             AlertDialog dialog = new AlertDialog(
               content: new Text("Ics was saved to your Phones Storage"),
             );
@@ -59,7 +72,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
               icon: Icon(Icons.clear),
               onPressed: () {
                 setState(() {
-                  this.displayedCourses = session.courses;
+                  this.displayedCourses = content.courses;
                   isFiltered = false;
                 });
               }));
@@ -77,7 +90,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   _filterCourses(String term) {
     List<Course> filteredCourses = new List<Course>();
 
-    for (Course course in session.courses) {
+    for (Course course in content.courses) {
       if ((course.name != null && course.name.contains(term)) ||
           course.description != null && course.description.contains(term)) {
         filteredCourses.add(course);
@@ -91,34 +104,16 @@ class _HomeScaffoldState extends State<HomeScaffold> {
     });
   }
 
-  _HomeScaffoldState() {
-    session.callbacks.add((session) {
-      if (mounted) {
-        setState(() {
-          displayedCourses = session.courses;
-          loading = false;
-        });
-      }
-    });
-    // TODO error handling for download
-    session.download();
-    // Initialize searchBar
-    searchBar = new SearchBar(
-        inBar: true,
-        setState: setState,
-        onSubmitted: _filterCourses,
-        buildDefaultAppBar: buildAppBar);
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
     if (!loading) {
       List<Widget> screens = [
-        new CourseListScreen(displayedCourses, session.favorites),
-        new LocationScreen(session.campuses),
-        new TimetableScreen(session.courses),
-        new FavoriteListScreen(session.favorites),
+        // TODO FIX THIS
+        new CourseListScreen(displayedCourses, []),
+        new LocationScreen(content.campuses),
+        new TimetableScreen(content.courses),
+        new FavoriteListScreen([]),
         new CieScreen(),
         new SettingsScreen()
       ];

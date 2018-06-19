@@ -1,3 +1,4 @@
+import 'package:courses_in_english/controller/content_controller.dart';
 import 'package:courses_in_english/io/cache/sqlite_provider_factory.dart';
 import 'package:courses_in_english/io/inet/mock_inet_provider_factory.dart';
 import 'package:courses_in_english/controller/session.dart';
@@ -11,6 +12,8 @@ void main() {
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   new Session()
       .setUpProviders(new MockProviderFactory(), new SqliteProviderFactory());
+  new ContentController().injectDependencies(
+      new MockProviderFactory(), new SqliteProviderFactory());
   runApp(new CieApp());
 }
 

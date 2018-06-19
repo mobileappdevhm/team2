@@ -172,7 +172,7 @@ class Session {
   Future<int> enterCie(Cie cie) async {
     // TODO use callback
     _enteredCie.add(cie);
-    return _cieProvider.putCie(cie);
+    return _cieProvider.putCie(cie, user);
   }
 
   Future<int> removeCie(Cie cie) async {

@@ -9,4 +9,6 @@ abstract class CacheDepartmentProvider {
 
   /// Get a department by its number.
   Future<Department> getDepartmentByNumber(int departmentNumber);
+
+  Future<int> putDepartments(List<Department> departments);
 }

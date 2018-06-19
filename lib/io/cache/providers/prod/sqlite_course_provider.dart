@@ -119,10 +119,12 @@ class SqliteCourseProvider implements CacheCourseProvider {
   @override
   Future<int> putCourses(List<Course> courses) async => dbh.insertTable(
         "Course",
-        courses.map(
-          // Map each course to raw data
-          (course) => course.toMap(),
-        ),
+        courses
+            .map(
+              // Map each course to raw data
+              (course) => course.toMap(),
+            )
+            .toList(),
       ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE?Arnt those going to be put in at the start?
 
   @override

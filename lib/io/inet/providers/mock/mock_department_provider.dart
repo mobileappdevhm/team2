@@ -30,8 +30,8 @@ class MockInetDepartmentProvider implements InetDepartmentProvider {
   }
 
   @override
-  Future<Iterable<Department>> getDepartments() async {
-    return new Future.delayed(
-        const Duration(milliseconds: 300), () => MOCK_DEPARTMENTS.values);
-  }
+  Future<List<Department>> getDepartments() async => new Future.delayed(
+        const Duration(milliseconds: 300),
+        () => MOCK_DEPARTMENTS.values.toList(),
+      );
 }

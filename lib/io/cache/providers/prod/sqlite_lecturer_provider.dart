@@ -35,7 +35,8 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
     return new Future(() => lecturers);
   }
 
-  Future<int> putLecturer(List<Lecturer> lecturers) async {
+  @override
+  Future<int> putLecturers(List<Lecturer> lecturers) async {
     List<Map<String, dynamic>> lecturerList = [];
 
     void iterate(Lecturer data) {
