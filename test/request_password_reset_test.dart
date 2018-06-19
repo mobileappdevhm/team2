@@ -53,7 +53,7 @@ void main() {
     expect(find.widgetWithText(TextField, "abc@hm.edu"), findsOneWidget);
     await tester.tap(find.byType(RoundedButton).first);
     await tester.pump();
-    expect(find.byType(PasswordReset), findsOneWidget);
+    expect(find.widgetWithText(AlertDialog,RequestPasswordReset.alertDialogText), findsOneWidget);
   });
 
   testWidgets("SkipRequestCode", (WidgetTester tester) async {

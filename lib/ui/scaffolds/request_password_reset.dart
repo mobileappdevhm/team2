@@ -14,6 +14,7 @@ class RequestPasswordReset extends StatelessWidget {
       "Please Enter a Valid E-Mail in the Format: abc@d.e";
   static final String descriptionText =
       "A reset Code will be sent to the E-Mail address entered below.";
+  static final String alertDialogText = "Check your Inbox & Spam for our Mail.";
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class RequestPasswordReset extends StatelessWidget {
                             builder: (BuildContext context) {
                               return new AlertDialog(
                                 title: new Text(
-                                    "Check your Inbox & Spam for our Mail."),
+                                   RequestPasswordReset.alertDialogText),
                                 actions: <Widget>[
                                   new FlatButton(onPressed: ((){
                                     Navigator.pop(context);
