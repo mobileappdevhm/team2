@@ -110,7 +110,11 @@ class _PasswordResetState extends State<PasswordReset> {
     if (newPasswordRepeat != newPassword || newPassword.length < 1) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
-              content: new Text(PasswordReset.passwordsNoMatchSnack,style: new TextStyle(fontSize: 24.0),textAlign: TextAlign.center,),
+              content: new Text(
+                PasswordReset.passwordsNoMatchSnack,
+                style: new TextStyle(fontSize: 24.0),
+                textAlign: TextAlign.center,
+              ),
             ),
           );
     } else {

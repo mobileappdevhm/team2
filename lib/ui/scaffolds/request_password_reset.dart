@@ -45,17 +45,19 @@ class RequestPasswordReset extends StatelessWidget {
                             builder: (BuildContext context) {
                               return new AlertDialog(
                                 title: new Text(
-                                   RequestPasswordReset.alertDialogText),
+                                    RequestPasswordReset.alertDialogText),
                                 actions: <Widget>[
-                                  new FlatButton(onPressed: ((){
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) =>
-                                          new PasswordReset(userEmail)),
-                                    );
-                                  }), child: new Text("Continue"))
+                                  new FlatButton(
+                                      onPressed: (() {
+                                        Navigator.pop(context);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  new PasswordReset(userEmail)),
+                                        );
+                                      }),
+                                      child: new Text("Continue"))
                                 ],
                               );
                             });
