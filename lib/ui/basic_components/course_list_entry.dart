@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/favorites_controller.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ const Color HEART = const Color(0xFFFFA1A1);
 class CourseListEntry extends StatelessWidget {
   final Course course;
   final bool favorite;
-  final Session session = new Session();
+  final FavoritesController favoritesController = new FavoritesController();
 
   CourseListEntry(this.course, this.favorite);
 
@@ -51,8 +51,8 @@ class CourseListEntry extends StatelessWidget {
                       iconSize: 9 * vw,
                       color: favorite ? HEART : Colors.black12,
                       onPressed: favorite
-                          ? () => session.unfavorize(course)
-                          : () => session.favorize(course),
+                          ? () => favoritesController.unFavorizeCourse(course)
+                          : () => favoritesController.favorizeCourse(course),
                     ),
                   ),
                 ]),

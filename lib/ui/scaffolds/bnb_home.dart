@@ -1,3 +1,4 @@
+import 'package:courses_in_english/controller/favorites_controller.dart';
 import 'package:courses_in_english/controller/ics_creator.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
@@ -19,20 +20,22 @@ class HomeScaffold extends StatefulWidget {
   State<StatefulWidget> createState() => new _HomeScaffoldState(this.content);
 }
 
-class _HomeScaffoldState extends State<HomeScaffold> {
+class _HomeScaffoldState extends State<HomeScaffold>
+    implements FavoriteListObserver {
   static final int _initialIndex = 2;
   final PageController _controller =
       new PageController(initialPage: _initialIndex, keepPage: true);
   int _selectedIndex = _initialIndex;
   final Content content;
   List<Course> displayedCourses = [];
+  List<Course> favorites = [];
   SearchBar searchBar;
   bool isFiltered = false;
   String _searchTerm;
-  bool loading = false;
 
   _HomeScaffoldState(this.content) {
     displayedCourses = content.courses;
+    new FavoritesController().addObserver(this);
     // Initialize searchBar
     searchBar = new SearchBar(
         inBar: true,
@@ -107,71 +110,68 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
-    if (!loading) {
-      List<Widget> screens = [
-        // TODO FIX THIS
-        new CourseListScreen(displayedCourses, []),
-        new LocationScreen(content.campuses),
-        new TimetableScreen(content.courses),
-        new FavoriteListScreen([]),
-        new CieScreen(),
-        new SettingsScreen()
-      ];
-      scaffold = new Scaffold(
-        bottomNavigationBar: new BottomNavigationBar(
-          items: [
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.import_contacts),
-              title: new Text('Courses'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.map),
-              title: new Text('Maps'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.calendar_today),
-              title: new Text('Timetable'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.favorite_border),
-              title: new Text('Favorites'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.account_circle),
-              title: new Text('Profile'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.settings),
-              title: new Text('Settings'),
-            ),
-          ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: (newIndex) {
-            setState(() {
-              _selectedIndex = newIndex;
-              _controller.jumpToPage(newIndex);
-            });
-          },
-        ),
-        appBar: searchBar.build(context),
-        body: new PageView(
-          controller: _controller,
-          children: screens,
-          onPageChanged: (newIndex) {
-            setState(() {
-              _selectedIndex = newIndex;
-            });
-          },
-        ),
-      );
-    } else {
-      scaffold = new Scaffold(
-        body: new Center(
-          child: new Image(image: new AssetImage("res/anim_cow.gif")),
-        ),
-      );
-    }
+    List<Widget> screens = [
+      // TODO FIX THIS
+      new CourseListScreen(displayedCourses, favorites),
+      new LocationScreen(content.campuses),
+      new TimetableScreen(content.courses),
+      new FavoriteListScreen(favorites),
+      new CieScreen(),
+      new SettingsScreen()
+    ];
+    scaffold = new Scaffold(
+      bottomNavigationBar: new BottomNavigationBar(
+        items: [
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.import_contacts),
+            title: new Text('Courses'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.map),
+            title: new Text('Maps'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.calendar_today),
+            title: new Text('Timetable'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.favorite_border),
+            title: new Text('Favorites'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.account_circle),
+            title: new Text('Profile'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.settings),
+            title: new Text('Settings'),
+          ),
+        ],
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: (newIndex) {
+          setState(() {
+            _selectedIndex = newIndex;
+            _controller.jumpToPage(newIndex);
+          });
+        },
+      ),
+      appBar: searchBar.build(context),
+      body: new PageView(
+        controller: _controller,
+        children: screens,
+        onPageChanged: (newIndex) {
+          setState(() {
+            _selectedIndex = newIndex;
+          });
+        },
+      ),
+    );
+
     return scaffold;
   }
+
+  @override
+  void onFavoritesUpdated(List<Course> favorites) =>
+      setState(() => this.favorites = favorites);
 }

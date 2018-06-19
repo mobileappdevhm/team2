@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/data_access/prod_databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
-import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
@@ -40,7 +39,6 @@ class Session {
   List<Cie> _enteredCie = [];
 
   // Providers
-  InetCourseProvider _courseProvider;
   CacheCieProvider _cieProvider;
   //UserSettingsProvider _settingsProvider;
 
@@ -49,35 +47,8 @@ class Session {
   /// This method is useful for mocking the data providers in tests.
   void setUpProviders(InetProviderFactory inetProviderFactory,
       CacheProviderFactory cacheProviderFactory) {
-    _courseProvider = inetProviderFactory.createCourseProvider();
     _cieProvider = cacheProviderFactory.createCieProvider();
     //_settingsProvider = providerFactory.createSettingsProvider();
-  }
-
-  void favorize(Course c, {OnSuccess success, OnFailure failure}) async {
-    bool successful = true;
-    _favorites = await _courseProvider.favorizeCourse(c).then((_) {
-      return _courseProvider.getFavorizedCourses();
-    }).catchError((error) {
-      successful = false;
-      if (failure != null) failure(this, error);
-    }).whenComplete(() {
-      if (success != null) success(this);
-    });
-    if (successful) callbacks.forEach((callback) => callback(this));
-  }
-
-  void unfavorize(Course c, {OnSuccess success, OnFailure failure}) async {
-    bool successful = true;
-    _favorites = await _courseProvider.unFavorizeCourse(c).then((_) {
-      return _courseProvider.getFavorizedCourses();
-    }).catchError((error) {
-      successful = false;
-      if (failure != null) failure(this, error);
-    }).whenComplete(() {
-      if (success != null) success(this);
-    });
-    if (successful) callbacks.forEach((callback) => callback(this));
   }
 
   void select(Course c, {OnSuccess success, OnFailure failure}) async {

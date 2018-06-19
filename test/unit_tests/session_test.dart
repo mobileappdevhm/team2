@@ -40,18 +40,6 @@ void main() {
     // TODO Mock cache provider out
     session.setUpProviders(providerFactory, new SqliteProviderFactory());
   });
-  test("Favorize", () {
-    verifyZeroInteractions(providerFactory.courseProvider);
-    session.favorize(course01);
-    untilCalled(providerFactory.courseProvider.favorizeCourse(course01));
-    verifyNever(providerFactory.courseProvider.unFavorizeCourse(course01));
-  });
-  test("Unfavorize", () {
-    verifyZeroInteractions(providerFactory.courseProvider);
-    session.unfavorize(course01);
-    untilCalled(providerFactory.courseProvider.unFavorizeCourse(course01));
-    verifyNever(providerFactory.courseProvider.favorizeCourse(course01));
-  });
   test("Test getters", () {
     // Expect empty lists
     expect(session.lecturers, []);
