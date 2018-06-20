@@ -25,7 +25,8 @@ class SessionController {
   User get user => _user;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
-      CacheProviderFactory cacheProviderFactory, [FirebaseController firebase]) {
+      CacheProviderFactory cacheProviderFactory,
+      [FirebaseController firebase]) {
     _inetUserProvider = inetProviderFactory.createUserProvider();
     if (firebase != null) {
       _firebaseController = firebase;

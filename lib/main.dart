@@ -15,12 +15,13 @@ void main() {
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   new ContentController().injectDependencies(
       new MockProviderFactory(), new SqliteProviderFactory());
-  new SessionController().injectDependencies(
-      new MockProviderFactory(), new SqliteProviderFactory(), new FirebaseController());
+  new SessionController().injectDependencies(new MockProviderFactory(),
+      new SqliteProviderFactory(), new FirebaseController());
   // TODO switch to sql
-  new FavoritesController().injectDependencies(
-      new MockProviderFactory(), new InMemoryProviderFactory(), new FirebaseController());
-  new CieController().injectDependencies(new SqliteProviderFactory(), new FirebaseController());
+  new FavoritesController().injectDependencies(new MockProviderFactory(),
+      new InMemoryProviderFactory(), new FirebaseController());
+  new CieController().injectDependencies(
+      new SqliteProviderFactory(), new FirebaseController());
   runApp(new CieApp());
 }
 

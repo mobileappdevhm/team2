@@ -18,7 +18,8 @@ class CieController {
   FirebaseController _firebaseController;
   User _user;
 
-  void injectDependencies(CacheProviderFactory factory, [FirebaseController firebase]) {
+  void injectDependencies(CacheProviderFactory factory,
+      [FirebaseController firebase]) {
     _cieProvider = factory.createCieProvider();
     if (firebase != null) {
       _firebaseController = firebase;
@@ -41,7 +42,8 @@ class CieController {
     _cieProvider.getCies(_user).then((List<Cie> value) {
       if (value != null) {
         String ammount = value.length.toString();
-        _firebaseController?.logUserParameter(name: "custom_courses", value: ammount);
+        _firebaseController?.logUserParameter(
+            name: "custom_courses", value: ammount);
       }
     });
     return result;
@@ -55,7 +57,8 @@ class CieController {
     _cieProvider.getCies(_user).then((List<Cie> value) {
       if (value != null) {
         String ammount = value.length.toString();
-        _firebaseController?.logUserParameter(name: "custom_courses", value: ammount);
+        _firebaseController?.logUserParameter(
+            name: "custom_courses", value: ammount);
       }
     });
     return result;

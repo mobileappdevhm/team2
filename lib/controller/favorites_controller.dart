@@ -21,7 +21,8 @@ class FavoritesController {
   //InetCourseProvider _inetCourseProvider;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
-      CacheProviderFactory cacheProviderFactory, [FirebaseController firebase]) {
+      CacheProviderFactory cacheProviderFactory,
+      [FirebaseController firebase]) {
     _cacheCourseProvider = cacheProviderFactory.createCourseProvider();
     //_inetCourseProvider = inetProviderFactory.createCourseProvider();
     if (firebase != null) {
@@ -42,7 +43,8 @@ class FavoritesController {
     favorites.then((List<Course> value) {
       if (value != null) {
         String ammount = value.length.toString();
-        _firebaseController?.logUserParameter(name: "favorites", value: ammount);
+        _firebaseController?.logUserParameter(
+            name: "favorites", value: ammount);
       }
     });
     return result;
@@ -52,12 +54,14 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.unFavorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
-    _firebaseController?.logEvent(name: "unfavorize_course", value: course.name);
+    _firebaseController?.logEvent(
+        name: "unfavorize_course", value: course.name);
     String ammount;
     favorites.then((List<Course> value) {
       if (value != null) {
         String ammount = value.length.toString();
-        _firebaseController?.logUserParameter(name: "favorites", value: ammount);
+        _firebaseController?.logUserParameter(
+            name: "favorites", value: ammount);
       }
     });
     _firebaseController?.logUserParameter(name: "favorites", value: ammount);
