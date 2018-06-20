@@ -10,6 +10,9 @@ class Cie {
   Cie(this.name, this.department, this.lecturerName, this.ects, [this.id]);
 
   @override
+  int get hashCode => hash4(name, ects, lecturerName, department);
+
+  @override
   bool operator ==(o) =>
       o is Cie &&
       o.name == name &&
@@ -17,8 +20,6 @@ class Cie {
       o.lecturerName == lecturerName &&
       o.department == department;
 
-  @override
-  int get hashcode => hash4(name, ects, lecturerName, department);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
