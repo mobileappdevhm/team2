@@ -36,7 +36,8 @@ class CieController {
     _cieProvider.getCies(_user).then((List<Cie> value) {
       ammount = value.length.toString();
     });
-    new FirebaseController().logUserParameter(name: "custom_courses", value: ammount);
+    new FirebaseController()
+        .logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 
@@ -49,7 +50,8 @@ class CieController {
     _cieProvider.getCies(_user).then((List<Cie> value) {
       ammount = value.length.toString();
     });
-    new FirebaseController().logUserParameter(name: "custom_courses", value: ammount);
+    new FirebaseController()
+        .logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 

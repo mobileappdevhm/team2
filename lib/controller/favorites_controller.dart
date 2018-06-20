@@ -40,7 +40,8 @@ class FavoritesController {
     favorites.then((List<Course> value) {
       ammount = value.length.toString();
     });
-    new FirebaseController().logUserParameter(name: "favorites", value: ammount);
+    new FirebaseController()
+        .logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 
@@ -54,7 +55,8 @@ class FavoritesController {
     favorites.then((List<Course> value) {
       ammount = value.length.toString();
     });
-    new FirebaseController().logUserParameter(name: "favorites", value: ammount);
+    new FirebaseController()
+        .logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 

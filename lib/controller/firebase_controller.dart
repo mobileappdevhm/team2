@@ -66,13 +66,15 @@ class FirebaseController {
     await _firebaseAnalytics?.logLogin();
   }
 
-  void logEvent({@required String name, Map<String, dynamic> parameters, dynamic value}) async {
+  void logEvent(
+      {@required String name,
+      Map<String, dynamic> parameters,
+      dynamic value}) async {
     if (parameters != null) {
       await _firebaseAnalytics?.logEvent(name: name, parameters: parameters);
     } else if (value != null) {
-      await _firebaseAnalytics?.logEvent(name: name, parameters: <String, dynamic>{
-        "value": value
-      });
+      await _firebaseAnalytics
+          ?.logEvent(name: name, parameters: <String, dynamic>{"value": value});
     } else {
       await _firebaseAnalytics?.logEvent(name: name);
     }
