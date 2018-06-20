@@ -4,16 +4,19 @@ import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
-//import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+//import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 
 class FavoritesController {
   static final FavoritesController _instance = FavoritesController._internal();
+
   FavoritesController._internal();
+
   factory FavoritesController() => _instance;
 
   List<FavoriteListObserver> observers = [];
   CacheCourseProvider _cacheCourseProvider;
+
   //InetCourseProvider _inetCourseProvider;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
@@ -31,7 +34,8 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.favorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
-    new FirebaseController().logEvent(name: "favorize_course");
+    new FirebaseController()
+        .logEvent(name: "favorize_course", value: course.name);
     return result;
   }
 
@@ -39,7 +43,8 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.unFavorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
-    new FirebaseController().logEvent(name: "unfavorize_course");
+    new FirebaseController()
+        .logEvent(name: "unfavorize_course", value: course.name);
     return result;
   }
 
