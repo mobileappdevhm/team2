@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 // import 'package:courses_in_english/io/cache/providers/user_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
@@ -27,6 +28,7 @@ class SessionController {
   Future<User> login(String email, String password) async {
     return _inetUserProvider.login(email, password).then((user) {
       _user = user;
+      new FirebaseController().logLogin();
       return user;
     });
   }

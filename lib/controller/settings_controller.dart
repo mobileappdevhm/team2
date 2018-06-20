@@ -8,11 +8,13 @@ class SettingsController {
   SettingsController._internal();
   factory SettingsController() => _instance;
 
-  // CacheUserSettingsProvider _cacheSettingsProvider;
+  //CacheUserSettingsProvider _cacheSettingsProvider;
 
   void injectDependencies(CacheProviderFactory cacheProviderFactory) {
     // _cacheSettingsProvider = cacheProviderFactory.createSettingsProvider();
   }
 
   void setSettings(UserSettings userSettings) => throw new UnimplementedError();
+
+  UserSettings get userSettings => new UserSettings();
 }
