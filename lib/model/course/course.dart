@@ -71,25 +71,7 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  switch (status) {
-    case CourseStatus.GREEN:
-      return "green";
-    case CourseStatus.YELLOW:
-      return "yellow";
-    case CourseStatus.RED:
-      return "red";
-  }
-  throw new UnimplementedError("Unsupported status");
-}
-
-CourseStatus stringToStatus(String status) {
-  switch (status.toLowerCase()) {
-    case "green":
-      return CourseStatus.GREEN;
-    case "yellow":
-      return CourseStatus.YELLOW;
-    case "red":
-      return CourseStatus.RED;
-  }
-  throw new UnimplementedError("No status found for string '$status'.");
+  if (status == CourseStatus.GREEN) return 'green';
+  if (status == CourseStatus.YELLOW) return 'yellow';
+  return 'red';
 }
