@@ -52,7 +52,7 @@ void main() {
     verifyZeroInteractions(favoritesScreen);
     controller.favorizeCourse(course01);
     await untilCalled(favoritesScreen.onFavoritesUpdated([course01]));
-    verify(cacheFactory.cacheCourseProvider.getFavorizedCourses()).called(1);
+    verify(cacheFactory.cacheCourseProvider.getFavorizedCourses()).called(2);
     verify(favoritesScreen.onFavoritesUpdated([course01])).called(1);
   });
 }

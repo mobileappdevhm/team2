@@ -3,6 +3,14 @@ import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 
+FirebaseController _firebase;
+
+void injectDependencies([FirebaseController firebase]) {
+  if (firebase != null) {
+    _firebase = firebase;
+  }
+}
+
 String createIcs(List<Course> courses) {
   String result =
       "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:CieApp\r\nSUMMARY:Cie Course in at the HM in munich\r\n";
@@ -78,7 +86,7 @@ saveIcsFile(List<Course> courses) async {
 
   String ics = createIcs(courses);
   writeFile(ics);
-  new FirebaseController().logEvent(name: "ics_export");
+  _firebase.logEvent(name: "ics_export");
 }
 
 requestPermission() async {

@@ -15,6 +15,7 @@ class SessionController {
   factory SessionController() => _instance;
 
   InetUserProvider _inetUserProvider;
+  FirebaseController _firebaseController;
 
   // CacheUserProvider _cacheUserProvider;
   User _user;
@@ -24,17 +25,20 @@ class SessionController {
   User get user => _user;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
-      CacheProviderFactory cacheProviderFactory) {
+      CacheProviderFactory cacheProviderFactory, [FirebaseController firebase]) {
     _inetUserProvider = inetProviderFactory.createUserProvider();
+    if (firebase != null) {
+      _firebaseController = firebase;
+    }
     // TODO _cacheUserProvider = cacheProviderFactory.createUserProvider();
   }
 
   Future<User> login(String email, String password) async {
     return _inetUserProvider.login(email, password).then((user) {
       _user = user;
-      new FirebaseController().logLogin();
+      _firebaseController.logLogin();
       if (user != null) {
-        new FirebaseController().logUserParameter(
+        _firebaseController.logUserParameter(
             name: "department", value: user.department.toString());
       }
       return user;

@@ -16,13 +16,17 @@ class FavoritesController {
 
   List<FavoriteListObserver> observers = [];
   CacheCourseProvider _cacheCourseProvider;
+  FirebaseController _firebaseController;
 
   //InetCourseProvider _inetCourseProvider;
 
   void injectDependencies(InetProviderFactory inetProviderFactory,
-      CacheProviderFactory cacheProviderFactory) {
+      CacheProviderFactory cacheProviderFactory, [FirebaseController firebase]) {
     _cacheCourseProvider = cacheProviderFactory.createCourseProvider();
     //_inetCourseProvider = inetProviderFactory.createCourseProvider();
+    if (firebase != null) {
+      _firebaseController = firebase;
+    }
   }
 
   void addObserver(FavoriteListObserver observer) {
@@ -34,14 +38,13 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.favorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
-    new FirebaseController()
-        .logEvent(name: "favorize_course", value: course.name);
-    String ammount;
+    _firebaseController?.logEvent(name: "favorize_course", value: course.name);
     favorites.then((List<Course> value) {
-      ammount = value.length.toString();
+      if (value != null) {
+        String ammount = value.length.toString();
+        _firebaseController?.logUserParameter(name: "favorites", value: ammount);
+      }
     });
-    new FirebaseController()
-        .logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 
@@ -49,20 +52,21 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.unFavorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
-    new FirebaseController()
-        .logEvent(name: "unfavorize_course", value: course.name);
+    _firebaseController?.logEvent(name: "unfavorize_course", value: course.name);
     String ammount;
     favorites.then((List<Course> value) {
-      ammount = value.length.toString();
+      if (value != null) {
+        String ammount = value.length.toString();
+        _firebaseController?.logUserParameter(name: "favorites", value: ammount);
+      }
     });
-    new FirebaseController()
-        .logUserParameter(name: "favorites", value: ammount);
+    _firebaseController?.logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 
   void pushFavorites() async {
     // TODO use inetCourseProvider to push favorites to server
-    new FirebaseController().logEvent(name: "push_favorites");
+    _firebaseController.logEvent(name: "push_favorites");
   }
 
   Future<List<Course>> get favorites async =>

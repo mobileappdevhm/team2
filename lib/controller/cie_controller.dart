@@ -8,15 +8,21 @@ import 'package:courses_in_english/model/user/user.dart';
 
 class CieController {
   static final CieController _instance = CieController._internal();
+
   CieController._internal();
+
   factory CieController() => _instance;
 
   List<CieListObserver> _observers = [];
   CacheCieProvider _cieProvider;
+  FirebaseController _firebaseController;
   User _user;
 
-  void injectDependencies(CacheProviderFactory factory) {
+  void injectDependencies(CacheProviderFactory factory, [FirebaseController firebase]) {
     _cieProvider = factory.createCieProvider();
+    if (firebase != null) {
+      _firebaseController = firebase;
+    }
   }
 
   /// Has to be called right after login.
@@ -31,13 +37,13 @@ class CieController {
     int result = await _cieProvider.putCie(cie, _user);
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
-    new FirebaseController().logEvent(name: "add_cie");
-    String ammount;
+    _firebaseController?.logEvent(name: "add_cie");
     _cieProvider.getCies(_user).then((List<Cie> value) {
-      ammount = value.length.toString();
+      if (value != null) {
+        String ammount = value.length.toString();
+        _firebaseController?.logUserParameter(name: "custom_courses", value: ammount);
+      }
     });
-    new FirebaseController()
-        .logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 
@@ -45,13 +51,13 @@ class CieController {
     int result = await _cieProvider.removeCie(cie);
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
-    new FirebaseController().logEvent(name: "remove_cie");
-    String ammount;
+    _firebaseController?.logEvent(name: "remove_cie");
     _cieProvider.getCies(_user).then((List<Cie> value) {
-      ammount = value.length.toString();
+      if (value != null) {
+        String ammount = value.length.toString();
+        _firebaseController?.logUserParameter(name: "custom_courses", value: ammount);
+      }
     });
-    new FirebaseController()
-        .logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 

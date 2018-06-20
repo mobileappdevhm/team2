@@ -1,20 +1,17 @@
-import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/controller/settings_controller.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
 
 class FirebaseController {
   static final FirebaseController _instance = FirebaseController._internal();
 
   final SettingsController _settingsController = new SettingsController();
-  final SessionController _sessionController = new SessionController();
 
   FirebaseController._internal() {
     initializeMessaging();
-    if (_settingsController.userSettings.feedbackMode ||
-        !_sessionController.isLoggedIn) {
+    if (_settingsController.userSettings.feedbackMode) {
       initializeAnalytics();
     }
   }
