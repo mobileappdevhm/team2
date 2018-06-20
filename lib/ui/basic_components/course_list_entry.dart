@@ -26,7 +26,8 @@ class CourseListEntry extends StatelessWidget {
     return new Material(
       child: new InkWell(
           onTap: () {
-            new FirebaseController().logEvent(name: "favorize_course");
+            new FirebaseController()
+                .logEvent(name: "course_details", value: course.name);
             Navigator.push(
               context,
               new MaterialPageRoute(
