@@ -36,6 +36,11 @@ class FavoritesController {
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     new FirebaseController()
         .logEvent(name: "favorize_course", value: course.name);
+    String ammount;
+    favorites.then((List<Course> value) {
+      ammount = value.length.toString();
+    });
+    new FirebaseController().logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 
@@ -45,6 +50,11 @@ class FavoritesController {
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     new FirebaseController()
         .logEvent(name: "unfavorize_course", value: course.name);
+    String ammount;
+    favorites.then((List<Course> value) {
+      ammount = value.length.toString();
+    });
+    new FirebaseController().logUserParameter(name: "favorites", value: ammount);
     return result;
   }
 

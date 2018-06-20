@@ -32,6 +32,11 @@ class CieController {
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
     new FirebaseController().logEvent(name: "add_cie");
+    String ammount;
+    _cieProvider.getCies(_user).then((List<Cie> value) {
+      ammount = value.length.toString();
+    });
+    new FirebaseController().logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 
@@ -40,6 +45,11 @@ class CieController {
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
     new FirebaseController().logEvent(name: "remove_cie");
+    String ammount;
+    _cieProvider.getCies(_user).then((List<Cie> value) {
+      ammount = value.length.toString();
+    });
+    new FirebaseController().logUserParameter(name: "custom_courses", value: ammount);
     return result;
   }
 
