@@ -15,7 +15,6 @@ class HomeScaffold extends StatefulWidget {
   final Content content;
 
   HomeScaffold(this.content);
-
   @override
   State<StatefulWidget> createState() => new _HomeScaffoldState(this.content);
 }
@@ -43,6 +42,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onSubmitted: _filterCourses,
         buildDefaultAppBar: buildAppBar);
   }
+
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
