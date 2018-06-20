@@ -20,7 +20,6 @@ class Cie {
       o.lecturerName == lecturerName &&
       o.department == department;
 
-
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
     tempMap["id"] = this.id;
