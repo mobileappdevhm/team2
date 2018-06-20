@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:courses_in_english/controller/session.dart';
-import 'package:courses_in_english/model/user/user_settings.dart';
+import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+import 'package:courses_in_english/ui/scaffolds/loading.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,34 +20,37 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new SceneryWrapperWidget(
-        new Column(
-          children: <Widget>[
-            titleRow(),
-            new Expanded(
-              child: new Column(
+      body: new Builder(
+        builder: (context) => new SceneryWrapperWidget(
+              new Column(
                 children: <Widget>[
-                  new Expanded(
-                    child: login(),
-                  ),
+                  titleRow(),
                   new Expanded(
                     child: new Column(
                       children: <Widget>[
-                        new Container(
-                          child: new LineSeparator(),
-                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                        new Expanded(
+                          child: login(context),
                         ),
-                        new Container(
-                          child: continueAsGuest(),
-                        ),
+                        new Expanded(
+                          child: new Column(
+                            children: <Widget>[
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: continueAsGuest(),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
       ),
     );
   }
@@ -57,14 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         new Container(
           child: new RaisedButton(
-            onPressed: () {
-              Session s = new Session();
-              s.setSettings(new UserSettings());
-              Navigator.pushReplacement(
-                context,
-                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-              );
-            },
+            onPressed: () => Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new LoadingScaffold()),
+                ),
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(100000.0)),
             color: Colors.black,
@@ -82,24 +82,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Column login() {
+  Column login(BuildContext context) {
     FocusNode passwordNode = new FocusNode();
     return new Column(
       children: <Widget>[
         userNameField(passwordNode),
         passwordField(passwordNode),
-        loginButton(),
+        loginButton(context),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
-  Container loginButton() {
+  Container loginButton(BuildContext context) {
     return new Container(
       child: new RaisedButton(
-        onPressed: () {
-          doLogin();
-        },
+        onPressed: () => doLogin(context),
         child: new Text(
           "Login",
         ),
@@ -161,9 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  ///Later Needed for Implementation of registration for the Apps Server.
-  ///
-  ///Container createButton() {
+  // TODO Later Needed for Implementation of registration for the Apps Server.
+  //
+  // Container createButton() {
   //    return new Container(
   //      child: new FlatButton(
   //        onPressed: () {
@@ -189,48 +187,29 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
-  void doLogin() {
-    Session s = new Session();
-    new Session().login(
-      email,
-      password,
-      success: (session) {
-        Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                content: new Text(
-                  "You're successfully logged in",
-                  textAlign: TextAlign.center,
-                ),
-                duration: new Duration(seconds: 1),
-              ),
-            );
-        new Future.delayed(new Duration(milliseconds: 1200), () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-          );
-        });
-      },
-      failure: (session, error) {
-        Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                content: new Text(
-                  "Login failure!",
-                  textAlign: TextAlign.center,
-                ),
-                duration: new Duration(seconds: 2),
-              ),
-            );
-      },
-    );
-    if (s.user != null) {
-      Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-      );
+  void doLogin(BuildContext context) {
+    // TODO replace with checkInput
+    // if (checkInput(context)) {
+    if (true) {
+      new SessionController().login(email, password).then(
+        (user) {
+          showSnackBar("You're successfully logged in", context);
+          new CieController().user = user;
+          new Future.delayed(
+              new Duration(milliseconds: 1000),
+              () => Navigator.pushReplacement(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new LoadingScaffold()),
+                  ));
+        },
+      ).catchError(() {
+        showSnackBar("Login failure!", context);
+      });
     }
   }
 
+  // TODO repair this
   bool checkInput(BuildContext context) {
     bool emailEmpty = true;
     bool containsAtAndDot = true;
@@ -249,53 +228,33 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
     if (emailEmpty == true && passwordEmpty == false) {
-      Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                "Please enter a valid email!",
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+      showSnackBar("Please enter a valid email!", context);
       return false;
     }
     if (emailEmpty == false && passwordEmpty == true) {
-      Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                "Please enter a valid password!",
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+      showSnackBar("Please enter a valid password!", context);
       return false;
     }
     if (emailEmpty == true && passwordEmpty == true) {
-      Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                "Please enter data",
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+      showSnackBar("Please enter data", context);
       return false;
     }
     if (containsAtAndDot == false) {
-      Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                "Please enter data in a valid format",
-                textAlign: TextAlign.center,
-              ),
-              duration: new Duration(seconds: 2),
-            ),
-          );
+      showSnackBar("Please enter data in a valid format", context);
       return false;
     }
     return true;
+  }
+
+  void showSnackBar(String text, BuildContext context) {
+    Scaffold.of(context).showSnackBar(
+          new SnackBar(
+            content: new Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+            duration: new Duration(seconds: 1),
+          ),
+        );
   }
 }
