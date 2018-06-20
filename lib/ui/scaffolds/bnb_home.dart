@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/controller/ics_creator.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
@@ -52,6 +53,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onSubmitted: _searchCourses,
         buildDefaultAppBar: buildAppBar);
   }
+
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
@@ -191,6 +193,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
           setState(() {
             _selectedIndex = newIndex;
             _controller.jumpToPage(newIndex);
+            new FirebaseController().setCurrentScreen(
+                screenName: screens[_selectedIndex].toStringShort());
           });
         },
       ),
@@ -201,6 +205,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onPageChanged: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
+            new FirebaseController().setCurrentScreen(
+                screenName: screens[_selectedIndex].toStringShort());
           });
         },
       ),

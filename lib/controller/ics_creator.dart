@@ -1,3 +1,4 @@
+import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:simple_permissions/simple_permissions.dart';
@@ -77,6 +78,7 @@ saveIcsFile(List<Course> courses) async {
 
   String ics = createIcs(courses);
   writeFile(ics);
+  new FirebaseController().logEvent(name: "ics_export");
 }
 
 requestPermission() async {

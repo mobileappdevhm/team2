@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
@@ -30,6 +31,7 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.favorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
+    new FirebaseController().logEvent(name: "favorize_course");
     return result;
   }
 
@@ -37,11 +39,13 @@ class FavoritesController {
     bool result = await _cacheCourseProvider.unFavorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
+    new FirebaseController().logEvent(name: "unfavorize_course");
     return result;
   }
 
   void pushFavorites() async {
     // TODO use inetCourseProvider to push favorites to server
+    new FirebaseController().logEvent(name: "push_favorites");
   }
 
   Future<List<Course>> get favorites async =>

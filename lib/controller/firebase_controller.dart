@@ -66,14 +66,24 @@ class FirebaseController {
     await _firebaseAnalytics?.logLogin();
   }
 
-  void logEvent({@required String name, Map<String, dynamic> parameters, String value}) async {
+  void logEvent({@required String name, Map<String, dynamic> parameters, dynamic value}) async {
     if (parameters != null) {
       await _firebaseAnalytics?.logEvent(name: name, parameters: parameters);
-    } else {
+    } else if (value != null) {
       await _firebaseAnalytics?.logEvent(name: name, parameters: <String, dynamic>{
-        "value": value.toString()
+        "value": value
       });
+    } else {
+      await _firebaseAnalytics?.logEvent(name: name);
     }
+  }
+
+  void logUserParameter({@required String name, @required String value}) async {
+    await _firebaseAnalytics?.setUserProperty(name: name, value: value);
+  }
+
+  void setCurrentScreen({@required String screenName}) async {
+    await _firebaseAnalytics?.setCurrentScreen(screenName: screenName);
   }
 
   FirebaseAnalyticsObserver get analyticsObserver => _observer;

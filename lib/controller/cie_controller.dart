@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:courses_in_english/controller/firebase_controller.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
@@ -30,6 +31,7 @@ class CieController {
     int result = await _cieProvider.putCie(cie, _user);
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
+    new FirebaseController().logEvent(name: "add_cie");
     return result;
   }
 
@@ -37,6 +39,7 @@ class CieController {
     int result = await _cieProvider.removeCie(cie);
     cies.then((cies) =>
         _observers.forEach((observer) => observer.onCieListUpdate(cies)));
+    new FirebaseController().logEvent(name: "remove_cie");
     return result;
   }
 
