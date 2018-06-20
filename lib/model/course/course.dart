@@ -57,9 +57,7 @@ class Course {
     tempMap["department"] = this.department.number;
     tempMap["lecturer"] = this.lecturer.id;
     tempMap["room"] = this.room;
-    tempMap["courseStatus"] = this.courseStatus == CourseStatus.RED
-        ? "red"
-        : this.courseStatus == CourseStatus.YELLOW ? "yellow" : "green";
+    tempMap["courseStatus"] = statusToString(this.courseStatus);
     tempMap["availableSlots"] = this.availableSlots;
     tempMap["ects"] = this.ects;
     tempMap["usCredits"] = this.usCredits;
