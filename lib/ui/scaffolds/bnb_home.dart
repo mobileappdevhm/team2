@@ -38,11 +38,18 @@ class _HomeScaffoldState extends State<HomeScaffold>
   _HomeScaffoldState(this.content) {
     displayedCourses = content.courses;
     new FavoritesController().addObserver(this);
+    dropdownMenuItems = content.departments
+        .map((department) => new DropdownMenuItem(
+              child: new Text(
+                  'FK ${department.number.toString().padLeft(2, '0')}'),
+              value: department,
+            ))
+        .toList();
     // Initialize searchBar
     searchBar = new SearchBar(
         inBar: true,
         setState: setState,
-        onSubmitted: _filterCourses,
+        onSubmitted: _searchCourses,
         buildDefaultAppBar: buildAppBar);
   }
   // Builds the app bar depending on current screen
@@ -127,7 +134,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
 
     // Filter out only those that correspond to the selected department
     _searchTerm = "FK " + dep.number.toString();
-    for (Course course in session.courses) {
+    for (Course course in content.courses) {
       if ((course.department.id == dep.id)) {
         filteredCourses.add(course);
       }
@@ -139,34 +146,10 @@ class _HomeScaffoldState extends State<HomeScaffold>
     });
   }
 
-  _HomeScaffoldState() {
-    session.callbacks.add((session) {
-      if (mounted) {
-        setState(() {
-          displayedCourses = session.courses;
-          for (Department dep in session.departments) {
-            dropdownMenuItems.add(DropdownMenuItem(
-                value: dep, child: Text("FK" + dep.number.toString())));
-          }
-          loading = false;
-        });
-      }
-    });
-    // TODO error handling for download
-    session.download();
-    // Initialize searchBar
-    searchBar = new SearchBar(
-        inBar: true,
-        setState: setState,
-        onSubmitted: _searchCourses,
-        buildDefaultAppBar: buildAppBar);
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget scaffold;
     List<Widget> screens = [
-      // TODO FIX THIS
       new CourseListScreen(displayedCourses, favorites),
       new LocationScreen(content.campuses),
       new TimetableScreen(content.courses),
