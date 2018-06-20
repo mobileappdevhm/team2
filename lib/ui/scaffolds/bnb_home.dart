@@ -16,6 +16,7 @@ class HomeScaffold extends StatefulWidget {
   final Content content;
 
   HomeScaffold(this.content);
+
   @override
   State<StatefulWidget> createState() => new _HomeScaffoldState(this.content);
 }
@@ -36,13 +37,33 @@ class _HomeScaffoldState extends State<HomeScaffold>
 
   _HomeScaffoldState(this.content) {
     displayedCourses = content.courses;
-    new FavoritesController().addObserver(this);
-    // Initialize searchBar
+    for (Department dep in content.departments) {
+      dropdownMenuItems.add(DropdownMenuItem(
+          value: dep, child: Text("FK" + dep.number.toString())));
+    }
+
     searchBar = new SearchBar(
         inBar: true,
         setState: setState,
-        onSubmitted: _filterCourses,
+        onSubmitted: _searchCourses,
         buildDefaultAppBar: buildAppBar);
+  }
+
+  _filterCoursesByDepartment(Department dep) {
+    List<Course> filteredCourses = new List<Course>();
+
+    // Filter out only those that correspond to the selected department
+    _searchTerm = "FK " + dep.number.toString();
+    for (Course course in content.courses) {
+      if ((course.department.id == dep.id)) {
+        filteredCourses.add(course);
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+      isFiltered = true;
+    });
   }
 
   // Builds the app bar depending on current screen
@@ -105,62 +126,9 @@ class _HomeScaffoldState extends State<HomeScaffold>
     );
   }
 
-  _searchCourses(String term) {
-    List<Course> filteredCourses = new List<Course>();
-
-    for (Course course in content.courses) {
-      if ((course.name != null && course.name.contains(term)) ||
-          course.description != null && course.description.contains(term)) {
-        filteredCourses.add(course);
-      }
-    }
-
-    setState(() {
-      this.displayedCourses = filteredCourses;
-      isFiltered = true;
-      _searchTerm = term;
-    });
-  }
-
-  _filterCoursesByDepartment(Department dep) {
-    List<Course> filteredCourses = new List<Course>();
-
-    // Filter out only those that correspond to the selected department
-    _searchTerm = "FK " + dep.number.toString();
-    for (Course course in session.courses) {
-      if ((course.department.id == dep.id)) {
-        filteredCourses.add(course);
-      }
-    }
-
-    setState(() {
-      this.displayedCourses = filteredCourses;
-      isFiltered = true;
-    });
-  }
-
-  _HomeScaffoldState() {
-    session.callbacks.add((session) {
-      if (mounted) {
-        setState(() {
-          displayedCourses = session.courses;
-          for (Department dep in session.departments) {
-            dropdownMenuItems.add(DropdownMenuItem(
-                value: dep, child: Text("FK" + dep.number.toString())));
-          }
-          loading = false;
-        });
-      }
-    });
-    // TODO error handling for download
-    session.download();
-    // Initialize searchBar
-    searchBar = new SearchBar(
-        inBar: true,
-        setState: setState,
-        onSubmitted: _searchCourses,
-        buildDefaultAppBar: buildAppBar);
-  }
+  @override
+  void onFavoritesUpdated(List<Course> favorites) =>
+      setState(() => this.favorites = favorites);
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +194,20 @@ class _HomeScaffoldState extends State<HomeScaffold>
     return scaffold;
   }
 
-  @override
-  void onFavoritesUpdated(List<Course> favorites) =>
-      setState(() => this.favorites = favorites);
+  _searchCourses(String term) {
+    List<Course> filteredCourses = new List<Course>();
+
+    for (Course course in content.courses) {
+      if ((course.name != null && course.name.contains(term)) ||
+          course.description != null && course.description.contains(term)) {
+        filteredCourses.add(course);
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+      isFiltered = true;
+      _searchTerm = term;
+    });
+  }
 }
