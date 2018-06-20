@@ -2,6 +2,7 @@ import 'package:courses_in_english/controller/favorites_controller.dart';
 import 'package:courses_in_english/controller/ics_creator.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
@@ -29,6 +30,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
   List<Course> displayedCourses = [];
   List<Course> favorites = [];
   SearchBar searchBar;
+  List<DropdownMenuItem<Department>> dropdownMenuItems = [];
   bool isFiltered = false;
   String _searchTerm;
 
@@ -65,9 +67,22 @@ class _HomeScaffoldState extends State<HomeScaffold>
         )
       ];
     } else if (_selectedIndex == 0) {
-      actions = [searchBar.getSearchAction(context)];
+      actions = [
+        searchBar.getSearchAction(context),
+        new DropdownButton<Department>(
+            items: dropdownMenuItems,
+            onChanged: (Department dep) {
+              _filterCoursesByDepartment(dep);
+            },
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            hint: Text(
+              "Departments",
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ))
+      ];
     }
 
+    // If we are currently in filter mode, add clear button
     if (_selectedIndex == 0 && isFiltered) {
       actions.insert(
           0,
@@ -84,13 +99,13 @@ class _HomeScaffoldState extends State<HomeScaffold>
     return new AppBar(
       title: isFiltered
           ? Text("search: \"" + _searchTerm + "\"")
-          : Text('Courses in English'),
-      centerTitle: true,
+          : Text('All Courses'),
+      centerTitle: false,
       actions: actions,
     );
   }
 
-  _filterCourses(String term) {
+  _searchCourses(String term) {
     List<Course> filteredCourses = new List<Course>();
 
     for (Course course in content.courses) {
@@ -105,6 +120,46 @@ class _HomeScaffoldState extends State<HomeScaffold>
       isFiltered = true;
       _searchTerm = term;
     });
+  }
+
+  _filterCoursesByDepartment(Department dep) {
+    List<Course> filteredCourses = new List<Course>();
+
+    // Filter out only those that correspond to the selected department
+    _searchTerm = "FK " + dep.number.toString();
+    for (Course course in session.courses) {
+      if ((course.department.id == dep.id)) {
+        filteredCourses.add(course);
+      }
+    }
+
+    setState(() {
+      this.displayedCourses = filteredCourses;
+      isFiltered = true;
+    });
+  }
+
+  _HomeScaffoldState() {
+    session.callbacks.add((session) {
+      if (mounted) {
+        setState(() {
+          displayedCourses = session.courses;
+          for (Department dep in session.departments) {
+            dropdownMenuItems.add(DropdownMenuItem(
+                value: dep, child: Text("FK" + dep.number.toString())));
+          }
+          loading = false;
+        });
+      }
+    });
+    // TODO error handling for download
+    session.download();
+    // Initialize searchBar
+    searchBar = new SearchBar(
+        inBar: true,
+        setState: setState,
+        onSubmitted: _searchCourses,
+        buildDefaultAppBar: buildAppBar);
   }
 
   @override
