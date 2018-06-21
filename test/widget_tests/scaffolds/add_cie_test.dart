@@ -1,5 +1,7 @@
 import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
+import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +9,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {
-  CieController controller = new CieController();
+  CieController controller;
   MockedCacheProvidersFactory factory;
 
   setUp(() {
     factory = new MockedCacheProvidersFactory();
-    controller.injectDependencies(factory);
+    new Injector().injectDependencies(new MockitoProviderFactory(), factory, firebase: false);
+    controller = new Injector().cieController;
     controller.user = null;
   });
 
-  testWidgets('testTest', (WidgetTester tester) async {
+  testWidgets('Add cie', (WidgetTester tester) async {
     Cie cie = new Cie('name', 7, 'lecturer', 5.0, null);
     when(factory.cacheCieProvider.putCie(cie, null)).thenAnswer((_) => Future.value(0));
     await tester.pumpWidget(new MaterialApp(

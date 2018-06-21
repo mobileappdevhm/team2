@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
@@ -10,13 +10,12 @@ import "package:flutter_test/flutter_test.dart";
 import 'package:mockito/mockito.dart';
 
 void main() {
-  SessionController controller = new SessionController();
   MockitoProviderFactory inetFactory;
   MockedCacheProvidersFactory cacheFactory;
   setUp(() {
     inetFactory = new MockitoProviderFactory();
     cacheFactory = new MockedCacheProvidersFactory();
-    controller.injectDependencies(inetFactory, cacheFactory);
+    new Injector().injectDependencies(inetFactory, cacheFactory, firebase: false);
   });
   testWidgets("Test layout", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));

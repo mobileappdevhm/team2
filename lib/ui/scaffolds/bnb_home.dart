@@ -1,5 +1,6 @@
 import 'package:courses_in_english/controller/favorites_controller.dart';
-import 'package:courses_in_english/controller/ics_creator.dart';
+import 'package:courses_in_english/controller/injector.dart';
+import 'package:courses_in_english/controller/normal/ics_creator.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -37,7 +38,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
 
   _HomeScaffoldState(this.content) {
     displayedCourses = content.courses;
-    new FavoritesController().addObserver(this);
+    new Injector().favoritesController.addObserver(this);
     dropdownMenuItems = content.departments
         .map((department) => new DropdownMenuItem(
               child: new Text(
@@ -52,6 +53,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onSubmitted: _searchCourses,
         buildDefaultAppBar: buildAppBar);
   }
+
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
@@ -191,6 +193,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
           setState(() {
             _selectedIndex = newIndex;
             _controller.jumpToPage(newIndex);
+            new Injector().firebaseController?.setCurrentScreen(
+                screenName: screens[_selectedIndex].toStringShort());
           });
         },
       ),
@@ -201,6 +205,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onPageChanged: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
+            new Injector().firebaseController?.setCurrentScreen(
+                screenName: screens[_selectedIndex].toStringShort());
           });
         },
       ),

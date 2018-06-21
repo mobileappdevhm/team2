@@ -8,6 +8,7 @@ dependencies:
   sqflite: any
   path_provider: ^0.4.0
   firebase_messaging: ^0.2.4
+  firebase_analytics: ^1.0.1
   cupertino_icons: ^0.1.0
   simple_permissions: any
   quiver: '>=0.29.0 <0.30.0'

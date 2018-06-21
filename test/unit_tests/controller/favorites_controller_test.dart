@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/normal/favorites_controller.dart';
 import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
@@ -9,13 +10,13 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 void main() {
-  FavoritesController controller = new FavoritesController();
+  FavoritesController controller;
   MockedCacheProvidersFactory cacheFactory;
   MockitoProviderFactory inetFactory;
   setUp(() {
     cacheFactory = new MockedCacheProvidersFactory();
     inetFactory = new MockitoProviderFactory();
-    controller.injectDependencies(inetFactory, cacheFactory);
+    controller = new NormalFavoritesController(cacheFactory, inetFactory);
   });
   test('Test favorize', () async {
     when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => new Future.value(true));
