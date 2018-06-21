@@ -5,7 +5,6 @@ import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
-
 /// Mock lecturer provider providing lecturers from the mock courses.
 class ProdLecturerProvider implements InetLecturerProvider {
   final HttpHelper helper;
