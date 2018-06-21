@@ -5,22 +5,17 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
 
 class FirebaseController {
-  static final FirebaseController _instance = FirebaseController._internal();
+  final SettingsController _settingsController;
+  FirebaseMessaging _firebaseMessaging;
+  FirebaseAnalytics _firebaseAnalytics;
+  FirebaseAnalyticsObserver _observer;
 
-  final SettingsController _settingsController = new SettingsController();
-
-  FirebaseController._internal() {
+  FirebaseController(this._settingsController) {
     initializeMessaging();
     if (_settingsController.userSettings.feedbackMode) {
       initializeAnalytics();
     }
   }
-
-  factory FirebaseController() => _instance;
-
-  FirebaseMessaging _firebaseMessaging;
-  FirebaseAnalytics _firebaseAnalytics;
-  FirebaseAnalyticsObserver _observer;
 
   void initializeMessaging() {
     _firebaseMessaging = new FirebaseMessaging();

@@ -1,7 +1,7 @@
-import 'package:courses_in_english/controller/cie_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
+import 'package:flutter/material.dart';
 
 class CieListEntry extends StatelessWidget {
   static const Color GREEN = const Color(0xFF83D183);
@@ -14,7 +14,7 @@ class CieListEntry extends StatelessWidget {
 
   CieListEntry(this.cie, this.department);
 
-  void _toggle() async => new CieController().removeCie(cie);
+  void _toggle() async => new Injector().cieController.removeCie(cie);
 
   @override
   Widget build(BuildContext context) {

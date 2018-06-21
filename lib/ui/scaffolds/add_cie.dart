@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:flutter/material.dart';
 
@@ -95,7 +95,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempName = val,
           decoration: new InputDecoration(
-              labelText: " Input Name",
+              labelText: "Input Name",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -115,7 +115,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempLecturerName = val,
           decoration: new InputDecoration(
-              labelText: " Input Lecturer Name",
+              labelText: "Input Lecturer Name",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -135,7 +135,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempEcts = tryCatchDub(val),
           decoration: new InputDecoration(
-              labelText: " Input Ects (Decimal)",
+              labelText: "Input Ects (Decimal)",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -155,7 +155,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempDepartment = tryCatchInt(val),
           decoration: new InputDecoration(
-              labelText: " Input Department (Integer)",
+              labelText: "Input Department (Integer)",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -184,7 +184,8 @@ class _AddCieScreenState extends State<AddCieScaffold> {
       showMessage("Fields must be filled with proper types");
       return;
     }
-    new CieController()
+    new Injector()
+        .cieController
         .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
         .then((result) {
       if (result != 0) {

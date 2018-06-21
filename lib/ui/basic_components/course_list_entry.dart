@@ -1,5 +1,5 @@
 import 'package:courses_in_english/controller/favorites_controller.dart';
-import 'package:courses_in_english/controller/firebase_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,8 @@ const Color HEART = const Color(0xFFFFA1A1);
 class CourseListEntry extends StatelessWidget {
   final Course course;
   final bool favorite;
-  final FavoritesController favoritesController = new FavoritesController();
+  final FavoritesController favoritesController =
+      new Injector().favoritesController;
 
   CourseListEntry(this.course, this.favorite);
 
@@ -26,8 +27,9 @@ class CourseListEntry extends StatelessWidget {
     return new Material(
       child: new InkWell(
           onTap: () {
-            new FirebaseController()
-                .logEvent(name: "course_details", value: course.name);
+            new Injector()
+                .firebaseController
+                ?.logEvent(name: "course_details", value: course.name);
             Navigator.push(
               context,
               new MaterialPageRoute(

@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:courses_in_english/controller/cie_controller.dart';
-import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/loading.dart';
@@ -15,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
+  Timer pageForward;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            //maxLength: 20, TODO REINSTATE
+            maxLength: 20,
             decoration: new InputDecoration(
               labelText: "Input Username",
               icon: new Icon(Icons.person),
@@ -129,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
               this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
+            controller: controller,
           ),
           margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment.topCenter),
@@ -144,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
         child: new TextFormField(
           maxLines: 1,
-          //maxLength: 30,TODO REINSTATE
+          maxLength: 30,
           decoration: new InputDecoration(
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
@@ -159,24 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // TODO Later Needed for Implementation of registration for the Apps Server.
-  //
-  // Container createButton() {
-  //    return new Container(
-  //      child: new FlatButton(
-  //        onPressed: () {
-  //
-  //        },
-  //        child: new Text(
-  //          "No Account yet? -> Create new User",
-  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-  //        ),
-  //      ),
-  //      alignment: AlignmentDirectional.topCenter,
-  //      margin: EdgeInsets.only(top: 5.0),
-  //    );
-  //  }
-
   Container titleRow() {
     return new Container(
         child: new Text("Courses in English",
@@ -188,28 +171,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void doLogin(BuildContext context) {
-    // TODO replace with checkInput
-    // if (checkInput(context)) {
-    if (true) {
-      new SessionController().login(email, password).then(
+    if (checkInput(context)) {
+      new Injector().sessionController.login(email, password).then(
         (user) {
           showSnackBar("You're successfully logged in", context);
-          new CieController().user = user;
-          new Future.delayed(
-              new Duration(milliseconds: 1000),
-              () => Navigator.pushReplacement(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new LoadingScaffold()),
-                  ));
+          new Injector().cieController.user = user;
+          pageForward = new Timer(
+            new Duration(milliseconds: 1000),
+            () => Navigator.pushReplacement(
+                this.context,
+                new MaterialPageRoute(
+                    builder: (context) => new LoadingScaffold())),
+          );
         },
-      ).catchError(() {
-        showSnackBar("Login failure!", context);
-      });
+      ).catchError((e) async => showSnackBar("Login failure!", context));
     }
   }
 
-  // TODO repair this
   bool checkInput(BuildContext context) {
     bool emailEmpty = true;
     bool containsAtAndDot = true;
@@ -217,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (this.email != null) {
       if (this.email.length > 0) {
         emailEmpty = false;
-        if (!this.email.contains("@") && !this.email.contains(".")) {
+        if (!(this.email.contains("@") && this.email.contains("."))) {
           containsAtAndDot = false;
         }
       }
@@ -256,5 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
             duration: new Duration(seconds: 1),
           ),
         );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageForward?.cancel();
   }
 }
