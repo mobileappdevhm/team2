@@ -1,5 +1,5 @@
 import 'package:courses_in_english/controller/cie_controller.dart';
-import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -31,13 +31,13 @@ class CieScreenState extends State<CieScreen> implements CieListObserver {
   double totalEcts = 0.0;
 
   CieScreenState() {
-    new CieController().addObserver(this);
+    new Injector().cieController.addObserver(this);
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (!new SessionController().isLoggedIn) {
+    if (!new Injector().sessionController.isLoggedIn) {
       return notLoggedInView();
     } else {
       return loggedInView(width);
@@ -68,7 +68,7 @@ class CieScreenState extends State<CieScreen> implements CieListObserver {
 
   Widget loggedInView(double width) {
     try {
-      userName = new SessionController().user.lastName;
+      userName = new Injector().sessionController.user.lastName;
     } catch (e) {}
     return new Container(
       constraints: new BoxConstraints.expand(),

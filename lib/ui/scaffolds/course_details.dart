@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
@@ -22,7 +23,8 @@ class CourseDetailsScaffold extends StatefulWidget {
 class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
   final Course course;
   bool isFavored;
-  final FavoritesController favoritesController = new FavoritesController();
+  final FavoritesController favoritesController =
+      new Injector().favoritesController;
 
   _CourseDetailsScaffoldState(this.course, this.isFavored);
 

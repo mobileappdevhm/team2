@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:courses_in_english/io/inet/providers/user_provider.dart';
-import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/io/mock_data.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 /// Mock user provider.
 class MockInetUserProvider implements InetUserProvider {

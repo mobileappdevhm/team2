@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:courses_in_english/controller/cie_controller.dart';
-import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/loading.dart';
@@ -173,10 +172,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void doLogin(BuildContext context) {
     if (checkInput(context)) {
-      new SessionController().login(email, password).then(
+      new Injector().sessionController.login(email, password).then(
         (user) {
           showSnackBar("You're successfully logged in", context);
-          new CieController().user = user;
+          new Injector().cieController.user = user;
           pageForward = new Timer(
             new Duration(milliseconds: 1000),
             () => Navigator.pushReplacement(

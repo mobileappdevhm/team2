@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/firebase_controller.dart';
+import 'package:courses_in_english/controller/firebase/firebase_controller.dart';
 import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:simple_permissions/simple_permissions.dart';

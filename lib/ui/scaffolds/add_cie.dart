@@ -1,4 +1,4 @@
-import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:flutter/material.dart';
 
@@ -184,7 +184,8 @@ class _AddCieScreenState extends State<AddCieScaffold> {
       showMessage("Fields must be filled with proper types");
       return;
     }
-    new CieController()
+    new Injector()
+        .cieController
         .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
         .then((result) {
       if (result != 0) {

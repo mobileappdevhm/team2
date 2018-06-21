@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:courses_in_english/controller/content_controller.dart';
+import 'package:courses_in_english/controller/normal/content_controller.dart';
 import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
@@ -8,13 +9,13 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 void main() {
-  ContentController controller = new ContentController();
+  ContentController controller;
   MockedCacheProvidersFactory cacheFactory;
   MockitoProviderFactory inetFactory;
   setUp(() {
     cacheFactory = new MockedCacheProvidersFactory();
     inetFactory = new MockitoProviderFactory();
-    controller.injectDependencies(inetFactory, cacheFactory);
+    controller = new NormalContentController(inetFactory, cacheFactory);
   });
   test('Test ContentController.getCourses', () async {
     when(inetFactory.courseProvider.getCourses())
