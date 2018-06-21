@@ -169,10 +169,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () => _showDeleteAlert(5)),
         ]),
         _newElement([new LineSeparator()]),
-        _newElement([new RoundedButton(
-          text: new Text("About & Licenses"),
-          onPressed: () => _showAboutInfo(),
-        )])
+        _newElement([
+          new RoundedButton(
+            text: new Text("About & Licenses"),
+            onPressed: () => _showAboutInfo(),
+          )
+        ])
       ],
 //      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
