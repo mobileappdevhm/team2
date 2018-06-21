@@ -14,11 +14,14 @@ class TimetableEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int endHour = course.dates[listpos].startHour;
-    String duration = course.dates[listpos].startHour.toString() + ":"+course.dates[listpos].startMinute.toString();
-    int endMin =course.dates[listpos].startMinute + course.dates[listpos].duration;
-    if(endMin>=60) endHour=endHour +1;
-    endMin = endMin%60;
-    duration+="-"+endHour.toString()+":"+endMin.toString();
+    String duration = course.dates[listpos].startHour.toString() +
+        ":" +
+        course.dates[listpos].startMinute.toString();
+    int endMin =
+        course.dates[listpos].startMinute + course.dates[listpos].duration;
+    if (endMin >= 60) endHour = endHour + 1;
+    endMin = endMin % 60;
+    duration += "-" + endHour.toString() + ":" + endMin.toString();
     return new Card(
       child: new Center(
         child: new Column(
@@ -48,12 +51,6 @@ class TimetableEntry extends StatelessWidget {
                   child: new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-//                        new Text("Prof:",
-//                            style: new TextStyle(
-//                              color: Colors.black,
-//                              fontSize: fontSize,
-//                              fontWeight: FontWeight.w400,
-//                            )),
                       new Text(
                         shortenCoursName(course.lecturer.name),
                         style: new TextStyle(
