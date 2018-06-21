@@ -86,7 +86,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             hint: Text(
               "Departments",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
             ))
       ];
     }
