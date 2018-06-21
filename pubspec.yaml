@@ -10,8 +10,8 @@ dependencies:
   firebase_messaging: ^0.2.4
   firebase_analytics: ^1.0.1
   cupertino_icons: ^0.1.0
-  mockito: ^2.2.3
   simple_permissions: any
+  quiver: '>=0.29.0 <0.30.0'
 
   # Dependency for the search feature
   flutter_search_bar:
@@ -19,6 +19,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^2.2.3
 
 flutter:
   uses-material-design: true

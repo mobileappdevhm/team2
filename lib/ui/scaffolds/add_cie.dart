@@ -95,7 +95,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempName = val,
           decoration: new InputDecoration(
-              labelText: " Input Name",
+              labelText: "Input Name",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -115,7 +115,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempLecturerName = val,
           decoration: new InputDecoration(
-              labelText: " Input Lecturer Name",
+              labelText: "Input Lecturer Name",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -135,7 +135,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempEcts = tryCatchDub(val),
           decoration: new InputDecoration(
-              labelText: " Input Ects (Decimal)",
+              labelText: "Input Ects (Decimal)",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -155,7 +155,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         child: new TextFormField(
           onSaved: (val) => tempDepartment = tryCatchInt(val),
           decoration: new InputDecoration(
-              labelText: " Input Department (Integer)",
+              labelText: "Input Department (Integer)",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
