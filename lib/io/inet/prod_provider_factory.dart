@@ -16,18 +16,19 @@ import 'package:courses_in_english/io/inet/http/prod_http_helper.dart';
 
 /// Provider factory producing mock providers.
 class ProviderFactory implements InetProviderFactory {
-
   ProdHttpHelper httpHelper = new ProdHttpHelper();
 
   @override
-  InetCourseProvider createCourseProvider() => new ProdCourseProvider(httpHelper);
+  InetCourseProvider createCourseProvider() =>
+      new ProdCourseProvider(httpHelper);
 
   @override
   InetDepartmentProvider createDepartmentProvider() =>
       new ProdDepartmentProvider(httpHelper);
 
   @override
-  InetLecturerProvider createLecturerProvider() => new ProdLecturerProvider(httpHelper);
+  InetLecturerProvider createLecturerProvider() =>
+      new ProdLecturerProvider(httpHelper);
 
   @override
   InetUserProvider createUserProvider() => new ProdUserProvider(httpHelper);
