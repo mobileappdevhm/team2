@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/course_provider.dart';
+import 'package:courses_in_english/io/inet/providers/prod/lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 
 class ProdCourseProvider implements InetCourseProvider {
-
   final HttpHelper helper;
 
   ProdCourseProvider(this.helper);
@@ -21,7 +21,8 @@ class ProdCourseProvider implements InetCourseProvider {
   }
 
   @override
-  Future<List<Course>> getCourses() async => helper.getCourses()
+  Future<List<Course>> getCourses() async => helper
+      .getCourses()
       .then((list) => list.map((course) => parseCourse(course)).toList());
 
   @override
@@ -50,6 +51,16 @@ class ProdCourseProvider implements InetCourseProvider {
   }
 
   Course parseCourse(Map<String, dynamic> json) {
-    return new Course(json['id'], json['name'], json['description'], json['room'], json['availableSlots'], json['ects'], json['usCredits'], json['semesterWeekHours'], stringToStatus(json['courseStatus']), parseLecturer(json['lecturer']));
+    return new Course(
+        json['id'],
+        json['name'],
+        json['description'],
+        json['room'],
+        json['availableSlots'],
+        json['ects'],
+        json['usCredits'],
+        json['semesterWeekHours'],
+        stringToStatus(json['courseStatus']),
+        ProdLecturerProvider.parseLecturer(json['lecturer']));
   }
 }
