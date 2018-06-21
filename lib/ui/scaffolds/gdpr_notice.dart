@@ -9,8 +9,8 @@ class GdprNotice extends StatelessWidget {
           title: new Text("Gdpr Notice"),
         ),
         body: new Row(children: [
-          new Expanded(child:
-          new SingleChildScrollView(
+          new Expanded(
+              child: new SingleChildScrollView(
             reverse: true,
             controller: new ScrollController(),
             padding: new EdgeInsets.all(15.0),
@@ -54,7 +54,8 @@ class GdprNotice extends StatelessWidget {
                 fontSize: 12.0,
                 color: Colors.black,
               ),
-            textAlign: TextAlign.start,),
+              textAlign: TextAlign.start,
+            ),
           )),
         ]));
   }
