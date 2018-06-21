@@ -44,7 +44,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[new Text("Guest Users can't save settings")],
+          children: <Widget>[
+            new Text("Guest Users can't save settings"),
+            new RoundedButton(
+              text: new Text("About & Licenses"),
+              onPressed: () => _showAboutInfo,
+            )
+          ],
         )
       ],
     );
@@ -247,6 +253,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ],
     );
     showDialog(context: context, builder: (context) => alertDialog);
+  }
+
+  void _showAboutInfo() {
+    showDialog(context: context, builder:(BuildContext context) {
+      return new AboutDialog(
+        applicationName: "CiE App",
+        applicationVersion: "1.0",
+        applicationLegalese: "Datenschutz bla bla",
+      );
+    }
+    );
   }
 
   @override
