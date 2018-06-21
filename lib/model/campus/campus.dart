@@ -4,6 +4,8 @@ class Campus {
   final String image; //TODO: CHANGE THIS TO SOMETHING THAT IS AN IMAGE?
   final String address;
 
+  //TODO: process latitude and longitude coordinates
+
   const Campus(this.id, this.name, this.image, this.address);
 
   Map<String, dynamic> toMap() {
