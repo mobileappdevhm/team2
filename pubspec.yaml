@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.0
   simple_permissions: any
   quiver: '>=0.29.0 <0.30.0'
+  http: ^0.11.3+16
 
   # Dependency for the search feature
   flutter_search_bar:

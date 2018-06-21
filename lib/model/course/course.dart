@@ -47,6 +47,17 @@ class Course {
     this.dates,
   ]);
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Course &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
 
@@ -71,7 +82,13 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  if (status == CourseStatus.GREEN) return 'green';
-  if (status == CourseStatus.YELLOW) return 'yellow';
-  return 'red';
+  if (status == CourseStatus.GREEN) return 'GREEN';
+  if (status == CourseStatus.YELLOW) return 'YELLOW';
+  return 'RED';
+}
+
+CourseStatus stringToStatus(String status) {
+  if (status.toUpperCase() == 'GREEN') return CourseStatus.GREEN;
+  if (status.toUpperCase() == 'YELLOW') return CourseStatus.YELLOW;
+  return CourseStatus.RED;
 }
