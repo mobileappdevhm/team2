@@ -46,4 +46,9 @@ class SqliteCampusProvider implements CacheCampusProvider {
 
     return dbh.insertTable("Campus", campusesList);
   }
+
+  Future<int> truncate(){
+    dbh.truncateTable("Campus");
+    return new Future( () => 0);
+  }
 }

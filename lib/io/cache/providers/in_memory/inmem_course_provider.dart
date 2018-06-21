@@ -56,4 +56,9 @@ class InMemoryCourseProvider implements CacheCourseProvider {
     selected.remove(course);
     return false;
   }
+
+  @override
+  Future<int>  truncate(){
+    throw new UnimplementedError();
+  }
 }

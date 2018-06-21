@@ -5,6 +5,7 @@ import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/user_provider.dart';
 import 'package:courses_in_english/io/cache/providers/user_settings_provider.dart';
 import 'package:mockito/mockito.dart';
@@ -50,6 +51,10 @@ class MockedCacheProvidersFactory implements CacheProviderFactory {
   @override
   CacheUserSettingsProvider createSettingsProvider() =>
       cacheUserSettingsProvider;
+
+  @override
+  CacheSelectedCourseProvider createSelectedCourseProvider() =>
+      throw new UnimplementedError();
 }
 
 class MockitoCacheUserProvider extends Mock implements CacheUserProvider {}

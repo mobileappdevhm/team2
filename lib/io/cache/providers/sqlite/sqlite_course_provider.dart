@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
@@ -77,7 +77,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
           await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
-      String tempCourseStatusName = data["status"];
+      String tempCourseStatusName = data["courseStatus"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
           : tempCourseStatusName == "yellow"
@@ -118,28 +118,57 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<int> putCourses(List<Course> courses) async => dbh.insertTable(
-        "Course",
-        courses
-            .map(
-              // Map each course to raw data
-              (course) => course.toMap(),
-            )
-            .toList(),
-      ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE?Arnt those going to be put in at the start?
+  Future<int> putCourses(List<Course> courses) async {
+    await dbh.insertTable(
+      "Course",
+      courses.map(
+        // Map each course to raw data
+        (course) => course.toMap(),
+      ).toList(),
+    ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
+    for (Course c in courses) {
+//      for(TimeAndDay t in c.dates){
+//        if((await dbh.selectOneWhere("Date", "id", t.id.toString())).length == 0){
+//        await dbh.insertOneTable("Date", t.toMap());
+        await dbh.insertTable("Date", c.dates.map( (t) => t.toMap()).toList());
+//        }
+//        try{
+//          await dbh.selectOneWhere("Date", "id", t.id.toString());
+//        }catch(e){
+//          await dbh.insertOneTable("Date", t.toMap());
+//        }
+//      }
+    }
+    return new Future(() => 0);
+  }
 
   @override
   Future<bool> favorizeCourse(Course course) async {
     // TODO: implement favorizeCourse
-    bool b = (0 == await dbh.insertOneTable("Favorites", course.toMap()));
+    bool b =
+        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
     return (new Future(() => b));
 //    throw new UnimplementedError();
   }
 
   @override
-  Future<List<Course>> getFavorizedCourses() {
-    // TODO: implement getFavorizedCourses
-    throw new UnimplementedError();
+  Future<List<Course>> getFavorizedCourses() async {
+    List<Course> favs = [];
+    if (new SessionController().user == null) {
+      return (new Future(() => favs));
+    }
+    List<Map<String, dynamic>> rawCourseData = await dbh.selectWhere(
+        "Favorites", "userId", new SessionController().user.id.toString());
+
+    void iterate(Map<String, dynamic> data) async {
+      favs.add(await getCourse(data["courseId"]));
+    }
+
+    for (Map<String, dynamic> course in rawCourseData) {
+      await iterate(course);
+    }
+
+    return (new Future(() => favs));
   }
 
   @override
@@ -156,8 +185,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> unFavorizeCourse(Course course) async {
-    bool b =
-        (0 == await dbh.deleteWhere("Favorites", "id", course.id.toString()));
+    bool b = (0 !=
+        await dbh.deleteTwoWhere("Favorites", "userId", "courseId",
+            new SessionController().user.id.toString(), course.id.toString()));
     return (new Future(() => b));
     // TODO: implement unFavorizeCourse
 //    throw new UnimplementedError();
@@ -167,5 +197,13 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<bool> unSelectCourse(Course course) {
     // TODO: implement unSelectCourse
     throw new UnimplementedError();
+  }
+
+
+  Future<int> truncate(){
+    dbh.truncateTable("Date");
+    dbh.truncateTable("Course");
+    dbh.truncateTable("Favorites");
+    return new Future( () => 0);
   }
 }

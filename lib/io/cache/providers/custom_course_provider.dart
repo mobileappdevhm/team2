@@ -1,26 +1,19 @@
 import 'dart:async';
 
-import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/course/custom_course.dart';
 
 /// Provider for courses.
 abstract class CacheCustomCourseProvider {
   /// Get all available courses.
-  Future<List<Course>> getCourses();
+  Future<List<CustomCourse>> getCourses();
 
-  Future<List<Course>> getSelectedCourses();
+  Future<int> putCourses(List<CustomCourse> courses);
 
-  Future<bool> selectCourse(Course course);
-
-  Future<bool> unSelectCourse(Course course);
-
-  Future<int> putCourses(List<Course> courses);
-
-  Future<List<Course>> getFavorizedCourses();
-
-  Future<bool> favorizeCourse(Course course);
-
-  Future<bool> unFavorizeCourse(Course course);
+  Future<int> putCourse(CustomCourse course);
 
   /// Get course by id.
-  Future<Course> getCourse(int courseId);
+  Future<CustomCourse> getCourse(int courseId);
+
+  Future<int> getCount();
+  Future<bool> deleteCourse(CustomCourse course);
 }

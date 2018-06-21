@@ -1,4 +1,5 @@
 import 'package:courses_in_english/model/campus/campus.dart';
+import 'package:courses_in_english/model/course/custom_course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
@@ -47,6 +48,16 @@ class Course {
     this.dates,
   ]);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Course &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
 
@@ -65,6 +76,40 @@ class Course {
 
     return tempMap;
   }
+  Map<String, dynamic> toFavoritesMap() {
+    Map<String, dynamic> tempMap = new Map();
+    tempMap['userId'] = new SessionController().user.id;
+    tempMap["courseId"] = this.id;
+    return tempMap;
+  }
+
+  Map<String, dynamic> toSelectedMap() {
+    Map<String, dynamic> tempMap = new Map();
+
+    tempMap['id'] = this.id;
+    tempMap["name"] = this.name;
+    tempMap["location"] = this.location.id;
+    tempMap["description"] = this.description;
+    tempMap["department"] = this.department.number;
+    tempMap["lecturer"] = this.lecturer.id;
+    tempMap["room"] = this.room;
+    tempMap["courseStatus"] = this.courseStatus == CourseStatus.RED
+        ? "red"
+        : this.courseStatus == CourseStatus.YELLOW ? "yellow" : "green";
+    tempMap["availableSlots"] = this.availableSlots;
+    tempMap["ects"] = this.ects;
+    tempMap["usCredits"] = this.usCredits;
+    tempMap["semesterWeekHours"] = this.semesterWeekHours;
+    tempMap["userId"] = new SessionController().user.id;
+
+    return tempMap;
+  }
+
+  CustomCourse toCustomCourse(){
+    return new CustomCourse(name, location.name, department.number.toString(), lecturer.name, room, dates, custom: false);
+  }
+
+
 }
 
 /// Available course states.

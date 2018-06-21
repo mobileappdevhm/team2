@@ -1,8 +1,9 @@
-import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
 import 'package:courses_in_english/io/inet/providers/campus_provider.dart';
 import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/department_provider.dart';
 import 'package:courses_in_english/io/inet/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
+import 'package:courses_in_english/io/inet/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/user_provider.dart';
 import 'package:mockito/mockito.dart';
 
@@ -39,6 +40,10 @@ class MockitoProviderFactory implements InetProviderFactory {
   InetUserProvider createUserProvider() {
     return userProvider;
   }
+
+  @override
+  InetSelectedCourseProvider createSelectedCourseProvider() =>
+      throw new UnimplementedError();
 }
 
 class MockitoInetCampusProvider extends Mock implements InetCampusProvider {}
