@@ -2,7 +2,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
-import 'package:courses_in_english/ui/scaffolds/gdpr_overview.dart';
+import 'package:courses_in_english/ui/scaffolds/gdpr_notice.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
