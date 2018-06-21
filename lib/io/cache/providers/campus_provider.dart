@@ -6,4 +6,5 @@ abstract class CacheCampusProvider {
   Future<List<Campus>> getCampuses();
   Future<int> putCampuses(List<Campus> campuses);
   Future<Campus> getCampusesById(int campusID);
+  Future<int> truncate();
 }

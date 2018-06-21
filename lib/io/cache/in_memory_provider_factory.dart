@@ -2,6 +2,7 @@ import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/io/cache/providers/in_memory/inmem_course_provider.dart';
@@ -36,5 +37,9 @@ class InMemoryProviderFactory implements CacheProviderFactory {
 
   @override
   CacheUserSettingsProvider createSettingsProvider() =>
+      throw new UnimplementedError();
+
+  @override
+  CacheSelectedCourseProvider createSelectedCourseProvider() =>
       throw new UnimplementedError();
 }

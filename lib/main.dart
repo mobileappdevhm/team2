@@ -19,9 +19,10 @@ void main() {
   new SessionController().injectDependencies(
       new MockProviderFactory(), new SqliteProviderFactory());
   new UserCreationController().injectDependencies(new MockProviderFactory());
-  // TODO switch to sql
+    // TODO switch to sql
   new FavoritesController().injectDependencies(
-      new MockProviderFactory(), new InMemoryProviderFactory());
+      new MockProviderFactory(), new SqliteProviderFactory());
+//      new MockProviderFactory(), new InMemoryProviderFactory());
   new CieController().injectDependencies(new SqliteProviderFactory());
   runApp(new CieApp());
 }

@@ -36,11 +36,13 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await db.execute(
         "CREATE TABLE Course(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL)");
     await db.execute(
-        "CREATE TABLE CustomCourse(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL)");
+        "CREATE TABLE SelectedCourse(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL, userId INTEGER)");
     await db.execute(
-        "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color TEXT)");
+        "CREATE TABLE CustomCourse(id INTEGER PRIMARY KEY, name TEXT, location TEXT, department TEXT, lecturer TEXT, room TEXT, userId INTEGER)");
     await db.execute(
-        "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, courseId INTEGER)");
+        "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color INTEGER)");
+    await db.execute(
+        "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, courseId INTEGER, userId INTEGER)");
     await db.execute(
         "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT, courseID INTEGER)");
     await db.execute(
@@ -52,7 +54,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await db.execute(
         "CREATE TABLE Date(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
     await db.execute(
-        "CREATE TABLE CustomDate(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
+        "CREATE TABLE CustomDate(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER, userId INTEGER)");
   }
 
   @override
@@ -92,6 +94,8 @@ class ProdDatabaseHelper implements DatabaseHelper {
 
     await dbClient.delete("Campus");
     await dbClient.delete("Course");
+    await dbClient.delete("CustomCourse");
+    await dbClient.delete("SelectedCourse");
     await dbClient.delete("Department");
     await dbClient.delete("Favorites");
     await dbClient.delete("Lecturer");
@@ -99,7 +103,15 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await dbClient.delete("Cie");
     await dbClient.delete("Settings");
     await dbClient.delete("Date");
+    await dbClient.delete("CustomDate");
     exit(0);
+  }
+
+  @override
+  void truncateTable(String table) async {
+    var dbClient = await db;
+
+    await dbClient.delete(table);
   }
 
   @override
@@ -126,6 +138,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
     List<Map<String, dynamic>> res = await dbClient.query(table,
         columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res[0];
+
   }
 
   @override
@@ -142,5 +155,13 @@ class ProdDatabaseHelper implements DatabaseHelper {
     var dbClient = await db;
     return Sqflite
         .firstIntValue(await dbClient.rawQuery("SELECT COUNT(*) FROM $table"));
+  }
+
+  Future<int> deleteTwoWhere(
+      String table, String whereColumn, String whereColumnTwo, String whereArgs, String whereArgsTwo) async{
+    var dbClient = await db;
+    int res = await dbClient
+        .delete(table, where: '$whereColumn = ? AND $whereColumnTwo = ?', whereArgs: [whereArgs, whereArgsTwo]);
+    return res;
   }
 }

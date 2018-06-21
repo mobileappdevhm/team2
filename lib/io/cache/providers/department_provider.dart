@@ -11,4 +11,6 @@ abstract class CacheDepartmentProvider {
   Future<Department> getDepartmentByNumber(int departmentNumber);
 
   Future<int> putDepartments(List<Department> departments);
+
+  Future<int> truncate();
 }

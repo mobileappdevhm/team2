@@ -23,4 +23,6 @@ abstract class CacheCourseProvider {
 
   /// Get course by id.
   Future<Course> getCourse(int courseId);
+
+  Future<int> truncate();
 }

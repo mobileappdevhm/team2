@@ -9,4 +9,6 @@ abstract class CacheLecturerProvider {
   Future<Iterable<Lecturer>> getLecturers();
 
   Future<int> putLecturers(List<Lecturer> lecturers);
+
+  Future<int> truncate();
 }

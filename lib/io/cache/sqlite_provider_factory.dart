@@ -4,6 +4,7 @@ import 'package:courses_in_english/io/cache/data_access/prod_databasehelper.dart
 import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
@@ -13,6 +14,7 @@ import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_course_provi
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_custom_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_user_settings_provider.dart';
 import 'package:courses_in_english/io/cache/providers/user_provider.dart';
 import 'package:courses_in_english/io/cache/providers/user_settings_provider.dart';
@@ -49,4 +51,9 @@ class SqliteProviderFactory implements CacheProviderFactory {
   @override
   CacheUserSettingsProvider createSettingsProvider() =>
       new SqliteUserSettingsProvider(dbh);
+
+  CacheSelectedCourseProvider createSelectedCourseProvider() =>
+      throw new UnimplementedError();
+
+//  new SqliteSelectedCourseProvider(dbh);
 }

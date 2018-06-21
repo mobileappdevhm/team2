@@ -8,6 +8,7 @@ import 'package:courses_in_english/io/inet/providers/lecturer_provider.dart';
 import 'package:courses_in_english/io/inet/providers/mock/mock_lecturer_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
 import 'package:courses_in_english/io/inet/providers/mock/mock_user_provider.dart';
+import 'package:courses_in_english/io/inet/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/user_provider.dart';
 //import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 
@@ -29,4 +30,8 @@ class MockProviderFactory implements InetProviderFactory {
 
   @override
   InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
+
+  @override
+  InetSelectedCourseProvider createSelectedCourseProvider() =>
+      throw new UnimplementedError();
 }
