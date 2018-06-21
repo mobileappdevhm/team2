@@ -192,6 +192,13 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onTap: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
+
+            // Make sure to reset filter state if user left without clearning previously
+            if (_selectedIndex == 0){
+            isFiltered = false;
+            this.displayedCourses = content.courses;
+            }
+
             _controller.jumpToPage(newIndex);
             new Injector().firebaseController?.setCurrentScreen(
                 screenName: screens[_selectedIndex].toStringShort());
