@@ -2,6 +2,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
+import 'package:courses_in_english/ui/scaffolds/gdpr_overview.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -46,9 +47,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Text("Guest Users can't save settings"),
+            new LineSeparator(),
             new RoundedButton(
               text: new Text("About & Licenses"),
-              onPressed: () => _showAboutInfo,
+              onPressed: () => _showAboutInfo(),
             )
           ],
         )
@@ -166,6 +168,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               onPressed: () => _showDeleteAlert(5)),
         ]),
+        _newElement([new LineSeparator()]),
+        _newElement([new RoundedButton(
+          text: new Text("About & Licenses"),
+          onPressed: () => _showAboutInfo(),
+        )])
       ],
 //      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
@@ -256,14 +263,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _showAboutInfo() {
-    showDialog(context: context, builder:(BuildContext context) {
-      return new AboutDialog(
-        applicationName: "CiE App",
-        applicationVersion: "1.0",
-        applicationLegalese: "Datenschutz bla bla",
-      );
-    }
+    AboutDialog about = new AboutDialog(
+      applicationName: "CiE App",
+      applicationVersion: "1.0",
+      applicationLegalese:
+          "This App was developed by Benjamin Eder, Martin Gaiser, Hayden Hudgins, Dimitri Krivoj, Mario Meissner, Jonas Reitemeyer, Konstantin Schlosser and Leon during the Mobile Development Course in 2018.\n\nApp Icon designed by mynamepong from Flaticon.\n\n\nFor information regarding our data protection policy, please click below.",
+      children: <Widget>[
+        new FlatButton(
+            onPressed: () => _showGdpr(), child: new Text("Gdpr Notice"))
+      ],
     );
+    showDialog(context: context, builder: (context) => about);
+  }
+
+  void _showGdpr() {
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => new GdprNotice()));
   }
 
   @override

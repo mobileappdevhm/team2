@@ -27,16 +27,18 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double potminwidth = text.style.fontSize / 1.8 * text.data.length + 10;
+    double fontSize = text?.style?.fontSize;
+    if (fontSize == null) fontSize = 12.0;
+    double potminwidth = fontSize / 1.8 * text.data.length + 10;
     return new RawMaterialButton(
         constraints: new BoxConstraints(
-            minHeight: text.style.fontSize + 20.0,
+            minHeight: fontSize + 20.0,
             minWidth: (minwidth != 0.0)
                 ? minwidth
                 : (maxwidth > potminwidth) ? potminwidth : maxwidth,
             maxHeight: maxheight,
             maxWidth: maxwidth),
-        onPressed: () => onPressed,
+        onPressed: onPressed,
         shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(100000.0)),
         fillColor: Colors.red,
