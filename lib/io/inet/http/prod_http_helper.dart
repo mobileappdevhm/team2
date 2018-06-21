@@ -19,8 +19,7 @@ class ProdHttpHelper implements HttpHelper {
     return get(baseUrl + '/users/current', token);
   }
 
-  dynamic post(
-      String url, Map<String, dynamic> body) async {
+  dynamic post(String url, Map<String, dynamic> body) async {
     var response = await client.post(
       url,
       body: json.encode(body),
@@ -30,9 +29,9 @@ class ProdHttpHelper implements HttpHelper {
   }
 
   dynamic get(String url, [String token]) async {
-    var response = token == null ? await client.get(url) : await client.get(url, headers: {
-      'Authorization': 'Bearer $token'
-    });
+    var response = token == null
+        ? await client.get(url)
+        : await client.get(url, headers: {'Authorization': 'Bearer $token'});
     return json.decode(response.body);
   }
 
@@ -40,17 +39,18 @@ class ProdHttpHelper implements HttpHelper {
   Future<List<Map<String, dynamic>>> getCourses() => get('/courses');
 
   @override
-  Future<List<Map<String, dynamic>>> getDepartments() {
-    throw new UnimplementedError();
-  }
+  Future<List<Map<String, dynamic>>> getDepartments() => get('/departments');
 
   @override
-  Future<List<Map<String, dynamic>>> getLecturers() {
-    throw new UnimplementedError();
-  }
+  Future<List<Map<String, dynamic>>> getLecturers() => get('/lecturers');
 
   @override
   Future<List<Map<String, dynamic>>> getLocations() {
+    throw new UnimplementedError();
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getCampuses() {
     throw new UnimplementedError();
   }
 }

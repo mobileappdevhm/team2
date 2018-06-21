@@ -7,4 +7,5 @@ abstract class HttpHelper {
   Future<List<Map<String, dynamic>>> getCourses();
   Future<List<Map<String, dynamic>>> getLecturers();
   Future<List<Map<String, dynamic>>> getLocations();
+  Future<List<Map<String, dynamic>>> getCampuses();
 }
