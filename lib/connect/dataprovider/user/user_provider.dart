@@ -1,6 +1,6 @@
-import 'package:courses_in_english/model/user/user.dart';
-
 import 'dart:async';
+
+import 'package:courses_in_english/model/user/user.dart';
 
 /// Provider for users.
 abstract class UserProvider {

@@ -1,14 +1,15 @@
 import 'dart:async';
+
+import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
 import 'package:courses_in_english/connect/dataprovider/course/course_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
+import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
+import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
-import 'package:courses_in_english/connect/dataprovider/lecturer/sqlite_lecturer_provider.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/department/sqlite_department_provider.dart';
-import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/connect/dataprovider/campus/sqlite_campus_provider.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
 class SqliteCourseProvider implements CourseProvider {
   @override

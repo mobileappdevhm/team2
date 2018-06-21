@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 import 'package:courses_in_english/connect/dataprovider/lecturer/lecturer_provider.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 /// Mock lecturer provider providing lecturers from the mock courses.
 class SqliteLecturerProvider implements LecturerProvider {

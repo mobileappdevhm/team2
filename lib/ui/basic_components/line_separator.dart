@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LineSeparator extends StatelessWidget {
   static const Color DEFAULT_COLOR = const Color(0xFFDDDDDD);

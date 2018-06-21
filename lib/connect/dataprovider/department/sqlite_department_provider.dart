@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/databasehelper/databasehelper.dart';
 
 class SqliteDepartmentProvider implements DepartmentProvider {
   @override

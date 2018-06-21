@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:courses_in_english/connect/dataprovider/department/department_provider.dart';
-import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/connect/dataprovider/mock_data.dart';
+import 'package:courses_in_english/model/department/department.dart';
 
 /// Mock department provider holding mock department data.
 class MockDepartmentProvider implements DepartmentProvider {

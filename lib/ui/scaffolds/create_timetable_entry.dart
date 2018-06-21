@@ -5,7 +5,6 @@ import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 ///TODO conncect with database i dont know how to
 class CreateTimetableEntryScaffold extends StatefulWidget {
