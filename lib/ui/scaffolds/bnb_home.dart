@@ -86,7 +86,10 @@ class _HomeScaffoldState extends State<HomeScaffold>
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             hint: Text(
               "Departments",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ))
       ];
     }
@@ -194,9 +197,9 @@ class _HomeScaffoldState extends State<HomeScaffold>
             _selectedIndex = newIndex;
 
             // Make sure to reset filter state if user left without clearning previously
-            if (_selectedIndex == 0){
-            isFiltered = false;
-            this.displayedCourses = content.courses;
+            if (_selectedIndex == 0) {
+              isFiltered = false;
+              this.displayedCourses = content.courses;
             }
 
             _controller.jumpToPage(newIndex);
