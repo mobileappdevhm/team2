@@ -5,6 +5,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 
+///creates a ICS file for all courses in the list
 String createIcs(List<Course> courses) {
   String result =
       "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:CieApp\r\nSUMMARY:Cie Course in at the HM in munich\r\n";
@@ -18,6 +19,7 @@ String createIcs(List<Course> courses) {
   return result;
 }
 
+///creates a ICS file for one course; listpos = pos of course in list
 String _createsingleIcs(Course course, int listpos) {
   DateTime today = new DateTime.now();
   String day = today.day.toString();
@@ -74,6 +76,7 @@ String _createsingleIcs(Course course, int listpos) {
   return result;
 }
 
+///convert days according to ics format
 String _dayshort(Course c) {
   String result = "";
   List<String> dayOfWeek = [
@@ -91,15 +94,16 @@ String _dayshort(Course c) {
   return result.substring(0, result.length - 1);
 }
 
+///saves file on your phone after asking for permission
 saveIcsFile(List<Course> courses) async {
   requestPermission();
 
   String ics = createIcs(courses);
   final file = await _localFile;
   file.writeAsString(ics);
-  print(ics);
 }
 
+///helper funktions for memory acsess
 requestPermission() async {
   bool res = await SimplePermissions
       .requestPermission(Permission.WriteExternalStorage);

@@ -7,6 +7,7 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///TODO conncect with database i dont know how to
 class CreateTimetableEntryScaffold extends StatefulWidget {
   CreateTimetableEntryScaffold();
 
@@ -19,7 +20,6 @@ class CreateTimetableEntryScaffold extends StatefulWidget {
 class CreateTimetableEntryScaffoldState
     extends State<CreateTimetableEntryScaffold> {
   final Session session = new Session();
-  CreateTimetableEntryScaffoldState();
   String title = "";
   String professor = "";
   String location = "";
@@ -27,6 +27,7 @@ class CreateTimetableEntryScaffoldState
   String room = "";
   String time = "";
   String duration = "";
+  CreateTimetableEntryScaffoldState();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -125,6 +126,15 @@ class CreateTimetableEntryScaffoldState
                   new TimeAndDay(-1, dayumber, hour, min, durationnumber, -1)
                 ]);
                 session.addTimetableCourse(newCourse);
+                AlertDialog dialog = new AlertDialog(
+                  content: new Text(
+                      "A new appointment was added to your timetable."),
+                );
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return dialog;
+                    });
               });
             },
             child: new Text("submit",

@@ -122,7 +122,7 @@ class Session {
   void addTimetableCourse(Course c,
       {OnSuccess success, OnFailure failure}) async {
     print(c);
-    // TODO to be implemented
+    // TODO to be implemented we need a second list of courses just for the timetable wich is given to the timetablescreen in the constructor
     throw new UnimplementedError();
   }
 
