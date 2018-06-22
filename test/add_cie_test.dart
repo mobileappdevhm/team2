@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 
 void main() {
 //  testWidgets('notLoggedInTest', (WidgetTester tester) async {
