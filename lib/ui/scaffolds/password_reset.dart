@@ -156,9 +156,6 @@ class _PasswordResetState extends State<PasswordReset> {
         text: new Text("Reset Password",
             style: new TextStyle(fontSize: 18.0, color: Colors.white)),
         onPressed: (() {
-          print(_userEmail);
-          print(_code);
-          print(_newPassword);
           resetPassword(context);
         }),
         color: Colors.black,
