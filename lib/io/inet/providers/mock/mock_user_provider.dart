@@ -17,12 +17,13 @@ class MockInetUserProvider implements InetUserProvider {
   }
 
   @override
-  Future<bool> requestResetCode(String userMail) async{
+  Future<bool> requestResetCode(String userMail) async {
     return true;
   }
 
   @override
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) async {
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) async {
     return true;
   }
 }
