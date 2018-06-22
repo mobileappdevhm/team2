@@ -1,4 +1,5 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
@@ -22,7 +23,8 @@ class CourseDetailsScaffold extends StatefulWidget {
 class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
   final Course course;
   bool isFavored;
-  final Session session = new Session();
+  final FavoritesController favoritesController =
+      new Injector().favoritesController;
 
   _CourseDetailsScaffoldState(this.course, this.isFavored);
 
@@ -85,9 +87,9 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                       : 'Add this course to your favorites.',
                   onPressed: () {
                     if (isFavored) {
-                      session.unfavorize(course);
+                      favoritesController.unFavorizeCourse(course);
                     } else {
-                      session.favorize(course);
+                      favoritesController.favorizeCourse(course);
                     }
                     setState(() {
                       isFavored = !isFavored;
@@ -119,6 +121,7 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                     new Text(
                         // TODO adjust to list of timeanddays
                         course.dates != null &&
+                                course.dates.length > 0 &&
                                 course.dates[0].weekday != null &&
                                 course.dates[0].duration != null
                             ? course.dates[0].toDate()

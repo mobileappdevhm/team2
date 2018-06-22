@@ -1,4 +1,3 @@
-import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
@@ -11,13 +10,14 @@ void main() {
 //    expect(find.byType(LineSeparator), findsOneWidget);
 //  });
 
-  testWidgets('testTest', (WidgetTester tester) async {
+ /* testWidgets('testTest', (WidgetTester tester) async {
     await tester.pumpWidget(
         new MaterialApp(home: new Scaffold(body: new AddCieScreen())));
     expect(
         find.text("Guest Users can't save past CIE courses"), findsOneWidget);
     expect(find.byType(LineSeparator), findsOneWidget);
   });
+  */
 
 //  testWidgets('AddButtonTest', (WidgetTester tester) async {
 //    await tester.pumpWidget(

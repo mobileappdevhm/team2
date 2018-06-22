@@ -1,4 +1,5 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ const Color HEART = const Color(0xFFFFA1A1);
 class CourseListEntry extends StatelessWidget {
   final Course course;
   final bool favorite;
-  final Session session = new Session();
+  final FavoritesController favoritesController =
+      new Injector().favoritesController;
 
   CourseListEntry(this.course, this.favorite);
 
@@ -22,9 +24,12 @@ class CourseListEntry extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double vw = size.width / 100;
 
-    return new Material(
+    return new Card(
       child: new InkWell(
           onTap: () {
+            new Injector()
+                .firebaseController
+                ?.logEvent(name: "course_details", value: course.name);
             Navigator.push(
               context,
               new MaterialPageRoute(
@@ -51,8 +56,8 @@ class CourseListEntry extends StatelessWidget {
                       iconSize: 9 * vw,
                       color: favorite ? HEART : Colors.black12,
                       onPressed: favorite
-                          ? () => session.unfavorize(course)
-                          : () => session.favorize(course),
+                          ? () => favoritesController.unFavorizeCourse(course)
+                          : () => favoritesController.favorizeCourse(course),
                     ),
                   ),
                 ]),
@@ -62,6 +67,7 @@ class CourseListEntry extends StatelessWidget {
                           child: new Text(
                               // TODO adjust to list of time and days
                               course.dates != null &&
+                                      course.dates.length > 0 &&
                                       course.dates[0].weekday != null &&
                                       course.dates[0].startMinute != null &&
                                       course.dates[0].startHour != null &&
@@ -93,10 +99,6 @@ class CourseListEntry extends StatelessWidget {
                           child: new AvailabilityWidget(course.courseStatus)))
                 ])
               ]),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      bottom: new BorderSide(
-                          color: new Color(0xFFDDDDDD), width: 1.0))),
               padding: new EdgeInsets.only(
                   left: 3 * vw, top: 0.1 * vw, right: 3 * vw, bottom: 1 * vw))),
     );

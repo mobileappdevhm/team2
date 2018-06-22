@@ -1,4 +1,3 @@
-import 'package:courses_in_english/controller/session.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
@@ -118,7 +117,8 @@ class _PasswordResetState extends State<PasswordReset> {
             ),
           );
     } else {
-      new Session().passwordReset(userMail, newPassword, code);
+      //TODO do passwordReset stuff..
+      //new Session().passwordReset(userMail, newPassword, code);
       //TODO show Snackbar based upon succes of passwordReset
     }
   }
