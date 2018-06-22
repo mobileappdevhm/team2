@@ -1,4 +1,3 @@
-import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 class TimeAndDay {

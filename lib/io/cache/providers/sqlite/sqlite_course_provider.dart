@@ -168,7 +168,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
     }
 
     for (Map<String, dynamic> course in rawCourseData) {
-      await iterate(course);
+      iterate(course);
     }
 
     return (new Future(() => favs));

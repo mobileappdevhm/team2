@@ -48,10 +48,10 @@ class NormalFavoritesController implements FavoritesController {
     // TODO use inetCourseProvider to push favorites to server
   }
 
-  @override
-  void pullFavorites() async {
-    // TODO use inetCourseProvider to push favorites to server
-  }
+//  @override
+//  void pullFavorites() async {
+//    // TODO use inetCourseProvider to push favorites to server
+//  }
 
   @override
   Future<List<Course>> get favorites async => cacheCourseProvider
