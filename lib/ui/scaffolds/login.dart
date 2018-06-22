@@ -32,16 +32,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _email;
-  String _password;
+  String email;
+  String password;
   Timer pageForward;
 
-  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new Builder(builder: (BuildContext context) {
-        return new SceneryWrapperWidget(
+      body: new Builder(
+        builder: (context) => new SceneryWrapperWidget(
           new Column(
             children: <Widget>[
               titleRow(),
@@ -63,10 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           new Container(
                             child: new LineSeparator(),
-                            margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                            margin:
+                            new EdgeInsets.symmetric(horizontal: 10.0),
                           ),
                           new Container(
-                            child: continueAsGuest(context),
+                            child: continueAsGuest(),
                           ),
                         ],
                       ),
@@ -76,27 +76,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-        );
-      }),
+        ),
+      ),
     );
   }
 
-  Row continueAsGuest(BuildContext context) {
+  Row continueAsGuest() {
     return new Row(
       children: <Widget>[
         new Container(
           child: new RoundedButton(
-            text: new Text(
-              LoginScreen.continueAsGuestButton,
-              style: new TextStyle(fontSize: 18.0, color: Colors.white),
-            ),
             onPressed: () => Navigator.pushReplacement(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new LoadingScaffold()),
-                ),
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new LoadingScaffold()),
+            ),
             color: Colors.black,
-            key: LoginScreen.keyGuestButton,
+            text: new Text(
+              "Continue as Guest",
+              style: new TextStyle(fontSize: 18.0,color: Colors.white),
+            ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
           margin: new EdgeInsets.symmetric(vertical: 25.0),
@@ -121,17 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Container loginButton(BuildContext context) {
     return new Container(
       child: new RoundedButton(
-        onPressed: (() {
-          if (checkInput(context)) {
-            doLogin(context);
-          }
-        }),
+        onPressed: () => doLogin(context),
         text: new Text(
-          LoginScreen.loginButton,
-          style: TextStyle(fontSize: 18.0, color: Colors.white),
+          "Login",style: new TextStyle(fontSize: 18.0,color: Colors.white),
         ),
         color: Colors.black,
-        key: LoginScreen.keyLoginButton,
       ),
       alignment: AlignmentDirectional.center,
       margin: new EdgeInsets.symmetric(vertical: 20.0),
@@ -141,22 +134,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded userNameField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      _email = controller.text.toString();
+      email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            maxLength: 30,
+            maxLength: 20,
             decoration: new InputDecoration(
-              labelText: "Input E-Mail",
+              labelText: "Input Username",
               icon: new Icon(Icons.person),
             ),
             onFieldSubmitted: (String input) {
-              this._email = input;
+              this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
-            key: LoginScreen.keyEmailField,
             controller: controller,
           ),
           margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
@@ -167,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded passwordField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      _password = controller.text.toString();
+      password = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
@@ -178,11 +170,10 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
           onFieldSubmitted: (String input) {
-            this._password = input;
+            this.password = input;
           },
           controller: controller,
           focusNode: passwordNode,
-          key: LoginScreen.keyPasswordField,
         ),
         margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       ),
@@ -201,13 +192,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void doLogin(BuildContext context) {
     if (checkInput(context)) {
-      new Injector().sessionController.login(_email, _password).then(
-        (user) {
+      new Injector().sessionController.login(email, password).then(
+            (user) {
           showSnackBar("You're successfully logged in", context);
           new Injector().cieController.user = user;
           pageForward = new Timer(
             new Duration(milliseconds: 1000),
-            () => Navigator.pushReplacement(
+                () => Navigator.pushReplacement(
                 this.context,
                 new MaterialPageRoute(
                     builder: (context) => new LoadingScaffold())),
@@ -221,16 +212,16 @@ class _LoginScreenState extends State<LoginScreen> {
     bool emailEmpty = true;
     bool containsAtAndDot = true;
     bool passwordEmpty = true;
-    if (this._email != null) {
-      if (this._email.length > 0) {
+    if (this.email != null) {
+      if (this.email.length > 0) {
         emailEmpty = false;
-        if (!(this._email.contains("@") && this._email.contains("."))) {
+        if (!(this.email.contains("@") && this.email.contains("."))) {
           containsAtAndDot = false;
         }
       }
     }
-    if (this._password != null) {
-      if (this._password.length > 0) {
+    if (this.password != null) {
+      if (this.password.length > 0) {
         passwordEmpty = false;
       }
     }
@@ -274,14 +265,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void showSnackBar(String text, BuildContext context) {
     Scaffold.of(context).showSnackBar(
-          new SnackBar(
-            content: new Text(
-              text,
-              textAlign: TextAlign.center,
-            ),
-            duration: new Duration(seconds: 1),
-          ),
-        );
+      new SnackBar(
+        content: new Text(
+          text,
+          textAlign: TextAlign.center,
+        ),
+        duration: new Duration(seconds: 1),
+      ),
+    );
   }
 
   @override

@@ -37,7 +37,6 @@ void main() {
         find.widgetWithText(TextFormField, 'Input Password'), '12345678');
     verifyZeroInteractions(inetFactory.userProvider);
     await tester.tap(find.text('Login'));
-    await tester.pump(new Duration(seconds:1));
     await tester.pump();
     verify(inetFactory.userProvider.login('test@hm.edu', '12345678')).called(1);
   });
