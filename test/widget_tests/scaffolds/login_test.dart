@@ -3,6 +3,7 @@ import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,10 @@ void main() {
   });
   testWidgets("Test layout", (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new LoginScreen()));
-    expect(find.byType(RaisedButton), findsNWidgets(2));
+    expect(find.byType(RoundedButton), findsNWidgets(2));
     expect(find.byType(TextFormField), findsNWidgets(2));
     expect(find.byType(SceneryWidget), findsOneWidget);
-    expect(find.byType(LineSeparator), findsOneWidget);
+    expect(find.byType(LineSeparator), findsNWidgets(2));
   });
 
   testWidgets("Test login", (WidgetTester tester) async {
@@ -36,6 +37,7 @@ void main() {
         find.widgetWithText(TextFormField, 'Input Password'), '12345678');
     verifyZeroInteractions(inetFactory.userProvider);
     await tester.tap(find.text('Login'));
+    await tester.pump(new Duration(seconds:1));
     await tester.pump();
     verify(inetFactory.userProvider.login('test@hm.edu', '12345678')).called(1);
   });
