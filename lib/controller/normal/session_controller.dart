@@ -38,7 +38,8 @@ class NormalSessionController implements SessionController {
   }
 
   @override
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) {
-    return inetUserProvider.resetPassword(userMail,resetCode,newPassword);
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) {
+    return inetUserProvider.resetPassword(userMail, resetCode, newPassword);
   }
 }

@@ -15,7 +15,8 @@ void main() {
   setUp(() {
     inetFactory = new MockitoProviderFactory();
     cacheFactory = new MockedCacheProvidersFactory();
-    new Injector().injectDependencies(inetFactory, cacheFactory, firebase: false);
+    new Injector()
+        .injectDependencies(inetFactory, cacheFactory, firebase: false);
   });
   testWidgets('Test guest view', (WidgetTester tester) async {
     await tester
@@ -26,7 +27,8 @@ void main() {
   testWidgets('Test logged in view', (WidgetTester tester) async {
     when(inetFactory.userProvider.login('d', 'd'))
         .thenAnswer((_) => Future.value(user));
-    when(cacheFactory.cacheCieProvider.getCies(user)).thenAnswer((_) => Future.value(<Cie>[]));
+    when(cacheFactory.cacheCieProvider.getCies(user))
+        .thenAnswer((_) => Future.value(<Cie>[]));
     await new Injector().sessionController.login('d', 'd');
     await tester
         .pumpWidget(new MaterialApp(home: new Scaffold(body: new CieScreen())));

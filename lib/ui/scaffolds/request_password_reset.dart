@@ -15,7 +15,8 @@ class RequestPasswordReset extends StatelessWidget {
   static final String descriptionText =
       "A reset Code will be sent to the E-Mail address entered below.";
   static final String alertDialogText = "Check your Inbox & Spam for our Mail.";
-  static final String emailUnknownAlertText = "The E-Mail you entered is not known to the Server.\r\n"
+  static final String emailUnknownAlertText =
+      "The E-Mail you entered is not known to the Server.\r\n"
       "Please Check the E-Mail for typos and try again.";
 
   @override
@@ -49,7 +50,8 @@ class RequestPasswordReset extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return new AlertDialog(
-                                    title: new Text(RequestPasswordReset.alertDialogText),
+                                    title: new Text(
+                                        RequestPasswordReset.alertDialogText),
                                     actions: <Widget>[
                                       new FlatButton(
                                           onPressed: (() {
@@ -57,7 +59,9 @@ class RequestPasswordReset extends StatelessWidget {
                                             Navigator.pushReplacement(
                                               context,
                                               new MaterialPageRoute(
-                                                  builder: (context) => new PasswordReset(userMail)),
+                                                  builder: (context) =>
+                                                      new PasswordReset(
+                                                          userMail)),
                                             );
                                           }),
                                           child: new Text("Continue"))
@@ -69,7 +73,8 @@ class RequestPasswordReset extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return new AlertDialog(
-                                    title: new Text(RequestPasswordReset.emailUnknownAlertText),
+                                    title: new Text(RequestPasswordReset
+                                        .emailUnknownAlertText),
                                     actions: <Widget>[
                                       new FlatButton(
                                           onPressed: (() {

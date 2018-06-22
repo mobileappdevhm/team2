@@ -70,18 +70,29 @@ class ProdHttpHelper implements HttpHelper {
   }
 
   @override
-  Future<bool> requestResetCode(String userMail) async{
+  Future<bool> requestResetCode(String userMail) async {
     bool success;
-    await client.get(baseUrl + "/users/reset-password/" + userMail).then((response){
+    await client
+        .get(baseUrl + "/users/reset-password/" + userMail)
+        .then((response) {
       success = (response.statusCode == 200);
     });
     return success;
   }
 
   @override
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) async{
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) async {
     bool success;
-    await client.get(baseUrl + "/users/reset-password/" + userMail + "/" + resetCode + "/" + newPassword).then((response){
+    await client
+        .get(baseUrl +
+            "/users/reset-password/" +
+            userMail +
+            "/" +
+            resetCode +
+            "/" +
+            newPassword)
+        .then((response) {
       success = (response.statusCode == 200);
     });
     return success;

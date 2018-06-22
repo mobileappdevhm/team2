@@ -11,5 +11,6 @@ abstract class SessionController {
 
   Future<bool> requestPasswordReset(String userMail);
 
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword);
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword);
 }

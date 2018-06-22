@@ -45,7 +45,6 @@ class RoundedButton extends StatelessWidget {
         onPressed: (() {
           return onPressed();
         }),
-
         shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(100000.0)),
         fillColor: color,

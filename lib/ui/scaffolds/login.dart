@@ -32,7 +32,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   String _email;
   String _password;
   Timer pageForward;
@@ -91,11 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
               LoginScreen.continueAsGuestButton,
               style: new TextStyle(fontSize: 18.0, color: Colors.white),
             ),
-    onPressed: () => Navigator.pushReplacement(
-    context,
-    new MaterialPageRoute(
-    builder: (context) => new LoadingScaffold()),
-    ),
+            onPressed: () => Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new LoadingScaffold()),
+                ),
             color: Colors.black,
             key: LoginScreen.keyGuestButton,
           ),
@@ -253,7 +252,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return true;
   }
-
 
   resetButton(BuildContext context) {
     return new FlatButton(

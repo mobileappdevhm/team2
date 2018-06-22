@@ -9,18 +9,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {
-
   MockedCacheProvidersFactory cacheFactory;
   MockitoProviderFactory inetFactory;
   setUp(() {
     cacheFactory = new MockedCacheProvidersFactory();
     inetFactory = new MockitoProviderFactory();
-    new Injector().injectDependencies(inetFactory, cacheFactory, firebase: false);
+    new Injector()
+        .injectDependencies(inetFactory, cacheFactory, firebase: false);
   });
   testWidgets('HomeScaffold test', (WidgetTester tester) async {
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => Future.value(<Course>[]));
     Content content = new Content();
     await tester.pumpWidget(new MaterialApp(home: new HomeScaffold(content)));
   });
-
 }

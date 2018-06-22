@@ -31,7 +31,8 @@ class FbSessionController implements SessionController {
   }
 
   @override
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) {
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) {
     return controller.resetPassword(userMail, resetCode, newPassword);
   }
 }

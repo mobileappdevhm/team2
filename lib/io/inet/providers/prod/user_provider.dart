@@ -28,7 +28,8 @@ class ProdUserProvider implements InetUserProvider {
   }
 
   @override
-  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) {
-    return httpHelper.resetPassword(userMail,resetCode,newPassword);
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) {
+    return httpHelper.resetPassword(userMail, resetCode, newPassword);
   }
 }

@@ -122,7 +122,7 @@ class _PasswordResetState extends State<PasswordReset> {
           .then((success) {
         if (success) {
           showDialog(
-            barrierDismissible: false,
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return new AlertDialog(
