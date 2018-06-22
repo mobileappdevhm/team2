@@ -16,6 +16,7 @@ import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/io/mock_data.dart';
 
 /// Controller for accessing and caching information which is available to both
 /// guests and registered users.
@@ -42,9 +43,12 @@ class NormalContentController implements ContentController {
         cacheCourseProvider = cacheProviderFactory.createCourseProvider(),
         cacheCampusProvider = cacheProviderFactory.createCampusProvider();
 
+
+
   /// Get all public content.
   @override
   Future<Content> getContent() async {
+    await putFakeData();
     Content content = new Content();
     content.campuses = await getCampuses();
     content.courses = await getCourses();
@@ -61,6 +65,22 @@ class NormalContentController implements ContentController {
       return courses;
     }
     return cacheCourseProvider.getCourses();
+  }
+
+  Future<int> putFakeData() async{
+    await cacheLecturerProvider.truncate();
+    await cacheDepartmentProvider.truncate();
+    await cacheCampusProvider.truncate();
+    await cacheCourseProvider.truncate();
+
+
+    //TODO: Change these to enter stuff from the server --- JSUT AMKE SURE SUVER HAS DATA!!!!
+    int r1 = await cacheLecturerProvider.putLecturers([lecturer01,lecturer02,lecturer03,lecturer04,lecturer05]);
+    int r2 = await cacheCampusProvider.putCampuses([campus01,campus02,campus03]);
+    int r4 = await cacheDepartmentProvider.putDepartments([department01,department02,department03,department04,department05,department06,department07,department08,department09,department10,department11,department12,department13,department14]);
+    int r3 = await cacheCourseProvider.putCourses([course01,course02,course03,course04,course05]);
+
+    return (new Future( () => 0 ));
   }
 
   @override
