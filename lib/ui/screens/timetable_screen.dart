@@ -28,58 +28,77 @@ class TimetableState extends State<TimetableScreen> {
   Widget timetableView() {
     List<TimetableCourse> courseList = new List();
     List<TimetableCourse> removeCourseList = new List();
-    courses.forEach((course) {
-      for (int i = 0; i < course.dates.length; i++) {
-        courseList.add(new TimetableCourse(course, i));
-      }
-    });
-    DateTime today = new DateTime.now();
-    List<Widget> timetableEntries = [];
-    timetableEntries.add(
-      new LineSeparator(
-        title: "Today",
-      ),
-    );
-    courseList.sort(
-      (c1, c2) =>
-          c1.course.dates[0].weekday * 100 +
-          c1.course.dates[0].startHour -
-          c2.course.dates[0].weekday * 100 +
-          c2.course.dates[0].startHour,
-    );
-    courseList.forEach(
-      (course) {
-        if (course.course.dates[0].weekday == today.weekday) {
-          timetableEntries.add(new TimetableEntry(course.course, 0));
-          removeCourseList.add(course);
+
+    if (courses.isNotEmpty) {
+      print(courses.length.toString());
+      courses.forEach((course) {
+        for (int i = 0; i < course.dates.length; i++) {
+          courseList.add(new TimetableCourse(course, i));
         }
-      },
-    );
+      });
+      DateTime today = new DateTime.now();
+      List<Widget> timetableEntries = [];
+      timetableEntries.add(
+        new LineSeparator(
+          title: "Today",
+        ),
+      );
+      courseList.sort(
+        (c1, c2) =>
+            c1.course.dates[0].weekday * 100 +
+            c1.course.dates[0].startHour -
+            c2.course.dates[0].weekday * 100 +
+            c2.course.dates[0].startHour,
+      );
+      courseList.forEach(
+        (course) {
+          if (course.course.dates[0].weekday == today.weekday) {
+            timetableEntries.add(new TimetableEntry(course.course, 0));
+            removeCourseList.add(course);
+          }
+        },
+      );
 
-    removeCourseList.forEach((course) => courseList.remove(course));
+      removeCourseList.forEach((course) => courseList.remove(course));
 
-    timetableEntries.add(
-      new LineSeparator(
-        title: "Next Week",
-      ),
-    );
-    courseList.forEach(
-      (course) {
-        if (course.course.dates[0].weekday > today.weekday) {
-          timetableEntries.add(new TimetableEntry(course.course, 0));
-          removeCourseList.add(course);
-        }
-      },
-    );
-    removeCourseList.forEach((course) => courseList.remove(course));
-    courseList.forEach(
-      (tCourse) {
-        timetableEntries
-            .add(new TimetableEntry(tCourse.course, tCourse.occurrence));
-      },
-    );
+      timetableEntries.add(
+        new LineSeparator(
+          title: "Next Week",
+        ),
+      );
+      courseList.forEach(
+        (course) {
+          if (course.course.dates[0].weekday > today.weekday) {
+            timetableEntries.add(new TimetableEntry(course.course, 0));
+            removeCourseList.add(course);
+          }
+        },
+      );
+      removeCourseList.forEach((course) => courseList.remove(course));
+      courseList.forEach(
+        (tCourse) {
+          timetableEntries
+              .add(new TimetableEntry(tCourse.course, tCourse.occurrence));
+        },
+      );
 
-    return new ListView(children: timetableEntries);
+      return new ListView(children: timetableEntries);
+    } else {
+      return new Center(
+          child: new Row(
+        children: [
+          new Text(
+            "Sorry, you don't have any courses to display :(",
+            style: new TextStyle(
+                color: const Color(0xFF707070),
+                fontSize: 17.0),
+            softWrap: true,
+            maxLines: 2,
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+      ));
+    }
   }
 
   String slotToTime(int slot) {
