@@ -272,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           "This App was developed by Benjamin Eder, Martin Gaiser, Hayden Hudgins, Dimitri Krivoj, Mario Meissner, Jonas Reitemeyer, Konstantin Schlosser and Leon during the Mobile Development Course in 2018.\n\nApp Icon designed by mynamepong from Flaticon.\n\n\nFor information regarding our data protection policy, please click below.",
       children: <Widget>[
         new FlatButton(
-            onPressed: () => _showGdpr(), child: new Text("Gdpr Notice"))
+            onPressed: () => _showGdpr(), child: new Text("GDPR NOTICE"))
       ],
     );
     showDialog(context: context, builder: (context) => about);
