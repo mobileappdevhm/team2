@@ -3,7 +3,6 @@ import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class PasswordReset extends StatefulWidget {
-
   final String _userEmail;
 
   PasswordReset(String email) : _userEmail = email;
@@ -61,8 +60,14 @@ class _PasswordResetState extends State<PasswordReset> {
                     resetNode, false, context),
                 inputField("Reset Code", _code, codeController, resetNode,
                     passwordNode, false, context),
-                inputField("Password (min size = 5)", _newPassword, passwordController,
-                    passwordNode, repeatNode, true, context),
+                inputField(
+                    "Password (min size = 5)",
+                    _newPassword,
+                    passwordController,
+                    passwordNode,
+                    repeatNode,
+                    true,
+                    context),
                 inputField("Repeat Password (min size = 5)", _newPasswordRepeat,
                     passwordRepeatController, repeatNode, null, true, context),
                 resetButton(context),
@@ -163,7 +168,6 @@ class _PasswordResetState extends State<PasswordReset> {
     );
   }
 
-
   bool checkInput(BuildContext context) {
     bool emailEmpty = true;
     bool containsAtAndDot = true;
@@ -188,8 +192,8 @@ class _PasswordResetState extends State<PasswordReset> {
         repeatPasswordEmpty = false;
       }
     }
-    if(_code != null){
-      if(_code.length > 0){
+    if (_code != null) {
+      if (_code.length > 0) {
         resetCodeEmpty = false;
       }
     }
@@ -201,11 +205,11 @@ class _PasswordResetState extends State<PasswordReset> {
       showSnackBar("Please enter data in a valid format", context);
       return false;
     }
-    if(_newPasswordRepeat != _newPassword){
+    if (_newPasswordRepeat != _newPassword) {
       showSnackBar("Passwords must match!", context);
       return false;
     }
-    if(_newPassword.length < 5){
+    if (_newPassword.length < 5) {
       showSnackBar("Password is to Short (min. 5)", context);
       return false;
     }
@@ -214,14 +218,14 @@ class _PasswordResetState extends State<PasswordReset> {
 
   void showSnackBar(String text, BuildContext context) {
     Scaffold.of(context).showSnackBar(
-      new SnackBar(
-        content: new Text(
-          text,
-          textAlign: TextAlign.center,
-          style: new TextStyle(fontSize: 24.0),
-        ),
-        duration: new Duration(seconds: 1),
-      ),
-    );
+          new SnackBar(
+            content: new Text(
+              text,
+              textAlign: TextAlign.center,
+              style: new TextStyle(fontSize: 24.0),
+            ),
+            duration: new Duration(seconds: 1),
+          ),
+        );
   }
 }

@@ -9,7 +9,6 @@ import 'package:courses_in_english/ui/scaffolds/request_password_reset.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
 }

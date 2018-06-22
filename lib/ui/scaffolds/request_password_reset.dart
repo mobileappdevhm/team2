@@ -7,7 +7,6 @@ typedef void OnPressed();
 typedef void OnChanged(String input);
 
 class RequestPasswordReset extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     String userMail;
@@ -62,7 +61,8 @@ class RequestPasswordReset extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return new AlertDialog(
-                                    title: new Text("The E-Mail you entered is not known to the Server.\r\n"
+                                    title: new Text(
+                                        "The E-Mail you entered is not known to the Server.\r\n"
                                         "Please Check the E-Mail for typos and try again."),
                                     actions: <Widget>[
                                       new FlatButton(
