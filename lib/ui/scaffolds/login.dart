@@ -41,42 +41,43 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomPadding: false,
       body: new Builder(
         builder: (context) => new SceneryWrapperWidget(
-          new Column(
-            children: <Widget>[
-              titleRow(),
-              new Expanded(
-                child: new Column(
-                  children: <Widget>[
-                    new Expanded(
-                      child: login(context),
+              new Column(
+                children: <Widget>[
+                  titleRow(),
+                  new Expanded(
+                    child: new Column(
+                      children: <Widget>[
+                        new Expanded(
+                          child: login(context),
+                        ),
+                        new Expanded(
+                          child: new Column(
+                            children: <Widget>[
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: resetButton(context),
+                              ),
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: continueAsGuest(),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                    new Expanded(
-                      child: new Column(
-                        children: <Widget>[
-                          new Container(
-                            child: new LineSeparator(),
-                            margin: new EdgeInsets.symmetric(horizontal: 10.0),
-                          ),
-                          new Container(
-                            child: resetButton(context),
-                          ),
-                          new Container(
-                            child: new LineSeparator(),
-                            margin:
-                            new EdgeInsets.symmetric(horizontal: 10.0),
-                          ),
-                          new Container(
-                            child: continueAsGuest(),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }
@@ -87,14 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
         new Container(
           child: new RoundedButton(
             onPressed: () => Navigator.pushReplacement(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new LoadingScaffold()),
-            ),
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new LoadingScaffold()),
+                ),
             color: Colors.black,
             text: new Text(
               "Continue as Guest",
-              style: new TextStyle(fontSize: 18.0,color: Colors.white),
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
             ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
@@ -122,7 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new RoundedButton(
         onPressed: () => doLogin(context),
         text: new Text(
-          "Login",style: new TextStyle(fontSize: 18.0,color: Colors.white),
+          "Login",
+          style: new TextStyle(fontSize: 18.0, color: Colors.white),
         ),
         color: Colors.black,
       ),
@@ -193,12 +195,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void doLogin(BuildContext context) {
     if (checkInput(context)) {
       new Injector().sessionController.login(email, password).then(
-            (user) {
+        (user) {
           showSnackBar("You're successfully logged in", context);
           new Injector().cieController.user = user;
           pageForward = new Timer(
             new Duration(milliseconds: 1000),
-                () => Navigator.pushReplacement(
+            () => Navigator.pushReplacement(
                 this.context,
                 new MaterialPageRoute(
                     builder: (context) => new LoadingScaffold())),
@@ -265,14 +267,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void showSnackBar(String text, BuildContext context) {
     Scaffold.of(context).showSnackBar(
-      new SnackBar(
-        content: new Text(
-          text,
-          textAlign: TextAlign.center,
-        ),
-        duration: new Duration(seconds: 1),
-      ),
-    );
+          new SnackBar(
+            content: new Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+            duration: new Duration(seconds: 1),
+          ),
+        );
   }
 
   @override
