@@ -68,6 +68,17 @@ class TimeAndDay {
     return dayOfWeek[weekday];
   }
 
+  @override
+  String toString() {
+    return getStringDay() +
+        " " +
+        (startHour < 10 ? "0" + startHour.toString() : startHour.toString()) +
+        ":" +
+        (startMinute < 10
+            ? "0" + startMinute.toString()
+            : startMinute.toString());
+  }
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
 
