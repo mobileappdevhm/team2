@@ -53,6 +53,6 @@ class SqliteProviderFactory implements CacheProviderFactory {
       new SqliteUserSettingsProvider(dbh);
 
   CacheSelectedCourseProvider createSelectedCourseProvider() =>
-      null; // TODO
+      new SqliteSelectedCourseProvider(dbh);
 
 }

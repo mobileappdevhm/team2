@@ -6,6 +6,7 @@ import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_p
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
+//import 'package:courses_in_english/model/course/custom_course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';

@@ -47,6 +47,11 @@ class NormalFavoritesController implements FavoritesController {
   }
 
   @override
+  void pullFavorites() async {
+    // TODO use inetCourseProvider to push favorites to server
+  }
+
+  @override
   Future<List<Course>> get favorites async =>
       cacheCourseProvider.getFavorizedCourses(new Injector().sessionController.user);
 }
