@@ -156,11 +156,12 @@ class ProdDatabaseHelper implements DatabaseHelper {
         .firstIntValue(await dbClient.rawQuery("SELECT COUNT(*) FROM $table"));
   }
 
-  Future<int> deleteTwoWhere(
-      String table, String whereColumn, String whereColumnTwo, String whereArgs, String whereArgsTwo) async{
+  Future<int> deleteTwoWhere(String table, String whereColumn,
+      String whereColumnTwo, String whereArgs, String whereArgsTwo) async {
     var dbClient = await db;
-    int res = await dbClient
-        .delete(table, where: '$whereColumn = ? AND $whereColumnTwo = ?', whereArgs: [whereArgs, whereArgsTwo]);
+    int res = await dbClient.delete(table,
+        where: '$whereColumn = ? AND $whereColumnTwo = ?',
+        whereArgs: [whereArgs, whereArgsTwo]);
     return res;
   }
 }

@@ -21,8 +21,7 @@ class CustomCourse {
 
   CustomCourse(this.name, this.room, this.lecturer, this.department,
       this.location, this.dates,
-      {this.id = -1, this.custom = true}
-      );
+      {this.id = -1, this.custom = true});
 
   Map<String, dynamic> toMap(User user) {
     Map<String, dynamic> tempMap = new Map();

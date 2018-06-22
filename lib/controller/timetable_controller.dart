@@ -5,7 +5,6 @@ import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
 import 'package:courses_in_english/model/course/custom_course.dart';
 
 abstract class TimetableController {
-
   void addObserver(TimetableListObserver observer);
 
   Future<bool> addCustomCourse(CustomCourse course);

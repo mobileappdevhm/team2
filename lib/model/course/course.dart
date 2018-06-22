@@ -52,9 +52,7 @@ class Course {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Course &&
-              runtimeType == other.runtimeType &&
-              id == other.id;
+      other is Course && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
@@ -77,6 +75,7 @@ class Course {
 
     return tempMap;
   }
+
   Map<String, dynamic> toFavoritesMap(User user) {
     Map<String, dynamic> tempMap = new Map();
     tempMap['userId'] = user.id;
@@ -106,11 +105,11 @@ class Course {
     return tempMap;
   }
 
-  CustomCourse toCustomCourse(){
-    return new CustomCourse(name, location.name, department.number.toString(), lecturer.name, room, dates, custom: false);
+  CustomCourse toCustomCourse() {
+    return new CustomCourse(name, location.name, department.number.toString(),
+        lecturer.name, room, dates,
+        custom: false);
   }
-
-
 }
 
 /// Available course states.

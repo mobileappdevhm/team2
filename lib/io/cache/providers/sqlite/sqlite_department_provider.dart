@@ -23,7 +23,8 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
   @override
   Future<List<Department>> getDepartments() async =>
       dbh.selectTable("Department").then(
-            (rawData) => rawData.map(
+            (rawData) => rawData
+                .map(
                   // map each raw element into a department
                   (rawElement) => new Department(
                         rawElement["id"],
@@ -31,7 +32,8 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
                         rawElement["name"],
                         rawElement["color"],
                       ),
-                ).toList(),
+                )
+                .toList(),
           );
 
   @override
@@ -46,8 +48,8 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
             .toList(),
       );
 
-  Future<int> truncate(){
+  Future<int> truncate() {
     dbh.truncateTable("Department");
-    return new Future( () => 0);
+    return new Future(() => 0);
   }
 }

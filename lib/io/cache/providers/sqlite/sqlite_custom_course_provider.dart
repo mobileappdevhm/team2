@@ -24,15 +24,16 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
 
     dateData.forEach(addDate);
 
-    return new CustomCourse(data["name"], data["room"],
-        data["lecturer"], data["department"], data["location"], dates, id: data['id']);
+    return new CustomCourse(data["name"], data["room"], data["lecturer"],
+        data["department"], data["location"], dates,
+        id: data['id']);
   }
 
   @override
   Future<List<CustomCourse>> getCourses(User user) async {
     List<CustomCourse> courses = [];
-    List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
-        "CustomCourse", "userId", user.id.toString());
+    List<Map<String, dynamic>> rawCampusData =
+        await dbh.selectWhere("CustomCourse", "userId", user.id.toString());
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
@@ -46,15 +47,9 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
 
       dateData.forEach(addDate);
 
-      CustomCourse tempCourse = new CustomCourse(
-          data["name"],
-          data["room"],
-          data["lecturer"],
-          data["department"],
-          data["location"],
-          dates,
-          id: data["id"]
-      );
+      CustomCourse tempCourse = new CustomCourse(data["name"], data["room"],
+          data["lecturer"], data["department"], data["location"], dates,
+          id: data["id"]);
 
       courses.add(tempCourse);
     }

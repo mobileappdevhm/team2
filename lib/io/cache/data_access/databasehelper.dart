@@ -14,5 +14,6 @@ abstract class DatabaseHelper {
   Future<int> deleteWhere(String table, String whereColumn, String whereArgs);
   Future<int> getCount(String table);
   void truncateTable(String table);
-  Future<int> deleteTwoWhere(String table, String whereColumn, String whereColumnTwo, String whereArgs, String whereArgsTwo);
+  Future<int> deleteTwoWhere(String table, String whereColumn,
+      String whereColumnTwo, String whereArgs, String whereArgsTwo);
 }

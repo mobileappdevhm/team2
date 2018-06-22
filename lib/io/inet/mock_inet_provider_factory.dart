@@ -32,6 +32,5 @@ class MockProviderFactory implements InetProviderFactory {
   InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
 
   @override
-  InetSelectedCourseProvider createSelectedCourseProvider() =>
-      null; // TODO
+  InetSelectedCourseProvider createSelectedCourseProvider() => null; // TODO
 }

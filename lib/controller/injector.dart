@@ -41,7 +41,8 @@ class Injector {
     _sessionController = new NormalSessionController(cacheFactory, inetFactory);
     _cieController = new NormalCieController(cacheFactory);
     _contentController = new NormalContentController(inetFactory, cacheFactory);
-    _timetableController = new NormalTimetableController(inetFactory, cacheFactory);
+    _timetableController =
+        new NormalTimetableController(inetFactory, cacheFactory);
     if (firebase) {
       _firebaseController = new FirebaseController(_settingsController);
       _favoritesController =

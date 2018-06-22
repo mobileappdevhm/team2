@@ -48,8 +48,8 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
     return dbh.insertTable("Lecturer", lecturerList);
   }
 
-  Future<int> truncate(){
+  Future<int> truncate() {
     dbh.truncateTable("Lecturer");
-    return new Future( () => 0);
+    return new Future(() => 0);
   }
 }

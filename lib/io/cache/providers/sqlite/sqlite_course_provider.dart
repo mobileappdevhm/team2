@@ -122,16 +122,18 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<int> putCourses(List<Course> courses) async {
     await dbh.insertTable(
       "Course",
-      courses.map(
-        // Map each course to raw data
-        (course) => course.toMap(),
-      ).toList(),
+      courses
+          .map(
+            // Map each course to raw data
+            (course) => course.toMap(),
+          )
+          .toList(),
     ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
     for (Course c in courses) {
 //      for(TimeAndDay t in c.dates){
 //        if((await dbh.selectOneWhere("Date", "id", t.id.toString())).length == 0){
 //        await dbh.insertOneTable("Date", t.toMap());
-        await dbh.insertTable("Date", c.dates.map( (t) => t.toMap()).toList());
+      await dbh.insertTable("Date", c.dates.map((t) => t.toMap()).toList());
 //        }
 //        try{
 //          await dbh.selectOneWhere("Date", "id", t.id.toString());
@@ -146,8 +148,8 @@ class SqliteCourseProvider implements CacheCourseProvider {
   @override
   Future<bool> favorizeCourse(Course course, User user) async {
     // TODO: implement favorizeCourse
-    bool b =
-        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap(user)));
+    bool b = (0 !=
+        await dbh.insertOneTable("Favorites", course.toFavoritesMap(user)));
     return (new Future(() => b));
 //    throw new UnimplementedError();
   }
@@ -158,8 +160,8 @@ class SqliteCourseProvider implements CacheCourseProvider {
     if (user == null) {
       return (new Future(() => favs));
     }
-    List<Map<String, dynamic>> rawCourseData = await dbh.selectWhere(
-        "Favorites", "userId", user.id.toString());
+    List<Map<String, dynamic>> rawCourseData =
+        await dbh.selectWhere("Favorites", "userId", user.id.toString());
 
     void iterate(Map<String, dynamic> data) async {
       favs.add(await getCourse(data["courseId"]));
@@ -200,11 +202,10 @@ class SqliteCourseProvider implements CacheCourseProvider {
     throw new UnimplementedError();
   }
 
-
-  Future<int> truncate(){
+  Future<int> truncate() {
     dbh.truncateTable("Date");
     dbh.truncateTable("Course");
     dbh.truncateTable("Favorites");
-    return new Future( () => 0);
+    return new Future(() => 0);
   }
 }

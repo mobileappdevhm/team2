@@ -19,8 +19,8 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   @override
   Future<List<Course>> getCourses(User user) async {
     List<Course> courses = [];
-    List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
-        "SelectedCourse", "userId", user.id.toString());
+    List<Map<String, dynamic>> rawCampusData =
+        await dbh.selectWhere("SelectedCourse", "userId", user.id.toString());
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
@@ -87,9 +87,10 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   }
 
   @override
-  Future<bool> selectCourse(Course course, User user) async{
-        bool b =
-        (0 != await dbh.insertOneTable("SelectedCourses", course.toSelectedMap(user)));
+  Future<bool> selectCourse(Course course, User user) async {
+    bool b = (0 !=
+        await dbh.insertOneTable(
+            "SelectedCourses", course.toSelectedMap(user)));
     return (new Future(() => b));
     // TODO: implement selectCourse
   }

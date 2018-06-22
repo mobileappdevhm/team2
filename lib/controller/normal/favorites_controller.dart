@@ -27,7 +27,8 @@ class NormalFavoritesController implements FavoritesController {
 
   @override
   Future<bool> favorizeCourse(Course course) async {
-    bool result = await cacheCourseProvider.favorizeCourse(course, new Injector().sessionController.user);
+    bool result = await cacheCourseProvider.favorizeCourse(
+        course, new Injector().sessionController.user);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     return result;
@@ -35,7 +36,8 @@ class NormalFavoritesController implements FavoritesController {
 
   @override
   Future<bool> unFavorizeCourse(Course course) async {
-    bool result = await cacheCourseProvider.unFavorizeCourse(course, new Injector().sessionController.user);
+    bool result = await cacheCourseProvider.unFavorizeCourse(
+        course, new Injector().sessionController.user);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     return result;
@@ -52,6 +54,6 @@ class NormalFavoritesController implements FavoritesController {
   }
 
   @override
-  Future<List<Course>> get favorites async =>
-      cacheCourseProvider.getFavorizedCourses(new Injector().sessionController.user);
+  Future<List<Course>> get favorites async => cacheCourseProvider
+      .getFavorizedCourses(new Injector().sessionController.user);
 }

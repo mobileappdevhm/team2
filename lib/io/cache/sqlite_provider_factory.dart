@@ -24,8 +24,7 @@ class SqliteProviderFactory implements CacheProviderFactory {
   final DatabaseHelper dbh = new ProdDatabaseHelper();
   // TODO User cache?
   @override
-  CacheUserProvider createCacheUserProvider() =>
-      null;
+  CacheUserProvider createCacheUserProvider() => null;
 
   @override
   CacheCampusProvider createCampusProvider() => new SqliteCampusProvider(dbh);
@@ -54,5 +53,4 @@ class SqliteProviderFactory implements CacheProviderFactory {
 
   CacheSelectedCourseProvider createSelectedCourseProvider() =>
       new SqliteSelectedCourseProvider(dbh);
-
 }
