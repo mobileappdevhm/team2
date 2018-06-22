@@ -26,7 +26,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
         await dbh.selectWhere("Date", "course", courseId.toString());
 
     CourseStatus tempCourseStatus;
-    String tempCourseStatusName = data["status"];
+    String tempCourseStatusName = data["courseStatus"];
     tempCourseStatus = tempCourseStatusName == "red"
         ? CourseStatus.RED
         : tempCourseStatusName == "yellow"
