@@ -49,13 +49,14 @@ class TimetableEntry extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 17.0)),
                           padding: new EdgeInsets.only(bottom: vw * 2.2))),
-                  new Expanded(child: new Container(
-                      child: new Text(course.room,
-                          style: new TextStyle(
-                              color: const Color(0xFF707070),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.0)),
-                      padding: new EdgeInsets.only(bottom: vw * 2.2)))
+                  new Expanded(
+                      child: new Container(
+                          child: new Text(course.room,
+                              style: new TextStyle(
+                                  color: const Color(0xFF707070),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17.0)),
+                          padding: new EdgeInsets.only(bottom: vw * 2.2)))
                 ]),
                 new Row(children: <Widget>[
                   new Expanded(
@@ -66,13 +67,14 @@ class TimetableEntry extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13.0)),
                           padding: new EdgeInsets.only(bottom: vw * 2.2))),
-                  new Expanded(child: new Container(
-                      child: new Text(course.location.name,
-                          style: new TextStyle(
-                              color: const Color(0xFF707070),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.0)),
-                      padding: new EdgeInsets.only(bottom: vw * 2.2))),
+                  new Expanded(
+                      child: new Container(
+                          child: new Text(course.location.name,
+                              style: new TextStyle(
+                                  color: const Color(0xFF707070),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.0)),
+                          padding: new EdgeInsets.only(bottom: vw * 2.2))),
                 ])
               ]),
               padding: new EdgeInsets.only(
