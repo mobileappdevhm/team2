@@ -9,23 +9,6 @@ import 'package:courses_in_english/ui/scaffolds/request_password_reset.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  static final String noPasswordSnack = "Please enter a Password!";
-  static final String noEmailSnack = "Please enter a E-Mail!";
-  static final String noEmailAndNoPasswordSnack =
-      "Please Enter a E-Mail and a Password!";
-  static final String emailWrongFormatSnack =
-      "Please enter a proper E-Mail e.G: 'abc@d.e'";
-  static final String continueAsGuestSnack = "Hello Guest :)";
-  static final String loginFailureSnack = "Login Failure!";
-  static final String loginSuccessSnack = "Yaaay you're logged in!";
-  static final Key keyLoginButton = new Key("loginButton");
-  static final Key keyGuestButton = new Key("guestButton");
-  static final Key keyEmailField = new Key("emailField");
-  static final Key keyPasswordField = new Key("passwordField");
-  static final Key keyResetKey = new Key("resetKey");
-  static final String continueAsGuestButton = "Continue as Guest";
-  static final String resetPasswordButton = "Reset Password!";
-  static final String loginButton = "Login";
 
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
@@ -255,13 +238,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (context) => new RequestPasswordReset()));
       }),
       child: new Text(
-        LoginScreen.resetPasswordButton,
+        "Forgot Password?",
         style: TextStyle(
           fontSize: 15.0,
           color: Colors.redAccent.withOpacity(0.8),
         ),
       ),
-      key: LoginScreen.keyResetKey,
     );
   }
 

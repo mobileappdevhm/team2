@@ -10,7 +10,6 @@ class RoundedButton extends StatelessWidget {
   final double maxwidth;
   final double maxheight;
   final double minwidth;
-  final Key buttonKey;
 
   RoundedButton({
     @required Text text,
@@ -19,13 +18,11 @@ class RoundedButton extends StatelessWidget {
     double maxwidth = double.infinity,
     double maxheight = double.infinity,
     double minwidth = 0.0,
-    Key key,
   })  : this.color = color,
         this.onPressed = onPressed,
         this.text = text,
         this.maxwidth = maxwidth,
         this.maxheight = maxheight,
-        this.buttonKey = key,
         this.minwidth = minwidth;
 
   @override
@@ -41,7 +38,6 @@ class RoundedButton extends StatelessWidget {
                 : (maxwidth > potminwidth) ? potminwidth : maxwidth,
             maxHeight: maxheight,
             maxWidth: maxwidth),
-        key: buttonKey,
         onPressed: (() {
           return onPressed();
         }),

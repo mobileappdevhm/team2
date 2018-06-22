@@ -3,8 +3,6 @@ import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class PasswordReset extends StatefulWidget {
-  static final String resetPasswordButton = "Reset Password";
-  static final String passwordsNoMatchSnack = "Passwords must match!";
 
   final String _userEmail;
 
@@ -63,9 +61,9 @@ class _PasswordResetState extends State<PasswordReset> {
                     resetNode, false, context),
                 inputField("Reset Code", _code, codeController, resetNode,
                     passwordNode, false, context),
-                inputField("Password", _newPassword, passwordController,
+                inputField("Password (min size = 5)", _newPassword, passwordController,
                     passwordNode, repeatNode, true, context),
-                inputField("Repeat Password", _newPasswordRepeat,
+                inputField("Repeat Password (min size = 5)", _newPasswordRepeat,
                     passwordRepeatController, repeatNode, null, true, context),
                 resetButton(context),
               ],
@@ -105,17 +103,7 @@ class _PasswordResetState extends State<PasswordReset> {
   }
 
   void resetPassword(BuildContext context) async {
-    if (_newPasswordRepeat != _newPassword || _newPassword.length < 5) {
-      Scaffold.of(context).showSnackBar(
-            new SnackBar(
-              content: new Text(
-                PasswordReset.passwordsNoMatchSnack,
-                style: new TextStyle(fontSize: 24.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
-    } else {
+    if (checkInput(context)) {
       new Injector()
           .sessionController
           .resetPassword(_userEmail, _code, _newPassword)
@@ -160,7 +148,7 @@ class _PasswordResetState extends State<PasswordReset> {
   Widget resetButton(BuildContext context) {
     return new Container(
       child: new RoundedButton(
-        text: new Text(PasswordReset.resetPasswordButton,
+        text: new Text("Reset Password",
             style: new TextStyle(fontSize: 18.0, color: Colors.white)),
         onPressed: (() {
           print(_userEmail);
@@ -175,38 +163,65 @@ class _PasswordResetState extends State<PasswordReset> {
     );
   }
 
-  void successAlert(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text("Password has been changed!"),
-            actions: <Widget>[
-              new FlatButton(
-                  onPressed: (() {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  }),
-                  child: new Text("Continue to Login."))
-            ],
-          );
-        });
+
+  bool checkInput(BuildContext context) {
+    bool emailEmpty = true;
+    bool containsAtAndDot = true;
+    bool passwordEmpty = true;
+    bool repeatPasswordEmpty = true;
+    bool resetCodeEmpty = true;
+    if (_userEmail != null) {
+      if (_userEmail.length > 0) {
+        emailEmpty = false;
+        if (!(_userEmail.contains("@") && _userEmail.contains("."))) {
+          containsAtAndDot = false;
+        }
+      }
+    }
+    if (_newPassword != null) {
+      if (_newPassword.length > 0) {
+        passwordEmpty = false;
+      }
+    }
+    if (_newPasswordRepeat != null) {
+      if (_newPasswordRepeat.length > 0) {
+        repeatPasswordEmpty = false;
+      }
+    }
+    if(_code != null){
+      if(_code.length > 0){
+        resetCodeEmpty = false;
+      }
+    }
+    if (emailEmpty || passwordEmpty || resetCodeEmpty || repeatPasswordEmpty) {
+      showSnackBar("Please fill all Input Fields", context);
+      return false;
+    }
+    if (containsAtAndDot == false) {
+      showSnackBar("Please enter data in a valid format", context);
+      return false;
+    }
+    if(_newPasswordRepeat != _newPassword){
+      showSnackBar("Passwords must match!", context);
+      return false;
+    }
+    if(_newPassword.length < 5){
+      showSnackBar("Password is to Short (min. 5)", context);
+      return false;
+    }
+    return true;
   }
 
-  void failureAlert(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text("An erorr occoured changing the Password!"),
-            actions: <Widget>[
-              new FlatButton(
-                  onPressed: (() {
-                    Navigator.of(context).pop();
-                  }),
-                  child: new Text("Close"))
-            ],
-          );
-        });
+  void showSnackBar(String text, BuildContext context) {
+    Scaffold.of(context).showSnackBar(
+      new SnackBar(
+        content: new Text(
+          text,
+          textAlign: TextAlign.center,
+          style: new TextStyle(fontSize: 24.0),
+        ),
+        duration: new Duration(seconds: 1),
+      ),
+    );
   }
 }

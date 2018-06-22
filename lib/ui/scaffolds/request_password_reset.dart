@@ -7,17 +7,6 @@ typedef void OnPressed();
 typedef void OnChanged(String input);
 
 class RequestPasswordReset extends StatelessWidget {
-  static final String skipRequestText =
-      "Already have a Reset-Code? Click here!";
-  static final String requestResetText = "Request Reset Code";
-  static final String wrongFormatSnack =
-      "Please Enter a Valid E-Mail in the Format: abc@d.e";
-  static final String descriptionText =
-      "A reset Code will be sent to the E-Mail address entered below.";
-  static final String alertDialogText = "Check your Inbox & Spam for our Mail.";
-  static final String emailUnknownAlertText =
-      "The E-Mail you entered is not known to the Server.\r\n"
-      "Please Check the E-Mail for typos and try again.";
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +40,7 @@ class RequestPasswordReset extends StatelessWidget {
                                 builder: (BuildContext context) {
                                   return new AlertDialog(
                                     title: new Text(
-                                        RequestPasswordReset.alertDialogText),
+                                        "Check your Inbox & Spam for our Mail."),
                                     actions: <Widget>[
                                       new FlatButton(
                                           onPressed: (() {
@@ -73,8 +62,8 @@ class RequestPasswordReset extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return new AlertDialog(
-                                    title: new Text(RequestPasswordReset
-                                        .emailUnknownAlertText),
+                                    title: new Text("The E-Mail you entered is not known to the Server.\r\n"
+                                        "Please Check the E-Mail for typos and try again."),
                                     actions: <Widget>[
                                       new FlatButton(
                                           onPressed: (() {
@@ -89,7 +78,7 @@ class RequestPasswordReset extends StatelessWidget {
                       } else {
                         Scaffold.of(context).showSnackBar(new SnackBar(
                               content: new Text(
-                                wrongFormatSnack,
+                                "Please Enter a Valid E-Mail in the Format: abc@d.e",
                                 textAlign: TextAlign.center,
                               ),
                               duration: new Duration(seconds: 3),
@@ -118,7 +107,7 @@ class RequestPasswordReset extends StatelessWidget {
         children: <Widget>[
           new Container(
             child: new Text(
-              descriptionText,
+              "A reset Code will be sent to the E-Mail address entered below.",
               style: TextStyle(fontSize: 18.0),
             ),
             margin: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -143,7 +132,7 @@ class RequestPasswordReset extends StatelessWidget {
         onPressed: onPressed,
         color: Colors.black,
         text: new Text(
-          requestResetText,
+          "Request Reset Code",
           style: new TextStyle(fontSize: 15.0, color: Colors.white),
         ),
       ),
@@ -156,7 +145,7 @@ class RequestPasswordReset extends StatelessWidget {
       child: new FlatButton(
         onPressed: onPressed,
         child: new Text(
-          skipRequestText,
+          "Already have a Reset-Code? Click here!",
           style: TextStyle(
             color: Colors.grey.withOpacity(0.8),
           ),
