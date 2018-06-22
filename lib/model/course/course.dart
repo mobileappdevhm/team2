@@ -47,7 +47,6 @@ class Course {
     this.dates,
   ]);
 
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

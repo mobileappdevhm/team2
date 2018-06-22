@@ -22,7 +22,8 @@ class ProdDepartmentProvider implements InetDepartmentProvider {
           list.map((department) => parseDepartment(department)).toList());
 
   //TODO: Change Department Object to fit server response
-  Department parseDepartment(Map<String, dynamic> json) {
+  static Department parseDepartment(Map<String, dynamic> json) {
+    if (json == null) return new Department(-1, -1, 'None', 0);
     return new Department(
         json['number'], json['number'], json['name'], json['color']);
   }

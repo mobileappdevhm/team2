@@ -22,6 +22,7 @@ class ProdLecturerProvider implements InetLecturerProvider {
   }
 
   static Lecturer parseLecturer(Map<String, dynamic> json) {
+    if (json == null) return new Lecturer(-1, "", ""); // TODO handle null
     return new Lecturer(json['id'], json['name'], json['email']);
   }
 }

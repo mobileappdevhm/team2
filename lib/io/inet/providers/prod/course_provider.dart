@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/course_provider.dart';
+import 'package:courses_in_english/io/inet/providers/prod/department_provider.dart';
 import 'package:courses_in_english/io/inet/providers/prod/lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
+import 'package:courses_in_english/model/department/department.dart';
 
 class ProdCourseProvider implements InetCourseProvider {
   final HttpHelper helper;
@@ -51,6 +53,7 @@ class ProdCourseProvider implements InetCourseProvider {
   }
 
   Course parseCourse(Map<String, dynamic> json) {
+    Department department = json['department'];
     return new Course(
         json['id'],
         json['name'],
@@ -61,6 +64,9 @@ class ProdCourseProvider implements InetCourseProvider {
         json['usCredits'],
         json['semesterWeekHours'],
         stringToStatus(json['courseStatus']),
-        ProdLecturerProvider.parseLecturer(json['lecturer']));
+        json['lecturer'],
+        new Department(department.id, department.number, department.name, department.color),
+        null, // TODO
+        []);
   }
 }
