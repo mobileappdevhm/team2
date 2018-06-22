@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/campus_provider.dart';
-import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 
 /// Provider for campuses providing mock data.

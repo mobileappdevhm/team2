@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/course_provider.dart';
-import 'package:courses_in_english/io/inet/providers/prod/department_provider.dart';
-import 'package:courses_in_english/io/inet/providers/prod/lecturer_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 
@@ -65,7 +63,8 @@ class ProdCourseProvider implements InetCourseProvider {
         json['semesterWeekHours'],
         stringToStatus(json['courseStatus']),
         json['lecturer'],
-        new Department(department.id, department.number, department.name, department.color),
+        new Department(department.id, department.number, department.name,
+            department.color),
         null, // TODO
         []);
   }

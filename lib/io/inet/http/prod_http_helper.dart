@@ -21,7 +21,8 @@ class ProdHttpHelper implements HttpHelper {
     return get(baseUrl + '/users/current', token);
   }
 
-  Future<Map<String, dynamic>> post(String url, Map<String, dynamic> body) async {
+  Future<Map<String, dynamic>> post(
+      String url, Map<String, dynamic> body) async {
     var response = await client.post(
       url,
       body: json.encode(body),
@@ -29,7 +30,6 @@ class ProdHttpHelper implements HttpHelper {
     );
     return json.decode(response.body);
   }
-
 
   Future<Map<String, dynamic>> get(String url, [String token]) async {
     var response = token == null

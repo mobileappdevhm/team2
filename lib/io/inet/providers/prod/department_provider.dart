@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:courses_in_english/io/inet/providers/department_provider.dart';
-import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
+import 'package:courses_in_english/io/inet/providers/department_provider.dart';
 import 'package:courses_in_english/model/department/department.dart';
 
 /// Mock department provider holding mock department data.

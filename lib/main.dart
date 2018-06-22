@@ -1,6 +1,5 @@
 import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/io/cache/in_memory_provider_factory.dart';
-import 'package:courses_in_english/io/inet/mock_inet_provider_factory.dart';
 import 'package:courses_in_english/io/inet/prod_provider_factory.dart';
 import 'package:courses_in_english/ui/scaffolds/login.dart';
 import 'package:flutter/material.dart';
