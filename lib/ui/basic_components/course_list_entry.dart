@@ -67,6 +67,7 @@ class CourseListEntry extends StatelessWidget {
                           child: new Text(
                               // TODO adjust to list of time and days
                               course.dates != null &&
+                                      course.dates.length > 0 &&
                                       course.dates[0].weekday != null &&
                                       course.dates[0].startMinute != null &&
                                       course.dates[0].startHour != null &&
