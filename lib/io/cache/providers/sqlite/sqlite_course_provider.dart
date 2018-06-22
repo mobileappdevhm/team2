@@ -206,7 +206,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<int> truncate() {
     dbh.truncateTable("Date");
     dbh.truncateTable("Course");
-    dbh.truncateTable("Favorites");
+//    dbh.truncateTable("Favorites");
     return new Future(() => 0);
   }
 }
