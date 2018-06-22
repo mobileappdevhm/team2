@@ -138,7 +138,6 @@ class ProdDatabaseHelper implements DatabaseHelper {
     List<Map<String, dynamic>> res = await dbClient.query(table,
         columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res[0];
-
   }
 
   @override

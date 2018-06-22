@@ -3,6 +3,7 @@ import 'package:courses_in_english/model/course/custom_course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 /// Representation of a course (or lecture).
 class Course {
@@ -76,14 +77,14 @@ class Course {
 
     return tempMap;
   }
-  Map<String, dynamic> toFavoritesMap() {
+  Map<String, dynamic> toFavoritesMap(User user) {
     Map<String, dynamic> tempMap = new Map();
-    tempMap['userId'] = new SessionController().user.id;
+    tempMap['userId'] = user.id;
     tempMap["courseId"] = this.id;
     return tempMap;
   }
 
-  Map<String, dynamic> toSelectedMap() {
+  Map<String, dynamic> toSelectedMap(User user) {
     Map<String, dynamic> tempMap = new Map();
 
     tempMap['id'] = this.id;
@@ -100,7 +101,7 @@ class Course {
     tempMap["ects"] = this.ects;
     tempMap["usCredits"] = this.usCredits;
     tempMap["semesterWeekHours"] = this.semesterWeekHours;
-    tempMap["userId"] = new SessionController().user.id;
+    tempMap["userId"] = user.id;
 
     return tempMap;
   }

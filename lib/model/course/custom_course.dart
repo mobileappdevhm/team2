@@ -1,8 +1,5 @@
-import 'package:courses_in_english/controller/session_controller.dart';
-import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 /// Representation of a course (or lecture).
 class CustomCourse {
@@ -27,7 +24,7 @@ class CustomCourse {
       {this.id = -1, this.custom = true}
       );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(User user) {
     Map<String, dynamic> tempMap = new Map();
 
     tempMap['id'] = this.id;
@@ -36,7 +33,7 @@ class CustomCourse {
     tempMap["department"] = this.department;
     tempMap["lecturer"] = this.lecturer;
     tempMap["room"] = this.room;
-    tempMap["userId"] = new SessionController().user.id;
+    tempMap["userId"] = user.id;
 
     return tempMap;
   }

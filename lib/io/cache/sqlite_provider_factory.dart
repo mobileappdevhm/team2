@@ -25,7 +25,7 @@ class SqliteProviderFactory implements CacheProviderFactory {
   // TODO User cache?
   @override
   CacheUserProvider createCacheUserProvider() =>
-      throw new UnimplementedError("There is no user cache yet!");
+      null;
 
   @override
   CacheCampusProvider createCampusProvider() => new SqliteCampusProvider(dbh);
@@ -53,7 +53,6 @@ class SqliteProviderFactory implements CacheProviderFactory {
       new SqliteUserSettingsProvider(dbh);
 
   CacheSelectedCourseProvider createSelectedCourseProvider() =>
-      throw new UnimplementedError();
+      null; // TODO
 
-//  new SqliteSelectedCourseProvider(dbh);
 }

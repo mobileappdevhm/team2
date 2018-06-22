@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/model/course/course.dart';
@@ -10,6 +9,7 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   final DatabaseHelper dbh;
@@ -17,10 +17,10 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   SqliteSelectedCourseProvider(this.dbh);
 
   @override
-  Future<List<Course>> getCourses() async {
+  Future<List<Course>> getCourses(User user) async {
     List<Course> courses = [];
     List<Map<String, dynamic>> rawCampusData = await dbh.selectWhere(
-        "SelectedCourse", "userId", new SessionController().user.id.toString());
+        "SelectedCourse", "userId", user.id.toString());
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
@@ -73,12 +73,12 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   }
 
   @override
-  Future<int> putCourses(List<Course> courses) async {
+  Future<int> putCourses(List<Course> courses, User user) async {
     await dbh.insertTable(
       "SelectedCourse",
       courses.map(
         // Map each course to raw data
-        (course) => course.toSelectedMap(),
+        (course) => course.toSelectedMap(user),
       ),
     ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
 
@@ -87,23 +87,23 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   }
 
   @override
-  Future<bool> selectCourse(Course course) async{
+  Future<bool> selectCourse(Course course, User user) async{
         bool b =
-        (0 != await dbh.insertOneTable("SelectedCourses", course.toSelectedMap()));
+        (0 != await dbh.insertOneTable("SelectedCourses", course.toSelectedMap(user)));
     return (new Future(() => b));
     // TODO: implement selectCourse
   }
 
   @override
-  Future<bool> unSelectCourse(Course course) async {
+  Future<bool> unSelectCourse(Course course, User user) async {
     bool b = (0 !=
         await dbh.deleteTwoWhere("SelectedCourses", "userId", "courseId",
-            new SessionController().user.id.toString(), course.id.toString()));
+            user.id.toString(), course.id.toString()));
     return (new Future(() => b));
     // TODO: implement unSelectCourse
   }
 
-  Future<int> getCount() async {
+  Future<int> getCount(User user) async {
     return dbh.getCount(
         "SelectedCourse"); //TODO:use this to set the ID when making new custom course
   }

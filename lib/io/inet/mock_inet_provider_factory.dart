@@ -33,5 +33,5 @@ class MockProviderFactory implements InetProviderFactory {
 
   @override
   InetSelectedCourseProvider createSelectedCourseProvider() =>
-      throw new UnimplementedError();
+      null; // TODO
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
@@ -10,6 +9,7 @@ import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 class SqliteCourseProvider implements CacheCourseProvider {
   final DatabaseHelper dbh;
@@ -143,22 +143,22 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse(Course course) async {
+  Future<bool> favorizeCourse(Course course, User user) async {
     // TODO: implement favorizeCourse
     bool b =
-        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
+        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap(user)));
     return (new Future(() => b));
 //    throw new UnimplementedError();
   }
 
   @override
-  Future<List<Course>> getFavorizedCourses() async {
+  Future<List<Course>> getFavorizedCourses(User user) async {
     List<Course> favs = [];
-    if (new SessionController().user == null) {
+    if (user == null) {
       return (new Future(() => favs));
     }
     List<Map<String, dynamic>> rawCourseData = await dbh.selectWhere(
-        "Favorites", "userId", new SessionController().user.id.toString());
+        "Favorites", "userId", user.id.toString());
 
     void iterate(Map<String, dynamic> data) async {
       favs.add(await getCourse(data["courseId"]));
@@ -178,23 +178,23 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<bool> selectCourse(Course course) {
+  Future<bool> selectCourse(Course course, User user) {
     // TODO: implement selectCourse
     throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unFavorizeCourse(Course course) async {
+  Future<bool> unFavorizeCourse(Course course, User user) async {
     bool b = (0 !=
         await dbh.deleteTwoWhere("Favorites", "userId", "courseId",
-            new SessionController().user.id.toString(), course.id.toString()));
+            user.id.toString(), course.id.toString()));
     return (new Future(() => b));
     // TODO: implement unFavorizeCourse
 //    throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unSelectCourse(Course course) {
+  Future<bool> unSelectCourse(Course course, User user) {
     // TODO: implement unSelectCourse
     throw new UnimplementedError();
   }

@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/session_controller.dart';
+import 'package:courses_in_english/model/user/user.dart';
 
 class TimeAndDay {
   final int id;
@@ -83,7 +84,7 @@ class TimeAndDay {
     return tempMap;
   }
 
-  Map<String, dynamic> toCustomMap() {
+  Map<String, dynamic> toCustomMap(User user) {
     Map<String, dynamic> tempMap = new Map();
 
 //    tempMap['id'] = this.id;
@@ -92,7 +93,7 @@ class TimeAndDay {
     tempMap["startMinute"] = this.startMinute;
     tempMap["duration"] = this.duration;
     tempMap["course"] = this.course;
-    tempMap["userId"] = new SessionController().user.id;
+    tempMap["userId"] = user.id;
 
     return tempMap;
   }
