@@ -163,8 +163,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
     List<Map<String, dynamic>> rawCourseData =
         await dbh.selectWhere("Favorites", "userId", user.id.toString());
 
-    void iterate(Map<String, dynamic> data) async {
+    Future<dynamic> iterate(Map<String, dynamic> data) async {
       favs.add(await getCourse(data["courseId"]));
+      return null;
     }
 
     for (Map<String, dynamic> course in rawCourseData) {

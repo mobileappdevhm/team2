@@ -75,10 +75,10 @@ class NormalContentController implements ContentController {
 
 
     //TODO: Change these to enter stuff from the server --- JSUT AMKE SURE SUVER HAS DATA!!!!
-    int r1 = await cacheLecturerProvider.putLecturers([lecturer01,lecturer02,lecturer03,lecturer04,lecturer05]);
-    int r2 = await cacheCampusProvider.putCampuses([campus01,campus02,campus03]);
-    int r4 = await cacheDepartmentProvider.putDepartments([department01,department02,department03,department04,department05,department06,department07,department08,department09,department10,department11,department12,department13,department14]);
-    int r3 = await cacheCourseProvider.putCourses([course01,course02,course03,course04,course05]);
+    await cacheLecturerProvider.putLecturers([lecturer01,lecturer02,lecturer03,lecturer04,lecturer05]);
+    await cacheCampusProvider.putCampuses([campus01,campus02,campus03]);
+    await cacheDepartmentProvider.putDepartments([department01,department02,department03,department04,department05,department06,department07,department08,department09,department10,department11,department12,department13,department14]);
+    await cacheCourseProvider.putCourses([course01,course02,course03,course04,course05]);
 
     return (new Future( () => 0 ));
   }
