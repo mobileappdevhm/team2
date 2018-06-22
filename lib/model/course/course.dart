@@ -5,41 +5,30 @@ import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
 /// Representation of a course (or lecture).
 class Course {
-  /// Id of the course
   final int id;
 
-  /// Name (or title) of the course
   final String name;
 
-  /// What is the course about
   final String description;
 
-  /// Where the course will be located
   final String room;
 
-  /// How many slots are available
   final int availableSlots;
 
-  /// ECTS you can get
-  final num ects;
+  final double ects;
 
-  final num usCredits;
+  final double usCredits;
 
-  /// SWS, how many hours per weeks
-  final num semesterWeekHours;
+  final double semesterWeekHours;
 
-  final List<TimeAndDay> timeAndDay;
+  final List<TimeAndDay> dates;
 
-  /// Status of the course
-  final CourseStatus status;
+  final CourseStatus courseStatus;
 
-  /// Lecturer id
   final Lecturer lecturer;
 
-  /// Department (faculty)
   final Department department;
 
-  /// Location e.g. Pasing
   final Campus location;
 
   const Course([
@@ -51,12 +40,20 @@ class Course {
     this.ects,
     this.usCredits,
     this.semesterWeekHours,
-    this.timeAndDay,
-    this.status,
+    this.courseStatus,
     this.lecturer,
     this.department,
     this.location,
+    this.dates,
   ]);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Course && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
@@ -65,15 +62,13 @@ class Course {
     tempMap["name"] = this.name;
     tempMap["location"] = this.location.id;
     tempMap["description"] = this.description;
-    tempMap["department"] = this.department.id;
+    tempMap["department"] = this.department.number;
     tempMap["lecturer"] = this.lecturer.id;
     tempMap["room"] = this.room;
-    tempMap["status"] = this.status == CourseStatus.GREEN
-        ? "red"
-        : this.status == CourseStatus.YELLOW ? "yellow" : "green";
+    tempMap["courseStatus"] = statusToString(this.courseStatus);
     tempMap["availableSlots"] = this.availableSlots;
     tempMap["ects"] = this.ects;
-    tempMap["us"] = this.usCredits;
+    tempMap["usCredits"] = this.usCredits;
     tempMap["semesterWeekHours"] = this.semesterWeekHours;
 
     return tempMap;
@@ -84,25 +79,13 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  switch (status) {
-    case CourseStatus.GREEN:
-      return "green";
-    case CourseStatus.YELLOW:
-      return "yellow";
-    case CourseStatus.RED:
-      return "red";
-  }
-  throw new UnimplementedError("Unsupported status");
+  if (status == CourseStatus.GREEN) return 'GREEN';
+  if (status == CourseStatus.YELLOW) return 'YELLOW';
+  return 'RED';
 }
 
 CourseStatus stringToStatus(String status) {
-  switch (status.toLowerCase()) {
-    case "green":
-      return CourseStatus.GREEN;
-    case "yellow":
-      return CourseStatus.YELLOW;
-    case "red":
-      return CourseStatus.RED;
-  }
-  throw new UnimplementedError("No status found for string '$status'.");
+  if (status.toUpperCase() == 'GREEN') return CourseStatus.GREEN;
+  if (status.toUpperCase() == 'YELLOW') return CourseStatus.YELLOW;
+  return CourseStatus.RED;
 }

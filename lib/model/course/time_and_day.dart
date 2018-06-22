@@ -1,13 +1,39 @@
 class TimeAndDay {
-  final int day;
-  final String duration;
-  final int hour;
-  final int minute;
+  final int id;
 
-  const TimeAndDay(this.day, this.duration, this.hour, this.minute);
+  /*
+   * Week day in range [1, 7] where 1 is monday and 7 is sunday.
+   */
+  final int weekday;
+
+  /*
+   * Start hour in range [0, 24].
+   */
+  final int startHour;
+
+  /*
+   * Start minute in range [0, 59].
+   */
+  final int startMinute;
+
+  /*
+   * Duration of the course appointment in minutes.
+   */
+  final int duration;
+
+  final int course;
+
+  const TimeAndDay(this.id, this.weekday, this.startHour, this.startMinute,
+      this.duration, this.course);
 
   String toDate() {
     String date = "";
+    var nowTime = new DateTime.now();
+    var startTime = new DateTime(nowTime.year, nowTime.month, nowTime.month,
+        weekday, startHour, startMinute);
+    var endTime = new DateTime(nowTime.year, nowTime.month, nowTime.month,
+            weekday, startHour, startMinute)
+        .add(new Duration(minutes: duration));
     List<String> dayOfWeek = [
       "Monday",
       "Tuesday",
@@ -17,7 +43,15 @@ class TimeAndDay {
       "Saturday",
       "Sunday",
     ];
-    date = dayOfWeek[day - 1] + " " + duration;
+    date = dayOfWeek[weekday] +
+        " " +
+        startTime.hour.toString() +
+        ":" +
+        startTime.minute.toString() +
+        " - " +
+        endTime.hour.toString() +
+        ":" +
+        endTime.minute.toString();
     return date;
   }
 
@@ -31,6 +65,30 @@ class TimeAndDay {
       "Saturday",
       "Sunday",
     ];
-    return dayOfWeek[day - 1];
+    return dayOfWeek[weekday];
+  }
+
+  @override
+  String toString() {
+    return getStringDay() +
+        " " +
+        (startHour < 10 ? "0" + startHour.toString() : startHour.toString()) +
+        ":" +
+        (startMinute < 10
+            ? "0" + startMinute.toString()
+            : startMinute.toString());
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> tempMap = new Map();
+
+    tempMap['id'] = this.id;
+    tempMap["weekday"] = this.weekday;
+    tempMap["startHour"] = this.startHour;
+    tempMap["startMinute"] = this.startMinute;
+    tempMap["duration"] = this.duration;
+    tempMap["course"] = this.course;
+
+    return tempMap;
   }
 }

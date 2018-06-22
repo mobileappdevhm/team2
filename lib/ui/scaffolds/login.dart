@@ -1,8 +1,9 @@
-import 'package:courses_in_english/connect/dataprovider/data.dart';
-import 'package:courses_in_english/model/user/user.dart';
+import 'dart:async';
+
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+import 'package:courses_in_english/ui/scaffolds/loading.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,41 +12,45 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username;
+  String email;
   String password;
+  Timer pageForward;
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: new SceneryWrapperWidget(
-        new Column(
-          children: <Widget>[
-            titleRow(),
-            new Expanded(
-              child: new Column(
+      body: new Builder(
+        builder: (context) => new SceneryWrapperWidget(
+              new Column(
                 children: <Widget>[
-                  new Expanded(
-                    child: login(),
-                  ),
+                  titleRow(),
                   new Expanded(
                     child: new Column(
                       children: <Widget>[
-                        new Container(
-                          child: new LineSeparator(),
-                          margin: new EdgeInsets.symmetric(horizontal: 10.0),
+                        new Expanded(
+                          child: login(context),
                         ),
-                        new Container(
-                          child: continueAsGuest(),
-                        ),
+                        new Expanded(
+                          child: new Column(
+                            children: <Widget>[
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: continueAsGuest(),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
       ),
     );
   }
@@ -55,12 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         new Container(
           child: new RaisedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-              );
-            },
+            onPressed: () => Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new LoadingScaffold()),
+                ),
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(100000.0)),
             color: Colors.black,
@@ -78,24 +82,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Column login() {
+  Column login(BuildContext context) {
     FocusNode passwordNode = new FocusNode();
     return new Column(
       children: <Widget>[
         userNameField(passwordNode),
         passwordField(passwordNode),
-        loginButton(),
+        loginButton(context),
       ],
       mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
-  Container loginButton() {
+  Container loginButton(BuildContext context) {
     return new Container(
       child: new RaisedButton(
-        onPressed: () {
-          doLogin();
-        },
+        onPressed: () => doLogin(context),
         child: new Text(
           "Login",
         ),
@@ -112,21 +114,22 @@ class _LoginScreenState extends State<LoginScreen> {
   Expanded userNameField(FocusNode passwordNode) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      username = controller.text.toString();
+      email = controller.text.toString();
     });
     return new Expanded(
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            //maxLength: 20, TODO REINSTATE
+            maxLength: 20,
             decoration: new InputDecoration(
               labelText: "Input Username",
               icon: new Icon(Icons.person),
             ),
             onFieldSubmitted: (String input) {
-              this.username = input;
+              this.email = input;
               FocusScope.of(context).requestFocus(passwordNode);
             },
+            controller: controller,
           ),
           margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment.topCenter),
@@ -142,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
         child: new TextFormField(
           maxLines: 1,
-          //maxLength: 30,TODO REINSTATE
+          maxLength: 30,
           decoration: new InputDecoration(
               labelText: "Input Password", icon: new Icon(Icons.vpn_key)),
           obscureText: true,
@@ -157,24 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  ///Later Needed for Implementation of registration for the Apps Server.
-  ///
-  ///Container createButton() {
-  //    return new Container(
-  //      child: new FlatButton(
-  //        onPressed: () {
-  //
-  //        },
-  //        child: new Text(
-  //          "No Account yet? -> Create new User",
-  //          style: new TextStyle(fontSize: 10.0, color: Colors.blueAccent),
-  //        ),
-  //      ),
-  //      alignment: AlignmentDirectional.topCenter,
-  //      margin: EdgeInsets.only(top: 5.0),
-  //    );
-  //  }
-
   Container titleRow() {
     return new Container(
         child: new Text("Courses in English",
@@ -185,18 +170,75 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: new EdgeInsets.symmetric(vertical: 10.0));
   }
 
-  void doLogin() {
-    if (username != null && password != null) {
-      User user;
-      new Data().userProvider.login(username, password).then((success) {
-        user = success;
-      });
-      if (user != null) {
-        Navigator.push(
-          context,
-          new MaterialPageRoute(builder: (context) => new HomeScaffold()),
-        );
+  void doLogin(BuildContext context) {
+    if (checkInput(context)) {
+      new Injector().sessionController.login(email, password).then(
+        (user) {
+          showSnackBar("You're successfully logged in", context);
+          new Injector().cieController.user = user;
+          pageForward = new Timer(
+            new Duration(milliseconds: 1000),
+            () => Navigator.pushReplacement(
+                this.context,
+                new MaterialPageRoute(
+                    builder: (context) => new LoadingScaffold())),
+          );
+        },
+      ).catchError((e) async => showSnackBar("Login failure!", context));
+    }
+  }
+
+  bool checkInput(BuildContext context) {
+    bool emailEmpty = true;
+    bool containsAtAndDot = true;
+    bool passwordEmpty = true;
+    if (this.email != null) {
+      if (this.email.length > 0) {
+        emailEmpty = false;
+        if (!(this.email.contains("@") && this.email.contains("."))) {
+          containsAtAndDot = false;
+        }
       }
     }
+    if (this.password != null) {
+      if (this.password.length > 0) {
+        passwordEmpty = false;
+      }
+    }
+    if (emailEmpty == true && passwordEmpty == false) {
+      showSnackBar("Please enter a valid email!", context);
+      return false;
+    }
+    if (emailEmpty == false && passwordEmpty == true) {
+      showSnackBar("Please enter a valid password!", context);
+      return false;
+    }
+    if (emailEmpty == true && passwordEmpty == true) {
+      showSnackBar("Please enter data", context);
+      return false;
+    }
+    if (containsAtAndDot == false) {
+      showSnackBar("Please enter data in a valid format", context);
+      return false;
+    }
+    return true;
+  }
+
+  void showSnackBar(String text, BuildContext context) {
+    Scaffold.of(context).showSnackBar(
+          new SnackBar(
+            content: new Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+            duration: new Duration(seconds: 1),
+          ),
+        );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageForward?.cancel();
   }
 }
