@@ -15,6 +15,8 @@ class RequestPasswordReset extends StatelessWidget {
   static final String descriptionText =
       "A reset Code will be sent to the E-Mail address entered below.";
   static final String alertDialogText = "Check your Inbox & Spam for our Mail.";
+  static final String emailUnknownAlertText = "The E-Mail you entered is not known to the Server.\r\n"
+      "Please Check the E-Mail for typos and try again.";
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +35,52 @@ class RequestPasswordReset extends StatelessWidget {
               new Expanded(
                 child: new Column(
                   children: <Widget>[
-                    requestButton(() {
+                    requestButton(() async {
                       if (userMail != null &&
                           userMail.contains("@") &&
                           userMail.contains(".")) {
-                        //TODO do passwordResetRequest in new Session thingy
                         new Injector()
                             .sessionController
                             .requestPasswordReset(userMail)
                             .then((value) {
                           if (value) {
-                            _emailIsRegistered(context, userMail);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return new AlertDialog(
+                                    title: new Text(RequestPasswordReset.alertDialogText),
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                          onPressed: (() {
+                                            Navigator.pop(context);
+                                            Navigator.pushReplacement(
+                                              context,
+                                              new MaterialPageRoute(
+                                                  builder: (context) => new PasswordReset(userMail)),
+                                            );
+                                          }),
+                                          child: new Text("Continue"))
+                                    ],
+                                  );
+                                });
                           } else {
-                            _emailNotRegistered(context);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return new AlertDialog(
+                                    title: new Text(RequestPasswordReset.emailUnknownAlertText),
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                          onPressed: (() {
+                                            Navigator.pop(context);
+                                          }),
+                                          child: new Text("Close"))
+                                    ],
+                                  );
+                                });
                           }
                         });
-                        //TODO show message if email is in database or not.
-
                       } else {
                         Scaffold.of(context).showSnackBar(new SnackBar(
                               content: new Text(
@@ -128,45 +159,5 @@ class RequestPasswordReset extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(top: 30.0),
     );
-  }
-
-  void _emailIsRegistered(BuildContext context, String userMail) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text(RequestPasswordReset.alertDialogText),
-            actions: <Widget>[
-              new FlatButton(
-                  onPressed: (() {
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new PasswordReset(userMail)),
-                    );
-                  }),
-                  child: new Text("Continue"))
-            ],
-          );
-        });
-  }
-
-  void _emailNotRegistered(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text(RequestPasswordReset.alertDialogText),
-            actions: <Widget>[
-              new FlatButton(
-                  onPressed: (() {
-                    Navigator.pop(context);
-                  }),
-                  child: new Text("Close"))
-            ],
-          );
-        });
   }
 }

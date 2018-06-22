@@ -26,4 +26,9 @@ class ProdUserProvider implements InetUserProvider {
   Future<bool> requestResetCode(String userMail) async {
     return httpHelper.requestResetCode(userMail);
   }
+
+  @override
+  Future<bool> resetPassword(String userMail, String resetCode, String newPassword) {
+    return httpHelper.resetPassword(userMail,resetCode,newPassword);
+  }
 }

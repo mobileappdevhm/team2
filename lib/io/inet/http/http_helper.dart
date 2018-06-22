@@ -9,4 +9,5 @@ abstract class HttpHelper {
   Future<List<dynamic>> getLocations();
   Future<List<dynamic>> getCampuses();
   Future<bool> requestResetCode(String userMail);
+  Future<bool> resetPassword(String userMail, String resetCode, String newPassword);
 }

@@ -1,3 +1,4 @@
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
@@ -103,10 +104,8 @@ class _PasswordResetState extends State<PasswordReset> {
     );
   }
 
-  void resetPassword(String userMail, String code, String newPassword,
-      String newPasswordRepeat, BuildContext context) {
-    //TODO reinstantiate pw length.
-    if (newPasswordRepeat != newPassword || newPassword.length < 1) {
+  void resetPassword(BuildContext context) async {
+    if (_newPasswordRepeat != _newPassword || _newPassword.length < 5) {
       Scaffold.of(context).showSnackBar(
             new SnackBar(
               content: new Text(
@@ -117,9 +116,44 @@ class _PasswordResetState extends State<PasswordReset> {
             ),
           );
     } else {
-      //TODO do passwordReset stuff..
-      //new Session().passwordReset(userMail, newPassword, code);
-      //TODO show Snackbar based upon succes of passwordReset
+      new Injector()
+          .sessionController
+          .resetPassword(_userEmail, _code, _newPassword)
+          .then((success) {
+        if (success) {
+          showDialog(
+            barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return new AlertDialog(
+                  title: new Text("Password Successfully changed!"),
+                  actions: <Widget>[
+                    new FlatButton(
+                        onPressed: (() {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        }),
+                        child: new Text("Return to Login Page"))
+                  ],
+                );
+              });
+        } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return new AlertDialog(
+                  title: new Text("There was an Error changing the Password"),
+                  actions: <Widget>[
+                    new FlatButton(
+                        onPressed: (() {
+                          Navigator.of(context).pop();
+                        }),
+                        child: new Text("Close"))
+                  ],
+                );
+              });
+        }
+      });
     }
   }
 
@@ -129,13 +163,50 @@ class _PasswordResetState extends State<PasswordReset> {
         text: new Text(PasswordReset.resetPasswordButton,
             style: new TextStyle(fontSize: 18.0, color: Colors.white)),
         onPressed: (() {
-          resetPassword(
-              _userEmail, _code, _newPassword, _newPasswordRepeat, context);
+          print(_userEmail);
+          print(_code);
+          print(_newPassword);
+          resetPassword(context);
         }),
         color: Colors.black,
       ),
       margin: const EdgeInsets.symmetric(vertical: 15.0),
       alignment: Alignment.center,
     );
+  }
+
+  void successAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: new Text("Password has been changed!"),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: (() {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  }),
+                  child: new Text("Continue to Login."))
+            ],
+          );
+        });
+  }
+
+  void failureAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: new Text("An erorr occoured changing the Password!"),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: (() {
+                    Navigator.of(context).pop();
+                  }),
+                  child: new Text("Close"))
+            ],
+          );
+        });
   }
 }

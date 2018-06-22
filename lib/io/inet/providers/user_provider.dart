@@ -12,4 +12,6 @@ abstract class InetUserProvider {
   Future<bool> logout(User user);
 
   Future<bool> requestResetCode(String userMail);
+
+  Future<bool> resetPassword(String userMail, String resetCode, String newPassword);
 }

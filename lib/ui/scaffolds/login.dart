@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            maxLength: 20,
+            maxLength: 30,
             decoration: new InputDecoration(
               labelText: "Input E-Mail",
               icon: new Icon(Icons.person),
