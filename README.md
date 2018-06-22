@@ -6,7 +6,7 @@ Please see our wiki for more information: https://github.com/mobileappdevhm/team
 
 
 
-Our CiE Backend: ttps://github.com/mobileappdevhm/cie-server-team-2
+Our CiE Backend: https://github.com/mobileappdevhm/cie-server-team-2
 
 > Which aims to be a alternative solution to using nine
 

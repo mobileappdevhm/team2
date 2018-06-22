@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:flutter/material.dart';
 
 class CieListEntry extends StatelessWidget {
   static const Color GREEN = const Color(0xFF83D183);
@@ -10,28 +10,18 @@ class CieListEntry extends StatelessWidget {
   static const Color HEART = const Color(0xFFFFA1A1);
 
   final Cie cie;
-  //final CieScreenState cieScreenState;
   final Department department;
-//  final String lecturer;
-//  final TimeAndDay timeAndDay;
-  final VoidCallback onPressedButton;
 
-//  _CieListEntryState(this.cie, this.department, this.cieScreenState);
-  CieListEntry(this.cie, this.department, {this.onPressedButton});
+  CieListEntry(this.cie, this.department);
 
-  void _toggle() async {
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    await sqlitecieprovider.removeCie(cie);
-    onPressedButton();
-    //cieScreenState.setState((){});
-  }
+  void _toggle() async => new Injector().cieController.removeCie(cie);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double vw = size.width / 100;
 
-    return new Material(
+    return new Card(
       child: new InkWell(
           onTap: null,
           child: new Container(
@@ -85,10 +75,6 @@ class CieListEntry extends StatelessWidget {
                   )
                 ])
               ]),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      bottom: new BorderSide(
-                          color: new Color(0xFFDDDDDD), width: 1.0))),
               padding: new EdgeInsets.only(
                   left: 3 * vw, top: 0.1 * vw, right: 3 * vw, bottom: 1 * vw))),
     );

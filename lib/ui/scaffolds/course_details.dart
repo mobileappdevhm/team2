@@ -1,4 +1,5 @@
-import 'package:courses_in_english/controller/session.dart';
+import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/ui/basic_components/availability_widget.dart';
@@ -8,12 +9,24 @@ import 'package:url_launcher/url_launcher.dart';
 
 const Color HEART = const Color(0xFFFFA1A1);
 
-class CourseDetailsScaffold extends StatelessWidget {
+class CourseDetailsScaffold extends StatefulWidget {
   final Course course;
   final bool isFavored;
-  final Session session = new Session();
 
   CourseDetailsScaffold(this.course, this.isFavored);
+
+  @override
+  State<StatefulWidget> createState() =>
+      new _CourseDetailsScaffoldState(course, isFavored);
+}
+
+class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
+  final Course course;
+  bool isFavored;
+  final FavoritesController favoritesController =
+      new Injector().favoritesController;
+
+  _CourseDetailsScaffoldState(this.course, this.isFavored);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +65,8 @@ class CourseDetailsScaffold extends StatelessWidget {
                         ),
                       ),
                       new Text(
-                        'Department ${course.department.number.toString().padLeft(2, '0')}',
+                        'Department ${course.department.number.toString()
+                            .padLeft(2, '0')}',
                         style: new TextStyle(
                           color: new Color(course.department.color),
                           fontWeight: FontWeight.bold,
@@ -71,9 +85,16 @@ class CourseDetailsScaffold extends StatelessWidget {
                   tooltip: isFavored
                       ? 'Remove this course from your favorites.'
                       : 'Add this course to your favorites.',
-                  onPressed: isFavored
-                      ? () => session.unfavorize(course)
-                      : () => session.favorize(course),
+                  onPressed: () {
+                    if (isFavored) {
+                      favoritesController.unFavorizeCourse(course);
+                    } else {
+                      favoritesController.favorizeCourse(course);
+                    }
+                    setState(() {
+                      isFavored = !isFavored;
+                    });
+                  },
                 ),
               ],
             ),
@@ -100,6 +121,7 @@ class CourseDetailsScaffold extends StatelessWidget {
                     new Text(
                         // TODO adjust to list of timeanddays
                         course.dates != null &&
+                                course.dates.length > 0 &&
                                 course.dates[0].weekday != null &&
                                 course.dates[0].duration != null
                             ? course.dates[0].toDate()
@@ -201,8 +223,8 @@ class CourseDetailsScaffold extends StatelessWidget {
 
   sendMail() async {
     Lecturer lecturer = course.lecturer; // Android and iOS
-    final uri =
-        'mailto:${lecturer.email}?subject=${course.name}&body=Hello Professor ${lecturer.name},';
+    final uri = 'mailto:${lecturer.email}?subject=${course
+        .name}&body=Hello Professor ${lecturer.name},';
     print(uri);
     if (await canLaunch(uri)) {
       launch(uri);

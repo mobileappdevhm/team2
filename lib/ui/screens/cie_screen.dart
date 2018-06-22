@@ -1,14 +1,16 @@
-import 'package:courses_in_english/connect/dataprovider/cie/mock/sqlite_cie_provider.dart';
+import 'package:courses_in_english/controller/cie_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
-import 'package:courses_in_english/ui/screens/add_cie_screen.dart';
+import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:flutter/material.dart';
 
+// TODO handle null department
 class CieScreen extends StatefulWidget {
   CieScreen({Key key, this.title}) : super(key: key);
 
   static const String routeName = "/CieScreen";
-
   final String title;
 
   @override
@@ -23,328 +25,181 @@ class CieScreen extends StatefulWidget {
 /// // 2. Then this could be used to navigate to the page.
 /// Navigator.pushNamed(context, CieScreen.routeName);
 ///
-
-class CieScreenState extends State<CieScreen> {
-  List<Widget> cieWidgets = [];
-  String userName = "TempUser";
+class CieScreenState extends State<CieScreen> implements CieListObserver {
+  List<Cie> cies = [];
+  String userName = "N/a";
   double totalEcts = 0.0;
+
+  CieScreenState() {
+    new Injector().cieController.addObserver(this);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     double width = MediaQuery.of(context).size.width;
-    if (orientation == Orientation.portrait) {
-      return verticalScaffold(width);
+    if (!new Injector().sessionController.isLoggedIn) {
+      return notLoggedInView();
     } else {
-      return horizontalScaffold(width);
+      return loggedInView(width);
     }
   }
 
-  Scaffold verticalScaffold(double width) {
-    return new Scaffold(
-      body: new Container(
-        constraints: new BoxConstraints.expand(),
-        alignment: Alignment.center,
-        child: new Column(
+  ListView notLoggedInView() {
+    return new ListView(
+      children: <Widget>[
+        new Padding(padding: new EdgeInsets.all(4.0)),
+        new Row(
           children: <Widget>[
-            new Column(
-              children: <Widget>[
-                new Padding(padding: new EdgeInsets.all(12.0)),
-                new Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Icon(
-                          Icons.account_circle,
-                          size: 70.0,
-                        )
-                      ],
-                    ),
-                    new Column(
-                      children: <Widget>[
-                        new Row(
-                          children: <Widget>[
-                            new Text(
-                              "Logged in as " + userName,
-                              style: new TextStyle(fontSize: 18.0),
-                            ),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(8.0),
-                        ),
-                        new RawMaterialButton(
-                          onPressed: null,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius:
-                                  new BorderRadius.circular(100000.0)),
-                          fillColor: Colors.red,
-                          child: new Text(
-                            "Logout",
-                            style: new TextStyle(
-                                fontSize: 16.0, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                new Padding(
-                  padding: new EdgeInsets.all(10.0),
-                ),
-                new Text("CIE Progress: " + totalEcts.toString() + " / 50",
-                    style: new TextStyle(fontSize: 18.0)),
-                new Container(
-                  padding: new EdgeInsets.all(32.0),
-                  child: new LinearProgressIndicator(
-                    value: totalEcts / 50.0,
-                  ),
-                ),
-              ],
-            ),
-            new Divider(
-              color: Colors.black,
-            ),
-            new Expanded(
-              child: new ListView(
+            new LineSeparator(
+              title: 'User Profile',
+              isBold: true,
+            )
+          ],
+        ),
+        new Padding(padding: new EdgeInsets.all(6.0)),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[new Text("Guest Users don't have profiles")],
+        )
+      ],
+    );
+  }
+
+  Widget loggedInView(double width) {
+    try {
+      userName = new Injector().sessionController.user.lastName;
+    } catch (e) {}
+    return new Container(
+      constraints: new BoxConstraints.expand(),
+      alignment: Alignment.center,
+      child: new Column(
+        children: <Widget>[
+          new Column(
+            children: <Widget>[
+              new Padding(padding: new EdgeInsets.all(12.0)),
+              new Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   new Column(
-                    children: cieWidgets,
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.all(8.0),
-                  ),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      new Icon(
+                        Icons.account_circle,
+                        size: 70.0,
+                      )
+                    ],
+                  ),
+                  new Column(
+                    children: <Widget>[
+                      new Row(
+                        children: <Widget>[
+                          new Text(
+                            "Logged in as " + userName,
+                            style: new TextStyle(fontSize: 18.0),
+                          ),
+                        ],
+                      ),
                       new Padding(
                         padding: new EdgeInsets.all(8.0),
                       ),
                       new RawMaterialButton(
-                        constraints: new BoxConstraints(
-                            minWidth: 180.0,
-                            minHeight: 48.0,
-                            maxWidth: width - 30,
-                            maxHeight: 50.0),
-                        onPressed: _addCie,
+                        onPressed: null,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(100000.0)),
                         fillColor: Colors.red,
                         child: new Text(
-                          "Add CIE",
+                          "Logout",
                           style: new TextStyle(
-                              fontSize: 18.0, color: Colors.white),
+                              fontSize: 16.0, color: Colors.white),
                         ),
-                      ),
-                      new Padding(
-                        padding: new EdgeInsets.all(8.0),
                       ),
                     ],
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.all(8.0),
-                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Scaffold horizontalScaffold(double width) {
-    return new Scaffold(
-      body: new Container(
-        constraints: new BoxConstraints.expand(),
-        alignment: Alignment.center,
-        child: new ListView(
-          children: <Widget>[
-            new Column(
+              new Padding(
+                padding: new EdgeInsets.all(10.0),
+              ),
+              new Text("CIE Progress: " + totalEcts.toString() + " / 50",
+                  style: new TextStyle(fontSize: 18.0)),
+              new Container(
+                padding: new EdgeInsets.all(32.0),
+                child: new LinearProgressIndicator(
+                  value: totalEcts / 50.0,
+                ),
+              ),
+            ],
+          ),
+          new Divider(
+            color: Colors.black,
+          ),
+          new Expanded(
+            child: new ListView(
               children: <Widget>[
-                new Padding(padding: new EdgeInsets.all(12.0)),
+                new Column(
+                  children: mapCiesToWidgets(cies),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.all(8.0),
+                ),
                 new Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Icon(
-                          Icons.account_circle,
-                          size: 70.0,
-                        )
-                      ],
+                    new Padding(
+                      padding: new EdgeInsets.all(8.0),
                     ),
-                    new Column(
-                      children: <Widget>[
-                        new Row(
-                          children: <Widget>[
-                            new Text(
-                              "Logged in as " + userName,
-                              style: new TextStyle(fontSize: 18.0),
-                            ),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(8.0),
-                        ),
-                        new RawMaterialButton(
-                          onPressed: null,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius:
-                                  new BorderRadius.circular(100000.0)),
-                          fillColor: Colors.red,
-                          child: new Text(
-                            "Logout",
-                            style: new TextStyle(
-                                fontSize: 16.0, color: Colors.white),
-                          ),
-                        ),
-                      ],
+                    new RawMaterialButton(
+                      constraints: new BoxConstraints(
+                          minWidth: 180.0,
+                          minHeight: 48.0,
+                          maxWidth: width - 30,
+                          maxHeight: 50.0),
+                      onPressed: _addCie,
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(100000.0)),
+                      fillColor: Colors.red,
+                      child: new Text(
+                        "Add CIE",
+                        style:
+                            new TextStyle(fontSize: 18.0, color: Colors.white),
+                      ),
+                    ),
+                    new Padding(
+                      padding: new EdgeInsets.all(8.0),
                     ),
                   ],
                 ),
                 new Padding(
-                  padding: new EdgeInsets.all(10.0),
-                ),
-                new Text("CIE Progress: " + totalEcts.toString() + " / 50",
-                    style: new TextStyle(fontSize: 18.0)),
-                new Container(
-                  padding: new EdgeInsets.all(32.0),
-                  child: new LinearProgressIndicator(
-                    value: totalEcts / 50.0,
-                  ),
-                ),
-              ],
-            ),
-            new Divider(
-              color: Colors.black,
-            ),
-//            new Expanded(child:
-//            new ListView(
-//              children: <Widget>[
-            new Column(
-              children: cieWidgets,
-            ),
-            new Padding(
-              padding: new EdgeInsets.all(8.0),
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Padding(
-                  padding: new EdgeInsets.all(8.0),
-                ),
-                new RawMaterialButton(
-                  constraints: new BoxConstraints(
-                      minWidth: 180.0,
-                      minHeight: 48.0,
-                      maxWidth: width - 30,
-                      maxHeight: 50.0),
-                  onPressed: _addCie,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(100000.0)),
-                  fillColor: Colors.red,
-                  child: new Text(
-                    "Add CIE",
-                    style: new TextStyle(fontSize: 18.0, color: Colors.white),
-                  ),
-                ),
-                new Padding(
                   padding: new EdgeInsets.all(8.0),
                 ),
               ],
             ),
-            new Padding(
-              padding: new EdgeInsets.all(8.0),
-            ),
-//              ],
-//            ),
-//            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
-
-  void courseItems() async {
-    List<Widget> tempWidgets = new List<Widget>();
-    SqliteCieProvider sqlitecieprovider = new SqliteCieProvider();
-    //SqliteDepartmentProvider sqlitedepartmentprovider =
-    //    new SqliteDepartmentProvider();
-
-//    List<Department> departments = [];
-//    departments.add(new Department(1, "Architecture", const Color(0xFF014085)));
-//    departments.add(new Department(2, "Civil Engineering", const Color(0xFF008db8)));
-//    departments.add(new Department(3, "Mechanical, Automotive and Aeronautical Engineering", const Color(0xFF018bc9)));
-//    departments.add(new Department(4, "Electrical Engineering and Information Technology", const Color(0xFF0198ab)));
-//    departments.add(new Department(5, "Building Services Engineering, Paper and Packaging Technology and Print and Media Technology", const Color(0xFF016fb2)));
-//    departments.add(new Department(6, "Applied Sciences and Mechatronics", const Color(0xFF04539d)));
-//    departments.add(new Department(7, "Computer Science and Mathematics", const Color(0xFF029fd0)));
-//    departments.add(new Department(8, "Geoinformatics", const Color(0xFF018a8a)));
-//    departments.add(new Department(9, "Engineering and Management", const Color(0xFF018e62)));
-//    departments.add(new Department(10, "Business Administration", const Color(0xFF028d7c)));
-//    departments.add(new Department(11, "Applied Social Sciences", const Color(0xFFed7406)));
-//    departments.add(new Department(12, "Design", const Color(0xFF0f3647)));
-//    departments.add(new Department(13, "General and Interdisciplinary Studies", const Color(0xFFbf0179)));
-//    departments.add(new Department(14, "Tourism", const Color(0xFFa41948)));
-//    await sqlitedepartmentprovider.putDepartments(departments);
-
-//    List<Department> d = await sqlitedepartmentprovider.getDepartments();
-
-    List<Cie> cieList = await sqlitecieprovider.getCies();
-
-    double tempTotalEcts = 0.0;
-
-    for (Cie cie in cieList) {
-      //Department department =
-      //  await sqlitedepartmentprovider.getDepartmentByNumber(cie.department);
-      tempWidgets
-          .add(new CieListEntry(cie, null, onPressedButton: _setMyState));
-
-      ///TODO: fix the null
-      tempTotalEcts += cie.ects;
-    }
-
-    cieWidgets = tempWidgets;
-    totalEcts = tempTotalEcts;
-
-    setState(() {});
   }
 
   void _addCie() {
     Navigator.push(
       context,
-      new MaterialPageRoute(
-          builder: (context) => new AddCieScreen(
-                onPressedButton: _setMyState,
-              )),
+      new MaterialPageRoute(builder: (context) => new AddCieScaffold()),
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    courseItems();
-  }
-
-  void _setMyState() {
-    courseItems();
-    setState(() {});
-  }
+  List<Widget> mapCiesToWidgets(List<Cie> cies) =>
+      cies.map((cie) => new CieListEntry(cie, null)).toList();
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  void onCieListUpdate(List<Cie> cies) => setState(() {
+        this.cies = cies;
+        this.totalEcts =
+            cies.length > 0 // There must be at least one element for reducing
+                ? cies.map((cie) => cie.ects).reduce((a, b) => a + b)
+                : 0.0;
+      });
 }

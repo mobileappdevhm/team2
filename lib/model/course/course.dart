@@ -47,6 +47,14 @@ class Course {
     this.dates,
   ]);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Course && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
 
@@ -57,9 +65,7 @@ class Course {
     tempMap["department"] = this.department.number;
     tempMap["lecturer"] = this.lecturer.id;
     tempMap["room"] = this.room;
-    tempMap["courseStatus"] = this.courseStatus == CourseStatus.RED
-        ? "red"
-        : this.courseStatus == CourseStatus.YELLOW ? "yellow" : "green";
+    tempMap["courseStatus"] = statusToString(this.courseStatus);
     tempMap["availableSlots"] = this.availableSlots;
     tempMap["ects"] = this.ects;
     tempMap["usCredits"] = this.usCredits;
@@ -73,25 +79,13 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  switch (status) {
-    case CourseStatus.GREEN:
-      return "green";
-    case CourseStatus.YELLOW:
-      return "yellow";
-    case CourseStatus.RED:
-      return "red";
-  }
-  throw new UnimplementedError("Unsupported status");
+  if (status == CourseStatus.GREEN) return 'GREEN';
+  if (status == CourseStatus.YELLOW) return 'YELLOW';
+  return 'RED';
 }
 
 CourseStatus stringToStatus(String status) {
-  switch (status.toLowerCase()) {
-    case "green":
-      return CourseStatus.GREEN;
-    case "yellow":
-      return CourseStatus.YELLOW;
-    case "red":
-      return CourseStatus.RED;
-  }
-  throw new UnimplementedError("No status found for string '$status'.");
+  if (status.toUpperCase() == 'GREEN') return CourseStatus.GREEN;
+  if (status.toUpperCase() == 'YELLOW') return CourseStatus.YELLOW;
+  return CourseStatus.RED;
 }
