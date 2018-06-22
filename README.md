@@ -29,3 +29,4 @@ all the campuses of the Hochschule München.
 
  <a href="url"><img src="https://raw.githubusercontent.com/mobileappdevhm/team2/gh-pages/gh-pagesImages/map.png" align="center" height="480" width="270" ></a> 
  
+[The Github-Pages of the backend server](https://mobileappdevhm.github.io/cie-server-team-2)
