@@ -60,16 +60,15 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                       new Text(
                         course.name,
                         style: new TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.black54,
-                        ),
+                            fontSize: 20.0,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold),
                       ),
+                      new Padding(padding: new EdgeInsets.only(top: 1.5)),
                       new Text(
-                        'Department ${course.department.number.toString()
-                            .padLeft(2, '0')}',
-                        style: new TextStyle(
-                          color: new Color(course.department.color),
-                          fontWeight: FontWeight.bold,
+                        "Department " + course.department.number.toString(),
+                        style: TextStyle(
+                          color: Colors.black45
                         ),
                       ),
                     ],
