@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:courses_in_english/ui/basic_components/scenery_widget.dart';
 import 'package:courses_in_english/ui/scaffolds/loading.dart';
+import 'package:courses_in_english/ui/scaffolds/request_password_reset.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
   Timer pageForward;
 
-  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -34,6 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         new Expanded(
                           child: new Column(
                             children: <Widget>[
+                              new Container(
+                                child: new LineSeparator(),
+                                margin:
+                                    new EdgeInsets.symmetric(horizontal: 10.0),
+                              ),
+                              new Container(
+                                child: resetButton(context),
+                              ),
                               new Container(
                                 child: new LineSeparator(),
                                 margin:
@@ -59,19 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
     return new Row(
       children: <Widget>[
         new Container(
-          child: new RaisedButton(
+          child: new RoundedButton(
             onPressed: () => Navigator.pushReplacement(
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new LoadingScaffold()),
                 ),
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(100000.0)),
             color: Colors.black,
-            textColor: Colors.white,
-            child: new Text(
+            text: new Text(
               "Continue as Guest",
-              style: new TextStyle(fontSize: 18.0),
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
             ),
           ),
           alignment: AlignmentDirectional.bottomCenter,
@@ -96,15 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Container loginButton(BuildContext context) {
     return new Container(
-      child: new RaisedButton(
+      child: new RoundedButton(
         onPressed: () => doLogin(context),
-        child: new Text(
+        text: new Text(
           "Login",
+          style: new TextStyle(fontSize: 18.0, color: Colors.white),
         ),
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(100000.0)),
         color: Colors.black,
-        textColor: Colors.white,
       ),
       alignment: AlignmentDirectional.center,
       margin: new EdgeInsets.symmetric(vertical: 20.0),
@@ -120,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: new Container(
           child: new TextFormField(
             maxLines: 1,
-            maxLength: 20,
+            maxLength: 40,
             decoration: new InputDecoration(
               labelText: "Input Username",
               icon: new Icon(Icons.person),
@@ -222,6 +226,24 @@ class _LoginScreenState extends State<LoginScreen> {
       return false;
     }
     return true;
+  }
+
+  resetButton(BuildContext context) {
+    return new FlatButton(
+      onPressed: (() {
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => new RequestPasswordReset()));
+      }),
+      child: new Text(
+        "Forgot Password?",
+        style: TextStyle(
+          fontSize: 15.0,
+          color: Colors.redAccent.withOpacity(0.8),
+        ),
+      ),
+    );
   }
 
   void showSnackBar(String text, BuildContext context) {
