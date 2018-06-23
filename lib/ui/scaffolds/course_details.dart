@@ -67,9 +67,7 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                       new Padding(padding: new EdgeInsets.only(top: 1.5)),
                       new Text(
                         "Department " + course.department.number.toString(),
-                        style: TextStyle(
-                          color: Colors.black45
-                        ),
+                        style: TextStyle(color: Colors.black45),
                       ),
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
