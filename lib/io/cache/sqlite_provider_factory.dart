@@ -22,6 +22,7 @@ import 'package:courses_in_english/io/cache/providers/user_settings_provider.dar
 /// Provider factory producing mock providers.
 class SqliteProviderFactory implements CacheProviderFactory {
   final DatabaseHelper dbh = new ProdDatabaseHelper();
+  //       new SqliteUserProvider(dbh);
   // TODO User cache?
   @override
   CacheUserProvider createCacheUserProvider() => null;

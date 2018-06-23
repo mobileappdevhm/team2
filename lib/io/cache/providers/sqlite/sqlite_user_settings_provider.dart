@@ -27,8 +27,14 @@ class SqliteUserSettingsProvider extends CacheUserSettingsProvider {
   @override
   Future<int> putSettings(User user, UserSettings userSettings) async {
     List<Map<String, dynamic>> userList = [];
-    userList.add(userSettings.toMap().putIfAbsent("userId", () => user.id));
+    await dbh.deleteWhere("Settings", "userId", user.id.toString());
+    userList.add(userSettings.toMap().putIfAbsent("userId", () => new SessionController().user.id));//TODO put real current user in
     return dbh.insertTable("Settings", userList);
     //TODO: WHEN USER LOGS IN NEED TO CREATE USER AND SETTINGS
+  }
+
+  @override
+  void clearApp() async {
+    dbh.truncateAllTable();
   }
 }

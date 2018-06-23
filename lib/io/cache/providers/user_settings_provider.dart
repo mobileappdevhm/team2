@@ -8,4 +8,6 @@ abstract class CacheUserSettingsProvider {
   Future<UserSettings> getCurrentSettings(User user);
 
   Future<int> putSettings(User user, UserSettings userSettings);
+
+  void clearApp();
 }
