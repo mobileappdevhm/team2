@@ -40,7 +40,7 @@ void main() {
   });
   test('Test course status getter RED', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(
@@ -62,7 +62,7 @@ void main() {
   });
   test('Test course status getter YELLOW', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(
@@ -84,7 +84,7 @@ void main() {
   });
   test('Test course status getter GREEN', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(
@@ -106,7 +106,7 @@ void main() {
   });
   test('Test course to map - status GREEN', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(
@@ -142,7 +142,7 @@ void main() {
   });
   test('Test course to map - status RED', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(
@@ -178,7 +178,7 @@ void main() {
   });
   test('Test course to map - status YELLOW', () {
     Lecturer lecturer =
-    new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
+        new Lecturer(42, 'Max Mustermann', 'mmustermann@hm.edu');
     Department department = new Department(13, 7, 'Fakultaet 07', 1337);
     Campus campus = new Campus(2, 'Lothstrasse', 'abcd', 'Lothstr.');
     Course course = new Course(

@@ -38,10 +38,12 @@ class RoundedButton extends StatelessWidget {
                 : (maxwidth > potminwidth) ? potminwidth : maxwidth,
             maxHeight: maxheight,
             maxWidth: maxwidth),
-        onPressed: onPressed,
+        onPressed: (() {
+          return onPressed();
+        }),
         shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(100000.0)),
-        fillColor: Colors.red,
+        fillColor: color,
         child: text);
   }
 }

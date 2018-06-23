@@ -10,4 +10,9 @@ abstract class InetUserProvider {
 
   /// Try to log out a user. Returns whether the user could be logged out.
   Future<bool> logout(User user);
+
+  Future<bool> requestResetCode(String userMail);
+
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword);
 }

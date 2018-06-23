@@ -9,13 +9,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {
-
   MockitoProviderFactory inetFactory;
   MockedCacheProvidersFactory cacheFactory;
   setUp(() {
     cacheFactory = new MockedCacheProvidersFactory();
     inetFactory = new MockitoProviderFactory();
-    new Injector().injectDependencies(inetFactory, cacheFactory, firebase: false);
+    new Injector()
+        .injectDependencies(inetFactory, cacheFactory, firebase: false);
   });
 
   testWidgets('Test information display', (WidgetTester tester) async {
@@ -49,8 +49,10 @@ void main() {
     expect(find.byIcon(Icons.favorite_border), findsNothing);
   });
   testWidgets('Test favorize', (WidgetTester tester) async {
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
-    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => Future.value(true));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01))
+        .thenAnswer((_) => Future.value(true));
     await tester.pumpWidget(
       new MaterialApp(
         home: new CourseDetailsScaffold(course01, false),
@@ -66,8 +68,10 @@ void main() {
     expect(find.byIcon(Icons.favorite_border), findsNothing);
   });
   testWidgets('Test unfavorize', (WidgetTester tester) async {
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
-    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).thenAnswer((_) => Future.value(false));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01))
+        .thenAnswer((_) => Future.value(false));
     await tester.pumpWidget(
       new MaterialApp(
         home: new CourseDetailsScaffold(course01, true),
@@ -78,7 +82,8 @@ void main() {
     expect(find.byIcon(Icons.favorite_border), findsNothing);
     await tester.tap(find.byIcon(Icons.favorite));
     await tester.pump();
-    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).called(1);
+    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01))
+        .called(1);
     expect(find.byIcon(Icons.favorite_border), findsOneWidget);
     expect(find.byIcon(Icons.favorite), findsNothing);
   });

@@ -17,7 +17,6 @@ import 'package:test/test.dart';
 //import 'package:courses_in_english/connect/dataprovider/databasehelper/prod_databasehelper.dart';
 
 void main() {
-
   /**
    * Set up our data source, as we know it from java tests
    */
