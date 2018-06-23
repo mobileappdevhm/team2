@@ -212,8 +212,9 @@ class _HomeScaffoldState extends State<HomeScaffold>
       appBar: searchBar.build(context),
       floatingActionButton: (_selectedIndex == 2)
           ? new FloatingActionButton(
-        // TODO add onPressed for ICS export
-              child: Icon(Icons.event_note), onPressed: () {})
+              // TODO add onPressed for ICS export
+              child: Icon(Icons.event_note),
+              onPressed: () {})
           : null,
       body: new PageView(
         controller: _controller,

@@ -89,35 +89,14 @@ class TimetableState extends State<TimetableScreen> {
         children: [
           new Text(
             "Sorry, you don't have any courses to display :(",
-            style: new TextStyle(
-                color: const Color(0xFF707070),
-                fontSize: 17.0),
+            style:
+                new TextStyle(color: const Color(0xFF707070), fontSize: 17.0),
             softWrap: true,
             maxLines: 2,
           ),
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ));
-    }
-  }
-
-  String slotToTime(int slot) {
-    if (slot == 1) {
-      return "8:15 - 9:45";
-    } else if (slot == 2) {
-      return "10:00 - 11:30";
-    } else if (slot == 3) {
-      return "11:45 - 13:15";
-    } else if (slot == 4) {
-      return "13:30 - 15:00";
-    } else if (slot == 5) {
-      return "15:15 - 16:45";
-    } else if (slot == 6) {
-      return "17:00 - 18:30";
-    } else if (slot == 7) {
-      return "18:45 - 20:15";
-    } else {
-      return "Wrong Slot";
     }
   }
 }
