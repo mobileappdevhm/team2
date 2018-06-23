@@ -19,20 +19,24 @@ void main() {
     controller = new NormalFavoritesController(cacheFactory, inetFactory);
   });
   test('Test favorize', () async {
-    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => new Future.value(true));
+    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01))
+        .thenAnswer((_) => new Future.value(true));
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
     await controller.favorizeCourse(course01);
     verify(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).called(1);
   });
   test('Test unfavorize', () async {
-    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).thenAnswer((_) => new Future.value(false));
+    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01))
+        .thenAnswer((_) => new Future.value(false));
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
     await controller.unFavorizeCourse(course01);
-    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).called(1);
+    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01))
+        .called(1);
   });
   test('Test observer notification on registration', () async {
     FavoriteListObserver favoritesScreen = new MockitoFavoritesObserver();
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => new Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => new Future.value(<Course>[]));
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
     verifyZeroInteractions(favoritesScreen);
     controller.addObserver(favoritesScreen);
@@ -42,13 +46,16 @@ void main() {
   });
   test('Test observer notification on favorize', () async {
     FavoriteListObserver favoritesScreen = new MockitoFavoritesObserver();
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => new Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => new Future.value(<Course>[]));
     controller.addObserver(favoritesScreen);
     await untilCalled(favoritesScreen.onFavoritesUpdated(<Course>[]));
     reset(cacheFactory.cacheCourseProvider);
     reset(favoritesScreen);
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => new Future.value([course01]));
-    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => new Future.value(true));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses())
+        .thenAnswer((_) => new Future.value([course01]));
+    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01))
+        .thenAnswer((_) => new Future.value(true));
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
     verifyZeroInteractions(favoritesScreen);
     controller.favorizeCourse(course01);
@@ -57,4 +64,5 @@ void main() {
     verify(favoritesScreen.onFavoritesUpdated([course01])).called(1);
   });
 }
+
 class MockitoFavoritesObserver extends Mock implements FavoriteListObserver {}
