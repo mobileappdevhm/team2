@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   setUp(() {
     new Injector().injectDependencies(
-        new MockitoProviderFactory(), new MockedCacheProvidersFactory());
+        new MockitoProviderFactory(), new MockedCacheProvidersFactory(), firebase: false);
   });
   testWidgets('Settings test skeleton', (tester) async {
     await tester.pumpWidget(new MaterialApp(

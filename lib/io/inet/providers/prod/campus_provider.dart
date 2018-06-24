@@ -14,9 +14,7 @@ class ProdCampusProvider implements InetCampusProvider {
   ProdCampusProvider(this.helper);
 
   @override
-  Future<List<Campus>> getCampuses() async => helper
-      .getCampuses()
-      .then((list) => list.map((campus) => parseCampus(campus)).toList());
+  Future<List<Campus>> getCampuses() async => []; // todo implement this
 
   Campus parseCampus(Map<String, dynamic> json) {
     return new Campus(json['id'], json['name'], 'image', 'address');

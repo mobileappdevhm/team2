@@ -8,6 +8,10 @@ class Campus {
 
   const Campus(this.id, this.name, this.image, this.address);
 
+  factory Campus.fromJsonMap(Map<String, dynamic> map) => map != null
+      ? Campus(map['id'] ?? -1, map['name'] ?? '', null, map['name'] ?? '')
+      : Campus(-1, '', null, '');
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
     tempMap["id"] = this.id;

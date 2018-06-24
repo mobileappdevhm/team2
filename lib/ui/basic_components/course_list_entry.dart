@@ -88,7 +88,7 @@ class CourseListEntry extends StatelessWidget {
                             .padLeft(2, '0')}",
                         style: new TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: new Color(course.department.color)),
+                            color: new Color(course.department.flutterColor)),
                         textScaleFactor: 1.2,
                       ),
                       alignment: Alignment.centerLeft,
