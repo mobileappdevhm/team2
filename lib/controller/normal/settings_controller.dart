@@ -15,11 +15,11 @@ class NormalSettingsController implements SettingsController {
 
 
   void setSettings(UserSettings userSettings){
-    cacheUserSettingsProvider.putSettings(new User(null,null,null,null,null), userSettings);
+    cacheUserSettingsProvider.putSettings( , userSettings);
   }//TODO PULL CUTTENR USER INSTEAD OFF NULL USER!!!!!!!!
 
   Future<UserSettings> get userSettings async{
-    return cacheUserSettingsProvider.getCurrentSettings(new User(null,null,null,null,null));
+    return cacheUserSettingsProvider.getCurrentSettings();
   }
 
   void clearApp() => cacheUserSettingsProvider.clearApp();
