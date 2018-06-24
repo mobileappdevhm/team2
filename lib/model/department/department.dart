@@ -9,15 +9,15 @@ class Department {
   final String name;
 
   /// Color of the department.
-  final int _color;
+  final int color;
 
-  int get color => _color + 0xFF000000; // Remove Transparency
+  int get flutterColor => color + 0xFF000000; // Remove Transparency
 
   const Department(
     this.id,
     this.number,
     this.name,
-    this._color,
+    this.color,
   );
 
   factory Department.fromJsonMap(Map<String, dynamic> map) => map != null

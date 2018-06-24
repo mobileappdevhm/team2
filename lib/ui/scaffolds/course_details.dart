@@ -66,8 +66,10 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                       ),
                       new Padding(padding: new EdgeInsets.only(top: 1.5)),
                       new Text(
-                        "Department " + course.department.number.toString(),
-                        style: TextStyle(color: Colors.black45),
+                        "Department " +
+                            course.department.number.toString().padLeft(2, '0'),
+                        style: TextStyle(
+                            color: Color(course.department.flutterColor)),
                       ),
                     ],
                     crossAxisAlignment: CrossAxisAlignment.start,
