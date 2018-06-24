@@ -86,10 +86,8 @@ class CourseListEntry extends StatelessWidget {
                       child: new Text(
                         "Department ${course.department.number.toString()
                             .padLeft(2, '0')}",
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: new Color(course.department.color)),
                         textScaleFactor: 1.2,
+                        // TODO Add back color
                       ),
                       alignment: Alignment.centerLeft,
                     ),

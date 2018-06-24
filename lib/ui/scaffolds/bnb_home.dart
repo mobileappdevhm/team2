@@ -1,6 +1,5 @@
 import 'package:courses_in_english/controller/favorites_controller.dart';
 import 'package:courses_in_english/controller/injector.dart';
-import 'package:courses_in_english/controller/normal/ics_creator.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
@@ -58,24 +57,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
   // When on course_list screen, add search functionality
   AppBar buildAppBar(BuildContext context) {
     List<Widget> actions;
-    if (_selectedIndex == 2) {
-      actions = [
-        new IconButton(
-          icon: new Icon(Icons.calendar_today),
-          onPressed: () {
-            saveIcsFile(content.courses);
-            AlertDialog dialog = new AlertDialog(
-              content: new Text("Ics was saved to your Phones Storage"),
-            );
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return dialog;
-                });
-          },
-        )
-      ];
-    } else if (_selectedIndex == 0) {
+
+    if (_selectedIndex == 0) {
       actions = [
         searchBar.getSearchAction(context),
         new DropdownButton<Department>(
@@ -92,26 +75,48 @@ class _HomeScaffoldState extends State<HomeScaffold>
                   color: Colors.white),
             ))
       ];
+      if (isFiltered) {
+        actions.insert(
+            0,
+            IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: () {
+                  setState(() {
+                    this.displayedCourses = content.courses;
+                    isFiltered = false;
+                  });
+                }));
+      }
+    } else {
+      actions = [
+        new IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new Scaffold(
+                            appBar: new AppBar(
+                              title: new Text("Profile"),
+                            ),
+                            body: new CieScreen(),
+                          )));
+            })
+      ];
     }
 
-    // If we are currently in filter mode, add clear button
-    if (_selectedIndex == 0 && isFiltered) {
-      actions.insert(
-          0,
-          IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: () {
-                setState(() {
-                  this.displayedCourses = content.courses;
-                  isFiltered = false;
-                });
-              }));
-    }
+    List<String> titles = [
+      "All Courses",
+      "Maps",
+      "Timetable",
+      "Favorites",
+      "Settings"
+    ];
 
     return new AppBar(
       title: isFiltered
           ? Text("search: \"" + _searchTerm + "\"")
-          : Text('All Courses'),
+          : Text(titles[_selectedIndex]),
       centerTitle: false,
       actions: actions,
     );
@@ -157,9 +162,9 @@ class _HomeScaffoldState extends State<HomeScaffold>
     List<Widget> screens = [
       new CourseListScreen(displayedCourses, favorites),
       new LocationScreen(content.campuses),
-      new TimetableScreen(content.courses),
+      //TODO add relevant courses
+      new TimetableScreen([]),
       new FavoriteListScreen(favorites),
-      new CieScreen(),
       new SettingsScreen()
     ];
     scaffold = new Scaffold(
@@ -180,10 +185,6 @@ class _HomeScaffoldState extends State<HomeScaffold>
           new BottomNavigationBarItem(
             icon: new Icon(Icons.favorite_border),
             title: new Text('Favorites'),
-          ),
-          new BottomNavigationBarItem(
-            icon: new Icon(Icons.account_circle),
-            title: new Text('Profile'),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.settings),
@@ -209,6 +210,12 @@ class _HomeScaffoldState extends State<HomeScaffold>
         },
       ),
       appBar: searchBar.build(context),
+      floatingActionButton: (_selectedIndex == 2)
+          ? new FloatingActionButton(
+              // TODO add onPressed for ICS export
+              child: Icon(Icons.event_note),
+              onPressed: () {})
+          : null,
       body: new PageView(
         controller: _controller,
         children: screens,
