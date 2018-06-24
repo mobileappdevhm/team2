@@ -9,14 +9,21 @@ class Department {
   final String name;
 
   /// Color of the department.
-  final int color;
+  final int _color;
 
-  const Department([
+  int get color => _color + 0xFF000000; // Remove Transparency
+
+  const Department(
     this.id,
     this.number,
     this.name,
-    this.color,
-  ]);
+    this._color,
+  );
+
+  factory Department.fromJsonMap(Map<String, dynamic> map) => map != null
+      ? Department(map['number'] ?? -1, map['number'] ?? -1,
+          map['name'] ?? 'unknown', map['color'] ?? 0)
+      : Department(-1, -1, 'unknown', 0);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();

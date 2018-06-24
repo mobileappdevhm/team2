@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/user_provider.dart';
@@ -11,10 +12,10 @@ class ProdUserProvider implements InetUserProvider {
 
   @override
   Future<User> login(String username, String password) async {
-    var loginResult = await httpHelper.login(username, password);
-    return httpHelper.getUser(loginResult['accessToken']).then((map) =>
-        new User(map['id'], map['username'], map['firstName'], map['lastName'],
-            null, loginResult['accessToken']));
+    var token = await httpHelper.login(username, password);
+    return httpHelper.getUserAsJson(token).then((raw) => json.decode(raw)).then(
+        (map) => new User(map['id'], map['username'], map['firstName'],
+            map['lastName'], null, token));
   }
 
   @override
