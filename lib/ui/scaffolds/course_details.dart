@@ -120,7 +120,8 @@ class _CourseDetailsScaffoldState extends State<CourseDetailsScaffold> {
                   children: <Widget>[
                     new Text(
                         // TODO adjust to list of timeanddays
-                        course.dates.length != 0 &&
+                        course.dates != null &&
+                                course.dates.length > 0 &&
                                 course.dates[0].weekday != null &&
                                 course.dates[0].duration != null
                             ? course.dates[0].toDate()

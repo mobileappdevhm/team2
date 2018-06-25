@@ -116,7 +116,13 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  if (status == CourseStatus.GREEN) return 'green';
-  if (status == CourseStatus.YELLOW) return 'yellow';
-  return 'red';
+  if (status == CourseStatus.GREEN) return 'GREEN';
+  if (status == CourseStatus.YELLOW) return 'YELLOW';
+  return 'RED';
+}
+
+CourseStatus stringToStatus(String status) {
+  if (status.toUpperCase() == 'GREEN') return CourseStatus.GREEN;
+  if (status.toUpperCase() == 'YELLOW') return CourseStatus.YELLOW;
+  return CourseStatus.RED;
 }

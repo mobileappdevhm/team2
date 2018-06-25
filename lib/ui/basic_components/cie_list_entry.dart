@@ -21,7 +21,7 @@ class CieListEntry extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double vw = size.width / 100;
 
-    return new Material(
+    return new Card(
       child: new InkWell(
           onTap: null,
           child: new Container(
@@ -75,10 +75,6 @@ class CieListEntry extends StatelessWidget {
                   )
                 ])
               ]),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      bottom: new BorderSide(
-                          color: new Color(0xFFDDDDDD), width: 1.0))),
               padding: new EdgeInsets.only(
                   left: 3 * vw, top: 0.1 * vw, right: 3 * vw, bottom: 1 * vw))),
     );

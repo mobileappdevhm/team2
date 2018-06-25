@@ -46,20 +46,20 @@ jobs:
         - yes|../flutter/bin/flutter doctor --android-licenses
       script:
         - ../flutter/bin/flutter -v build apk
-    - stage: Building
-      if: branch = master
-      language: generic
-      os: osx
-      before_script:
-        - pip install six
-        - brew update
-        - brew install --HEAD libimobiledevice
-        - brew install ideviceinstaller
-        - brew install ios-deploy
-        - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
-        - ../flutter/bin/flutter doctor
-      script:
-        - ../flutter/bin/flutter -v build ios --no-codesign
+#    - stage: Building
+#      if: branch = master
+#      language: generic
+#      os: osx
+#      before_script:
+#        - pip install six
+#        - brew update
+#        - brew install --HEAD libimobiledevice
+#        - brew install ideviceinstaller
+#        - brew install ios-deploy
+#        - git clone https://github.com/flutter/flutter.git ../flutter -b beta --depth 1
+#        - ../flutter/bin/flutter doctor
+#      script:
+#        - ../flutter/bin/flutter -v build ios --no-codesign
     - stage: Deploying
       if: branch = master
       skript: skip
@@ -75,7 +75,7 @@ jobs:
         provider: releases
         api_key: ${GithubToken}
         file:
-          - "/build/app/outputs/ipa/release/app-release.ipa"
+#          - "/build/app/outputs/ipa/release/app-release.ipa"
           - "/build/app/outputs/apk/release/app-release.apk"
         skip_cleanup: true
 cache:
