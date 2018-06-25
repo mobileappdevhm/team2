@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
 import 'package:courses_in_english/io/inet/providers/department_provider.dart';
@@ -16,14 +17,15 @@ class ProdDepartmentProvider implements InetDepartmentProvider {
   }
 
   @override
-  Future<List<Department>> getDepartments() async =>
-      helper.getDepartments().then((list) =>
-          list.map((department) => parseDepartment(department)).toList());
+  Future<List<Department>> getDepartments() async => helper
+      .getDepartmentsAsJson()
+      .then((raw) => parseDepartments(raw))
+      .then((list) => list.map((d) => d as Department))
+      .then((iterable) => iterable.toList());
 
-  //TODO: Change Department Object to fit server response
-  static Department parseDepartment(Map<String, dynamic> json) {
-    if (json == null) return new Department(-1, -1, 'None', 0);
-    return new Department(
-        json['number'], json['number'], json['name'], json['color']);
-  }
+  Future<List<dynamic>> parseDepartments(String raw) async =>
+      json.decode(raw, reviver: (k, v) {
+        if (k is num) return Department.fromJsonMap(v);
+        return v;
+      });
 }

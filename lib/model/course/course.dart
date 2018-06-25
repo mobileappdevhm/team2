@@ -47,6 +47,22 @@ class Course {
     this.dates,
   ]);
 
+  factory Course.fromJsonMap(Map<String, dynamic> map) => Course(
+        map['id'] ?? -1,
+        map['name'] ?? 'Unknown course',
+        map['description'] ?? 'No course description provided.',
+        map['room'] ?? 'Unkown room',
+        map['availableSlots'] ?? 0,
+        map['ects'] ?? 0.0,
+        map['usCredits'] ?? 0.0,
+        map['semesterWeekHours'] ?? 0.0,
+        map['courseStatus'],
+        map['lecturer'],
+        map['department'],
+        map['location'],
+        map['courseAppointments'],
+      );
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

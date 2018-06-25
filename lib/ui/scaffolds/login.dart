@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context) => new LoadingScaffold())),
           );
         },
-      ).catchError((e) async => showSnackBar("Login failure!", context));
+      ).catchError((e) async => showSnackBar("Login failure! $e}", context));
     }
   }
 
