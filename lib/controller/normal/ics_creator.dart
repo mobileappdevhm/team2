@@ -96,5 +96,6 @@ String _dayshort(Course c) {
 }
 
 saveIcsFile(List<Course> courses) async {
+  _firebase?.logEvent(name: "ics_export");
   // TODO!
 }
