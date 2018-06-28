@@ -1,7 +1,5 @@
 import 'package:courses_in_english/controller/firebase/firebase_controller.dart';
-import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:simple_permissions/simple_permissions.dart';
 
 FirebaseController _firebase;
 
@@ -14,13 +12,17 @@ void injectDependencies([FirebaseController firebase]) {
 String createIcs(List<Course> courses) {
   String result =
       "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:CieApp\r\nSUMMARY:Cie Course in at the HM in munich\r\n";
-  courses.forEach((c) => result += _createsingleIcs(c));
+  courses.forEach((c) {
+    for (int i = 0; i < c.dates.length; i++) {
+      result += _createsingleIcs(c, i);
+    }
+  });
   result += "END:VCALENDAR\r\n";
 
   return result;
 }
 
-String _createsingleIcs(Course course) {
+String _createsingleIcs(Course course, int listpos) {
   DateTime today = new DateTime.now();
   String day = today.day.toString();
   String hour = today.hour.toString();
@@ -39,12 +41,24 @@ String _createsingleIcs(Course course) {
   if (second.length == 1) {
     second = "0" + second;
   }
+  String courshour = course.dates[listpos].startHour.toString();
+  if (courshour.length == 1) {
+    courshour = "0" + courshour;
+  }
+  String courseminute = course.dates[listpos].startMinute.toString();
+  if (courseminute.length == 1) {
+    courseminute = "0" + courseminute;
+  }
   String result = "BEGIN:VEVENT\r\nSUMMARY:" +
       course.name +
       "\r\nDTSTART:" +
       today.year.toString() +
-      day +
       month +
+      day +
+      "T" +
+      courshour +
+      courseminute +
+      "00" +
       "\r\n";
   result += "UID: CIE" + today.toIso8601String() + "\r\n";
   result += "DTSTAMP:" +
@@ -58,7 +72,7 @@ String _createsingleIcs(Course course) {
       "\r\n";
   result +=
       "RRULE:FREQ=WEEKLY;COUNT=20;WKST=SU;BYDAY=" + _dayshort(course) + "\r\n";
-  result += "LOCATION:" + course.location.toString() + "\r\n";
+  result += "LOCATION:" + course.location.name + "\r\n";
   result += "END:VEVENT\r\n";
 
   return result;
@@ -82,15 +96,6 @@ String _dayshort(Course c) {
 }
 
 saveIcsFile(List<Course> courses) async {
-  requestPermission();
-
-  String ics = createIcs(courses);
-  writeFile(ics);
-  _firebase.logEvent(name: "ics_export");
-}
-
-requestPermission() async {
-  bool res = await SimplePermissions
-      .requestPermission(Permission.WriteExternalStorage);
-  print("permission request result is " + res.toString());
+  _firebase?.logEvent(name: "ics_export");
+  // TODO!
 }

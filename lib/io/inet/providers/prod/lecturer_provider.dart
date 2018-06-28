@@ -11,17 +11,10 @@ class ProdLecturerProvider implements InetLecturerProvider {
   ProdLecturerProvider(this.helper);
 
   @override
-  Future<List<Lecturer>> getLecturers() async => helper
-      .getLecturers()
-      .then((list) => list.map((lecturer) => parseLecturer(lecturer)).toList());
+  Future<List<Lecturer>> getLecturers() async => []; // TODO implement this
 
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
     throw new UnimplementedError();
-  }
-
-  static Lecturer parseLecturer(Map<String, dynamic> json) {
-    if (json == null) return new Lecturer(-1, "", ""); // TODO handle null
-    return new Lecturer(json['id'], json['name'], json['email']);
   }
 }

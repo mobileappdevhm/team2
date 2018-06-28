@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
-import 'package:courses_in_english/io/inet/providers/prod/department_provider.dart';
-import 'package:courses_in_english/io/inet/providers/prod/lecturer_provider.dart';
 import 'package:http/http.dart' as http;
 
 class ProdHttpHelper implements HttpHelper {
@@ -11,61 +9,84 @@ class ProdHttpHelper implements HttpHelper {
   final client = new http.Client();
 
   @override
-  Future<Map<String, dynamic>> login(String email, String password) async {
-    return post(
-        baseUrl + '/auth/signin', {'email': email, 'password': password});
-  }
-
-  @override
-  Future<Map<String, dynamic>> getUser(String token) {
-    return get(baseUrl + '/users/current', token);
-  }
-
-  Future<Map<String, dynamic>> post(
-      String url, Map<String, dynamic> body) async {
-    var response = await client.post(
-      url,
-      body: json.encode(body),
-      headers: {'Content-Type': 'application/json'},
-    );
-    return json.decode(response.body);
-  }
-
-  Future<Map<String, dynamic>> get(String url, [String token]) async {
-    var response = token == null
-        ? await client.get(url)
-        : await client.get(url, headers: {'Authorization': 'Bearer $token'});
-    return json.decode(response.body);
-  }
-
-  Future<List<dynamic>> getList(String url, [String token]) async {
-    var response = token == null
-        ? await client.get(url)
-        : await client.get(url, headers: {'Authorization': 'Bearer $token'});
-    return json.decode(response.body, reviver: (k, v) {
-      if (k == 'lecturer') return ProdLecturerProvider.parseLecturer(v);
-      if (k == 'department') return ProdDepartmentProvider.parseDepartment(v);
-      if (k == 'location') return null;
-      return v;
+  Future<bool> requestResetCode(String userMail) async {
+    bool success;
+    await client
+        .get(baseUrl + "/users/reset-password/" + userMail)
+        .then((response) {
+      success = (response.statusCode == 200);
     });
+    return success;
   }
 
   @override
-  Future<List<dynamic>> getCourses() => getList(baseUrl + '/courses');
-
-  @override
-  Future<List<dynamic>> getDepartments() => getList(baseUrl + '/departments');
-
-  @override
-  Future<List<dynamic>> getLecturers() => getList(baseUrl + '/lecturers');
-
-  @override
-  Future<List<dynamic>> getLocations() {
-    throw new UnimplementedError();
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) async {
+    bool success;
+    await client
+        .get(baseUrl +
+            "/users/reset-password/" +
+            userMail +
+            "/" +
+            resetCode +
+            "/" +
+            newPassword)
+        .then((response) {
+      success = (response.statusCode == 200);
+    });
+    return success;
   }
 
   @override
-  Future<List<dynamic>> getCampuses() {
-    throw new UnimplementedError();
+  Future<String> getCoursesAsJson() async =>
+      _get('/courses').then((response) => response.body);
+
+  @override
+  Future<String> getDepartmentsAsJson() async =>
+      _get('/departments').then((response) => response.body);
+
+  @override
+  Future<String> getLecturersAsJson() async =>
+      _get('/lecturers').then((response) => response.body);
+
+  @override
+  Future<String> getLocationsAsJson() async =>
+      _get('/locations').then((response) => response.body);
+
+  @override
+  Future<String> getUserAsJson(String token) async =>
+      _get('/users/current', token: token).then((response) => response.body);
+
+  @override
+  Future<String> login(String email, String password) async =>
+      _post('/auth/signin/', {
+        'email': email,
+        'password': password,
+      }).then((response) => json.decode(response.body)['accessToken']);
+
+  Future<http.Response> _get(String resource, {String token = ''}) async {
+    var response = await client.get(baseUrl + resource, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if (response.statusCode != 200) {
+      throw new Exception('Http status: ${response.statusCode}');
+    }
+    return response;
+  }
+
+  Future<http.Response> _post(String resource, Object body,
+      {String token = ''}) async {
+    var response = await client.post(
+      baseUrl + resource,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(body),
+    );
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      throw new Exception('Http status: ${response.statusCode}');
+    }
+    return response;
   }
 }

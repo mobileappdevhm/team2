@@ -5,7 +5,9 @@ import 'package:test/test.dart';
 void main() {
   test('Test user getters', () {
     Department department = new Department(1, 1, "a", 0);
+
     User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
+
     expect(user.id, 42);
     expect(user.username, "benutzername");
     expect(user.firstName, "vorname");
