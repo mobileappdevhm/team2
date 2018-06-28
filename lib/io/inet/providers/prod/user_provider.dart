@@ -14,8 +14,8 @@ class ProdUserProvider implements InetUserProvider {
   Future<User> login(String username, String password) async {
     var token = await httpHelper.login(username, password);
     return httpHelper.getUserAsJson(token).then((raw) => json.decode(raw)).then(
-        (map) => new User(map['id'], map['username'], map['firstName'],
-            map['lastName'], null, token));
+        (map) => new User(map['username'], map['firstName'],
+            map['lastName'], null, token, map['id'] ));
   }
 
   @override
