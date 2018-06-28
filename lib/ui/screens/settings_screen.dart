@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/injector.dart';
+import 'package:courses_in_english/controller/settings_controller.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
@@ -217,10 +218,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       switch (toggle) {
         case "offlineMode":
           _states[0] = value;
-          return;
+          break;
+          //return;
         case "feedbackMode":
           _states[1] = value;
-          return;
+          break;
+          //return;
       }
       new Injector().settingsController.setSettings(
           new UserSettings(offlineMode: _states[0], feedbackMode: _states[1]));
@@ -298,6 +301,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       setState(() {});
     }
     */
+    SettingsController settingsController =  new Injector().settingsController;
+    UserSettings userSettings  =  await settingsController.userSettings;
+    if(userSettings != null){
+      _states[0] = userSettings.offlineMode;
+      _states[1] = userSettings.feedbackMode;
+      setState(() {});
+    }
   }
 
   // TODO Use settingscontroller
