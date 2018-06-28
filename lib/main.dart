@@ -22,7 +22,6 @@ class CieApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: new LoginScreen(),
-      navigatorObservers: [new Injector().firebaseController.analyticsObserver],
     );
   }
 }
