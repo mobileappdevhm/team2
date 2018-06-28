@@ -219,11 +219,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         case "offlineMode":
           _states[0] = value;
           break;
-        //return;
         case "feedbackMode":
           _states[1] = value;
           break;
-        //return;
       }
       new Injector().settingsController.setSettings(
           new UserSettings(offlineMode: _states[0], feedbackMode: _states[1]));
@@ -293,14 +291,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
-    /* TODO Use settingscontroller
-    Session s = new Session();
-    if (s.settings != null) {
-      _states[0] = s.settings.offlineMode;
-      _states[1] = s.settings.feedbackMode;
-      setState(() {});
-    }
-    */
     SettingsController settingsController = new Injector().settingsController;
     UserSettings userSettings = await settingsController.userSettings;
     if (userSettings != null) {

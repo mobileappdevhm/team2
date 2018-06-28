@@ -2,11 +2,8 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/user_provider.dart';
-//import 'package:courses_in_english/io/cache/providers/user_settings_provider.dart';
-//import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/model/user/user.dart';
-//import 'package:courses_in_english/controller/session_controller.dart';
 
 class SqliteUserProvider extends CacheUserProvider {
   final DatabaseHelper dbh;
