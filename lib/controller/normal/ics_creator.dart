@@ -1,7 +1,5 @@
 import 'package:courses_in_english/controller/firebase/firebase_controller.dart';
-import 'package:courses_in_english/io/ics_writer.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:simple_permissions/simple_permissions.dart';
 
 FirebaseController _firebase;
 
@@ -98,15 +96,5 @@ String _dayshort(Course c) {
 }
 
 saveIcsFile(List<Course> courses) async {
-  requestPermission();
-
-  String ics = createIcs(courses);
-  writeFile(ics);
-  _firebase.logEvent(name: "ics_export");
-}
-
-requestPermission() async {
-  bool res = await SimplePermissions
-      .requestPermission(Permission.WriteExternalStorage);
-  print("permission request result is " + res.toString());
+  // TODO!
 }
