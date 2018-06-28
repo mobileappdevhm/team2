@@ -16,12 +16,17 @@ void main() {
 class CieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var analyticsObserver = new Injector().firebaseController.analyticsObserver;
     return new MaterialApp(
       title: 'Cie App',
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
       home: new LoginScreen(),
+      navigatorObservers:
+           analyticsObserver != null
+              ? [analyticsObserver]
+              : null,
     );
   }
 }
