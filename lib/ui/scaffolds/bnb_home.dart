@@ -3,7 +3,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/ui/basic_components/timetable_action_stack.dart';
+import 'package:courses_in_english/ui/basic_components/timetable_action_button.dart';
 import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
