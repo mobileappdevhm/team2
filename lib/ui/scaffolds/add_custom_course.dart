@@ -1,6 +1,3 @@
-import 'package:courses_in_english/controller/injector.dart';
-import 'package:courses_in_english/model/cie/cie.dart';
-import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:flutter/material.dart';
 
 class AddCustomCourseScaffold extends StatefulWidget {
