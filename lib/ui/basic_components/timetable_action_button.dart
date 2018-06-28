@@ -45,6 +45,7 @@ class TimetableActionButtonState extends State<TimetableActionButton>
               mini: true,
               child: new Icon(icons[index]),
               onPressed: () => _onPressed(index),
+              heroTag: index,
             ),
           ),
         );
@@ -52,6 +53,7 @@ class TimetableActionButtonState extends State<TimetableActionButton>
       }).toList()
         ..add(
           new FloatingActionButton(
+            heroTag: null,
             child: new AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {

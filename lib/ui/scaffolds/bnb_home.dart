@@ -192,9 +192,8 @@ class _HomeScaffoldState extends State<HomeScaffold>
         },
       ),
       appBar: searchBar.build(context),
-      floatingActionButton: (_selectedIndex == 2)
-          ? new TimetableActionButton()
-          : null,
+      floatingActionButton:
+          (_selectedIndex == 2) ? new TimetableActionButton() : null,
       body: new PageView(
         controller: _controller,
         children: screens,
@@ -242,6 +241,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
                                             new AddCieScaffold()));
                               },
                               child: Icon(Icons.add),
+                              heroTag: "home",
                             )
                           : null,
                 )));

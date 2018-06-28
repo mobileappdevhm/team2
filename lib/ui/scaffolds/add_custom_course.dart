@@ -51,39 +51,10 @@ class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-              new RawMaterialButton(
-                constraints: new BoxConstraints(
-                    minWidth: 180.0,
-                    minHeight: 48.0,
-                    maxWidth: width - 30,
-                    maxHeight: 50.0),
-                onPressed: _onFloatingActionButtonPressed,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(100000.0)),
-                fillColor: Colors.red,
-                child: new Text(
-                  "Add",
-                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-            ],
-          ),
-          new Padding(
-            padding: new EdgeInsets.all(8.0),
-          ),
         ],
 //        mainAxisAlignment: MainAxisAlignment.start,
       ),
+      floatingActionButton: new FloatingActionButton(onPressed: _onFloatingActionButtonPressed, child: Icon(Icons.save), heroTag: "addCourse",),
     );
   }
 
