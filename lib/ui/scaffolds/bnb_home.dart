@@ -3,6 +3,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/ui/basic_components/timetable_action_stack.dart';
 import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
@@ -91,31 +92,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
     } else {
       actions = [
         new IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new Scaffold(
-                            appBar: new AppBar(
-                              title: new Text("Profile"),
-                            ),
-                            body: new CieScreen(),
-                            floatingActionButton:
-                                new Injector().sessionController.isLoggedIn
-                                    ? new FloatingActionButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              new MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      new AddCieScaffold()));
-                                        },
-                                        child: Icon(Icons.add),
-                                      )
-                                    : null,
-                          )));
-            })
+            icon: Icon(Icons.person), onPressed: () => _onProfilePressed())
       ];
     }
 
@@ -216,10 +193,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
       ),
       appBar: searchBar.build(context),
       floatingActionButton: (_selectedIndex == 2)
-          ? new FloatingActionButton(
-              // TODO add onPressed for ICS export
-              child: Icon(Icons.event_note),
-              onPressed: () {})
+          ? new TimetableActionButton()
           : null,
       body: new PageView(
         controller: _controller,
@@ -246,6 +220,31 @@ class _HomeScaffoldState extends State<HomeScaffold>
 
     _controller.jumpToPage(newIndex);
     new Injector().firebaseController?.setCurrentScreen(screenName: screen);
+  }
+
+  void _onProfilePressed() {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new Scaffold(
+                  appBar: new AppBar(
+                    title: new Text("Profile"),
+                  ),
+                  body: new CieScreen(),
+                  floatingActionButton:
+                      new Injector().sessionController.isLoggedIn
+                          ? new FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (context) =>
+                                            new AddCieScaffold()));
+                              },
+                              child: Icon(Icons.add),
+                            )
+                          : null,
+                )));
   }
 
   @override

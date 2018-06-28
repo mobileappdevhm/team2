@@ -2,17 +2,16 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:flutter/material.dart';
 
-class AddCieScaffold extends StatefulWidget {
-  AddCieScaffold({Key key, this.title}) : super(key: key);
+class AddCustomCourseScaffold extends StatefulWidget {
+  AddCustomCourseScaffold({Key key, this.title}) : super(key: key);
 
-  static const String routeName = "/CieScreen";
   final String title;
 
   @override
-  _AddCieScreenState createState() => new _AddCieScreenState();
+  _AddCieCustomCourseState createState() => new _AddCieCustomCourseState();
 }
 
-class _AddCieScreenState extends State<AddCieScaffold> {
+class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
   final formKey = new GlobalKey<FormState>();
   final formKey2 = new GlobalKey<FormState>();
   final formKey3 = new GlobalKey<FormState>();
@@ -34,7 +33,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
-        title: new Text("Add CiE Entry"),
+        title: new Text("Add C.I.E."),
       ),
       body: new ListView(
         children: <Widget>[
