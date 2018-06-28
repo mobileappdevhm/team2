@@ -26,7 +26,7 @@ class CieApp extends StatelessWidget {
       navigatorObservers:
            analyticsObserver != null
               ? [analyticsObserver]
-              : null,
+              : [],
     );
   }
 }
