@@ -101,16 +101,19 @@ class _HomeScaffoldState extends State<HomeScaffold>
                               title: new Text("Profile"),
                             ),
                             body: new CieScreen(),
-                            floatingActionButton: new FloatingActionButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (context) =>
-                                            new AddCieScaffold()));
-                              },
-                              child: Icon(Icons.add),
-                            ),
+                            floatingActionButton:
+                                new Injector().sessionController.isLoggedIn
+                                    ? new FloatingActionButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      new AddCieScaffold()));
+                                        },
+                                        child: Icon(Icons.add),
+                                      )
+                                    : null,
                           )));
             })
       ];
