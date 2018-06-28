@@ -12,6 +12,7 @@ class UserSettings {
     Map<String, dynamic> tempMap = new Map();
     tempMap["offlineMode"] = this.offlineMode.toString();
     tempMap["feedbackMode"] = this.feedbackMode.toString();
+    tempMap["userId"]=1;
     return tempMap;
   }
 }
