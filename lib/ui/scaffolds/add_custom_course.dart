@@ -202,8 +202,7 @@ class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
       form5.save();
     });
     tl.clear();
-    TimeAndDay tempTimeAndDay;
-
+    // TODO waiting on the timetablecontroller
     if (tempName == "" ||
         tempLecturerName == "" ||
         tempRoom == "") {
