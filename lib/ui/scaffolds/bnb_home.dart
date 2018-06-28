@@ -3,6 +3,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
+import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:courses_in_english/ui/screens/cie_screen.dart';
 import 'package:courses_in_english/ui/screens/course_list_screen.dart';
 import 'package:courses_in_english/ui/screens/favorites_screen.dart';
@@ -50,12 +51,12 @@ class _HomeScaffoldState extends State<HomeScaffold>
         inBar: true,
         setState: setState,
         onSubmitted: _searchCourses,
-        buildDefaultAppBar: buildAppBar);
+        buildDefaultAppBar: _buildAppBar);
   }
 
   // Builds the app bar depending on current screen
   // When on course_list screen, add search functionality
-  AppBar buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(BuildContext context) {
     List<Widget> actions;
 
     if (_selectedIndex == 0) {
@@ -100,6 +101,16 @@ class _HomeScaffoldState extends State<HomeScaffold>
                               title: new Text("Profile"),
                             ),
                             body: new CieScreen(),
+                            floatingActionButton: new FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (context) =>
+                                            new AddCieScaffold()));
+                              },
+                              child: Icon(Icons.add),
+                            ),
                           )));
             })
       ];
@@ -196,17 +207,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
         currentIndex: _selectedIndex,
         onTap: (newIndex) {
           setState(() {
-            _selectedIndex = newIndex;
-
-            // Make sure to reset filter state if user left without clearning previously
-            if (_selectedIndex != 0) {
-              isFiltered = false;
-              this.displayedCourses = content.courses;
-            }
-
-            _controller.jumpToPage(newIndex);
-            new Injector().firebaseController?.setCurrentScreen(
-                screenName: screens[_selectedIndex].toStringShort());
+            _updatePage(newIndex, screens[newIndex].toStringShort());
           });
         },
       ),
@@ -222,21 +223,26 @@ class _HomeScaffoldState extends State<HomeScaffold>
         children: screens,
         onPageChanged: (newIndex) {
           setState(() {
-            _selectedIndex = newIndex;
-
-            if (_selectedIndex != 0) {
-              isFiltered = false;
-              this.displayedCourses = content.courses;
-            }
-
-            new Injector().firebaseController?.setCurrentScreen(
-                screenName: screens[_selectedIndex].toStringShort());
+            _updatePage(newIndex, screens[newIndex].toStringShort());
           });
         },
       ),
     );
 
     return scaffold;
+  }
+
+  void _updatePage(int newIndex, String screen) {
+    _selectedIndex = newIndex;
+
+    // Make sure to reset filter state if user left without clearning previously
+    if (_selectedIndex != 0) {
+      isFiltered = false;
+      this.displayedCourses = content.courses;
+    }
+
+    _controller.jumpToPage(newIndex);
+    new Injector().firebaseController?.setCurrentScreen(screenName: screen);
   }
 
   @override
