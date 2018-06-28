@@ -114,7 +114,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
     ];
 
     return new AppBar(
-      title: isFiltered
+      title: isFiltered && _selectedIndex == 0
           ? Text("search: \"" + _searchTerm + "\"")
           : Text(titles[_selectedIndex]),
       centerTitle: false,
@@ -167,6 +167,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
       new FavoriteListScreen(favorites),
       new SettingsScreen()
     ];
+
     scaffold = new Scaffold(
       bottomNavigationBar: new BottomNavigationBar(
         items: [
@@ -198,7 +199,7 @@ class _HomeScaffoldState extends State<HomeScaffold>
             _selectedIndex = newIndex;
 
             // Make sure to reset filter state if user left without clearning previously
-            if (_selectedIndex == 0) {
+            if (_selectedIndex != 0) {
               isFiltered = false;
               this.displayedCourses = content.courses;
             }
@@ -222,6 +223,12 @@ class _HomeScaffoldState extends State<HomeScaffold>
         onPageChanged: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
+
+            if (_selectedIndex != 0) {
+              isFiltered = false;
+              this.displayedCourses = content.courses;
+            }
+
             new Injector().firebaseController?.setCurrentScreen(
                 screenName: screens[_selectedIndex].toStringShort());
           });
