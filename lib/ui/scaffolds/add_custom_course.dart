@@ -54,7 +54,11 @@ class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
         ],
 //        mainAxisAlignment: MainAxisAlignment.start,
       ),
-      floatingActionButton: new FloatingActionButton(onPressed: _onFloatingActionButtonPressed, child: Icon(Icons.save), heroTag: "addCourse",),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _onFloatingActionButtonPressed,
+        child: Icon(Icons.save),
+        heroTag: "addCourse",
+      ),
     );
   }
 
@@ -174,9 +178,7 @@ class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
     });
     tl.clear();
     // TODO waiting on the timetablecontroller
-    if (tempName == "" ||
-        tempLecturerName == "" ||
-        tempRoom == "") {
+    if (tempName == "" || tempLecturerName == "" || tempRoom == "") {
       showMessage("Fields must be filled with proper types");
       return;
     }
