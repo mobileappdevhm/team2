@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:courses_in_english/ui/scaffolds/add_custom_course.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +80,10 @@ class TimetableActionButtonState extends State<TimetableActionButton>
   void _onPressed(int index) {
     switch (index) {
       case 0:
-        Navigator.push(context, new MaterialPageRoute(builder: (context) => new AddCustomScaffold()))
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => new AddCustomCourseScaffold()));
         break;
       case 1:
     }
