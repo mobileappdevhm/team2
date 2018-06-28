@@ -23,10 +23,7 @@ class CieApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: new LoginScreen(),
-      navigatorObservers:
-           analyticsObserver != null
-              ? [analyticsObserver]
-              : [],
+      navigatorObservers: analyticsObserver != null ? [analyticsObserver] : [],
     );
   }
 }

@@ -14,7 +14,7 @@ class SqliteCieProvider implements CacheCieProvider {
   @override
   Future<List<Cie>> getCies(User user) async {
     List<Cie> campuses = [];
-    if(user == null){
+    if (user == null) {
       return (new Future(() => campuses));
     }
     List<Map<String, dynamic>> rawCampusData =

@@ -147,8 +147,8 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> favorizeCourse(Course course, User user) async {
-    if(user == null){
-      return new Future( () => false);
+    if (user == null) {
+      return new Future(() => false);
     }
     // TODO: implement favorizeCourse
     bool b = (0 !=
