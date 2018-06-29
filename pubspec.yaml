@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.0
   http: ^0.11.3+16
   flutter_search_bar: any
+  shared_preferences: ^0.4.2
   quiver: 0.29.0+1
 
 dev_dependencies:

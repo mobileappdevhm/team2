@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/user_provider.dart';
-import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 class SqliteUserProvider extends CacheUserProvider {
@@ -11,30 +10,24 @@ class SqliteUserProvider extends CacheUserProvider {
   SqliteUserProvider(this.dbh);
 
   @override
-  Future<User> login(User userProfile) async {
-    List<Map<String, dynamic>> userList =
-        await dbh.selectWhere("User", "username", userProfile.username);
-    if (userList.length != 0) {
-      return new User(
-          userList[0]["username"],
-          userList[0]["firstName"],
-          userList[0]["lastName"],
-          userList[0]["department"],
-          userList[0]["token"]);
-    }
+  Future<User> login(String token) async {
+    Map<String, dynamic> userList =
+        await dbh.selectOneWhere("User", "token", token);
+    return new User(userList["username"], userList["firstName"],
+        userList["lastName"], null, userList["token"]);
+  }
+
+  @override
+  Future<bool> logout(String token) async {
+    await dbh.deleteWhere("User", "token", token);
+    return false;
+  }
+
+  @override
+  void save(User userProfile) async {
     User user = new User(userProfile.firstName, userProfile.lastName,
         userProfile.username, userProfile.department, userProfile.token);
 
     await dbh.insertOneTable("User", user.toMap());
-    UserSettings userSettings = new UserSettings();
-    await dbh.insertOneTable("Settings",
-        userSettings.toMap().putIfAbsent("userId", () => userProfile.id));
-
-    return new Future(() => user);
-  }
-
-  @override
-  Future<bool> logout(User user) {
-    return new Future(() => false);
   }
 }

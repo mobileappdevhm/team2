@@ -19,11 +19,6 @@ class ProdUserProvider implements InetUserProvider {
   }
 
   @override
-  Future<bool> logout(User user) {
-    throw new UnimplementedError();
-  }
-
-  @override
   Future<bool> requestResetCode(String userMail) async {
     return httpHelper.requestResetCode(userMail);
   }

@@ -31,6 +31,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
+    truncateAllTable();
     await db.execute(
         "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, image BLOB, address TEXT)");
     await db.execute(
@@ -46,11 +47,9 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await db.execute(
         "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT, courseID INTEGER)");
     await db.execute(
-        "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
+        "CREATE TABLE User(id INTEGER PRIMARY KEY, token TEXT, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
         "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER, userId INTEGER)");
-    await db.execute(
-        "CREATE TABLE Settings(id INTEGER PRIMARY KEY, offlineMode TEXT, feedbackMode TEXT, userId INTEGER)");
     await db.execute(
         "CREATE TABLE Date(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
     await db.execute(
@@ -127,7 +126,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
       String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
-        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
+        columns: null, where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res;
   }
 
@@ -136,7 +135,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
       String table, String whereColumn, String whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
-        columns: ["*"], where: '$whereColumn = ?', whereArgs: [whereArgs]);
+        columns: null, where: '$whereColumn = ?', whereArgs: [whereArgs]);
     return res[0];
   }
 

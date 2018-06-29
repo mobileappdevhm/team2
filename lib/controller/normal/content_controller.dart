@@ -46,7 +46,6 @@ class NormalContentController implements ContentController {
   /// Get all public content.
   @override
   Future<Content> getContent() async {
-    await putFakeData();
     Content content = new Content();
     content.campuses = await getCampuses();
     content.courses = await getCourses();
@@ -59,49 +58,17 @@ class NormalContentController implements ContentController {
   Future<List<Course>> getCourses() async {
     if (!await offlineMode) {
       List<Course> courses = await inetCourseProvider.getCourses();
-      // await _cacheCourseProvider.putCourses(courses);
+      await cacheCourseProvider.putCourses(courses);
       return courses;
     }
     return cacheCourseProvider.getCourses();
-  }
-
-  Future<int> putFakeData() async {
-    await cacheLecturerProvider.truncate();
-    await cacheDepartmentProvider.truncate();
-    await cacheCampusProvider.truncate();
-    await cacheCourseProvider.truncate();
-
-    //TODO: Change these to enter stuff from the server --- JSUT AMKE SURE SUVER HAS DATA!!!!
-    await cacheLecturerProvider.putLecturers(
-        [lecturer01, lecturer02, lecturer03, lecturer04, lecturer05]);
-    await cacheCampusProvider.putCampuses([campus01, campus02, campus03]);
-    await cacheDepartmentProvider.putDepartments([
-      department01,
-      department02,
-      department03,
-      department04,
-      department05,
-      department06,
-      department07,
-      department08,
-      department09,
-      department10,
-      department11,
-      department12,
-      department13,
-      department14
-    ]);
-    await cacheCourseProvider
-        .putCourses([course01, course02, course03, course04, course05]);
-
-    return (new Future(() => 0));
   }
 
   @override
   Future<List<Campus>> getCampuses() async {
     if (!await offlineMode) {
       List<Campus> campuses = await inetCampusProvider.getCampuses();
-      // await _cacheCampusProvider.putCampuses(campuses);
+      await cacheCampusProvider.putCampuses(campuses);
       return campuses;
     }
     return cacheCampusProvider.getCampuses();
@@ -112,7 +79,7 @@ class NormalContentController implements ContentController {
     if (!await offlineMode) {
       List<Department> departments =
           await inetDepartmentProvider.getDepartments();
-      // await _cacheDepartmentProvider.putDepartments(departments);
+      await cacheDepartmentProvider.putDepartments(departments);
       return departments;
     }
     return cacheDepartmentProvider.getDepartments();
@@ -122,13 +89,12 @@ class NormalContentController implements ContentController {
   Future<List<Lecturer>> getLecturers() async {
     if (!await offlineMode) {
       List<Lecturer> lecturers = await inetLecturerProvider.getLecturers();
-      // await _cacheLecturerProvider.putLecturers(lecturers);
+      await cacheLecturerProvider.putLecturers(lecturers);
       return lecturers;
     }
     return cacheLecturerProvider.getLecturers();
   }
 
-  // TODO FIX OFFLINE MODE
   @override
   Future<bool> get offlineMode async => false;
 }

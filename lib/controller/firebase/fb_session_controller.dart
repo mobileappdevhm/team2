@@ -35,4 +35,9 @@ class FbSessionController implements SessionController {
       String userMail, String resetCode, String newPassword) {
     return controller.resetPassword(userMail, resetCode, newPassword);
   }
+
+  @override
+  void logout() {
+    return controller.logout();
+  }
 }

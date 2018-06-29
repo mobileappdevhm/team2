@@ -12,11 +12,6 @@ class MockInetUserProvider implements InetUserProvider {
   }
 
   @override
-  Future<bool> logout(User user) async {
-    return true;
-  }
-
-  @override
   Future<bool> requestResetCode(String userMail) async {
     return true;
   }

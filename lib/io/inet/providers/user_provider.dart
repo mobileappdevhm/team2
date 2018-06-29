@@ -8,9 +8,6 @@ abstract class InetUserProvider {
   /// In case the user could be logged in successfully, it returns the user object filled with data.
   Future<User> login(String username, String password);
 
-  /// Try to log out a user. Returns whether the user could be logged out.
-  Future<bool> logout(User user);
-
   Future<bool> requestResetCode(String userMail);
 
   Future<bool> resetPassword(

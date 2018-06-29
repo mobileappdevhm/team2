@@ -33,7 +33,7 @@ class User {
     tempMap["username"] = this.username;
     tempMap["firstName"] = this.firstName;
     tempMap["lastName"] = this.lastName;
-    tempMap["department"] = department.number;
+    tempMap["department"] = department?.number != null ? department.number : -1;
     tempMap["token"] = token;
     return tempMap;
   }
