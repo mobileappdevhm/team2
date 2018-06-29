@@ -8,6 +8,7 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
   final DatabaseHelper dbh;
 
   SqliteDepartmentProvider(this.dbh);
+
   @override
   Future<Department> getDepartmentByNumber(int departmentNumber) async => dbh
       .selectOneWhere("Department", "number", departmentNumber.toString())
@@ -37,7 +38,9 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
           );
 
   @override
-  Future<int> putDepartments(List<Department> departments) async =>
+  Future<int> putDepartments(List<Department> departments) async {
+    int affected = await dbh.getCount("Department");
+    if (affected == 0) {
       dbh.insertTable(
         "Department",
         departments
@@ -47,6 +50,9 @@ class SqliteDepartmentProvider implements CacheDepartmentProvider {
             )
             .toList(),
       );
+    }
+    return 0;
+  }
 
   Future<int> truncate() {
     dbh.truncateTable("Department");

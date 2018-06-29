@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
@@ -6,11 +7,11 @@ import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_p
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_lecturer_provider.dart';
 import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
-//import 'package:courses_in_english/model/course/custom_course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
+//import 'package:courses_in_english/model/course/custom_course.dart';
 
 class SqliteCourseProvider implements CacheCourseProvider {
   final DatabaseHelper dbh;
@@ -120,20 +121,24 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<int> putCourses(List<Course> courses) async {
-    await dbh.insertTable(
-      "Course",
-      courses
-          .map(
-            // Map each course to raw data
-            (course) => course.toMap(),
-          )
-          .toList(),
-    ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
-    for (Course c in courses) {
+    // TODO more resilient check
+    int affected = await dbh.getCount("Course");
+    if (affected == 0) {
+      await dbh.insertTable(
+        "Course",
+        courses
+            .map(
+              // Map each course to raw data
+              (course) => course.toMap(),
+            )
+            .toList(),
+      );
+
+      for (Course c in courses) {
 //      for(TimeAndDay t in c.dates){
 //        if((await dbh.selectOneWhere("Date", "id", t.id.toString())).length == 0){
 //        await dbh.insertOneTable("Date", t.toMap());
-      await dbh.insertTable("Date", c.dates.map((t) => t.toMap()).toList());
+        await dbh.insertTable("Date", c.dates.map((t) => t.toMap()).toList());
 //        }
 //        try{
 //          await dbh.selectOneWhere("Date", "id", t.id.toString());
@@ -141,6 +146,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
 //          await dbh.insertOneTable("Date", t.toMap());
 //        }
 //      }
+      }
     }
     return new Future(() => 0);
   }

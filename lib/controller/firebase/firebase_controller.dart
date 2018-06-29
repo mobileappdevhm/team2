@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/settings_controller.dart';
+import 'package:courses_in_english/main.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -13,7 +14,7 @@ class FirebaseController {
 
   FirebaseController(this._settingsController) {
     initializeMessaging();
-    initAnalytics();
+    //initAnalytics();
   }
 
   void initAnalytics() async {

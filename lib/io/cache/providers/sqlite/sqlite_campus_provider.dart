@@ -36,15 +36,19 @@ class SqliteCampusProvider implements CacheCampusProvider {
 
   @override
   Future<int> putCampuses(List<Campus> campuses) async {
-    List<Map<String, dynamic>> campusesList = [];
+    int affected = await dbh.getCount("Campus");
+    if (affected == 0) {
+      List<Map<String, dynamic>> campusesList = [];
 
-    void iterate(Campus data) {
-      campusesList.add(data.toMap());
+      void iterate(Campus data) {
+        campusesList.add(data.toMap());
+      }
+
+      campuses.forEach(iterate);
+
+      await dbh.insertTable("Campus", campusesList);
     }
-
-    campuses.forEach(iterate);
-
-    return dbh.insertTable("Campus", campusesList);
+    return 0;
   }
 
   Future<int> truncate() {
