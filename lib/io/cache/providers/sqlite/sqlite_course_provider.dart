@@ -147,6 +147,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> favorizeCourse(Course course, User user) async {
+    if (user == null) {
+      return new Future(() => false);
+    }
     // TODO: implement favorizeCourse
     bool b = (0 !=
         await dbh.insertOneTable("Favorites", course.toFavoritesMap(user)));
@@ -163,8 +166,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
     List<Map<String, dynamic>> rawCourseData =
         await dbh.selectWhere("Favorites", "userId", user.id.toString());
 
-    void iterate(Map<String, dynamic> data) async {
+    Future<dynamic> iterate(Map<String, dynamic> data) async {
       favs.add(await getCourse(data["courseId"]));
+      return null;
     }
 
     for (Map<String, dynamic> course in rawCourseData) {
@@ -205,7 +209,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<int> truncate() {
     dbh.truncateTable("Date");
     dbh.truncateTable("Course");
-    dbh.truncateTable("Favorites");
+//    dbh.truncateTable("Favorites");
     return new Future(() => 0);
   }
 }

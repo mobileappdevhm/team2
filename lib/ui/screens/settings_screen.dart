@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/injector.dart';
+import 'package:courses_in_english/controller/settings_controller.dart';
 import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
 import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
@@ -217,10 +218,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       switch (toggle) {
         case "offlineMode":
           _states[0] = value;
-          return;
+          break;
         case "feedbackMode":
           _states[1] = value;
-          return;
+          break;
       }
       new Injector().settingsController.setSettings(
           new UserSettings(offlineMode: _states[0], feedbackMode: _states[1]));
@@ -272,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           "This App was developed by Benjamin Eder, Martin Gaiser, Hayden Hudgins, Dimitri Krivoj, Mario Meissner, Jonas Reitemeyer, Konstantin Schlosser and Leon during the Mobile Development Course in 2018.\n\nApp Icon designed by mynamepong from Flaticon.\n\n\nFor information regarding our data protection policy, please click below.",
       children: <Widget>[
         new FlatButton(
-            onPressed: () => _showGdpr(), child: new Text("Gdpr Notice"))
+            onPressed: () => _showGdpr(), child: new Text("GDPR NOTICE"))
       ],
     );
     showDialog(context: context, builder: (context) => about);
@@ -290,14 +291,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void initSettings() async {
-    /* TODO Use settingscontroller
-    Session s = new Session();
-    if (s.settings != null) {
-      _states[0] = s.settings.offlineMode;
-      _states[1] = s.settings.feedbackMode;
+    SettingsController settingsController = new Injector().settingsController;
+    UserSettings userSettings = await settingsController.userSettings;
+    if (userSettings != null) {
+      _states[0] = userSettings.offlineMode;
+      _states[1] = userSettings.feedbackMode;
       setState(() {});
     }
-    */
   }
 
   // TODO Use settingscontroller

@@ -1,4 +1,5 @@
 import 'package:courses_in_english/controller/settings_controller.dart';
+import 'package:courses_in_english/model/user/user_settings.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,7 +13,12 @@ class FirebaseController {
 
   FirebaseController(this._settingsController) {
     initializeMessaging();
-    if (_settingsController.userSettings.feedbackMode) {
+    initAnalytics();
+  }
+
+  void initAnalytics() async {
+    UserSettings userSettings = await _settingsController.userSettings;
+    if (userSettings.feedbackMode) {
       initializeAnalytics();
     }
   }

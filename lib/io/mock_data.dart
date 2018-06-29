@@ -5,7 +5,7 @@ import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
-const user = const User(1, "Memax", "Max", "Mustermann", department07, "1234");
+const user = const User("Memax", "Max", "Mustermann", department07, "1234", 1);
 
 const department01 = const Department(
   1,

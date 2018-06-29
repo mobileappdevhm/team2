@@ -12,7 +12,7 @@ class SqliteUserSettingsProvider extends CacheUserSettingsProvider {
   @override
   Future<UserSettings> getCurrentSettings(User user) async {
     List<Map<String, dynamic>> data =
-        await dbh.selectWhere("Settings", "userId", user.id.toString());
+        await dbh.selectWhere("Settings", "userId", 1.toString());
     if (data.isNotEmpty) {
       return new UserSettings(
           feedbackMode: data[0]["feedbackMode"].toLowerCase() == 'true',
@@ -27,8 +27,14 @@ class SqliteUserSettingsProvider extends CacheUserSettingsProvider {
   @override
   Future<int> putSettings(User user, UserSettings userSettings) async {
     List<Map<String, dynamic>> userList = [];
-    userList.add(userSettings.toMap().putIfAbsent("userId", () => user.id));
+    await dbh.deleteWhere("Settings", "userId", 1.toString());
+    userList.add(userSettings.toMap());
     return dbh.insertTable("Settings", userList);
     //TODO: WHEN USER LOGS IN NEED TO CREATE USER AND SETTINGS
+  }
+
+  @override
+  void clearApp() async {
+    dbh.truncateAllTable();
   }
 }

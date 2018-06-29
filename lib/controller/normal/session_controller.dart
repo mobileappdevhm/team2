@@ -28,7 +28,20 @@ class NormalSessionController implements SessionController {
   Future<User> login(String email, String password) async {
     return inetUserProvider.login(email, password).then((user) {
       _user = user;
+      //await _CacheUserProvider.login(user);
+      //TODO CACHE USERS AND SETTINS
       return user;
     });
+  }
+
+  @override
+  Future<bool> requestPasswordReset(String userMail) {
+    return inetUserProvider.requestResetCode(userMail);
+  }
+
+  @override
+  Future<bool> resetPassword(
+      String userMail, String resetCode, String newPassword) {
+    return inetUserProvider.resetPassword(userMail, resetCode, newPassword);
   }
 }

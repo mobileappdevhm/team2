@@ -1,27 +1,26 @@
-import 'package:courses_in_english/controller/injector.dart';
-import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:flutter/material.dart';
 
-class AddCieScaffold extends StatefulWidget {
-  AddCieScaffold({Key key, this.title}) : super(key: key);
+class AddCustomCourseScaffold extends StatefulWidget {
+  AddCustomCourseScaffold({Key key, this.title}) : super(key: key);
 
-  static const String routeName = "/CieScreen";
   final String title;
 
   @override
-  _AddCieScreenState createState() => new _AddCieScreenState();
+  _AddCieCustomCourseState createState() => new _AddCieCustomCourseState();
 }
 
-class _AddCieScreenState extends State<AddCieScaffold> {
+class _AddCieCustomCourseState extends State<AddCustomCourseScaffold> {
   final formKey = new GlobalKey<FormState>();
   final formKey2 = new GlobalKey<FormState>();
   final formKey3 = new GlobalKey<FormState>();
   final formKey4 = new GlobalKey<FormState>();
+  final formKey5 = new GlobalKey<FormState>();
   List<Widget> tl = [];
   String tempName = "";
   String tempLecturerName = "";
-  double tempEcts = -1.0;
-  int tempDepartment = -1;
+  String tempRoom = "";
+  String tempDay = "";
+  String tempTime = "";
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
-        title: new Text("Add CiE Entry"),
+        title: new Text("Add Custom Course"),
       ),
       body: new ListView(
         children: <Widget>[
@@ -43,43 +42,19 @@ class _AddCieScreenState extends State<AddCieScaffold> {
           ),
           tempNameField(null),
           tempLecturerNameField(null),
-          tempEctsField(null),
-          tempDepartmentField(null),
-          new Padding(
-            padding: new EdgeInsets.all(8.0),
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-              new RawMaterialButton(
-                constraints: new BoxConstraints(
-                    minWidth: 180.0,
-                    minHeight: 48.0,
-                    maxWidth: width - 30,
-                    maxHeight: 50.0),
-                onPressed: _onFloatingActionButtonPressed,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(100000.0)),
-                fillColor: Colors.red,
-                child: new Text(
-                  "Add",
-                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.all(8.0),
-              ),
-            ],
-          ),
+          tempRoomField(null),
+          tempDayField(null),
+          tempTimeField(null),
           new Padding(
             padding: new EdgeInsets.all(8.0),
           ),
         ],
 //        mainAxisAlignment: MainAxisAlignment.start,
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _onFloatingActionButtonPressed,
+        child: Icon(Icons.save),
+        heroTag: "addCourse",
       ),
     );
   }
@@ -124,18 +99,18 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     );
   }
 
-  Container tempEctsField(double width) {
+  Container tempRoomField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      tempEcts = tryCatchDub(controller.text.toString());
+      tempRoom = controller.text.toString();
     });
     return new Container(
       child: new Form(
         key: formKey3,
         child: new TextFormField(
-          onSaved: (val) => tempEcts = tryCatchDub(val),
+          onSaved: (val) => tempRoom = val,
           decoration: new InputDecoration(
-              labelText: "Input Ects (Decimal)",
+              labelText: "Input Room",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -144,18 +119,38 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     );
   }
 
-  Container tempDepartmentField(double width) {
+  Container tempDayField(double width) {
     TextEditingController controller = new TextEditingController();
     controller.addListener(() {
-      tempDepartment = tryCatchInt(controller.text.toString());
+      tempDay = controller.text.toString();
     });
     return new Container(
       child: new Form(
         key: formKey4,
         child: new TextFormField(
-          onSaved: (val) => tempDepartment = tryCatchInt(val),
+          onSaved: (val) => tempDay = val,
           decoration: new InputDecoration(
-              labelText: "Input Department (Integer)",
+              labelText: "Input Day",
+              labelStyle: new TextStyle(fontSize: 18.0)),
+        ),
+      ),
+      margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      width: width,
+    );
+  }
+
+  Container tempTimeField(double width) {
+    TextEditingController controller = new TextEditingController();
+    controller.addListener(() {
+      tempTime = controller.text.toString();
+    });
+    return new Container(
+      child: new Form(
+        key: formKey5,
+        child: new TextFormField(
+          onSaved: (val) => tempTime = val,
+          decoration: new InputDecoration(
+              labelText: "Input Time as HH:MM",
               labelStyle: new TextStyle(fontSize: 18.0)),
         ),
       ),
@@ -169,31 +164,21 @@ class _AddCieScreenState extends State<AddCieScaffold> {
     final form2 = formKey2.currentState;
     final form3 = formKey3.currentState;
     final form4 = formKey4.currentState;
+    final form5 = formKey5.currentState;
 
     setState(() {
       form.save();
       form2.save();
       form3.save();
       form4.save();
+      form5.save();
     });
     tl.clear();
-    if (tempEcts == -1 ||
-        tempDepartment == -1 ||
-        tempName == "" ||
-        tempLecturerName == "") {
+    // TODO waiting on the timetablecontroller
+    if (tempName == "" || tempLecturerName == "" || tempRoom == "") {
       showMessage("Fields must be filled with proper types");
       return;
     }
-    new Injector()
-        .cieController
-        .enterCie(new Cie(tempName, tempDepartment, tempLecturerName, tempEcts))
-        .then((result) {
-      if (result != 0) {
-        showMessage("Error: Could not add \"$tempName\"");
-      } else {
-        showMessage("Succesfully added \"$tempName\"");
-      }
-    });
   }
 
   void showMessage(String msg) {
@@ -211,25 +196,5 @@ class _AddCieScreenState extends State<AddCieScaffold> {
         ),
       ));
     });
-  }
-
-  int tryCatchInt(String stringToInt) {
-    int tempInt = -1;
-    try {
-      tempInt = int.parse(stringToInt);
-    } catch (e) {
-      tempInt = -1;
-    }
-    return tempInt;
-  }
-
-  double tryCatchDub(String stringToInt) {
-    double tempInt = -1.0;
-    try {
-      tempInt = double.parse(stringToInt);
-    } catch (e) {
-      tempInt = -1.0;
-    }
-    return tempInt;
   }
 }

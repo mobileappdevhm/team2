@@ -1,3 +1,4 @@
+//import 'package:courses_in_english/controller/session_controller.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 class TimeAndDay {
@@ -68,6 +69,17 @@ class TimeAndDay {
       "Sunday",
     ];
     return dayOfWeek[weekday];
+  }
+
+  @override
+  String toString() {
+    return getStringDay() +
+        " " +
+        (startHour < 10 ? "0" + startHour.toString() : startHour.toString()) +
+        ":" +
+        (startMinute < 10
+            ? "0" + startMinute.toString()
+            : startMinute.toString());
   }
 
   Map<String, dynamic> toMap() {

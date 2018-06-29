@@ -20,11 +20,21 @@ class User {
   final String token;
 
   const User(
-    this.id,
     this.username,
     this.firstName,
     this.lastName,
     this.department,
-    this.token,
-  );
+    this.token, [
+    this.id,
+  ]);
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> tempMap = new Map();
+    tempMap["username"] = this.username;
+    tempMap["firstName"] = this.firstName;
+    tempMap["lastName"] = this.lastName;
+    tempMap["department"] = department.number;
+    tempMap["token"] = token;
+    return tempMap;
+  }
 }

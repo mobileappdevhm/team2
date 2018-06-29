@@ -49,6 +49,22 @@ class Course {
     this.dates,
   ]);
 
+  factory Course.fromJsonMap(Map<String, dynamic> map) => Course(
+        map['id'] ?? -1,
+        map['name'] ?? 'Unknown course',
+        map['description'] ?? 'No course description provided.',
+        map['room'] ?? 'Unkown room',
+        map['availableSlots'] ?? 0,
+        map['ects'] ?? 0.0,
+        map['usCredits'] ?? 0.0,
+        map['semesterWeekHours'] ?? 0.0,
+        map['courseStatus'],
+        map['lecturer'],
+        map['department'],
+        map['location'],
+        map['courseAppointments'],
+      );
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -116,7 +132,13 @@ class Course {
 enum CourseStatus { GREEN, YELLOW, RED }
 
 String statusToString(CourseStatus status) {
-  if (status == CourseStatus.GREEN) return 'green';
-  if (status == CourseStatus.YELLOW) return 'yellow';
-  return 'red';
+  if (status == CourseStatus.GREEN) return 'GREEN';
+  if (status == CourseStatus.YELLOW) return 'YELLOW';
+  return 'RED';
+}
+
+CourseStatus stringToStatus(String status) {
+  if (status.toUpperCase() == 'GREEN') return CourseStatus.GREEN;
+  if (status.toUpperCase() == 'YELLOW') return CourseStatus.YELLOW;
+  return CourseStatus.RED;
 }

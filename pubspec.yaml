@@ -10,11 +10,9 @@ dependencies:
   firebase_messaging: ^0.2.4
   firebase_analytics: ^1.0.1
   cupertino_icons: ^0.1.0
-  simple_permissions: any
-  quiver: '>=0.29.0 <0.30.0'
-
-  # Dependency for the search feature
-  flutter_search_bar:
+  http: ^0.11.3+16
+  flutter_search_bar: any
+  quiver: 0.29.0+1
 
 dev_dependencies:
   flutter_test:
