@@ -94,7 +94,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
       dateData.forEach(addDate);
 
       Course tempCourse = new Course(
-          data['id'],
+          data["id"],
           data["name"],
           data["description"],
           data["room"],
@@ -116,7 +116,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
     }
 
     return (new Future(() => courses));
-//    throw new UnimplementedError();
   }
 
   @override
@@ -152,25 +151,19 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse(Course course, User user) async {
-    if (user == null) {
-      return new Future(() => false);
-    }
+  Future<bool> favorizeCourse(Course course) async {
     // TODO: implement favorizeCourse
-    bool b = (0 !=
-        await dbh.insertOneTable("Favorites", course.toFavoritesMap(user)));
+    bool b =
+        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
     return (new Future(() => b));
-//    throw new UnimplementedError();
   }
 
   @override
-  Future<List<Course>> getFavorizedCourses(User user) async {
+  Future<List<Course>> getFavorizedCourses() async {
     List<Course> favs = [];
-    if (user == null) {
-      return (new Future(() => favs));
-    }
+
     List<Map<String, dynamic>> rawCourseData =
-        await dbh.selectWhere("Favorites", "userId", user.id.toString());
+        await dbh.selectTable("Favorites");
 
     Future<dynamic> iterate(Map<String, dynamic> data) async {
       favs.add(await getCourse(data["courseId"]));
@@ -197,13 +190,10 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<bool> unFavorizeCourse(Course course, User user) async {
+  Future<bool> unFavorizeCourse(Course course) async {
     bool b = (0 !=
-        await dbh.deleteTwoWhere("Favorites", "userId", "courseId",
-            user.id.toString(), course.id.toString()));
+        await dbh.deleteWhere("Favorites", "courseId", course.id.toString()));
     return (new Future(() => b));
-    // TODO: implement unFavorizeCourse
-//    throw new UnimplementedError();
   }
 
   @override
@@ -215,7 +205,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<int> truncate() {
     dbh.truncateTable("Date");
     dbh.truncateTable("Course");
-//    dbh.truncateTable("Favorites");
+    dbh.truncateTable("Favorites");
     return new Future(() => 0);
   }
 }

@@ -16,11 +16,11 @@ abstract class CacheCourseProvider {
 
   Future<int> putCourses(List<Course> courses);
 
-  Future<List<Course>> getFavorizedCourses(User user);
+  Future<List<Course>> getFavorizedCourses();
 
-  Future<bool> favorizeCourse(Course course, User user);
+  Future<bool> favorizeCourse(Course course);
 
-  Future<bool> unFavorizeCourse(Course course, User user);
+  Future<bool> unFavorizeCourse(Course course);
 
   Future<Course> getCourse(int courseId);
 

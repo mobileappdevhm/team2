@@ -70,7 +70,7 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
         // Map each course to raw data
         (course) => course.toMap(),
       ),
-    ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
+    );
     for (CustomCourse c in courses) {
       await dbh.insertTable(
         "CustomDate",
@@ -85,7 +85,7 @@ class SqliteCustomCourseProvider implements CacheCustomCourseProvider {
     await dbh.insertOneTable(
       "CustomCourse",
       course.toMap(),
-    ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
+    );
     await dbh.insertTable(
       "CustomDate",
       course.dates.map((date) => date.toCustomMap()),

@@ -47,7 +47,7 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
       dateData.forEach(addDate);
 
       Course tempCourse = new Course(
-          data['id'],
+          data["id"],
           data["name"],
           data["description"],
           data["room"],
@@ -78,9 +78,9 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
       "SelectedCourse",
       courses.map(
         // Map each course to raw data
-        (course) => course.toSelectedMap(user),
+        (course) => course.toSelectedMap(),
       ),
-    ); //TODO:DO WE NEED TO PUT LECTURERS, DEPARTMENTS, AND CAMPUSES FROM HERE? Arnt those going to be put in at the start?
+    );
 
     ///Make sure the dates are put in Via courses before the selected courses.  Since we dont add dates here
     return new Future(() => 0);
@@ -90,7 +90,7 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   Future<bool> selectCourse(Course course, User user) async {
     bool b = (0 !=
         await dbh.insertOneTable(
-            "SelectedCourses", course.toSelectedMap(user)));
+            "SelectedCourses", course.toSelectedMap()));
     return (new Future(() => b));
     // TODO: implement selectCourse
   }
