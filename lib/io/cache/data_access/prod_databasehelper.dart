@@ -39,21 +39,21 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await db.execute(
         "CREATE TABLE SelectedCourse(id INTEGER PRIMARY KEY, name TEXT, location INTEGER, description TEXT, department INTEGER, lecturer INTEGER, room TEXT, courseStatus TEXT, availableSlots INTEGER, ects REAL, usCredits REAL, semesterWeekHours REAL, userId INTEGER)");
     await db.execute(
-        "CREATE TABLE CustomCourse(id INTEGER PRIMARY KEY, name TEXT, location TEXT, department TEXT, lecturer TEXT, room TEXT, userId INTEGER)");
+        "CREATE TABLE CustomCourse(id INTEGER PRIMARY KEY, name TEXT, location TEXT, department TEXT, lecturer TEXT, room TEXT)");
     await db.execute(
         "CREATE TABLE Department(id INTEGER PRIMARY KEY, number INTEGER, name TEXT, color INTEGER)");
     await db.execute(
-        "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, courseId INTEGER, userId INTEGER)");
+        "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, courseId INTEGER)");
     await db.execute(
         "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT, courseID INTEGER)");
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, token TEXT, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
-        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER, userId INTEGER)");
+        "CREATE TABLE Cie(id INTEGER PRIMARY KEY, name TEXT, ects REAL, lecturerName TEXT, department INTEGER)");
     await db.execute(
         "CREATE TABLE Date(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
     await db.execute(
-        "CREATE TABLE CustomDate(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER, userId INTEGER)");
+        "CREATE TABLE CustomDate(id INTEGER PRIMARY KEY, weekday INTEGER, startHour INTEGER, startMinute INTEGER, duration INTEGER, course INTEGER)");
   }
 
   @override

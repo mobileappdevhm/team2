@@ -22,7 +22,6 @@ abstract class CacheCourseProvider {
 
   Future<bool> unFavorizeCourse(Course course, User user);
 
-  /// Get course by id.
   Future<Course> getCourse(int courseId);
 
   Future<int> truncate();

@@ -9,8 +9,6 @@ abstract class InetSelectedCourseProvider {
 
   Future<int> putCourses(List<Course> courses);
 
-  Future<int> getCount();
-
   Future<bool> selectCourse(Course course);
 
   Future<bool> unSelectCourse(Course course);

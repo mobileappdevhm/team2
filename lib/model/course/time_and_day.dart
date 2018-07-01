@@ -1,27 +1,16 @@
-//import 'package:courses_in_english/controller/session_controller.dart';
-import 'package:courses_in_english/model/user/user.dart';
-
 class TimeAndDay {
   final int id;
 
-  /*
-   * Week day in range [1, 7] where 1 is monday and 7 is sunday.
-   */
+  ///Week day in range [1, 7] where 1 is monday and 7 is sunday.
   final int weekday;
 
-  /*
-   * Start hour in range [0, 24].
-   */
+  ///Start hour in range [0, 24].
   final int startHour;
 
-  /*
-   * Start minute in range [0, 59].
-   */
+  ///Start minute in range [0, 59].
   final int startMinute;
 
-  /*
-   * Duration of the course appointment in minutes.
-   */
+  ///Duration of the course appointment in minutes.
   final int duration;
 
   final int course;
@@ -95,7 +84,7 @@ class TimeAndDay {
     return tempMap;
   }
 
-  Map<String, dynamic> toCustomMap(User user) {
+  Map<String, dynamic> toCustomMap() {
     Map<String, dynamic> tempMap = new Map();
 
 //    tempMap['id'] = this.id;
@@ -104,7 +93,6 @@ class TimeAndDay {
     tempMap["startMinute"] = this.startMinute;
     tempMap["duration"] = this.duration;
     tempMap["course"] = this.course;
-    tempMap["userId"] = user.id;
 
     return tempMap;
   }

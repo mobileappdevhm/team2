@@ -123,7 +123,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<int> putCourses(List<Course> courses) async {
     // TODO more resilient check
     int affected = await dbh.getCount("Course");
-    if (affected == 0) {
+    if (affected != courses.length) {
       await dbh.insertTable(
         "Course",
         courses

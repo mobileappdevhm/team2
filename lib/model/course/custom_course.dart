@@ -23,7 +23,7 @@ class CustomCourse {
       this.location, this.dates,
       {this.id = -1, this.custom = true});
 
-  Map<String, dynamic> toMap(User user) {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
 
     tempMap['id'] = this.id;
@@ -32,7 +32,6 @@ class CustomCourse {
     tempMap["department"] = this.department;
     tempMap["lecturer"] = this.lecturer;
     tempMap["room"] = this.room;
-    tempMap["userId"] = user.id;
 
     return tempMap;
   }

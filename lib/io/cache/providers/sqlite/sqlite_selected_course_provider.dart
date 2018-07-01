@@ -104,8 +104,4 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
     // TODO: implement unSelectCourse
   }
 
-  Future<int> getCount(User user) async {
-    return dbh.getCount(
-        "SelectedCourse"); //TODO:use this to set the ID when making new custom course
-  }
 }

@@ -35,4 +35,9 @@ class FbFavoritesController implements FavoritesController {
     firebaseController.logEvent(name: "unfavorize_course", value: course.name);
     return controller.unFavorizeCourse(course);
   }
+
+  @override
+  Future<List<Course>> pullFavorites() {
+    return controller.pullFavorites();
+  }
 }

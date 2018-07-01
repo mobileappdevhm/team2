@@ -46,7 +46,7 @@ class FirebaseController {
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.getToken().then((String token) {
-      //Todo
+      //TODO Add to user
     });
     _firebaseMessaging.subscribeToTopic("all");
   }

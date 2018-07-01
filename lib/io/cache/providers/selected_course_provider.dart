@@ -10,8 +10,6 @@ abstract class CacheSelectedCourseProvider {
 
   Future<int> putCourses(List<Course> courses, User user);
 
-  Future<int> getCount(User user);
-
   Future<bool> selectCourse(Course course, User user);
 
   Future<bool> unSelectCourse(Course course, User user);

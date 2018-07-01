@@ -4,15 +4,14 @@ import 'package:courses_in_english/io/inet/providers/campus_provider.dart';
 import 'package:courses_in_english/io/inet/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/department_provider.dart';
 import 'package:courses_in_english/io/inet/providers/lecturer_provider.dart';
-import 'package:courses_in_english/io/inet/providers/mock/mock_campus_provider.dart';
+import 'package:courses_in_english/io/inet/providers/prod/campus_provider.dart';
 import 'package:courses_in_english/io/inet/providers/prod/course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/prod/department_provider.dart';
 import 'package:courses_in_english/io/inet/providers/prod/lecturer_provider.dart';
+import 'package:courses_in_english/io/inet/providers/prod/selected_course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/prod/user_provider.dart';
 import 'package:courses_in_english/io/inet/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/inet/providers/user_provider.dart';
-
-//import 'package:courses_in_english/connect/dataprovider/user/mock/mock_user_settings_provider.dart';
 
 /// Provider factory producing mock providers.
 class ProviderFactory implements InetProviderFactory {
@@ -34,8 +33,10 @@ class ProviderFactory implements InetProviderFactory {
   InetUserProvider createUserProvider() => new ProdUserProvider(httpHelper);
 
   @override
-  InetCampusProvider createCampusProvider() => new MockInetCampusProvider();
+  InetCampusProvider createCampusProvider() =>
+      new ProdCampusProvider(httpHelper);
 
   @override
-  InetSelectedCourseProvider createSelectedCourseProvider() => null; // TODO
+  InetSelectedCourseProvider createSelectedCourseProvider() =>
+      new ProdSelectedCourseProvider(httpHelper);
 }
