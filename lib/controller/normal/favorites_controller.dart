@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:courses_in_english/controller/favorites_controller.dart';
-import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
@@ -27,8 +26,7 @@ class NormalFavoritesController implements FavoritesController {
 
   @override
   Future<bool> favorizeCourse(Course course) async {
-    bool result = await cacheCourseProvider.favorizeCourse(
-        course, new Injector().sessionController.user);
+    bool result = await cacheCourseProvider.favorizeCourse(course);
     favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     return result;
@@ -36,8 +34,7 @@ class NormalFavoritesController implements FavoritesController {
 
   @override
   Future<bool> unFavorizeCourse(Course course) async {
-    bool result = await cacheCourseProvider.unFavorizeCourse(
-        course, new Injector().sessionController.user);
+    bool result = await cacheCourseProvider.unFavorizeCourse(course);
     await favorites.then((favorites) => observers
         .forEach((observer) => observer.onFavoritesUpdated(favorites)));
     return result;
@@ -55,6 +52,6 @@ class NormalFavoritesController implements FavoritesController {
   }
 
   @override
-  Future<List<Course>> get favorites async => await cacheCourseProvider
-      .getFavorizedCourses(new Injector().sessionController.user);
+  Future<List<Course>> get favorites async =>
+      await cacheCourseProvider.getFavorizedCourses();
 }

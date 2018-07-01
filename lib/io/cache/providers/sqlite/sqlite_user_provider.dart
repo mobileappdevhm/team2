@@ -20,6 +20,7 @@ class SqliteUserProvider extends CacheUserProvider {
   @override
   Future<bool> logout(String token) async {
     await dbh.deleteWhere("User", "token", token);
+    await dbh.truncateUserData();
     return false;
   }
 

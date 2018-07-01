@@ -67,7 +67,6 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
     for (Map<String, dynamic> data in rawCampusData) {
       await addCourse(data);
     }
-
     return (new Future(() => courses));
 //    throw new UnimplementedError();
   }

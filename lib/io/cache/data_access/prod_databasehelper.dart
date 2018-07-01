@@ -88,9 +88,20 @@ class ProdDatabaseHelper implements DatabaseHelper {
   }
 
   @override
-  void truncateAllTable() async {
+  Future<int> truncateUserData() async {
     var dbClient = await db;
 
+    await dbClient.delete("CustomCourse");
+    await dbClient.delete("SelectedCourse");
+    await dbClient.delete("Favorites");
+    await dbClient.delete("User");
+    await dbClient.delete("Cie");
+    return 0;
+  }
+
+  @override
+  void truncateAllTable() async {
+    var dbClient = await db;
     await dbClient.delete("Campus");
     await dbClient.delete("Course");
     await dbClient.delete("CustomCourse");
@@ -100,7 +111,6 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await dbClient.delete("Lecturer");
     await dbClient.delete("User");
     await dbClient.delete("Cie");
-    await dbClient.delete("Settings");
     await dbClient.delete("Date");
     await dbClient.delete("CustomDate");
     exit(0);
