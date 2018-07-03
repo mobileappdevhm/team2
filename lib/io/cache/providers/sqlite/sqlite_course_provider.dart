@@ -34,8 +34,8 @@ class SqliteCourseProvider implements CacheCourseProvider {
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
 
-    Lecturer lecturerData =
-        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+//    Lecturer lecturerData =
+//        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
     Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
 //    Campus locationData =
@@ -58,7 +58,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
         data["usCredits"],
         data["semesterWeekHours"],
         tempCourseStatus,
-        lecturerData,
+        null,
         departmentData,
         null,
         dates);
@@ -71,14 +71,14 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
-      List<Map<String, dynamic>> dateData =
-          await dbh.selectWhere("Date", "course", data["id"].toString());
+      /*List<Map<String, dynamic>> dateData =
+          await dbh.selectWhere("Date", "course", data["id"]);
       Lecturer lecturerData = await new SqliteLecturerProvider(dbh)
-          .getLecturerById(data["lecturer"]);
-      Department departmentData = await new SqliteDepartmentProvider(dbh)
+          .getLecturerById(data["lecturer"]);*/
+      /*Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
-          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
+          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);*/
       String tempCourseStatusName = data["courseStatus"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
@@ -91,7 +91,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
             data["startMinute"], data["duration"], data["course"]));
       }
 
-      dateData.forEach(addDate);
+//      dateData.forEach(addDate);
 
       Course tempCourse = new Course(
           data["id"],
@@ -103,9 +103,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
           data["usCredits"],
           data["semesterWeekHours"],
           tempCourseStatus,
-          lecturerData,
-          departmentData,
-          locationData,
+          null,
+          null,
+          null,
           dates);
 
       courses.add(tempCourse);
@@ -152,9 +152,18 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> favorizeCourse(Course course) async {
-    bool b =
-        (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
-    return (new Future(() => b));
+    int count;
+    await dbh.selectWhere("Favorites", "courseID", course.id).then((value) {
+      count = value.length;
+    });
+      if (count == 0) {
+      bool b =
+      (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
+      return b;
+    } else {
+        print("Already in");
+      return true;
+    }
   }
 
   @override

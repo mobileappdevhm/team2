@@ -79,7 +79,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
 
   @override
   Future<int> updateTableById(String table, Map<String, dynamic> data,
-      String whereColumn, String whereArgs) async {
+      String whereColumn, dynamic whereArgs) async {
     var dbClient = await db;
 
     return dbClient
@@ -132,7 +132,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
 
   @override
   Future<List<Map<String, dynamic>>> selectWhere(
-      String table, String whereColumn, String whereArgs) async {
+      String table, String whereColumn, dynamic whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
         columns: null, where: '$whereColumn = ?', whereArgs: [whereArgs]);
@@ -150,7 +150,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
 
   @override
   Future<int> deleteWhere(
-      String table, String whereColumn, String whereArgs) async {
+      String table, String whereColumn, dynamic whereArgs) async {
     var dbClient = await db;
     int res = await dbClient
         .delete(table, where: '$whereColumn = ?', whereArgs: [whereArgs]);
@@ -164,8 +164,16 @@ class ProdDatabaseHelper implements DatabaseHelper {
         .firstIntValue(await dbClient.rawQuery("SELECT COUNT(*) FROM $table"));
   }
 
+  @override
+  Future<int> getCountWhere(
+      String table, String whereColumn, dynamic whereArgs) async {
+    var dbClient = await db;
+    return Sqflite.firstIntValue(await dbClient.rawQuery(
+        "SELECT COUNT(*) FROM $table WHERE $whereColumn = $whereArgs"));
+  }
+
   Future<int> deleteTwoWhere(String table, String whereColumn,
-      String whereColumnTwo, String whereArgs, String whereArgsTwo) async {
+      String whereColumnTwo, dynamic whereArgs, dynamic whereArgsTwo) async {
     var dbClient = await db;
     int res = await dbClient.delete(table,
         where: '$whereColumn = ? AND $whereColumnTwo = ?',

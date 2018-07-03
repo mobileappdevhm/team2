@@ -6,7 +6,7 @@ abstract class DatabaseHelper {
   Future<int> insertOneTable(String table, Map<String, dynamic> data);
 
   Future<int> updateTableById(String table, Map<String, dynamic> data,
-      String whereColumn, String whereArgs);
+      String whereColumn, dynamic whereArgs);
 
   void truncateAllTable();
 
@@ -17,15 +17,17 @@ abstract class DatabaseHelper {
   Future<List<Map<String, dynamic>>> selectTable(String table);
 
   Future<List<Map<String, dynamic>>> selectWhere(
-      String table, String whereColumn, String whereArgs);
+      String table, String whereColumn, dynamic whereArgs);
 
   Future<Map<String, dynamic>> selectOneWhere(
       String table, String whereColumn, dynamic whereArgs);
 
-  Future<int> deleteWhere(String table, String whereColumn, String whereArgs);
+  Future<int> deleteWhere(String table, String whereColumn, dynamic whereArgs);
 
   Future<int> getCount(String table);
 
   Future<int> deleteTwoWhere(String table, String whereColumn,
-      String whereColumnTwo, String whereArgs, String whereArgsTwo);
+      String whereColumnTwo, dynamic whereArgs, dynamic whereArgsTwo);
+
+  Future<int> getCountWhere(String table, String whereColumn, dynamic whereArgs);
 }
