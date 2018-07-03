@@ -22,7 +22,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
   Future<Course> getCourse(int courseId) async {
     List<TimeAndDay> dates = [];
     Map<String, dynamic> data =
-        await dbh.selectOneWhere("Course", "id", courseId.toString());
+        await dbh.selectOneWhere("Course", "id", courseId);
     List<Map<String, dynamic>> dateData =
         await dbh.selectWhere("Date", "course", courseId.toString());
 
@@ -38,18 +38,18 @@ class SqliteCourseProvider implements CacheCourseProvider {
         await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
     Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
-    Campus locationData =
-        await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
-
-    void addDate(Map<String, dynamic> data) {
-      dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
-          data["startMinute"], data["duration"], data["course"]));
-    }
-
-    dateData.forEach(addDate);
+//    Campus locationData =
+//        await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
+//
+//    void addDate(Map<String, dynamic> data) {
+//      dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
+//          data["startMinute"], data["duration"], data["course"]));
+//    }
+//
+//    dateData.forEach(addDate);
 
     return new Course(
-        data['id'],
+        data["id"],
         data["name"],
         data["description"],
         data["room"],
@@ -60,7 +60,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
         tempCourseStatus,
         lecturerData,
         departmentData,
-        locationData,
+        null,
         dates);
   }
 
@@ -152,7 +152,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
   @override
   Future<bool> favorizeCourse(Course course) async {
-    // TODO: implement favorizeCourse
     bool b =
         (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
     return (new Future(() => b));

@@ -20,7 +20,7 @@ abstract class DatabaseHelper {
       String table, String whereColumn, String whereArgs);
 
   Future<Map<String, dynamic>> selectOneWhere(
-      String table, String whereColumn, String whereArgs);
+      String table, String whereColumn, dynamic whereArgs);
 
   Future<int> deleteWhere(String table, String whereColumn, String whereArgs);
 

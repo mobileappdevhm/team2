@@ -15,12 +15,11 @@ class Lecturer {
       ? Lecturer(map['id'] ?? -1, map['name'] ?? 'unknown', map['email'] ?? '')
       : Lecturer(-1, 'unknown', '');
 
-  Map<String, dynamic> toMap(int courseID) {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> tempMap = new Map();
     tempMap["id"] = this.id;
     tempMap["name"] = this.name;
     tempMap["email"] = this.email;
-    tempMap["courseID"] = courseID;
     return tempMap;
   }
 }

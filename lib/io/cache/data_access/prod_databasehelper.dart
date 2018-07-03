@@ -31,7 +31,6 @@ class ProdDatabaseHelper implements DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    truncateAllTable();
     await db.execute(
         "CREATE TABLE Campus(id INTEGER PRIMARY KEY, name TEXT, image BLOB, address TEXT)");
     await db.execute(
@@ -45,7 +44,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
     await db.execute(
         "CREATE TABLE Favorites(id INTEGER PRIMARY KEY, courseId INTEGER)");
     await db.execute(
-        "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT, courseID INTEGER)");
+        "CREATE TABLE Lecturer(id INTEGER PRIMARY KEY, name TEXT, email TEXT)");
     await db.execute(
         "CREATE TABLE User(id INTEGER PRIMARY KEY, token TEXT, username TEXT, firstname TEXT, lastname TEXT, department INTEGER)");
     await db.execute(
@@ -142,7 +141,7 @@ class ProdDatabaseHelper implements DatabaseHelper {
 
   @override
   Future<Map<String, dynamic>> selectOneWhere(
-      String table, String whereColumn, String whereArgs) async {
+      String table, String whereColumn, dynamic whereArgs) async {
     var dbClient = await db;
     List<Map<String, dynamic>> res = await dbClient.query(table,
         columns: null, where: '$whereColumn = ?', whereArgs: [whereArgs]);

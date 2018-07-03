@@ -12,7 +12,7 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
     Map<String, dynamic> lecturerData =
-        await dbh.selectOneWhere("Lecturer", "id", lecturerId.toString());
+        await dbh.selectOneWhere("Lecturer", "id", lecturerId);
     Lecturer tempLecturer = new Lecturer(
         lecturerData["id"], lecturerData["name"], lecturerData["email"]);
     return new Future(() => tempLecturer);
@@ -40,7 +40,7 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
     List<Map<String, dynamic>> lecturerList = [];
 
     void iterate(Lecturer data) {
-      lecturerList.add(data.toMap(-1));
+      lecturerList.add(data.toMap());
     }
 
     lecturers.forEach(iterate);
