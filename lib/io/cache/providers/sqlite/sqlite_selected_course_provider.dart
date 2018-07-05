@@ -1,14 +1,15 @@
 import 'dart:async';
+
 import 'package:courses_in_english/io/cache/data_access/databasehelper.dart';
 import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
+import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
+import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_provider.dart';
+import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_lecturer_provider.dart';
+import 'package:courses_in_english/model/campus/campus.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/course/time_and_day.dart';
-import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_lecturer_provider.dart';
-import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_department_provider.dart';
-import 'package:courses_in_english/model/campus/campus.dart';
-import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
+import 'package:courses_in_english/model/lecturer/lecturer.dart';
 import 'package:courses_in_english/model/user/user.dart';
 
 class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {

@@ -3,8 +3,6 @@ import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,8 +19,6 @@ void main() {
   });
   testWidgets('HomeScaffold test', (WidgetTester tester) async {
 
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
 
     Content content = new Content();

@@ -34,8 +34,6 @@ class SqliteCourseProvider implements CacheCourseProvider {
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
 
-    Lecturer lecturerData =
-        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
     Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
     Campus locationData;
@@ -62,7 +60,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
         tempCourseStatus,
         null,
         departmentData,
-        null,
+        locationData,
         dates);
   }
 

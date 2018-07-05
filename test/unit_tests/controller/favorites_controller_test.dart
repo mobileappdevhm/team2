@@ -6,8 +6,6 @@ import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/user/user.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -22,8 +20,6 @@ void main() {
   });
   test('Test favorize', () async {
 
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => new Future.value(true));
 
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
@@ -32,8 +28,6 @@ void main() {
   });
   test('Test unfavorize', () async {
 
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).thenAnswer((_) => new Future.value(false));
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
     await controller.unFavorizeCourse(course01);
@@ -41,8 +35,6 @@ void main() {
   });
   test('Test observer notification on registration', () async {
     FavoriteListObserver favoritesScreen = new MockitoFavoritesObserver();
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => new Future.value(<Course>[]));
 
     verifyZeroInteractions(cacheFactory.cacheCourseProvider);
@@ -53,8 +45,6 @@ void main() {
     verify(favoritesScreen.onFavoritesUpdated(<Course>[])).called(1);
   });
   test('Test observer notification on favorize', () async {
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     FavoriteListObserver favoritesScreen = new MockitoFavoritesObserver();
 
     when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => new Future.value(<Course>[]));

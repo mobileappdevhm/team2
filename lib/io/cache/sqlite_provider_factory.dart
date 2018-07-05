@@ -4,10 +4,10 @@ import 'package:courses_in_english/io/cache/data_access/prod_databasehelper.dart
 import 'package:courses_in_english/io/cache/providers/campus_provider.dart';
 import 'package:courses_in_english/io/cache/providers/cie_provider.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
-import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/custom_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/department_provider.dart';
 import 'package:courses_in_english/io/cache/providers/lecturer_provider.dart';
+import 'package:courses_in_english/io/cache/providers/selected_course_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_campus_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_cie_provider.dart';
 import 'package:courses_in_english/io/cache/providers/sqlite/sqlite_course_provider.dart';

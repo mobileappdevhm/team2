@@ -3,8 +3,6 @@ import 'package:courses_in_english/io/cache/mocked_providers_factory.dart';
 import 'package:courses_in_english/io/inet/mockito_inet_provider_factory.dart';
 import 'package:courses_in_english/io/mock_data.dart';
 import 'package:courses_in_english/model/course/course.dart';
-import 'package:courses_in_english/model/department/department.dart';
-import 'package:courses_in_english/model/user/user.dart';
 import 'package:courses_in_english/ui/scaffolds/course_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,8 +50,6 @@ void main() {
   });
   testWidgets('Test favorize', (WidgetTester tester) async {
 
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
     when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => Future.value(true));
 
@@ -73,8 +69,6 @@ void main() {
   });
   testWidgets('Test unfavorize', (WidgetTester tester) async {
 
-    Department department = new Department(1, 1, "a", 0);
-    User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
     when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
     when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).thenAnswer((_) => Future.value(false));
 
