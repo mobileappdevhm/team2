@@ -65,61 +65,45 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<List<Course>> getCourses() async {
-    List<Course> courses = [];
-    List<Map<String, dynamic>> rawCampusData = await dbh.selectTable("Course");
-
-    Future addCourse(Map<String, dynamic> data) async {
-      List<TimeAndDay> dates = [];
-      List<Map<String, dynamic>> dateData =
-          await dbh.selectWhere("Date", "course", data["id"]);
-      Lecturer lecturerData = await new SqliteLecturerProvider(dbh)
-          .getLecturerById(data["lecturer"]);
-      Department departmentData = await new SqliteDepartmentProvider(dbh)
-          .getDepartmentByNumber(data["department"]);
-      Campus locationData;
-      if (data["location"] != -1) {
-        locationData = await new SqliteCampusProvider(dbh)
-            .getCampusesById(data["location"]);
-      }
-      String tempCourseStatusName = data["courseStatus"];
-      CourseStatus tempCourseStatus = tempCourseStatusName == "red"
-          ? CourseStatus.RED
-          : tempCourseStatusName == "yellow"
-              ? CourseStatus.YELLOW
-              : CourseStatus.GREEN;
-
-      void addDate(Map<String, dynamic> data) {
-        dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
-            data["startMinute"], data["duration"], data["course"]));
-      }
-
-      dateData.forEach(addDate);
-
-      Course tempCourse = new Course(
-          data["id"],
-          data["name"],
-          data["description"],
-          data["room"],
-          data["availableSlots"],
-          data["ects"],
-          data["usCredits"],
-          data["semesterWeekHours"],
-          tempCourseStatus,
-          lecturerData,
-          departmentData,
-          locationData,
-          dates);
-
-      courses.add(tempCourse);
-    }
-
-    for (Map<String, dynamic> data in rawCampusData) {
-      await addCourse(data);
-    }
-
-    return (new Future(() => courses));
-  }
+  Future<List<Course>> getCourses() async => dbh
+      .selectTable("Course")
+      .then((rawCourses) => rawCourses.map((rawCourse) async {
+            List<TimeAndDay> dates = await dbh
+                .selectWhere("Date", "course", rawCourse["id"])
+                .then((rawDates) => rawDates
+                    .map((rawDate) => new TimeAndDay(
+                        rawDate["id"],
+                        rawDate["weekday"],
+                        rawDate["startHour"],
+                        rawDate["startMinute"],
+                        rawDate["duration"],
+                        rawDate["course"]))
+                    .toList());
+            Lecturer lecturer = await new SqliteLecturerProvider(dbh)
+                .getLecturerById(rawCourse["lecturer"]);
+            Department department = await new SqliteDepartmentProvider(dbh)
+                .getDepartmentByNumber(rawCourse["department"]);
+            Campus location = rawCourse['location'] != -1
+                ? await new SqliteCampusProvider(dbh)
+                    .getCampusesById(rawCourse["location"])
+                : null;
+            CourseStatus status = stringToStatus(rawCourse['courseStatus']);
+            return new Course(
+                rawCourse["id"],
+                rawCourse["name"],
+                rawCourse["description"],
+                rawCourse["room"],
+                rawCourse["availableSlots"],
+                rawCourse["ects"],
+                rawCourse["usCredits"],
+                rawCourse["semesterWeekHours"],
+                status,
+                lecturer,
+                department,
+                location,
+                dates);
+          }))
+      .then((courses) => Stream.fromFutures(courses).toList());
 
   @override
   Future<int> putCourses(List<Course> courses) async {
@@ -157,39 +141,23 @@ class SqliteCourseProvider implements CacheCourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse(Course course) async {
-    int count;
-    await dbh.selectWhere("Favorites", "courseID", course.id).then((value) {
-      count = value.length;
-    });
-    if (count == 0) {
-      bool b =
-          (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
-      return b;
-    } else {
-      print("Already in");
-      return true;
-    }
-  }
+  Future<bool> favorizeCourse(Course course) async =>
+      dbh.selectWhere("Favorites", "courseID", course.id).then((result) async {
+        if (result.isEmpty) {
+          return 0 !=
+              await dbh.insertOneTable("Favorites", course.toFavoritesMap());
+        }
+        // Already inside
+        return true;
+      });
 
   @override
-  Future<List<Course>> getFavorizedCourses() async {
-    List<Course> favs = [];
-
-    List<Map<String, dynamic>> rawCourseData =
-        await dbh.selectTable("Favorites");
-
-    Future<dynamic> iterate(Map<String, dynamic> data) async {
-      favs.add(await getCourse(data["courseId"]));
-      return null;
-    }
-
-    for (Map<String, dynamic> course in rawCourseData) {
-      iterate(course);
-    }
-
-    return (new Future(() => favs));
-  }
+  Future<List<Course>> getFavorizedCourses() async => dbh
+      .selectTable("Favorites")
+      .then((rawList) => rawList
+          .map((rawData) => rawData["courseId"])
+          .map((id) => getCourse(id)))
+      .then((courses) => Stream.fromFutures(courses).toList());
 
   @override
   Future<List<Course>> getSelectedCourses() {

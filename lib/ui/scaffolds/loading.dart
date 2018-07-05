@@ -1,5 +1,5 @@
 import 'package:courses_in_english/controller/injector.dart';
-import 'package:courses_in_english/ui/scaffolds/bnb_home.dart';
+import 'package:courses_in_english/ui/scaffolds/home.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScaffold extends StatelessWidget {
