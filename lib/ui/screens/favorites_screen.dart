@@ -21,7 +21,10 @@ class FavoriteListScreen extends StatelessWidget {
     for (var course in favs) {
       courseWidgets.add(new CourseListEntry(course, true));
     }
-    courseWidgets.add(new RoundedButton(text: new Text("Push Favorites"), onPressed: _onPushFavorites,));
+    courseWidgets.add(new RoundedButton(
+      text: new Text("Push Favorites"),
+      onPressed: _onPushFavorites,
+    ));
     return courseWidgets;
   }
 
@@ -33,9 +36,23 @@ class FavoriteListScreen extends StatelessWidget {
     return new Container(
       constraints: new BoxConstraints.expand(),
       alignment: Alignment.center,
-      child: new ListView(
-        children: favs.length != 0 ? courseItems() : [new Center(child: new Text("You don't have any favorites :("))],
-      ),
+      child: favs.length != 0
+          ? new ListView(
+              children: courseItems(),
+            )
+          : Center(
+              child: new Row(
+              children: [
+                new Text(
+                  "Sorry, you don't have any courses to display :(",
+                  style: new TextStyle(
+                      color: const Color(0xFF707070), fontSize: 17.0),
+                  softWrap: true,
+                  maxLines: 2,
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            )),
     );
   }
 }
