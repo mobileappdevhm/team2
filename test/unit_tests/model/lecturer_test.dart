@@ -15,8 +15,7 @@ void main() {
     Map<String, dynamic> expected = {
       'id': 42,
       'name': 'Max Mustermann',
-      'email': 'mmustermann@hm.edu',
-      'courseID': 1337 // TODO What is this?
+      'email': 'mmustermann@hm.edu'
     };
     expect(lecturer.toMap(), expected);
   });
