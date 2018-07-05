@@ -10,7 +10,6 @@ import 'package:courses_in_english/model/course/time_and_day.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
 
-
 //TODO implement
 class ProdSelectedCourseProvider implements InetSelectedCourseProvider {
   final HttpHelper helper;
@@ -36,5 +35,4 @@ class ProdSelectedCourseProvider implements InetSelectedCourseProvider {
   Future<bool> unSelectCourse(Course course) {
     // TODO: implement unSelectCourse
   }
-
 }

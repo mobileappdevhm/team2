@@ -9,6 +9,7 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
   final DatabaseHelper dbh;
 
   SqliteLecturerProvider(this.dbh);
+
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {
     Map<String, dynamic> lecturerData =
@@ -37,15 +38,20 @@ class SqliteLecturerProvider implements CacheLecturerProvider {
 
   @override
   Future<int> putLecturers(List<Lecturer> lecturers) async {
-    List<Map<String, dynamic>> lecturerList = [];
+    int count = await dbh.getCount("Lecturer");
+    if (count != lecturers.length) {
+      List<Map<String, dynamic>> lecturerList = [];
 
-    void iterate(Lecturer data) {
-      lecturerList.add(data.toMap());
+      void iterate(Lecturer data) {
+        lecturerList.add(data.toMap());
+      }
+
+      lecturers.forEach(iterate);
+
+      return dbh.insertTable("Lecturer", lecturerList);
+    } else {
+      return 0;
     }
-
-    lecturers.forEach(iterate);
-
-    return dbh.insertTable("Lecturer", lecturerList);
   }
 
   Future<int> truncate() {

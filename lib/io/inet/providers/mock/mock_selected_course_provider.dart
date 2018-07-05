@@ -26,5 +26,4 @@ class MockInetSelectedCourseProvider implements InetSelectedCourseProvider {
   Future<bool> unSelectCourse(Course course) {
     // TODO: implement unSelectCourse
   }
-
 }

@@ -88,8 +88,7 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
   @override
   Future<bool> selectCourse(Course course, User user) async {
     bool b = (0 !=
-        await dbh.insertOneTable(
-            "SelectedCourses", course.toSelectedMap()));
+        await dbh.insertOneTable("SelectedCourses", course.toSelectedMap()));
     return (new Future(() => b));
     // TODO: implement selectCourse
   }
@@ -102,5 +101,4 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
     return (new Future(() => b));
     // TODO: implement unSelectCourse
   }
-
 }

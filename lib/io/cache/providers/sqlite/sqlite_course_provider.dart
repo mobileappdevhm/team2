@@ -72,9 +72,9 @@ class SqliteCourseProvider implements CacheCourseProvider {
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
       /*List<Map<String, dynamic>> dateData =
-          await dbh.selectWhere("Date", "course", data["id"]);
+          await dbh.selectWhere("Date", "course", data["id"]); */
       Lecturer lecturerData = await new SqliteLecturerProvider(dbh)
-          .getLecturerById(data["lecturer"]);*/
+          .getLecturerById(data["lecturer"]);
       /*Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
       Campus locationData =
@@ -103,7 +103,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
           data["usCredits"],
           data["semesterWeekHours"],
           tempCourseStatus,
-          null,
+          lecturerData,
           null,
           null,
           dates);
@@ -156,12 +156,12 @@ class SqliteCourseProvider implements CacheCourseProvider {
     await dbh.selectWhere("Favorites", "courseID", course.id).then((value) {
       count = value.length;
     });
-      if (count == 0) {
+    if (count == 0) {
       bool b =
-      (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
+          (0 != await dbh.insertOneTable("Favorites", course.toFavoritesMap()));
       return b;
     } else {
-        print("Already in");
+      print("Already in");
       return true;
     }
   }

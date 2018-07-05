@@ -14,7 +14,6 @@ abstract class FavoritesController {
   Future<List<Course>> pullFavorites();
 
   Future<List<Course>> get favorites;
-
 }
 
 abstract class FavoriteListObserver {
