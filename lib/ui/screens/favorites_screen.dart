@@ -21,10 +21,12 @@ class FavoriteListScreen extends StatelessWidget {
     for (var course in favs) {
       courseWidgets.add(new CourseListEntry(course, true));
     }
-    courseWidgets.add(new RoundedButton(
-      text: new Text("Push Favorites"),
-      onPressed: _onPushFavorites,
-    ));
+    if (new Injector().sessionController.isLoggedIn) {
+      courseWidgets.add(new RoundedButton(
+        text: new Text("Push Favorites"),
+        onPressed: _onPushFavorites,
+      ));
+    }
     return courseWidgets;
   }
 

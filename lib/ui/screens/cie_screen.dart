@@ -3,6 +3,7 @@ import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/model/cie/cie.dart';
 import 'package:courses_in_english/ui/basic_components/cie_list_entry.dart';
 import 'package:courses_in_english/ui/basic_components/line_separator.dart';
+import 'package:courses_in_english/ui/basic_components/rounded_button.dart';
 import 'package:courses_in_english/ui/scaffolds/add_cie.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,15 @@ class CieScreenState extends State<CieScreen> implements CieListObserver {
         new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[new Text("Guest Users don't have profiles")],
+          children: <Widget>[
+            new Text("Logged in as Guest"),
+            new Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
+            new RoundedButton(
+              minwidth: 100.0,
+              text: new Text("Logout"),
+              onPressed: () => new Injector().sessionController.logout(),
+            )
+          ],
         )
       ],
     );
@@ -105,16 +114,10 @@ class CieScreenState extends State<CieScreen> implements CieListObserver {
                       new Padding(
                         padding: new EdgeInsets.all(8.0),
                       ),
-                      new RawMaterialButton(
-                        onPressed: null,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(100000.0)),
-                        fillColor: Colors.red,
-                        child: new Text(
-                          "Logout",
-                          style: new TextStyle(
-                              fontSize: 16.0, color: Colors.white),
-                        ),
+                      new RoundedButton(
+                        text: new Text("Logout"),
+                        onPressed: () =>
+                            new Injector().sessionController.logout(),
                       ),
                     ],
                   ),

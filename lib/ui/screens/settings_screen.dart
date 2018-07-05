@@ -47,7 +47,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Text("Guest Users can't save settings"),
+            _newElement([
+              new Text(
+                'Feedback mode',
+                style: new TextStyle(fontSize: 16.0),
+              ),
+              IconButton(
+                onPressed: () => _showAlert(1),
+                icon: new Icon(
+                  Icons.info,
+                  size: 28.0,
+                ),
+              ),
+              new Switch(
+                  value: _states[1],
+                  onChanged: (bool onChanged) =>
+                      _doClick("feedbackMode", onChanged))
+            ]),
             new LineSeparator(),
             new RoundedButton(
               text: new Text("About & Licenses"),
