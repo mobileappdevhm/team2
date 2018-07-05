@@ -18,6 +18,6 @@ void main() {
       'email': 'mmustermann@hm.edu',
       'courseID': 1337 // TODO What is this?
     };
-    expect(lecturer.toMap(1337), expected);
+    expect(lecturer.toMap(), expected);
   });
 }

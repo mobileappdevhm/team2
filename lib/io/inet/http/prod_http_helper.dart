@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:courses_in_english/io/inet/http/http_helper.dart';
+import 'package:courses_in_english/model/course/course.dart';
 import 'package:http/http.dart' as http;
 
 class ProdHttpHelper implements HttpHelper {
@@ -93,4 +94,11 @@ class ProdHttpHelper implements HttpHelper {
   @override
   Future<String> getCampusesAsJson() =>
       _get('/locations').then((response) => response.body);
+
+  @override
+  void pushFavorites(List<Course> courses, String token) {
+    courses.forEach((Course c) {
+      _post("/courses/select/" + c.id.toString(), token);
+    });
+  }
 }

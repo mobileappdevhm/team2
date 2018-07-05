@@ -54,8 +54,8 @@ void main() {
 
     Department department = new Department(1, 1, "a", 0);
     User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses(user)).thenAnswer((_) => Future.value(<Course>[]));
-    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01, user)).thenAnswer((_) => Future.value(true));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).thenAnswer((_) => Future.value(true));
 
     await tester.pumpWidget(
       new MaterialApp(
@@ -67,7 +67,7 @@ void main() {
     expect(find.byIcon(Icons.favorite), findsNothing);
     await tester.tap(find.byIcon(Icons.favorite_border));
     await tester.pump();
-    verify(cacheFactory.cacheCourseProvider.favorizeCourse(course01, user)).called(1);
+    verify(cacheFactory.cacheCourseProvider.favorizeCourse(course01)).called(1);
     expect(find.byIcon(Icons.favorite), findsOneWidget);
     expect(find.byIcon(Icons.favorite_border), findsNothing);
   });
@@ -75,8 +75,8 @@ void main() {
 
     Department department = new Department(1, 1, "a", 0);
     User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses(user)).thenAnswer((_) => Future.value(<Course>[]));
-    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01,user)).thenAnswer((_) => Future.value(false));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).thenAnswer((_) => Future.value(false));
 
     await tester.pumpWidget(
       new MaterialApp(
@@ -89,7 +89,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.favorite));
     await tester.pump();
 
-    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01,user)).called(1);
+    verify(cacheFactory.cacheCourseProvider.unFavorizeCourse(course01)).called(1);
 
     expect(find.byIcon(Icons.favorite_border), findsOneWidget);
     expect(find.byIcon(Icons.favorite), findsNothing);

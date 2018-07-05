@@ -13,11 +13,7 @@ abstract class InetCourseProvider {
 
   Future<bool> unSelectCourse(Course course);
 
-  Future<List<Course>> getFavorizedCourses();
-
-  Future<bool> favorizeCourse(Course course);
-
-  Future<bool> unFavorizeCourse(Course course);
+  void pushFavorites(List<Course> courses, String token);
 
   /// Get course by id.
   Future<Course> getCourse(int courseId);

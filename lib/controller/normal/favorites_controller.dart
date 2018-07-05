@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:courses_in_english/controller/favorites_controller.dart';
+import 'package:courses_in_english/controller/injector.dart';
 import 'package:courses_in_english/io/cache/cache_provider_factory.dart';
 import 'package:courses_in_english/io/cache/providers/course_provider.dart';
 import 'package:courses_in_english/io/inet/inet_provider_factory.dart';
@@ -42,7 +43,10 @@ class NormalFavoritesController implements FavoritesController {
 
   @override
   void pushFavorites() async {
-    // TODO use inetCourseProvider to push favorites to server
+    if (new Injector().sessionController.isLoggedIn) {
+      inetCourseProvider.pushFavorites(
+          await favorites, new Injector().sessionController.user.token);
+    }
   }
 
   @override

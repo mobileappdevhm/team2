@@ -102,7 +102,7 @@ class Course {
   Map<String, dynamic> toSelectedMap() {
     Map<String, dynamic> tempMap = new Map();
 
-    tempMap['id'] = this.id;
+    tempMap["id"] = this.id;
     tempMap["name"] = this.name;
     tempMap["location"] = this.location.id;
     tempMap["description"] = this.description;

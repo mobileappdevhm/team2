@@ -15,11 +15,6 @@ class ProdCourseProvider implements InetCourseProvider {
   ProdCourseProvider(this.helper);
 
   @override
-  Future<bool> favorizeCourse(Course course) {
-    throw new UnimplementedError();
-  }
-
-  @override
   Future<Course> getCourse(int courseId) {
     throw new UnimplementedError();
   }
@@ -45,11 +40,6 @@ class ProdCourseProvider implements InetCourseProvider {
       );
 
   @override
-  Future<List<Course>> getFavorizedCourses() {
-    throw new UnimplementedError();
-  }
-
-  @override
   Future<List<Course>> getSelectedCourses() {
     throw new UnimplementedError();
   }
@@ -60,12 +50,12 @@ class ProdCourseProvider implements InetCourseProvider {
   }
 
   @override
-  Future<bool> unFavorizeCourse(Course course) {
+  Future<bool> unSelectCourse(Course course) {
     throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unSelectCourse(Course course) {
-    throw new UnimplementedError();
+  void pushFavorites(List<Course> courses, String token) async {
+    helper.pushFavorites(courses, token);
   }
 }

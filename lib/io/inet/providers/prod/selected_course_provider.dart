@@ -18,21 +18,21 @@ class ProdSelectedCourseProvider implements InetSelectedCourseProvider {
 
   @override
   Future<List<Course>> getCourses() {
-    // TODO: implement getCourses
+    throw new UnimplementedError();
   }
 
   @override
   Future<int> putCourses(List<Course> courses) {
-    // TODO: implement putCourses
+    throw new UnimplementedError();
   }
 
   @override
   Future<bool> selectCourse(Course course) {
-    // TODO: implement selectCourse
+    throw new UnimplementedError();
   }
 
   @override
   Future<bool> unSelectCourse(Course course) {
-    // TODO: implement unSelectCourse
+    throw new UnimplementedError();
   }
 }

@@ -23,7 +23,7 @@ void main() {
 
     Department department = new Department(1, 1, "a", 0);
     User user = new User("benutzername", "vorname", "nachname", department, "token", 42);
-    when(cacheFactory.cacheCourseProvider.getFavorizedCourses(user)).thenAnswer((_) => Future.value(<Course>[]));
+    when(cacheFactory.cacheCourseProvider.getFavorizedCourses()).thenAnswer((_) => Future.value(<Course>[]));
 
     Content content = new Content();
     await tester.pumpWidget(new MaterialApp(home: new HomeScaffold(content)));

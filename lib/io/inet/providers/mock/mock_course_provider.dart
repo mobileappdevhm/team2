@@ -27,18 +27,6 @@ class MockInetCourseProvider implements InetCourseProvider {
   }
 
   @override
-  Future<bool> favorizeCourse(Course course) {
-    return new Future.delayed(
-        new Duration(milliseconds: 200), () => favorites.add(course));
-  }
-
-  @override
-  Future<List<Course>> getFavorizedCourses() async {
-    return new Future.delayed(new Duration(milliseconds: 200),
-        () => favorites.toList(growable: false));
-  }
-
-  @override
   Future<List<Course>> getSelectedCourses() {
     // TODO: implement getSelectedCourses
     return new Future.delayed(new Duration(milliseconds: 200), () => []);
@@ -51,14 +39,13 @@ class MockInetCourseProvider implements InetCourseProvider {
   }
 
   @override
-  Future<bool> unFavorizeCourse(Course course) {
-    return new Future.delayed(
-        new Duration(milliseconds: 200), () => favorites.remove(course));
+  Future<bool> unSelectCourse(Course course) {
+    // TODO: implement unSelectCourse
+    throw new UnimplementedError();
   }
 
   @override
-  Future<bool> unSelectCourse(Course course) {
-    // TODO: implement unSelectCourse
+  void pushFavorites(List<Course> courses, String token) {
     throw new UnimplementedError();
   }
 }
