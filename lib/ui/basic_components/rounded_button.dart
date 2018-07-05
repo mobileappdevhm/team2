@@ -20,7 +20,9 @@ class RoundedButton extends StatelessWidget {
     double minwidth = 0.0,
   })  : this.color = color,
         this.onPressed = onPressed,
-        this.text = text,
+        this.text = text.style != null
+            ? text
+            : new Text(text.data, style: new TextStyle(color: Colors.white)),
         this.maxwidth = maxwidth,
         this.maxheight = maxheight,
         this.minwidth = minwidth;
