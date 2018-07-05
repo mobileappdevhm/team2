@@ -68,7 +68,6 @@ class SqliteSelectedCourseProvider implements CacheSelectedCourseProvider {
       await addCourse(data);
     }
     return (new Future(() => courses));
-//    throw new UnimplementedError();
   }
 
   @override

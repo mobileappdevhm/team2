@@ -34,19 +34,21 @@ class SqliteCourseProvider implements CacheCourseProvider {
             ? CourseStatus.YELLOW
             : CourseStatus.GREEN;
 
-//    Lecturer lecturerData =
-//        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
+    Lecturer lecturerData =
+        await new SqliteLecturerProvider(dbh).getLecturerById(data["lecturer"]);
     Department departmentData = await new SqliteDepartmentProvider(dbh)
         .getDepartmentByNumber(data["department"]);
-//    Campus locationData =
-//        await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
-//
-//    void addDate(Map<String, dynamic> data) {
-//      dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
-//          data["startMinute"], data["duration"], data["course"]));
-//    }
-//
-//    dateData.forEach(addDate);
+    Campus locationData;
+    if (data["location"] != -1) {
+      locationData =
+          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);
+    }
+    void addDate(Map<String, dynamic> data) {
+      dates.add(new TimeAndDay(data["id"], data["weekday"], data["startHour"],
+          data["startMinute"], data["duration"], data["course"]));
+    }
+
+    dateData.forEach(addDate);
 
     return new Course(
         data["id"],
@@ -71,14 +73,17 @@ class SqliteCourseProvider implements CacheCourseProvider {
 
     Future addCourse(Map<String, dynamic> data) async {
       List<TimeAndDay> dates = [];
-      /*List<Map<String, dynamic>> dateData =
-          await dbh.selectWhere("Date", "course", data["id"]); */
+      List<Map<String, dynamic>> dateData =
+          await dbh.selectWhere("Date", "course", data["id"]);
       Lecturer lecturerData = await new SqliteLecturerProvider(dbh)
           .getLecturerById(data["lecturer"]);
-      /*Department departmentData = await new SqliteDepartmentProvider(dbh)
+      Department departmentData = await new SqliteDepartmentProvider(dbh)
           .getDepartmentByNumber(data["department"]);
-      Campus locationData =
-          await new SqliteCampusProvider(dbh).getCampusesById(data["location"]);*/
+      Campus locationData;
+      if (data["location"] != -1) {
+        locationData = await new SqliteCampusProvider(dbh)
+            .getCampusesById(data["location"]);
+      }
       String tempCourseStatusName = data["courseStatus"];
       CourseStatus tempCourseStatus = tempCourseStatusName == "red"
           ? CourseStatus.RED
@@ -91,7 +96,7 @@ class SqliteCourseProvider implements CacheCourseProvider {
             data["startMinute"], data["duration"], data["course"]));
       }
 
-//      dateData.forEach(addDate);
+      dateData.forEach(addDate);
 
       Course tempCourse = new Course(
           data["id"],
@@ -104,8 +109,8 @@ class SqliteCourseProvider implements CacheCourseProvider {
           data["semesterWeekHours"],
           tempCourseStatus,
           lecturerData,
-          null,
-          null,
+          departmentData,
+          locationData,
           dates);
 
       courses.add(tempCourse);
@@ -134,17 +139,20 @@ class SqliteCourseProvider implements CacheCourseProvider {
       );
 
       for (Course c in courses) {
-//      for(TimeAndDay t in c.dates){
-//        if((await dbh.selectOneWhere("Date", "id", t.id.toString())).length == 0){
-//        await dbh.insertOneTable("Date", t.toMap());
-        await dbh.insertTable("Date", c.dates.map((t) => t.toMap()).toList());
-//        }
-//        try{
-//          await dbh.selectOneWhere("Date", "id", t.id.toString());
-//        }catch(e){
-//          await dbh.insertOneTable("Date", t.toMap());
-//        }
-//      }
+        for (TimeAndDay t in c.dates) {
+          if ((await dbh.selectOneWhere("Date", "id", t.id.toString()))
+                  .length ==
+              0) {
+            await dbh.insertOneTable("Date", t.toMap());
+            await dbh.insertTable(
+                "Date", c.dates.map((t) => t.toMap()).toList());
+          }
+          try {
+            await dbh.selectOneWhere("Date", "id", t.id.toString());
+          } catch (e) {
+            await dbh.insertOneTable("Date", t.toMap());
+          }
+        }
       }
     }
     return new Future(() => 0);

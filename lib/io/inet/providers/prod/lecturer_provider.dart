@@ -20,13 +20,11 @@ class ProdLecturerProvider implements InetLecturerProvider {
       );
 
   @override
-  Future<List<Lecturer>> getLecturers() async {
-    return helper
-        .getLecturersAsJson()
-        .then((raw) => _parseLecturers(raw))
-        .then((list) => list.map((c) => c as Lecturer))
-        .then((iterable) => iterable.toList());
-  }
+  Future<List<Lecturer>> getLecturers() async => helper
+      .getLecturersAsJson()
+      .then((raw) => _parseLecturers(raw))
+      .then((list) => list.map((c) => c as Lecturer))
+      .then((iterable) => iterable.toList());
 
   @override
   Future<Lecturer> getLecturerById(int lecturerId) async {

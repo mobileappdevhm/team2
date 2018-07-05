@@ -16,7 +16,6 @@ import 'package:courses_in_english/model/content.dart';
 import 'package:courses_in_english/model/course/course.dart';
 import 'package:courses_in_english/model/department/department.dart';
 import 'package:courses_in_english/model/lecturer/lecturer.dart';
-import 'package:courses_in_english/io/mock_data.dart';
 
 /// Controller for accessing and caching information which is available to both
 /// guests and registered users.
@@ -48,9 +47,9 @@ class NormalContentController implements ContentController {
   Future<Content> getContent() async {
     Content content = new Content();
     content.campuses = await getCampuses();
-    content.courses = await getCourses();
     content.departments = await getDepartments();
     content.lecturers = await getLecturers();
+    content.courses = await getCourses();
     return content;
   }
 

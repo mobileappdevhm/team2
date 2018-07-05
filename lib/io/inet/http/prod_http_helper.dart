@@ -89,4 +89,8 @@ class ProdHttpHelper implements HttpHelper {
     }
     return response;
   }
+
+  @override
+  Future<String> getCampusesAsJson() =>
+      _get('/locations').then((response) => response.body);
 }

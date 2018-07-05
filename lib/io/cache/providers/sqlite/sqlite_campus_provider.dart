@@ -37,7 +37,8 @@ class SqliteCampusProvider implements CacheCampusProvider {
   @override
   Future<int> putCampuses(List<Campus> campuses) async {
     int affected = await dbh.getCount("Campus");
-    if (affected == 0) {
+    if (affected != campuses.length) {
+      print("Jep");
       List<Map<String, dynamic>> campusesList = [];
 
       void iterate(Campus data) {
